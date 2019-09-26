@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthGuardService {
-  private isAuthenticated: boolean = false;
+  private isAuthenticated = false;
 
   constructor(private router: Router) { }
 

@@ -1,1 +1,32 @@
-<p>login works!</p>
+<div class="container height-max">
+  <div class="row align-items-center justify-content-center height-max">
+    <div class="card">
+      <div class="card-body" style="width: 20rem;">
+        <h5 class="card-title">Login</h5>
+
+        <form [formGroup]="formLogin" (ngSubmit)="onSubmit(formLogin)" autocomplete="off">
+          <div class="form-group">
+            <label for="username">Usuário</label>
+            <input type="text" name="username"
+              [ngClass]="{'is-invalid': formLogin.get('username').errors && formLogin.get('username').touched }"
+              formControlName="username" class="form-control" id="username" aria-describedby="username"
+              placeholder="Digite o usuário">
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password"
+              [ngClass]="{'is-invalid': formLogin.get('password').errors && formLogin.get('password').touched }"
+              class="form-control" formControlName="password" name="password" id="password" placeholder="Password">
+          </div>
+
+          <button type="submit" class="btn btn-primary">Entrar</button>
+        </form>
+        <div class="pt-5">
+          <a [routerLink]="['/register']">Não possui uma conta?</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
