@@ -1,16 +1,25 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map, catchError, retry } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  public apiURL = 'http://localhost/associativismo-api/public';
-
   constructor(private http: HttpClient) { }
 
-  login(data) {
+  private httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
+  };
 
-    return this.http.post(this.apiURL + '/token', data);
+  login(data): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/login`, data, this.httpOptions)
+    .pipe(
+      map(res => {
+        return res;
+      })
+    );
   }
 }

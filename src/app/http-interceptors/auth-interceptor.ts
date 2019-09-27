@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {  HttpEvent, HttpInterceptor, HttpHandler, HttpRequest} from '@angular/common/http';
+import {  HTTP_INTERCEPTORS, HttpEvent, HttpInterceptor, HttpHandler, HttpRequest} from '@angular/common/http';
 
 import { AuthService } from '../users/auth.service';
+
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -28,6 +29,9 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 }
 
+export const httpInterceptorProviders = [
+  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+];
 
 /*
 Copyright 2017-2018 Google Inc. All Rights Reserved.
