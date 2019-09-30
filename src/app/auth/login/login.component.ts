@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators, FormGroup, NG_VALIDATORS } from '@angular/forms';
-import { LoginService } from './login.service';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,29 +10,39 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  formLogin;
+  private formLogin: any;
 
   constructor(
     private formBuilder: FormBuilder,
-    private loginService: LoginService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
+
+    this.authService.checkAuthorization().subscribe(res => {
+      if (res.authenticate) {
+        this.router.navigate(['/sites']);
+      }
+    });
+
     this.formLogin = new FormGroup({
       email: new FormControl('', [Validators.minLength(4), Validators.required]),
       password: new FormControl('', [Validators.minLength(4), Validators.required])
     });
   }
 
-  onSubmit(data) {
+  onSubmit(data: any) {
     this.formLogin.markAllAsTouched();
 
     if (!data.invalid) {
-      this.loginService.login(data.value).subscribe(res => {
-        if (res) {
+      this.authService.login(data.value).subscribe(res => {
+        if (res.authenticate) {
           this.authService.storeAuthorizationToken(res.token);
+          this.router.navigate(['/sites']);
         }
+
+        alert(`${res.message}`);
       });
     }
   }
