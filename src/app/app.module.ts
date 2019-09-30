@@ -1,19 +1,24 @@
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { appRoutes } from './app.routes';
+
+//Modules
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { MatProgressSpinnerModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { appRoutes } from './app.routes';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+//Components
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { AuthGuardService } from './guards/auth-guard.service';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoaderComponent } from './loader/loader.component';
-import { MatProgressSpinnerModule } from '@angular/material';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
+//Services
+import { AuthGuardService } from './guards/auth-guard.service';
 import { LoaderService } from './loader/loader.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
+//Interceptors
 import {AuthInterceptor} from './http-interceptors/auth-interceptor';
 import {LoaderInterceptor} from './http-interceptors/loader.interceptor';
 
