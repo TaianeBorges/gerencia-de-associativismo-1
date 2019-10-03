@@ -1,0 +1,17 @@
+@import "./default";
+
+label {
+  font-size: 13px;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #5f6060;
+}
+
+input::-webkit-input-placeholder {
+  color: #ccc;
+}
+
+.sub-title {
+    font-size: 14px;
+    color: #ccc;
+}

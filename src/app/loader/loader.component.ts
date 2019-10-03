@@ -12,7 +12,7 @@ export class LoaderComponent implements OnInit, OnDestroy {
   title = 'materialApp';
   color = 'primary';
   mode = 'indeterminate';
-  value = 50;
+  value = 10;
   show = false;
   private subscription: Subscription;
 

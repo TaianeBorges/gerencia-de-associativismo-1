@@ -1,31 +1,35 @@
-<div class="container height-max">
-  <div class="row align-items-center justify-content-center height-max">
-    <div class="card">
-      <div class="card-body" style="width: 20rem;">
-        <h5 class="card-title">Login</h5>
+<div class="login-container height-max">
+  <div class="container height-max">
+    <div class="row align-items-center justify-content-center height-max">
+      <div class="card">
+        <div class="card-body" style="width: 20rem;">
+          <img src="../../../assets/img/logotipo/logo.svg" class="logo" alt="">
+          <h5 class="sub-title">Digite suas credenciais para ter acesso ao sistema.</h5>
 
-        <form [formGroup]="formLogin" (ngSubmit)="onSubmit(formLogin)" autocomplete="off">
-          <div class="form-group">
-            <label for="email">E-mail</label>
-            <input type="text" name="email"
-              [ngClass]="{'is-invalid': formLogin.get('email').errors && formLogin.get('email').touched }"
-              formControlName="email" class="form-control" id="email" aria-describedby="email"
-              placeholder="Digite o E-mail">
+          <form [formGroup]="formLogin" (ngSubmit)="onSubmit(formLogin)" autocomplete="off">
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input type="text" name="email"
+                [ngClass]="{'is-invalid': formLogin.get('email').errors && formLogin.get('email').touched }"
+                formControlName="email" class="form-control" id="email" aria-describedby="email"
+                placeholder="Digite o E-mail">
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password"
+                [ngClass]="{'is-invalid': formLogin.get('password').errors && formLogin.get('password').touched }"
+                class="form-control" formControlName="password" name="password" id="password" placeholder="Password">
+                <a [routerLink]="['/forget-account']">Esqueceu sua senha?</a>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Entrar</button>
+          </form>
+          <div class="pt-5">
+            <a [routerLink]="['/register']">Criar conta</a>
           </div>
 
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password"
-              [ngClass]="{'is-invalid': formLogin.get('password').errors && formLogin.get('password').touched }"
-              class="form-control" formControlName="password" name="password" id="password" placeholder="Password">
-          </div>
-
-          <button type="submit" class="btn btn-primary">Entrar</button>
-        </form>
-        <div class="pt-5">
-          <a [routerLink]="['/register']">Não possui uma conta?</a>
         </div>
-
       </div>
     </div>
   </div>
