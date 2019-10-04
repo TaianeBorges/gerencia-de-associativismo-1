@@ -1,0 +1,14 @@
+<div class="alert-container" *ngIf="show" [ngClass]="{'show-message': show}">
+    <div class="alert-icon color-{{response.data.color}}">
+        <i class="icon">
+            <mat-icon aria-hidden="false">{{response.data.icon}}</mat-icon>
+        </i>
+    </div>
+    <div class="alert-message">
+        <span class="alert-title">{{response.data.title}}</span>
+        <span class="alert-text">{{response.data.message}}</span>
+    </div>
+    <div class="alert-close" (click)="close()">
+        fechar
+    </div>
+</div>
