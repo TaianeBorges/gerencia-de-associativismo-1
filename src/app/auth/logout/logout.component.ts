@@ -24,7 +24,6 @@ export class LogoutComponent implements OnInit {
 
     return this.authService.logout(data).subscribe(res => {
       if (res.logout) {
-        alert('Usuário deslogado com sucesso.');
         this.router.navigate(['/login']);
       } else {
         alert(`Ocorreu o seguinte erro: ${res.message}`);

@@ -3,14 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { ListSiteComponent } from './list-site/list-site.component';
 
 
-const routes: Routes = [
+export const SITE_ROUTES: Routes = [
   {
     path: '', component: ListSiteComponent
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [],
   exports: [RouterModule]
 })
 export class SitesRoutingModule { }

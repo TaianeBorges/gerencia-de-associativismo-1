@@ -1,5 +1,5 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { appRoutes } from './app.routes';
+import { APP_ROUTES } from './app.routes';
 
 //Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -10,6 +10,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from './shared/shared.module';
+import { UsersModule } from './users/users.module';
 
 //Components
 import { AppComponent } from './app.component';
@@ -34,11 +35,12 @@ import { ResponseInterceptor } from './http-interceptors/response.interceptor';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(APP_ROUTES),
     HttpClientModule,
     MatProgressSpinnerModule,
     MatIconModule,
-    SharedModule
+    SharedModule,
+    UsersModule
   ],
   providers: [
     AuthGuardService,

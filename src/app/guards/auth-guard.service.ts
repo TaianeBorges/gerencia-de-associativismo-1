@@ -20,11 +20,12 @@ export class AuthGuardService {
     this.isLoggedIn().subscribe(res => {
       if (!res.authenticate) {
         this.router.navigate(['/login']);
-
+        return false;
       }
     },
       error => {
         console.log(`Ocorreu o seguinte erro: ${error}`);
+        return false;
       });
 
     return true;
