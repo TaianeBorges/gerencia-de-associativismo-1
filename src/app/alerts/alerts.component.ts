@@ -19,6 +19,7 @@ export class AlertsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.alertService.alertStateSubject.subscribe(res => {
       this.response = res;
+      this.show = res.show;
     });
   }
 
