@@ -14,19 +14,20 @@
   animation: fadeInLeft 0.3s;
 
   .alert-icon {
-    width: 100px;
+    width: 96px;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 5px;
+}
 
     .mat-icon {
       color: #f7f7f7;
-      font-size: 33px;
+      font-size: 25px;
       position: relative;
       top: 3px;
-      left: -3px;
+      left: 0px;
     }
   }
 
@@ -57,14 +58,13 @@
     border-left: 1px solid #ced4da;
     cursor: pointer;
     text-align: center;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 500;
     padding: 0 10px 0 20px;
     text-transform: uppercase;
     height: 100%;
     color: #999;
   }
-}
 
 .color {
   &-error {

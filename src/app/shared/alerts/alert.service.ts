@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 })
 export class AlertService {
 
-  alertStateSubject = new Subject();
+  alertStateSubject: any = new Subject();
   loaderState = this.alertStateSubject.asObservable();
   alertSetTimeout;
 
@@ -16,12 +16,12 @@ export class AlertService {
     this.alertStateSubject.next({ show: true, data });
 
     if (!this.alertSetTimeout) {
-      this.alertSetTimeout = setTimeout(() => { this.hide(); }, 10000);
+      // this.alertSetTimeout = setTimeout(() => { this.hide(); }, 10000);
     } else {
-      clearTimeout(this.alertSetTimeout);
-      this.alertSetTimeout = setTimeout(() => {
-        this.hide();
-      }, 10000);
+      // clearTimeout(this.alertSetTimeout);
+      // this.alertSetTimeout = setTimeout(() => {
+        // this.hide();
+      // }, 10000);
     }
   }
 

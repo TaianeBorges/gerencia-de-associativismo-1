@@ -9,7 +9,7 @@ import {
 
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import {AlertService} from '../alerts/alert.service';
+import {AlertService} from '../shared/alerts/alert.service';
 
 /** Pass untouched request through to the next request handler. */
 @Injectable()
@@ -26,8 +26,8 @@ export class ResponseInterceptor implements HttpInterceptor {
                 data = {
                     reason: error && error.error.reason ? error.error.reason : '',
                     status: error.status,
-                    icon: 'error',
-                    class: 'color-error',
+                    icon: 'priority_high',
+                    color: 'error',
                     title: 'Ops! Ocorreu um erro.',
                     message: 'Não foi possível se conectar com o servidor.'
                 };

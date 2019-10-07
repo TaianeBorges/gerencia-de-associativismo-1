@@ -1,12 +1,19 @@
 <div class="pnf-container">
-    <div class="row">
-        <div class="pnf-text col">
-            <h3>Ops!</h3>
-            <p>Olá, você parece estar perdido. Mas não se preocupe, vamos levá-los de volta aos trilhos.</p>
-            <a href="#" class="btn btn-primary">Me traga de volta</a>
+    <div>
+        <div class="pnf-text">
+            <div>
+                <h3>Ops!</h3>
+                <p>Olá, você parece estar perdido. Mas não se preocupe, vamos levá-los de volta aos trilhos.</p>
+                <a [routerLink]="['']" class="btn btn-primary">Me traga de volta</a>
+            </div>
         </div>
-        <div class="row pnf-image col">
-            404
+        <div class="pnf-image">
+            <div class="credits">
+                <app-badge-credit
+                    author="Paolo Nicolello"
+                    url="https://unsplash.com/@paul_nic?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge">
+                </app-badge-credit>
+            </div>
         </div>
     </div>
 </div>
