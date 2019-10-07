@@ -10,7 +10,7 @@
   width: 350px;
   height: 77px;
   z-index: 100;
-  box-shadow: 0 0 10px black;
+  box-shadow: 0 0 16px #888585;
   animation: fadeInLeft 0.3s;
 
   .alert-icon {
@@ -20,51 +20,113 @@
     align-items: center;
     justify-content: center;
     border-radius: 5px;
-}
+  }
+
+  .mat-icon {
+    color: #f7f7f7;
+    font-size: 25px;
+    position: relative;
+    top: 3px;
+    left: 0px;
+  }
+
+  @media screen and (max-width: 575px) {
+    width: calc(100% - 40px);
+    height: auto;
+    flex-direction: column;
+
+    .alert-icon {
+      width: 25px;
+      height: 25px;
+      margin-right: auto;
+      position: relative;
+
+      &::after {
+        content: "Gerencia de associativismo";
+        width: 190px;
+        height: 16px;
+        position: absolute;
+        left: 37px;
+        top: auto;
+        font-size: 13px;
+        text-transform: uppercase;
+        font-weight: 500;
+        color: #c3c3c3;
+
+        @media screen and (max-width: 350px) {
+          content: "Firjan - GEA";
+        }
+      }
+
+      &::before {
+        content: '';
+        width: 100%;
+        height: 2px;
+        background: red;
+      }
+    }
 
     .mat-icon {
-      color: #f7f7f7;
-      font-size: 25px;
-      position: relative;
-      top: 3px;
-      left: 0px;
+      font-size: 16px;
+      top: 4px;
+      left: 5px;
     }
   }
+}
 
-  .alert-message {
-    width: 100%;
-    height: 100%;
-    padding: 0 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-items: center;
+.alert-message {
+  width: 100%;
+  height: 100%;
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-items: center;
 
-    .alert-title {
-      font-size: 14px;
-      font-weight: 600;
-    }
+  .alert-title {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .alert-text {
+    font-size: 13px;
+    width: 175px;
+    text-overflow: ellipsis;
+  }
+
+  @media screen and (max-width: 575px) {
+    padding: 10px 0 0 0;
+    border-top: 1px solid #e0e0e0;
+    margin-top: 12px;
+
     .alert-text {
-      font-size: 13px;
-      width: 175px;
-      text-overflow: ellipsis;
+      width: 100%;
     }
   }
+}
 
-  .alert-close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-left: 1px solid #ced4da;
-    cursor: pointer;
-    text-align: center;
-    font-size: 10px;
-    font-weight: 500;
-    padding: 0 10px 0 20px;
-    text-transform: uppercase;
-    height: 100%;
-    color: #999;
+.alert-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid #ced4da;
+  cursor: pointer;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 0 10px 0 20px;
+  text-transform: uppercase;
+  height: 100%;
+  color: #999;
+
+  @media screen and (max-width: 575px) {
+    position: absolute;
+    border: none;
+    width: 70px;
+    height: 47px;
+    right: 0;
+    top: 0;
   }
+}
 
 .color {
   &-error {
