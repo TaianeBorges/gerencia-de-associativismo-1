@@ -4,11 +4,15 @@ import { RouterModule } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 
 import { USER_ROUTES } from './users-routing';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { TelephonePipe } from '../shared/pipes/telephone.pipe';
 
 @NgModule({
-  declarations: [RegisterComponent],
+  declarations: [RegisterComponent, TelephonePipe],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild(USER_ROUTES)
   ]
 })

@@ -1,0 +1,22 @@
+<header>
+    <nav *ngIf="permissionLogin.authenticate">
+        <div class="logo-nav">
+            <img src="../assets/img/logotipo/logo.svg" alt="">
+        </div>
+        <ul class="justify-content-end">
+            <li><a>teste</a></li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/sites']" [routerLinkActive]="'active'">Sites</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/usuarios']" [routerLinkActive]="'active'">Usuarios</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/link']" [routerLinkActive]="'active'">Link</a>
+            </li>
+            <li>
+                <a class="nav-link" [routerLink]="['/logout']" [routerLinkActive]="'active'">Logout</a>
+            </li>
+        </ul>
+    </nav>
+</header>

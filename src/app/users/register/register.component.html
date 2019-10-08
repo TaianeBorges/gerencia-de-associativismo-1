@@ -1,1 +1,92 @@
-<p>register works!</p>
+<div class="register-container">
+    <div class="main-container">
+        <h1 class="page-title">Cadastro</h1>
+
+        <form [formGroup]="formRegister" autocomplete="off">
+            <div class="row">
+                <div class="block-group col">
+                    <h3 class="form-title">Dados gerais</h3>
+                    <p class="form-subtitle">Insira os dados para o seu perfil.</p>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="name">Nome</label>
+                                <input type="text"
+                                    [ngClass]="{'is-invalid': formRegister.get('name').errors && formRegister.get('name').touched }"
+                                    formControlName="name" class="form-control" id="name" placeholder="Digite seu nome">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">E-mail</label>
+                                <input type="text"
+                                    [ngClass]="{'is-invalid': formRegister.get('email').errors && formRegister.get('email').touched }"
+                                    formControlName="email" class="form-control" id="email"
+                                    placeholder="Digite seu e-mail">
+                            </div>
+                            <div class="form-group">
+                                <label for="telephone">Telefone</label>
+                                <input type="text"
+                                    [ngClass]="{'is-invalid': formRegister.get('telephone').errors && formRegister.get('telephone').touched }"
+                                    formControlName="telephone"
+                                    value="{{formRegister.get('telephone').value | telephone}}" class="form-control"
+                                    id="telephone" maxlength="15" placeholder="Digite seu telefone">
+                            </div>
+                            <div class="form-group">
+                                <label for="unidade">Unidade</label>
+                                <select name="unidade" formControlName="unidade" class="form-control" id="unidade">
+                                    <option value="1">Firjan Sede</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="block-group col">
+                    <h3 class="form-title">Conta</h3>
+                    <p class="form-subtitle">Insira suas credenciais para ter acesso ao sistema.</p>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="user">Usuário</label>
+                                <input type="text"
+                                    [ngClass]="{'is-invalid': formRegister.get('user').errors && formRegister.get('user').touched }"
+                                    formControlName="user" class="form-control" id="user" placeholder="Digite seu nome">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Senha</label>
+                                <input type="password"
+                                    [ngClass]="{'is-invalid': formRegister.get('password').errors && formRegister.get('password').touched }"
+                                    formControlName="password" class="form-control" id="password"
+                                    placeholder="Digite seu e-mail">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirmar senha</label>
+                                <input type="password"
+                                    [ngClass]="{'is-invalid': formRegister.get('confirmPassword').errors && formRegister.get('confirmPassword').touched }"
+                                    formControlName="confirmPassword" class="form-control" id="confirmPassword"
+                                    placeholder="Digite seu e-mail" (blur)="matchValues(formRegister)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="block-group col">
+                    <h3 class="form-title">Divisão</h3>
+                    <p class="form-subtitle">Selecione sua divisão</p>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="divisao">Divisão</label>
+                                <select name="divisao" formControlName="divisao" class="form-control" id="divisao">
+                                    <option value="1">DIVES</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+* {
+  font-family: "Lato", sans-serif;
+}
+
+.logo {
+  max-width: 180px;
+}
+
+.main-container {
+  max-width: 1336px;
+  margin: 0 auto;
+}
+
+.page {
+  &-title {
+    font-size: 35px;
+    color: #373a3c;
+    font-weight: 700;
+    margin-bottom: 60px;
+
+    &::after {
+      content: "";
+      width: 30px;
+      height: 4px;
+      background: #5bc0de;
+      display: block;
+    }
+  }
+}
+
+.form {
+  &-title {
+    font-size: 20px;
+    margin: 0;
+    color: #666;
+    font-weight: 700;
+  }
+
+  &-subtitle {
+    font-size: 15px;
+    color: #ccc;
+    margin: 0;
+  }
+}
+
+form {
+  .card {
+    margin-top: 20px;
+    max-width: 400px;
+    border: none;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.margin- {
+  &-t {
+    &-10 {
+      // margin-top: margin();
+    }
+  }
+}
+
+// @function margin($value, $direction) {
+
+//   @return 'margin-'$direction: $value;
+// }

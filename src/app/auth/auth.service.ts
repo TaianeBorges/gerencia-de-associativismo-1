@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class AuthService {
-
+    public authorizationLogin: any = new EventEmitter();
     constructor(private http: HttpClient) { }
 
     private httpOptions = {
@@ -20,7 +20,12 @@ export class AuthService {
     }
 
     checkAuthorization(): Observable<any> {
-        return this.http.get(`${environment.apiUrl}/user`);
+        return this.http.get(`${environment.apiUrl}/user`).pipe(
+            map(res => {
+                this.authorizationLogin.emit(res);
+                return res;
+            })
+        );
     }
 
     storeAuthorizationToken(token: string) {
@@ -31,13 +36,21 @@ export class AuthService {
         return this.http.post(`${environment.apiUrl}/login`, data, this.httpOptions)
             .pipe(
                 map(res => {
+                    this.authorizationLogin.emit(res);
                     return res;
                 })
             );
     }
 
     logout(token): Observable<any> {
-        return this.http.post(`${environment.apiUrl}/logout`, token, this.httpOptions);
+        return this.http.post(`${environment.apiUrl}/logout`, token, this.httpOptions)
+            .pipe(
+                map(res => {
+                    console.log(res);
+                    this.authorizationLogin.emit(res);
+                    return res;
+                })
+            );
     }
 
 }
