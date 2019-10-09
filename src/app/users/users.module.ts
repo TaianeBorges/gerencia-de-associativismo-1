@@ -2,15 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
+import { Ng2SelectizeModule } from 'ng2-selectize';
 
 import { USER_ROUTES } from './users-routing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TelephonePipe } from '../shared/pipes/telephone.pipe';
 
 @NgModule({
-  declarations: [RegisterComponent, TelephonePipe],
+  declarations: [
+    RegisterComponent,
+    TelephonePipe
+  ],
   imports: [
     CommonModule,
+    Ng2SelectizeModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(USER_ROUTES)

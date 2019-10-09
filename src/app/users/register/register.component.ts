@@ -8,10 +8,27 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
   private formRegister: any;
+  config = {
+    labelField: 'nome',
+    valueField: 'id',
+    create: false,
+    plugins: ['dropdown_direction', 'remove_button'],
+    dropdownDirection: 'down',
+    optionGroups: null
+  };
+  options = [
+    { id: 1, name: 'Teste' }
+  ];
   constructor() { }
 
   ngOnInit() {
-
+    if (typeof jQuery != 'undefined') {
+      // jQuery is loaded => print the version
+      alert(jQuery.fn.jquery);
+    } else {
+      // jQuery was not loaded
+      console.error("No jquery");
+    }
     this.formRegister = new FormGroup({
       name: new FormControl('', [Validators.minLength(4), Validators.required]),
       email: new FormControl('', [Validators.minLength(4), Validators.required, Validators.email]),
