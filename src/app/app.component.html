@@ -1,4 +1,6 @@
 <app-alerts></app-alerts>
 <app-loader></app-loader>
-<app-menu></app-menu>
-<router-outlet></router-outlet>
+<app-menu [permission]="permissionLogin.authenticate"></app-menu>
+<div class="padding-t-50 height-max">
+    <router-outlet></router-outlet>
+</div>

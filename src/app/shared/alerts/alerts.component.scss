@@ -1,3 +1,5 @@
+@import "../styles/default";
+
 .alert-container {
   display: flex;
   align-items: center;
@@ -128,17 +130,6 @@
   }
 }
 
-.color {
-  &-error {
-    background: #d9534f;
-  }
-  &-success {
-    background: #5cb85c;
-  }
-  &-warning {
-    background: #f0ad4e;
-  }
-}
 
 @keyframes fadeInLeft {
   0% {

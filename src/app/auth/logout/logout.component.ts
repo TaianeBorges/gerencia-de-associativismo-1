@@ -26,7 +26,6 @@ export class LogoutComponent implements OnInit {
       if (res.logout) {
         this.router.navigate(['/login']);
       } else {
-        alert(`Ocorreu o seguinte erro: ${res.message}`);
         this.router.navigate(['auth/login']);
       }
     });

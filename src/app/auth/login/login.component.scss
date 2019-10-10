@@ -1,11 +1,13 @@
-@import "../../shared/scss/forms";
-
-.height-max {
-  height: 100%;
-}
+@import "../../shared/styles/forms";
 
 .login-container {
   background: #212121;
+  height: 100%;
+  
+  @media screen and (max-height: 660px) {
+    padding: 40px 0;
+    height: auto;
+  }
 
   .logo {
     margin: 0 auto 20px;

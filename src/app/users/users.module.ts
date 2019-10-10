@@ -18,6 +18,7 @@ import { TelephonePipe } from '../shared/pipes/telephone.pipe';
     Ng2SelectizeModule,
     FormsModule,
     ReactiveFormsModule,
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
     RouterModule.forChild(USER_ROUTES)
   ]
 })

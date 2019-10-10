@@ -1,0 +1,15 @@
+.background {
+  &-error {
+    background: #d9534f;
+  }
+  &-success {
+    background: #5cb85c;
+  }
+  &-warning {
+    background: #f0ad4e;
+  }
+
+  &-primary {
+      background: #5BC0DE;
+  }
+}

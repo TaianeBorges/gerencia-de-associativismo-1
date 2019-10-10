@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title = 'gerencia-de-associativismo';
-  constructor() { }
+  permissionLogin: any = false;
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.authService.authorizationLogin.subscribe(res => {
+      this.permissionLogin = res;
+    });
   }
 }

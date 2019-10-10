@@ -1,0 +1,67 @@
+@import "./default";
+
+label {
+  font-size: 13px;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #5f6060;
+}
+
+input::-webkit-input-placeholder {
+  color: #ccc;
+}
+
+.sub-title {
+  font-size: 14px;
+  color: #ccc;
+}
+
+.form {
+  &-title {
+    font-size: 20px;
+    margin: 0;
+    color: #666;
+    font-weight: 700;
+  }
+
+  &-subtitle {
+    font-size: 15px;
+    color: #ccc;
+    margin: 0;
+  }
+}
+
+form {
+  .card {
+    margin-top: 20px;
+    max-width: 400px;
+    border: none;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
+
+    input[readonly] {
+      background-color: rgba(255, 255, 255, 0.2);
+      opacity: 1;
+      color: #fff;
+      border: 0;
+    }
+
+    .btn {
+      &-card {
+        font-size: 12px;
+        text-transform: uppercase;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 4px 7px;
+      }
+    }
+    @media screen and (max-width: 768px) {
+      max-width: inherit;
+    }
+  }
+  @media screen and (max-width: 580px) {
+    button {
+      width: 100%;
+      padding: 10px;
+    }
+  }
+}

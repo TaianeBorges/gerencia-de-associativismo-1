@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../auth/auth.service';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-menu',
@@ -7,13 +6,11 @@ import { AuthService } from '../../auth/auth.service';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  permissionLogin: any = false;
-  constructor(private authService: AuthService) { }
+  @Input() permission: boolean;
+  constructor() { }
 
   ngOnInit() {
-    this.authService.authorizationLogin.subscribe(res => {
-      this.permissionLogin = res;
-    });
+
   }
 
 }

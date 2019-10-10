@@ -1,6 +1,17 @@
 @import "./spacing";
+@import "./color";
 
 * {
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+span,
+em {
   font-family: "Lato", sans-serif;
 }
 
@@ -29,28 +40,3 @@
     }
   }
 }
-
-.form {
-  &-title {
-    font-size: 20px;
-    margin: 0;
-    color: #666;
-    font-weight: 700;
-  }
-
-  &-subtitle {
-    font-size: 15px;
-    color: #ccc;
-    margin: 0;
-  }
-}
-
-form {
-  .card {
-    margin-top: 20px;
-    max-width: 400px;
-    border: none;
-    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
-  }
-}
-
