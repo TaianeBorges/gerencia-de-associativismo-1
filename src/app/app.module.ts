@@ -10,7 +10,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from './shared/shared.module';
-import { UsersModule } from './users/users.module';
 
 //Components
 import { AppComponent } from './app.component';
@@ -40,7 +39,7 @@ import { ResponseInterceptor } from './http-interceptors/response.interceptor';
     MatProgressSpinnerModule,
     MatIconModule,
     SharedModule,
-    UsersModule
+    // UsersModule
   ],
   providers: [
     AuthGuardService,

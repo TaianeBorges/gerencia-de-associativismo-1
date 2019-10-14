@@ -4,6 +4,11 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 export const APP_ROUTES: Routes = [
     {
+        path: '',
+        loadChildren: () => import('./dashboard/dashboard.module').then(mod => mod.DashboardModule),
+        canActivateChild: [AuthGuardService]
+    },
+    {
         path: 'auth',
         loadChildren: () => import('./auth/auth.module').then(mod => mod.AuthModule)
     },
@@ -12,8 +17,12 @@ export const APP_ROUTES: Routes = [
         loadChildren: () => import('./sites/sites.module').then(mod => mod.SitesModule),
         canActivateChild: [AuthGuardService]
     },
-    { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
-    { path: 'login', redirectTo: 'auth' },
+    {
+        path: 'usuario',
+        loadChildren: () => import('./users/users.module').then(mod => mod.UsersModule)
+    },
+    {path: 'cadastro', redirectTo: 'usuario'},
+    { path: 'login', redirectTo: 'auth/login' },
     { path: 'logout', redirectTo: 'auth/logout' },
     { path: '**', component: PageNotFoundComponent }
 ];
