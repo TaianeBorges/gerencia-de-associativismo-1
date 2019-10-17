@@ -129,6 +129,8 @@ export class RegisterComponent implements OnInit {
     this.formRegister.markAllAsTouched();
     this.validateRepresentanteRegional();
     this.validateSede();
+
+    console.log(this.formRegister.valid, this.formRegister.errors);
   }
 
   getRegionals() {
@@ -158,13 +160,13 @@ export class RegisterComponent implements OnInit {
     const representanteCargo = this.formRegister.get('representante_regional.cargo');
     const validateRegional = regionalId && regionalId !== '10';
 
-    if (validateRegional && !representanteRegional.value) {
+    if (validateRegional && !representanteRegional.value && !this.cargos.length) {
       representanteRegional.setErrors({ required: true });
     } else {
       representanteRegional.updateValueAndValidity();
     }
 
-    if (validateRegional && !representanteCargo.value) {
+    if (validateRegional && !representanteCargo.value && !this.cargos.length) {
       representanteCargo.setErrors({ required: true });
     } else {
       representanteCargo.updateValueAndValidity();
@@ -172,6 +174,8 @@ export class RegisterComponent implements OnInit {
 
     if (representanteCargo.value && representanteRegional.value && !this.cargos.length) {
       alert('Adicione os cargos!');
+      // this.formRegister.setErrors({ 'invalid': true });
+
     }
   }
 
@@ -179,8 +183,17 @@ export class RegisterComponent implements OnInit {
     const checkRelacionamento = this.formRegister.get('relacionamento.check_relacionamento');
     const relacionamentoRegionais = this.formRegister.get('relacionamento.regionais');
     const relacionamentoSindicatos = this.formRegister.get('relacionamento.sindicatos');
+    const regionalId = this.formRegister.get('regional_id');
+    const divisaoId = this.formRegister.get('divisao_id');
+
+    if (regionalId.value && regionalId.value === '10' && !divisaoId.value) {
+      divisaoId.setErrors({ required: true });
+    } else {
+      divisaoId.updateValueAndValidity();
+    }
 
     if (checkRelacionamento.value && !relacionamentoRegionais.value) {
+      alert('Adicione as regionais');
       relacionamentoRegionais.setErrors({ required: true });
     } else {
       relacionamentoRegionais.updateValueAndValidity();
@@ -188,6 +201,7 @@ export class RegisterComponent implements OnInit {
 
     if (checkRelacionamento.value && !relacionamentoSindicatos.value) {
       relacionamentoSindicatos.setErrors({ required: true });
+      alert('Adicione os sindicatos');
     } else {
       relacionamentoSindicatos.updateValueAndValidity();
     }

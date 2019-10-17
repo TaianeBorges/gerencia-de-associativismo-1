@@ -88,7 +88,7 @@
                                     [ngClass]="{'is-invalid': formRegister.get('divisao_id').errors && formRegister.get('divisao_id').touched }">
                                     <option value="">Selecione a divisão</option>
                                     <option *ngFor="let item of optionDivisions" [value]="item.id">
-                                        {{item.nome}}
+                                        {{item.sigla}}
                                     </option>
                                 </select>
                             </div>
@@ -110,8 +110,9 @@
                             <div class="form-group margin-t-20"
                                 *ngIf="formRegister.get('relacionamento.check_relacionamento').value">
                                 <label for="">Regional</label>
-                                <ng2-selectize formControlName="regionais" class="selectize-regional"
-                                    [config]="configRegional" [options]="optionRegional">
+                                <ng2-selectize formControlName="regionais"
+                                    [ngClass]="{'is-invalid': formRegister.get('relacionamento.check_relacionamento').errors && formRegister.get('relacionamento.check_relacionamento').touched }"
+                                    class="selectize-regional" [config]="configRegional" [options]="optionRegional">
                                 </ng2-selectize>
                             </div>
 
