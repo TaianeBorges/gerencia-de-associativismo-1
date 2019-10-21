@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { UsersService } from '../users.service';
 import * as jQuery from 'jquery';
+import { callbackify } from 'util';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +23,12 @@ export class RegisterComponent implements OnInit {
     searchField: ['nome'],
     plugins: ['dropdown_direction', 'remove_button'],
     dropdownDirection: 'down',
-    maxItems: 20
+    maxItems: 20,
+    onChange: ($event) => {
+    },
+    onBlur: () => {
+      this.getUnions();
+    }
   };
 
   configSindicato = {
@@ -35,7 +41,45 @@ export class RegisterComponent implements OnInit {
     maxItems: 200
   };
 
+  permissionManagements = true;
+
+  configManagement = {
+    labelField: 'sigla',
+    valueField: 'id',
+    create: false,
+    searchField: ['nome', 'sigla'],
+    plugins: ['dropdown_direction', 'remove_button'],
+    dropdownDirection: 'down',
+    maxItems: 200,
+    onBlur: () => {
+      if (this.formRegister.get('gerencia_id').value && this.formRegister.get('gerencia_id').value.length === 1) {
+        this.permissionManagements = true;
+        this.getDivisions();
+      } else {
+        this.permissionManagements = false;
+      }
+    },
+    onChange($event) {
+      if ($event.length) {
+        // console.log("Option changed: ", $event);
+      }
+    },
+    render: {
+      option(data: any, escape: any) {
+        return '<div class="option">' +
+          '<span class="sigla"><b>' + escape(data.sigla) + '</b></span>' +
+          '<span class="nome"> - ' + escape(data.nome) + '</span>' +
+          '</div>';
+      },
+      item(data: any, escape: any) {
+        return '<div class="item">' + escape(data.sigla) + '</div>';
+      }
+    }
+  };
+
+  optionLotacao = [];
   optionRegional = [];
+  optionManagement = [];
   optionDivisions = [];
 
   optionsSindicatos = [
@@ -52,6 +96,7 @@ export class RegisterComponent implements OnInit {
     { id: 3, name: 'Executivo' }
   ];
   cargos = [];
+  optionGeneralManagement = [];
 
   constructor(private userService: UsersService, private fb: FormBuilder) { }
 
@@ -61,11 +106,13 @@ export class RegisterComponent implements OnInit {
       name: new FormControl('', [Validators.minLength(4), Validators.required]),
       email: new FormControl('', [Validators.minLength(4), Validators.required, Validators.email]),
       telephone: new FormControl('', [Validators.minLength(14), Validators.required]),
-      regional_id: new FormControl('', [Validators.required]),
+      lotacao_id: new FormControl('', [Validators.required]),
       user: new FormControl('', [Validators.minLength(4), Validators.required]),
       password: new FormControl('', [Validators.minLength(4), Validators.required]),
       confirmPassword: new FormControl('', [Validators.minLength(4), Validators.required]),
-      divisao_id: '',
+      gerencia_geral_id: new FormControl('', [Validators.required]),
+      gerencia_id: new FormControl(''),
+      divisao_id: new FormControl(''),
       relacionamento: this.fb.group({
         check_relacionamento: false,
         regionais: [],
@@ -79,12 +126,13 @@ export class RegisterComponent implements OnInit {
     });
 
     if (this.formRegister) {
+      this.getLotacoes();
       this.getRegionals();
     }
   }
 
   addOffice(data: any) {
-    const reg = this.optionRegional[data[0] - 1];
+    const reg = this.optionLotacao[data[0] - 1];
     const carg = this.optionCargos[data[1] - 1];
 
     this.cargos.push({
@@ -133,6 +181,44 @@ export class RegisterComponent implements OnInit {
     console.log(this.formRegister.valid, this.formRegister.errors);
   }
 
+  getLotacoes() {
+    this.userService.getLotacoes().subscribe(res => {
+      if (res.data) {
+        this.optionLotacao = res.data;
+      }
+    });
+  }
+
+  getGeneralManagement() {
+    const id = this.formRegister.get('lotacao_id').value;
+    if (id) {
+      this.userService.getGeneralManagement(id).subscribe(res => {
+        if (res.data) {
+          this.optionGeneralManagement = res.data;
+          if (res.data.length === 1) {
+            this.formRegister.get('gerencia_geral_id').setValue(res.data[0].id);
+            this.getManagements();
+          }
+        }
+      });
+    }
+  }
+
+  getManagements() {
+    const data = {
+      lotacao_id: this.formRegister.get('lotacao_id').value,
+      general_management_id: this.formRegister.get('gerencia_geral_id').value
+    };
+
+    if (data.lotacao_id && data.general_management_id) {
+      this.userService.getManagements(data).subscribe(res => {
+        if (res.data) {
+          this.optionManagement = res.data;
+        }
+      });
+    }
+  }
+
   getRegionals() {
     this.userService.getRegionals().subscribe(res => {
       if (res.data) {
@@ -142,21 +228,34 @@ export class RegisterComponent implements OnInit {
   }
 
   getDivisions() {
-    const id = this.formRegister.get('regional_id').value;
-    this.cargos = [];
+    const data = {
+      lotacao_id: this.formRegister.get('lotacao_id').value,
+      general_management_id: this.formRegister.get('gerencia_geral_id').value,
+      general_id: this.formRegister.get('gerencia_id').value
+    };
 
-    if (id === '10') {
-      this.userService.getDivisions(id).subscribe(res => {
+    if (data.lotacao_id && data.general_management_id) {
+      this.cargos = [];
+
+      this.userService.getDivisions(data).subscribe(res => {
         if (res.data) {
           this.optionDivisions = res.data;
+          if (res.data.length === 1) {
+            console.log(res.data[0].id);
+            this.formRegister.get('divisao_id').setValue(res.data[0].id);
+          }
         }
       });
     }
   }
 
+  getUnions() {
+    console.log(this.formRegister.get('relacionamento.regionais').value);
+  }
+
   validateRepresentanteRegional() {
     const representanteRegional = this.formRegister.get('representante_regional.regional');
-    const regionalId = this.formRegister.get('regional_id').value;
+    const regionalId = this.formRegister.get('lotacao_id').value;
     const representanteCargo = this.formRegister.get('representante_regional.cargo');
     const validateRegional = regionalId && regionalId !== '10';
 
@@ -183,7 +282,7 @@ export class RegisterComponent implements OnInit {
     const checkRelacionamento = this.formRegister.get('relacionamento.check_relacionamento');
     const relacionamentoRegionais = this.formRegister.get('relacionamento.regionais');
     const relacionamentoSindicatos = this.formRegister.get('relacionamento.sindicatos');
-    const regionalId = this.formRegister.get('regional_id');
+    const regionalId = this.formRegister.get('lotacao_id');
     const divisaoId = this.formRegister.get('divisao_id');
 
     if (regionalId.value && regionalId.value === '10' && !divisaoId.value) {

@@ -14,6 +14,30 @@ export class UsersService {
   };
   constructor(private http: HttpClient) { }
 
+  getLotacoes(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/lotacoes`, this.httpOptions)
+      .pipe(
+        map(res => {
+          return res;
+        })
+      );
+  }
+
+  getGeneralManagement(lotacaoId: number): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/lotacoes/${lotacaoId}/gerencias-gerais`, this.httpOptions)
+      .pipe(map(res => {
+        return res;
+      }));
+  }
+
+  getManagements(data: any): Observable<any> {
+    const url = `${environment.apiUrl}/lotacoes/${data.lotacao_id}/gerencias-gerais/${data.general_management_id}/gerencias`;
+    return this.http.get(url, this.httpOptions)
+      .pipe(map(res => {
+        return res;
+      }));
+  }
+
   getRegionals(): Observable<any> {
     return this.http.get(`${environment.apiUrl}/regionais`, this.httpOptions)
       .pipe(
@@ -23,8 +47,9 @@ export class UsersService {
       );
   }
 
-  getDivisions(id: number): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/regionais/${id}/gerencias/1/divisoes`, this.httpOptions)
+  getDivisions(data: any): Observable<any> {
+    const url = `${environment.apiUrl}/lotacoes/${data.lotacao_id}/gerencias-gerais/${data.gerenal_management_id}/gerencias/${data.general_id}/divisoes`;
+    return this.http.get(url, this.httpOptions)
       .pipe(
         map(res => {
           return res;

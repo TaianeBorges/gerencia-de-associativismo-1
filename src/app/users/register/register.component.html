@@ -31,19 +31,20 @@
                                     id="telephone" maxlength="15" placeholder="Digite seu telefone">
                             </div>
                             <div class="form-group">
-                                <label for="regional_id">Unidade</label>
-                                <select name="regional_id" formControlName="regional_id" (change)="getDivisions()"
-                                    [ngClass]="{'is-invalid': formRegister.get('regional_id').errors && formRegister.get('regional_id').touched }"
-                                    class="form-control" id="regional_id">
-                                    <option value="">Selecione a unidade</option>
-                                    <option *ngFor="let item of optionRegional" [value]="item.id">
-                                        {{item.id !== 10 ? item.nome + ' (Representante Regional)' : item.nome}}
+                                <label for="lotacao_id">Lotação</label>
+                                <select name="lotacao_id" formControlName="lotacao_id" (change)="getGeneralManagement()"
+                                    [ngClass]="{'is-invalid': formRegister.get('lotacao_id').errors && formRegister.get('lotacao_id').touched }"
+                                    class="form-control" id="lotacao_id">
+                                    <option value="">Selecione a lotação</option>
+                                    <option *ngFor="let item of optionLotacao" [value]="item.id">
+                                        {{item.nome}}
                                     </option>
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
+
 
                 <div class="block-group  margin-t-40 col-md-6">
                     <h3 class="form-title">Conta</h3>
@@ -75,13 +76,49 @@
                 </div>
             </div>
 
-            <div class="row" *ngIf="formRegister.get('regional_id').value == '10'">
-                <div class="block-group  margin-t-40 col-md-6">
-                    <h3 class="form-title">Divisão</h3>
-                    <p class="form-subtitle">Selecione sua divisão</p>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group">
+            <div class="" *ngIf="formRegister.get('lotacao_id').value == '1'">
+                <div class="row">
+                    <div class="block-group  margin-t-40 col-md-6">
+                        <h3 class="form-title">Gerencias gerais</h3>
+                        <p class="form-subtitle">Preencha os dados abaixo.</p>
+                        <div class="card">
+                            <div class="card-body">
+                                <label for="">Gerencia Geral</label>
+                                <select name="gerencia_geral_id" formControlName="gerencia_geral_id"
+                                    class="form-control" (change)="getManagements()"
+                                    [ngClass]="{'is-invalid': formRegister.get('gerencia_geral_id').errors && formRegister.get('gerencia_geral_id').touched }">
+                                    <option value="">Selecione a gerencia geral</option>
+                                    <option *ngFor="let item of optionGeneralManagement" [value]="item.id">
+                                        {{item.sigla}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="block-group  margin-t-40 col-md-6">
+                        <h3 class="form-title">Gerencias</h3>
+                        <p class="form-subtitle">Preencha os dados abaixo.</p>
+                        <div class="card">
+                            <div class="card-body">
+                                <label for="">Gerencia</label>
+                                <ng2-selectize formControlName="gerencia_id"
+                                    [ngClass]="{'is-invalid': formRegister.get('gerencia_id').errors && formRegister.get('gerencia_id').touched }"
+                                    class="selectize-regional" [config]="configManagement" [options]="optionManagement">
+                                </ng2-selectize>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="permissionManagements">
+                    <div class="block-group  margin-t-40 col-md-6">
+                        <h3 class="form-title">Divisão</h3>
+                        <p class="form-subtitle">Selecione sua divisão</p>
+                        <div class="card">
+                            <div class="card-body">
                                 <label for="divisao_id">Divisão</label>
                                 <select name="divisao_id" formControlName="divisao_id" class="form-control"
                                     id="divisao_id"
@@ -94,34 +131,36 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="block-group  margin-t-40 col-md-6">
-                    <h3 class="form-title">Equipe de relacionamento</h3>
-                    <p class="form-subtitle">Preencha os dados abaixo.</p>
-                    <div class="card">
-                        <div class="card-body" formGroupName="relacionamento">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" formControlName="check_relacionamento"
-                                    id="relacionamento">
-                                <label class="form-check-label" for="relacionamento">Faço parte da equipe de
-                                    relacionamento</label>
-                            </div>
 
-                            <div class="form-group margin-t-20"
-                                *ngIf="formRegister.get('relacionamento.check_relacionamento').value">
-                                <label for="">Regional</label>
-                                <ng2-selectize formControlName="regionais"
-                                    [ngClass]="{'is-invalid': formRegister.get('relacionamento.check_relacionamento').errors && formRegister.get('relacionamento.check_relacionamento').touched }"
-                                    class="selectize-regional" [config]="configRegional" [options]="optionRegional">
-                                </ng2-selectize>
-                            </div>
 
-                            <div class="form-group"
-                                *ngIf="formRegister.get('relacionamento.check_relacionamento').value">
-                                <label for="">Sindicato</label>
-                                <ng2-selectize formControlName="sindicatos" class="selectize-sindicato"
-                                    [config]="configSindicato" [options]="optionsSindicatos">
-                                </ng2-selectize>
+                    <div class="block-group  margin-t-40 col-md-6">
+                        <h3 class="form-title">Equipe de relacionamento</h3>
+                        <p class="form-subtitle">Preencha os dados abaixo.</p>
+                        <div class="card">
+                            <div class="card-body" formGroupName="relacionamento">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input"
+                                        formControlName="check_relacionamento" id="relacionamento">
+                                    <label class="form-check-label" for="relacionamento">Faço parte da equipe de
+                                        relacionamento</label>
+                                </div>
+
+                                <div class="form-group margin-t-20"
+                                    *ngIf="formRegister.get('relacionamento.check_relacionamento').value">
+                                    <label for="">Regional</label>
+                                    <ng2-selectize formControlName="regionais"
+                                        [ngClass]="{'is-invalid': formRegister.get('relacionamento.check_relacionamento').errors && formRegister.get('relacionamento.check_relacionamento').touched }"
+                                        class="selectize-regional" [config]="configRegional" [options]="optionRegional">
+                                    </ng2-selectize>
+                                </div>
+
+                                <div class="form-group"
+                                    *ngIf="formRegister.get('relacionamento.check_relacionamento').value">
+                                    <label for="">Sindicato</label>
+                                    <ng2-selectize formControlName="sindicatos" class="selectize-sindicato"
+                                        [config]="configSindicato" [options]="optionsSindicatos">
+                                    </ng2-selectize>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -129,7 +168,7 @@
             </div>
 
             <div class="row"
-                *ngIf="formRegister.get('regional_id').value && formRegister.get('regional_id').value !== '10'">
+                *ngIf="formRegister.get('lotacao_id').value && formRegister.get('lotacao_id').value !== '1'">
                 <div class="block-group  margin-t-40 col-md-6">
                     <h3 class="form-title">Representante Regional</h3>
                     <p class="form-subtitle">Se você for representante de uma regional, preencha os dados abaixo.</p>
