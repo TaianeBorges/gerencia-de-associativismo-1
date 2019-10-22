@@ -250,7 +250,13 @@ export class RegisterComponent implements OnInit {
   }
 
   getUnions() {
-    console.log(this.formRegister.get('relacionamento.regionais').value);
+    const data = {
+      regionais: this.formRegister.get('relacionamento.regionais').value
+    };
+
+    this.userService.getUnions(data).subscribe(res => {
+      console.log(res);
+    });
   }
 
   validateRepresentanteRegional() {

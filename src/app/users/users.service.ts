@@ -56,4 +56,13 @@ export class UsersService {
         })
       );
   }
+
+  getUnions(data: any): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/regionais/sindicatos`, data, this.httpOptions)
+      .pipe(
+        map(res => {
+          return res;
+        })
+      );
+  }
 }

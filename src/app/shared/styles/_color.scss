@@ -10,6 +10,24 @@
   }
 
   &-primary {
-      background: #5BC0DE;
+    background: #5bc0de;
+  }
+}
+
+.color {
+  &-error {
+    .mat-icon {
+      color: #d9534f !important;
+    }
+  }
+  &-success {
+    color: #5cb85c;
+  }
+  &-warning {
+    color: #f0ad4e;
+  }
+
+  &-primary {
+    color: #5bc0de;
   }
 }

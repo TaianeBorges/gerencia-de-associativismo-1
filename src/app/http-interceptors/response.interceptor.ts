@@ -26,10 +26,12 @@ export class ResponseInterceptor implements HttpInterceptor {
                 data = {
                     reason: error && error.error.reason ? error.error.reason : '',
                     status: error.status,
-                    icon: 'priority_high',
+                    icon: 'report',
                     color: 'error',
                     title: 'Ops! Ocorreu um erro.',
-                    message: 'Não foi possível se conectar com o servidor.'
+                    message: 'Não foi possível se conectar com o servidor.',
+                    copy: true,
+                    error
                 };
 
                 this.alertService.alertShow(data);

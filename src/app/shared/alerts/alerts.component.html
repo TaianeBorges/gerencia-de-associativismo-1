@@ -1,6 +1,6 @@
 <div class="alert-container" *ngIf="show" [ngClass]="{'show-message': show}">
-    <div class="alert-icon background-{{response.data.color}}">
-        <i class="icon">
+    <div class="alert-icon ">
+        <i class="icon color-{{response.data.color}}">
             <mat-icon aria-hidden="false">{{response.data.icon}}</mat-icon>
         </i>
     </div>
@@ -8,7 +8,12 @@
         <span class="alert-title">{{response.data.title}}</span>
         <span class="alert-text">{{response.data.message}}</span>
     </div>
-    <div class="alert-close" (click)="close()">
-        fechar
+    <div class="alert-actions">
+        <span (click)="close()">
+            fechar
+        </span>
+        <span *ngIf="response.data.copy" (click)="copyError()" class="copy-error">
+            Copiar
+        </span>
     </div>
 </div>
