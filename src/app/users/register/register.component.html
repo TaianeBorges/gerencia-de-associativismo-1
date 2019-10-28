@@ -156,8 +156,8 @@
 
                                 <div class="form-group"
                                     *ngIf="formRegister.get('relacionamento.check_relacionamento').value">
-                                    <label for="">Sindicato</label>
-                                    <ng2-selectize formControlName="sindicatos" class="selectize-sindicato"
+                                    <label for="">Sindicatos</label>
+                                    <ng2-selectize formControlName="sindicatos" #selectizeSindicato class="selectize-sindicato"
                                         [config]="configSindicato" [options]="optionsSindicatos">
                                     </ng2-selectize>
                                 </div>
@@ -197,9 +197,9 @@
                                 </div>
                             </div>
 
-                            <div formGroupName="representante_regional">
+                            <div formGroupName="representante_regional" *ngIf="permissionOffice">
 
-                                <div class="form-group" *ngIf="permissionOffice">
+                                <div class="form-group" >
                                     <label for="representante_regional">Regional</label>
                                     <select name="representante_regional"
                                         [ngClass]="{'is-invalid': formRegister.get('representante_regional.regional').errors && formRegister.get('representante_regional.regional').touched }"
@@ -210,7 +210,7 @@
                                         </option>
                                     </select>
                                 </div>
-                                <div class="form-group" *ngIf="permissionOffice">
+                                <div class="form-group">
                                     <label for="cargo_representante">Cargo</label>
                                     <select name="cargo_representante"
                                         [ngClass]="{'is-invalid': formRegister.get('representante_regional.cargo').errors && formRegister.get('representante_regional.cargo').touched }"
@@ -218,7 +218,7 @@
                                         id="cargo_representante">
                                         <option *ngFor="let item of optionCargos; trackBy: trackByFn"
                                             value="{{item.id}}">
-                                            {{item.name}}
+                                            {{item.nome}}
                                         </option>
                                     </select>
                                 </div>

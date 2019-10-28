@@ -4,6 +4,8 @@ import { UsersService } from '../users.service';
 import * as jQuery from 'jquery';
 import { callbackify } from 'util';
 
+declare const $: any;
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -25,17 +27,17 @@ export class RegisterComponent implements OnInit {
     dropdownDirection: 'down',
     maxItems: 20,
     onChange: ($event) => {
+      this.getUnions(this.formRegister);
     },
     onBlur: () => {
-      this.getUnions();
     }
   };
 
   configSindicato = {
-    labelField: 'initials',
+    labelField: 'sigla',
     valueField: 'id',
     create: false,
-    searchField: ['initials'],
+    searchField: ['nome', 'sigla'],
     plugins: ['dropdown_direction', 'remove_button'],
     dropdownDirection: 'down',
     maxItems: 200
@@ -52,12 +54,7 @@ export class RegisterComponent implements OnInit {
     dropdownDirection: 'down',
     maxItems: 200,
     onBlur: () => {
-      if (this.formRegister.get('gerencia_id').value && this.formRegister.get('gerencia_id').value.length === 1) {
-        this.permissionManagements = true;
-        this.getDivisions();
-      } else {
-        this.permissionManagements = false;
-      }
+
     },
     onChange($event) {
       if ($event.length) {
@@ -81,19 +78,12 @@ export class RegisterComponent implements OnInit {
   optionRegional = [];
   optionManagement = [];
   optionDivisions = [];
-
-  optionsSindicatos = [
-    {
-      id: 1,
-      name: 'Sindicato das Indústrias de Torrefação e Moagem de Café do Estado do Rio de Janeiro ',
-      initials: 'SINCAFÉ'
-    }
-  ];
+  optionsSindicatos = [];
 
   optionCargos = [
-    { id: 1, name: 'Gerente' },
-    { id: 2, name: 'Coordenador' },
-    { id: 3, name: 'Executivo' }
+    { id: 1, nome: 'Gerente' },
+    { id: 2, nome: 'Coordenador' },
+    { id: 3, nome: 'Executivo' }
   ];
   cargos = [];
   optionGeneralManagement = [];
@@ -141,8 +131,8 @@ export class RegisterComponent implements OnInit {
         nome: reg.nome,
       },
       cargo: {
-        id: carg.name,
-        nome: carg.id
+        id: carg.id,
+        nome: carg.nome
       }
     });
 
@@ -151,11 +141,10 @@ export class RegisterComponent implements OnInit {
     this.selectCargo = '';
     this.selectRegional = '';
 
-    this.permissionOffice = !(carg.name === 'Executivo');
+    this.permissionOffice = !(carg.nome === 'Executivo');
   }
 
   trackByFn(index, item) {
-    // console.log('TrackBy:', item.id, 'at index', index);
     return (item.id);
   }
 
@@ -178,7 +167,7 @@ export class RegisterComponent implements OnInit {
     this.validateRepresentanteRegional();
     this.validateSede();
 
-    console.log(this.formRegister.valid, this.formRegister.errors);
+    console.log(data.value);
   }
 
   getLotacoes() {
@@ -194,8 +183,8 @@ export class RegisterComponent implements OnInit {
     if (id) {
       this.userService.getGeneralManagement(id).subscribe(res => {
         if (res.data) {
-          this.optionGeneralManagement = res.data;
           if (res.data.length === 1) {
+            this.optionGeneralManagement = res.data;
             this.formRegister.get('gerencia_geral_id').setValue(res.data[0].id);
             this.getManagements();
           }
@@ -213,7 +202,19 @@ export class RegisterComponent implements OnInit {
     if (data.lotacao_id && data.general_management_id) {
       this.userService.getManagements(data).subscribe(res => {
         if (res.data) {
-          this.optionManagement = res.data;
+          if (res.data.length === 1) {
+            this.optionManagement = res.data;
+            setTimeout(() => {
+              this.formRegister.get('gerencia_id').setValue(res.data[0].id);
+
+              if (this.formRegister.get('gerencia_id').value && this.formRegister.get('gerencia_id').value.length === 1) {
+                this.permissionManagements = true;
+                this.getDivisions();
+              } else {
+                this.permissionManagements = false;
+              }
+            }, 500);
+          }
         }
       });
     }
@@ -241,7 +242,6 @@ export class RegisterComponent implements OnInit {
         if (res.data) {
           this.optionDivisions = res.data;
           if (res.data.length === 1) {
-            console.log(res.data[0].id);
             this.formRegister.get('divisao_id').setValue(res.data[0].id);
           }
         }
@@ -249,13 +249,21 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  getUnions() {
+  getUnions(form) {
     const data = {
-      regionais: this.formRegister.get('relacionamento.regionais').value
+      regionais: form.get('relacionamento.regionais').value,
+      filter: ['id']
     };
 
     this.userService.getUnions(data).subscribe(res => {
-      console.log(res);
+
+      if (res) {
+        this.optionsSindicatos = res.data;
+
+        setTimeout(() => {
+          this.formRegister.get('relacionamento.sindicatos').setValue(res.filter);
+        }, 1000);
+      }
     });
   }
 
@@ -267,20 +275,20 @@ export class RegisterComponent implements OnInit {
 
     if (validateRegional && !representanteRegional.value && !this.cargos.length) {
       representanteRegional.setErrors({ required: true });
-    } else {
+    } else if (representanteRegional) {
+      representanteRegional.clearValidators();
       representanteRegional.updateValueAndValidity();
     }
 
     if (validateRegional && !representanteCargo.value && !this.cargos.length) {
       representanteCargo.setErrors({ required: true });
-    } else {
+    } else if (representanteRegional) {
+      representanteCargo.clearValidators();
       representanteCargo.updateValueAndValidity();
     }
 
     if (representanteCargo.value && representanteRegional.value && !this.cargos.length) {
       alert('Adicione os cargos!');
-      // this.formRegister.setErrors({ 'invalid': true });
-
     }
   }
 
