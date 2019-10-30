@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
     dropdownDirection: 'down',
     maxItems: 20,
     onChange: ($event) => {
-      this.getUnions(this.formRegister);
+      this.getUnions($event);
     },
     onBlur: () => {
     }
@@ -122,7 +122,7 @@ export class RegisterComponent implements OnInit {
   }
 
   addOffice(data: any) {
-    const reg = this.optionLotacao[data[0] - 1];
+    const reg = this.optionRegional[data[0] - 1];
     const carg = this.optionCargos[data[1] - 1];
 
     this.cargos.push({
@@ -167,7 +167,11 @@ export class RegisterComponent implements OnInit {
     this.validateRepresentanteRegional();
     this.validateSede();
 
-    console.log(data.value);
+    if (data.valid) {
+      this.userService.registerUser(data.value).subscribe(res => {
+        console.log(res);
+      });
+    }
   }
 
   getLotacoes() {
@@ -249,9 +253,9 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  getUnions(form) {
+  getUnions(regionals) {
     const data = {
-      regionais: form.get('relacionamento.regionais').value,
+      regionais: regionals,
       filter: ['id']
     };
 
@@ -271,7 +275,7 @@ export class RegisterComponent implements OnInit {
     const representanteRegional = this.formRegister.get('representante_regional.regional');
     const regionalId = this.formRegister.get('lotacao_id').value;
     const representanteCargo = this.formRegister.get('representante_regional.cargo');
-    const validateRegional = regionalId && regionalId !== '10';
+    const validateRegional = regionalId && regionalId !== '1';
 
     if (validateRegional && !representanteRegional.value && !this.cargos.length) {
       representanteRegional.setErrors({ required: true });

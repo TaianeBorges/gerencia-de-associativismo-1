@@ -65,4 +65,13 @@ export class UsersService {
         })
       );
   }
+
+  registerUser(data: any): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/usuarios/cadastro`, data, this.httpOptions)
+      .pipe(
+        map(res => {
+          return res;
+        })
+      );
+  }
 }
