@@ -54,12 +54,10 @@ export class RegisterComponent implements OnInit {
     dropdownDirection: 'down',
     maxItems: 200,
     onBlur: () => {
-
+      this.getDivisions();
     },
-    onChange($event) {
-      if ($event.length) {
-        // console.log("Option changed: ", $event);
-      }
+    onChange: ($event) => {
+      this.permissionManagements = !($event.length > 1);
     },
     render: {
       option(data: any, escape: any) {
@@ -97,7 +95,7 @@ export class RegisterComponent implements OnInit {
       email: new FormControl('', [Validators.minLength(4), Validators.required, Validators.email]),
       telephone: new FormControl('', [Validators.minLength(14), Validators.required]),
       lotacao_id: new FormControl('', [Validators.required]),
-      user: new FormControl('', [Validators.minLength(4), Validators.required]),
+      username: new FormControl('', [Validators.minLength(4), Validators.required]),
       password: new FormControl('', [Validators.minLength(4), Validators.required]),
       confirmPassword: new FormControl('', [Validators.minLength(4), Validators.required]),
       gerencia_geral_id: new FormControl('', [Validators.required]),
@@ -206,16 +204,15 @@ export class RegisterComponent implements OnInit {
     if (data.lotacao_id && data.general_management_id) {
       this.userService.getManagements(data).subscribe(res => {
         if (res.data) {
+          this.optionManagement = res.data;
+
           if (res.data.length === 1) {
-            this.optionManagement = res.data;
             setTimeout(() => {
               this.formRegister.get('gerencia_id').setValue(res.data[0].id);
 
               if (this.formRegister.get('gerencia_id').value && this.formRegister.get('gerencia_id').value.length === 1) {
                 this.permissionManagements = true;
                 this.getDivisions();
-              } else {
-                this.permissionManagements = false;
               }
             }, 500);
           }
@@ -239,7 +236,7 @@ export class RegisterComponent implements OnInit {
       general_id: this.formRegister.get('gerencia_id').value
     };
 
-    if (data.lotacao_id && data.general_management_id) {
+    if (data.lotacao_id && data.general_management_id && this.formRegister.get('gerencia_id').value.length === 1) {
       this.cargos = [];
 
       this.userService.getDivisions(data).subscribe(res => {
@@ -259,6 +256,7 @@ export class RegisterComponent implements OnInit {
       filter: ['id']
     };
 
+    console.log(data, regionals);
     this.userService.getUnions(data).subscribe(res => {
 
       if (res) {

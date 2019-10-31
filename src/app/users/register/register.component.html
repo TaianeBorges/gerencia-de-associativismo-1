@@ -52,10 +52,11 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="user">Usuário</label>
+                                <label for="username">Usuário</label>
                                 <input type="text"
-                                    [ngClass]="{'is-invalid': formRegister.get('user').errors && formRegister.get('user').touched }"
-                                    formControlName="user" class="form-control" id="user" placeholder="Digite seu nome">
+                                    [ngClass]="{'is-invalid': formRegister.get('username').errors && formRegister.get('username').touched }"
+                                    formControlName="username" class="form-control" id="username"
+                                    placeholder="Digite seu nome">
                             </div>
                             <div class="form-group">
                                 <label for="password">Senha</label>
@@ -107,7 +108,6 @@
                                     [ngClass]="{'is-invalid': formRegister.get('gerencia_id').errors && formRegister.get('gerencia_id').touched }"
                                     class="selectize-regional" [config]="configManagement" [options]="optionManagement">
                                 </ng2-selectize>
-
                             </div>
                         </div>
                     </div>
