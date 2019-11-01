@@ -120,6 +120,14 @@ export class RegisterComponent implements OnInit {
   }
 
   addOffice(data: any) {
+
+    // console.log({
+    //   'teste1': data,
+    //   'teste2': this.optionCargos,
+    //   'teste3': this.cargos
+    // });
+    
+    console.log(this.cargos);
     const reg = this.optionRegional[data[0] - 1];
     const carg = this.optionCargos[data[1] - 1];
 
@@ -165,6 +173,7 @@ export class RegisterComponent implements OnInit {
     this.validateRepresentanteRegional();
     this.validateSede();
 
+    console.log(data.value);
     if (data.valid) {
       this.userService.registerUser(data.value).subscribe(res => {
         console.log(res);
@@ -256,7 +265,6 @@ export class RegisterComponent implements OnInit {
       filter: ['id']
     };
 
-    console.log(data, regionals);
     this.userService.getUnions(data).subscribe(res => {
 
       if (res) {
