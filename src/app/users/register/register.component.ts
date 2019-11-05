@@ -126,7 +126,7 @@ export class RegisterComponent implements OnInit {
     //   'teste2': this.optionCargos,
     //   'teste3': this.cargos
     // });
-    
+
     console.log(this.cargos);
     const reg = this.optionRegional[data[0] - 1];
     const carg = this.optionCargos[data[1] - 1];
@@ -191,16 +191,20 @@ export class RegisterComponent implements OnInit {
 
   getGeneralManagement() {
     const id = this.formRegister.get('lotacao_id').value;
-    if (id) {
+    if (id && this.optionLotacao[id - 1].nome !== 'Representante Regional') {
       this.userService.getGeneralManagement(id).subscribe(res => {
         if (res.data) {
+          this.optionGeneralManagement = res.data;
+
           if (res.data.length === 1) {
-            this.optionGeneralManagement = res.data;
             this.formRegister.get('gerencia_geral_id').setValue(res.data[0].id);
             this.getManagements();
           }
         }
       });
+    } else {
+      this.formRegister.get('gerencia_geral_id').clearValidators();
+      this.formRegister.get('gerencia_geral_id').updateValueAndValidity();
     }
   }
 
@@ -306,10 +310,17 @@ export class RegisterComponent implements OnInit {
     const checkRelacionamento = this.formRegister.get('relacionamento.check_relacionamento');
     const relacionamentoRegionais = this.formRegister.get('relacionamento.regionais');
     const relacionamentoSindicatos = this.formRegister.get('relacionamento.sindicatos');
-    const regionalId = this.formRegister.get('lotacao_id');
+    const lotacaoId = this.formRegister.get('lotacao_id');
     const divisaoId = this.formRegister.get('divisao_id');
+    const gerenciaId = this.formRegister.get('gerencia_id');
 
-    if (regionalId.value && regionalId.value === '10' && !divisaoId.value) {
+    if (lotacaoId.value && lotacaoId.value === '1' && !gerenciaId.value.length) {
+      gerenciaId.setErrors({ required: true });
+    } else {
+      gerenciaId.updateValueAndValidity();
+    }
+
+    if (lotacaoId.value && lotacaoId.value === '1' && !divisaoId.value) {
       divisaoId.setErrors({ required: true });
     } else {
       divisaoId.updateValueAndValidity();

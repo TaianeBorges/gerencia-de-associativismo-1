@@ -6,7 +6,7 @@
   height: auto;
   padding: 40px;
   min-height: 100vh;
-  
+
   @media screen and (max-width: 600px) {
     padding: 20px;
   }
@@ -24,5 +24,12 @@
       }
     }
   }
-  
+}
+
+.is-invalid {
+  .selectize-control {
+    .selectize-input {
+      border: 1px solid red !important;
+    }
+  }
 }
