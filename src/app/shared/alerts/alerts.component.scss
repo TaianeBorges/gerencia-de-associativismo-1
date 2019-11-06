@@ -11,8 +11,9 @@
   box-shadow: 0 0 16px #888585;
   animation: fadeInLeft 0.3s;
   background: rgba(255, 255, 255, 0.95);
-  width: 354px;
+  max-width: 354px;
   height: inherit;
+  min-height: 60px;
 
   .alert-icon {
     width: 80px;
@@ -55,6 +56,14 @@
     font-size: 13px;
     width: auto;
     text-overflow: ellipsis;
+
+    ul.alert-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      opacity: 0.6;
+      padding: 2px 0;
+    }
   }
 
   @media screen and (max-width: 575px) {

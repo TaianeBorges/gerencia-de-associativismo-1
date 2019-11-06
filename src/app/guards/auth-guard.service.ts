@@ -31,8 +31,12 @@ export class AuthGuardService {
     return true;
   }
 
-  canActivate() {
-    this.isLoggedIn().subscribe(res => {
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    return this.login();
+  }
+
+  login(): any {
+    return this.isLoggedIn().subscribe(res => {
       if (!res.authenticate) {
         this.router.navigate(['/login']);
         return false;

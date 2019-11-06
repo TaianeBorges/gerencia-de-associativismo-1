@@ -45,6 +45,14 @@ form {
       border: 0;
     }
 
+    .is-invalid {
+      .selectize-control {
+        .selectize-input {
+          border: 1px solid red !important;
+        }
+      }
+    }
+    
     .btn {
       &-card {
         font-size: 12px;

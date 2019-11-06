@@ -6,9 +6,9 @@
     </div>
     <div class="alert-message">
         <span class="alert-title">{{response.data.title}}</span>
-        <span class="alert-text">{{response.data.message}}</span>
+        <span class="alert-text" [innerHTML]="response.data.message"></span>
     </div>
-    <div class="alert-actions">
+    <div *ngIf="response.data.actions" class="alert-actions">
         <span (click)="close()">
             fechar
         </span>

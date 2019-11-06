@@ -1,8 +1,5 @@
 <header>
-    <nav class="main-container">
-        <div class="logo-nav">
-            <a [routerLink]="[ '/']"><img src="../assets/img/logotipo/logo.svg" alt=""></a>
-        </div>
+    <!-- <nav class="nav-sidebar">
         <ul class="justify-content-end">
             <li class="nav-item" *ngIf="!permission">
                 <a [routerLink]="[ '/login']">login</a>
@@ -17,8 +14,34 @@
                 <a class="nav-link" [routerLink]="['/usuarios']" [routerLinkActive]="'active'">Usuarios</a>
             </li>
             <li *ngIf="permission">
-                <a class="nav-link" [routerLink]="['/logout']" [routerLinkActive]="'active'">Logout</a>
             </li>
         </ul>
+    </nav> -->
+    <nav class="nav-header">
+        <div class="logo-nav">
+            <a [routerLink]="['/']"><img src="../assets/img/logotipo/logo.svg" alt=""></a>
+        </div>
+        
+        <ul class="justify-content-end">
+            <li class="nav-item" *ngIf="!permission">
+                <a [routerLink]="[ '/login']">login</a>
+            </li>
+            <li class="nav-item" *ngIf="!permission">
+                <a [routerLink]="[ '/contato']">Precisa de ajuda?</a>
+            </li>
+        </ul>
+
+        <div class="user-dropdown" *ngIf="permission">
+            <div class="dropdown">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    {{userProfile.username | capitalize}}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="nav-link dropdown-item" [routerLink]="['/logout']"
+                        [routerLinkActive]="'active'">Logout</a>
+                </div>
+            </div>
+        </div>
     </nav>
 </header>

@@ -2,8 +2,11 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { AlertService } from './alert.service';
 
 import { from, Subscription } from 'rxjs';
+import { ViewEncapsulation } from '@angular/core';
+
 @Component({
   selector: 'app-alerts',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './alerts.component.html',
   styleUrls: ['./alerts.component.scss']
 })

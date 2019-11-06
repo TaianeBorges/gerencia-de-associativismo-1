@@ -42,12 +42,14 @@ export class LoginComponent implements OnInit {
       this.authService.login(data.value).subscribe(res => {
         if (res.authenticate) {
           alert = {
-            message: 'Logado com sucesso.',
-            title: 'Parabéns!',
             status: 200,
-            icon: 'check',
-            color: 'success'
+            icon: 'check_circle',
+            color: 'success',
+            title: 'Parabéns!',
+            message: 'Logado com sucesso.',
+            copy: false
           };
+
           this.authService.storeAuthorizationToken(res.token);
           this.router.navigate(['/sites']);
         } else {
@@ -61,6 +63,10 @@ export class LoginComponent implements OnInit {
         }
 
         this.alertService.alertShow(alert);
+
+        setTimeout(() => {
+          this.alertService.hide();
+        }, 500);
       });
     }
   }

@@ -66,6 +66,13 @@ export class UsersService {
       );
   }
 
+  getUserAuthenticated() {
+    return this.http.get(`${environment.apiUrl}/auth/usuario`, this.httpOptions)
+      .pipe(map(res => {
+        return res;
+      }));
+  }
+
   registerUser(data: any): Observable<any> {
     return this.http.post(`${environment.apiUrl}/usuarios/cadastro`, data, this.httpOptions)
       .pipe(

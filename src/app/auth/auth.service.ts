@@ -20,7 +20,7 @@ export class AuthService {
     }
 
     checkAuthorization(): Observable<any> {
-        return this.http.get(`${environment.apiUrl}/user`).pipe(
+        return this.http.get(`${environment.apiUrl}/auth/usuario`).pipe(
             map(res => {
                 this.authorizationLogin.emit(res);
                 return res;

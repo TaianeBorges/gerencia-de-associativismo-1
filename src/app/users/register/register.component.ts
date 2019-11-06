@@ -1,21 +1,25 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, ViewEncapsulation } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UsersService } from '../users.service';
 import * as jQuery from 'jquery';
 import { callbackify } from 'util';
+import { AlertService } from 'src/app/shared/alerts/alert.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 declare const $: any;
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class RegisterComponent implements OnInit {
   private formRegister: any;
-  unidadeSelect;
-  selectRegional;
-  selectCargo;
+  unidadeSelect: any;
+  selectRegional: any;
+  selectCargo: any;
   permissionOffice = true;
 
   configRegional = {
@@ -26,7 +30,7 @@ export class RegisterComponent implements OnInit {
     plugins: ['dropdown_direction', 'remove_button'],
     dropdownDirection: 'down',
     maxItems: 20,
-    onChange: ($event) => {
+    onChange: ($event: any) => {
       this.getUnions($event);
     },
     onBlur: () => {
@@ -56,7 +60,7 @@ export class RegisterComponent implements OnInit {
     onBlur: () => {
       this.getDivisions();
     },
-    onChange: ($event) => {
+    onChange: ($event: any) => {
       this.permissionManagements = !($event.length > 1);
     },
     render: {
@@ -86,7 +90,12 @@ export class RegisterComponent implements OnInit {
   cargos = [];
   optionGeneralManagement = [];
 
-  constructor(private userService: UsersService, private fb: FormBuilder) { }
+  constructor(
+    private userService: UsersService,
+    private fb: FormBuilder,
+    private alertService: AlertService,
+    private router: Router,
+    private authService: AuthService) { }
 
   ngOnInit() {
 
@@ -172,11 +181,30 @@ export class RegisterComponent implements OnInit {
     this.formRegister.markAllAsTouched();
     this.validateRepresentanteRegional();
     this.validateSede();
+    let dataAlert = {};
 
-    console.log(data.value);
     if (data.valid) {
       this.userService.registerUser(data.value).subscribe(res => {
-        console.log(res);
+        if (!res.status) {
+          dataAlert = {
+            status: 200,
+            icon: 'check_circle',
+            color: 'success',
+            title: 'Parabéns!',
+            message: 'Cadastrado com sucesso.',
+            copy: false
+          };
+
+          this.formRegister.reset();
+          this.authService.storeAuthorizationToken(res.token);
+
+          this.alertService.alertShow(dataAlert);
+          this.router.navigate(['/sites']);
+
+          setTimeout(() => {
+            this.alertService.hide();
+          }, 1000);
+        }
       });
     }
   }

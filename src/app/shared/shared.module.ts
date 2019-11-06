@@ -13,6 +13,8 @@ import { AlertsComponent } from './alerts/alerts.component';
 import { AlertService } from './alerts/alert.service';
 import { MenuComponent } from './menu/menu.component';
 import { RouterModule } from '@angular/router';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { ModalComponent } from './modal/modal.component';
 
 //Pipes
 
@@ -20,7 +22,9 @@ import { RouterModule } from '@angular/router';
   declarations: [
     BadgeCreditComponent,
     AlertsComponent,
-    MenuComponent
+    MenuComponent,
+    CapitalizePipe,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,8 @@ import { RouterModule } from '@angular/router';
   exports: [
     BadgeCreditComponent,
     AlertsComponent,
-    MenuComponent
+    MenuComponent,
+    ModalComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

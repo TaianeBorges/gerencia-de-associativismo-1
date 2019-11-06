@@ -21,13 +21,18 @@
     }
   }
   &-success {
-    color: #5cb85c;
+    .mat-icon {
+      color: #5cb85c !important;
+    }
   }
   &-warning {
-    color: #f0ad4e;
+    .mat-icon {
+      color: #f0ad4e !important;
+    }
   }
-
   &-primary {
-    color: #5bc0de;
+    .mat-icon {
+      color: #5bc0de !important;
+    }
   }
 }
