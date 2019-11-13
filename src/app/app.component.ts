@@ -8,12 +8,14 @@ import { AuthService } from './auth/auth.service';
 })
 export class AppComponent implements OnInit {
   title = 'gerencia-de-associativismo';
-  permissionLogin: any = false;
+  permissionLogin: any = {
+    authenticate: false
+  };
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.authService.authorizationLogin.subscribe(res => {
-      this.permissionLogin = res;
+    this.permissionLogin = this.authService.authorizationLogin.subscribe(res => {
+      return res;
     });
   }
 }

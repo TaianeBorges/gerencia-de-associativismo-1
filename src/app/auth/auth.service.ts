@@ -32,6 +32,14 @@ export class AuthService {
         localStorage.setItem('token', 'bearer ' + token);
     }
 
+    storeUser(res: any) {
+        localStorage.setItem('user', JSON.stringify(res));
+    }
+
+    getUser() {
+        return JSON.parse(localStorage.getItem('user'));
+    }
+
     login(data): Observable<any> {
         return this.http.post(`${environment.apiUrl}/login`, data, this.httpOptions)
             .pipe(
@@ -46,11 +54,11 @@ export class AuthService {
         return this.http.post(`${environment.apiUrl}/logout`, token, this.httpOptions)
             .pipe(
                 map(res => {
-                    console.log(res);
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
                     this.authorizationLogin.emit(res);
                     return res;
                 })
             );
     }
-
 }

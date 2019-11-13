@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators, FormGroup, NG_VALIDATORS } from '@angular/forms';
+import { FormControl, Validators, FormGroup, NG_VALIDATORS } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { AlertService } from '../../shared/alerts/alert.service';
@@ -14,19 +14,12 @@ export class LoginComponent implements OnInit {
   private formLogin: any;
 
   constructor(
-    private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
     private alertService: AlertService
   ) { }
 
   ngOnInit() {
-
-    this.authService.checkAuthorization().subscribe(res => {
-      if (res.authenticate) {
-        this.router.navigate(['/sites']);
-      }
-    });
 
     this.formLogin = new FormGroup({
       email: new FormControl('', [Validators.minLength(4), Validators.required]),
@@ -51,7 +44,8 @@ export class LoginComponent implements OnInit {
           };
 
           this.authService.storeAuthorizationToken(res.token);
-          this.router.navigate(['/sites']);
+          this.authService.storeUser(res);
+          this.router.navigate(['/']);
         } else {
           alert = {
             status: 200,

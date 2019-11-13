@@ -1,0 +1,89 @@
+@import "../../shared/styles/default";
+
+.home-container {
+
+  .modules {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .module-item {
+      width: 100%;
+      height: 100%;
+      max-width: 300px;
+      max-height: 300px;
+      padding: 30px 15px;
+      margin: 15px;
+      border: none;
+      border-bottom: 6px solid transparent;
+      transition: 0.3s;
+      text-decoration: transparent;
+      box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.15);
+
+      &.demand_management {
+        border-bottom-color: #ff9999;
+        &:hover {
+          background: #ff9999;
+        }
+      }
+
+      &.who_is {
+        border-bottom-color: #9ae8f7;
+        &:hover {
+          background: #9ae8f7;
+          .card-body {
+            .title,
+            .text {
+              color: #444444;
+            }
+          }
+        }
+      }
+
+      &.site_management {
+        border-bottom-color: #f6e29f;
+        &:hover {
+          background: #f6e29f;
+          .card-body {
+            .title,
+            .text {
+              color: #444444;
+            }
+          }
+        }
+      }
+
+      &:hover {
+        .card-body {
+          .title,
+          .text {
+            color: #fff;
+          }
+        }
+      }
+
+      .image {
+        text-align: center;
+        margin-top: 20px;
+
+        img {
+          max-width: 75px;
+          width: 100%;
+        }
+      }
+
+      .card-body {
+        text-align: center;
+        color: #444444;
+        padding: 20px 0 0;
+
+        .text {
+          padding-bottom: 0;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}

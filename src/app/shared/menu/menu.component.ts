@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UsersService } from 'src/app/users/users.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -9,13 +9,17 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class MenuComponent implements OnInit {
   @Input() permission: boolean;
-  userProfile = {};
-  constructor(private user: UsersService, private auth: AuthService) { }
+  auth = {};
+  
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.user.getUserAuthenticated().subscribe((res: any) => {
-      this.userProfile = res.user;
+    this.authService.authorizationLogin.subscribe(res => {
+      this.auth = res;
     });
   }
 
+  linkMenu(value) {
+    this.router.navigate([value]);
+  }
 }

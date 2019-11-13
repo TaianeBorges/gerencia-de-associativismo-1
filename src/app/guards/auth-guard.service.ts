@@ -18,6 +18,7 @@ export class AuthGuardService {
     state: RouterStateSnapshot): Observable<boolean> | boolean {
 
     this.isLoggedIn().subscribe(res => {
+      console.log(res);
       if (!res.authenticate) {
         this.router.navigate(['/login']);
         return false;
@@ -32,7 +33,7 @@ export class AuthGuardService {
   }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.login();
+    return this.isLoggedIn();
   }
 
   login(): any {

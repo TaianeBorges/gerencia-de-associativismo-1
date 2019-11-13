@@ -15,6 +15,7 @@ import { MenuComponent } from './menu/menu.component';
 import { RouterModule } from '@angular/router';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { ModalComponent } from './modal/modal.component';
+import { InitialName } from './pipes/initial-name.pipe';
 
 //Pipes
 
@@ -24,6 +25,7 @@ import { ModalComponent } from './modal/modal.component';
     AlertsComponent,
     MenuComponent,
     CapitalizePipe,
+    InitialName,
     ModalComponent
   ],
   imports: [

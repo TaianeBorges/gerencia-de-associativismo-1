@@ -24,6 +24,7 @@ import { LoaderService } from './loader/loader.service';
 import { AuthInterceptor } from './http-interceptors/auth-interceptor';
 import { LoaderInterceptor } from './http-interceptors/loader.interceptor';
 import { ResponseInterceptor } from './http-interceptors/response.interceptor';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -32,14 +33,14 @@ import { ResponseInterceptor } from './http-interceptors/response.interceptor';
     LoaderComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(APP_ROUTES),
     HttpClientModule,
     MatProgressSpinnerModule,
     MatIconModule,
-    SharedModule,
-    // UsersModule
+    SharedModule
   ],
   providers: [
     AuthGuardService,

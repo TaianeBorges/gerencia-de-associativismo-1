@@ -5,7 +5,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 export const APP_ROUTES: Routes = [
     {
         path: '',
-        loadChildren: () => import('./dashboard/dashboard.module').then(mod => mod.DashboardModule),
+        loadChildren: () => import('./pages/pages.module').then(mod => mod.PagesModule),
         canActivateChild: [AuthGuardService]
     },
     {
@@ -21,7 +21,12 @@ export const APP_ROUTES: Routes = [
         path: 'usuario',
         loadChildren: () => import('./users/users.module').then(mod => mod.UsersModule)
     },
-    {path: 'cadastro', redirectTo: 'usuario'},
+    {
+        path: 'gestao-de-demandas',
+        loadChildren: () => import('./demand-management/demand-management.module').then(mod => mod.DemandManagementModule),
+        canActivateChild: [AuthGuardService]
+    },
+    { path: 'cadastro', redirectTo: 'usuario' },
     { path: 'login', redirectTo: 'auth/login' },
     { path: 'logout', redirectTo: 'auth/logout' },
     { path: '**', component: PageNotFoundComponent }

@@ -66,7 +66,7 @@ export class UsersService {
       );
   }
 
-  getUserAuthenticated() {
+  getUserAuthenticated(): Observable<any> {
     return this.http.get(`${environment.apiUrl}/auth/usuario`, this.httpOptions)
       .pipe(map(res => {
         return res;
