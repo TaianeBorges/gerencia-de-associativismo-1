@@ -199,7 +199,7 @@ export class RegisterComponent implements OnInit {
           this.authService.storeAuthorizationToken(res.token);
 
           this.alertService.alertShow(dataAlert);
-          this.router.navigate(['/sites']);
+          this.router.navigate(['/']);
 
           setTimeout(() => {
             this.alertService.hide();

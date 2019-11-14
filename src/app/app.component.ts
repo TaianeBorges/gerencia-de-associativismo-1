@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { AuthService } from './auth/auth.service';
+import { SharedsService } from './shared/shareds.service';
 
 @Component({
   selector: 'app-root',
@@ -11,11 +12,22 @@ export class AppComponent implements OnInit {
   permissionLogin: any = {
     authenticate: false
   };
-  constructor(private authService: AuthService) { }
+  widthContent = true;
+
+  constructor(
+    private authService: AuthService,
+    private sharedService: SharedsService
+  ) {
+
+  }
 
   ngOnInit() {
     this.permissionLogin = this.authService.authorizationLogin.subscribe(res => {
       return res;
+    });
+
+    this.sharedService.stateMenu.subscribe(res => {
+      this.widthContent = res.open;
     });
   }
 }

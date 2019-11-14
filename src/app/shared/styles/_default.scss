@@ -55,9 +55,9 @@ em {
 .padding-default {
   position: relative;
   height: calc(100% - 65px);
-  width: calc(100% - 200px);
-  top: 65px;
-  left: 200px;
+  width: calc(100% - 200px) !important;
+  top: 65px !important;
+  left: 200px !important;
 }
 
 .display-none {

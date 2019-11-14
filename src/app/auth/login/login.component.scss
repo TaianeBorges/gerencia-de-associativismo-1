@@ -1,9 +1,13 @@
 @import "../../shared/styles/forms";
 
 .login-container {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
   background: #212121;
   height: 100%;
-  
+
   @media screen and (max-height: 660px) {
     padding: 40px 0;
     height: auto;

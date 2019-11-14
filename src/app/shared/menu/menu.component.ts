@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Router, ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { SharedsService } from '../shareds.service';
 
 @Component({
   selector: 'app-menu',
@@ -14,15 +16,23 @@ export class MenuComponent implements OnInit {
   routeDemandManagement = false;
   routeWhoIs = false;
   routeSites = false;
+  titlePage;
+  menuActivate = true;
 
-  constructor(private authService: AuthService, private router: Router, activatedRoute: ActivatedRoute) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    activatedRoute: ActivatedRoute,
+    private titleService: Title,
+    private sharedsService: SharedsService
+  ) {
 
     router.events.subscribe((res) => {
       if (res instanceof NavigationEnd) {
         this.routeDemandManagement = res.url.indexOf('/gestao-de-demandas/') !== (-1);
         this.routeWhoIs = res.url.indexOf('/quem-e-quem/') !== (-1);
         this.routeSites = res.url.indexOf('/sites/') !== (-1);
-      } 
+      }
     });
   }
 
@@ -31,8 +41,14 @@ export class MenuComponent implements OnInit {
       this.auth = res;
     });
 
-
+    this.titlePage = this.titleService.getTitle();
   }
+
+  changeMenu() {
+    this.menuActivate = !this.menuActivate;
+    this.sharedsService.actionMenu(this.menuActivate);
+  }
+
 
   linkMenu(value) {
     this.router.navigate([value]);

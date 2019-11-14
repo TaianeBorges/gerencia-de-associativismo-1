@@ -1,10 +1,12 @@
-<header>
+<header [ngClass]="{'close-menu': !menuActivate}">
     <nav class="nav-header" *ngIf="auth.authenticate">
-        <div>
-            <button class="btn btn-link">
-                <i class="material-icons">menu_open</i>
+        <div class="btn-menu">
+            <button class="btn btn-primary" (click)="changeMenu(menuActivate)">
+                <i class="material-icons">{{menuActivate ? 'menu_open' : 'menu'}}</i>
             </button>
         </div>
+
+        <h2 class="title">{{titlePage}}</h2>
 
         <div class="user-dropdown">
             <div class="dropdown">
@@ -22,47 +24,59 @@
 
     <nav class="nav-sidebar" *ngIf="auth.authenticate">
         <div class="logo-nav">
-            <a [routerLink]="['/']"><img src="../assets/img/logotipo/logo-white.svg" alt=""></a>
+            <a [routerLink]="['/']">
+                <img src="{{menuActivate ? '../assets/img/logotipo/logo-white.svg' : '../assets/img/logotipo/logo-initials-white.svg'}}" alt="">
+            </a>
         </div>
         <ul class="nav-items">
             <li>
                 <select (change)="linkMenu(selectModules.value)" #selectModules>
                     <option value="">Selecione o môdulo</option>
-                    <option value="/gestao-de-demandas/lista-de-demandas" [selected]="routeDemandManagement">Gestão de demandas</option>
-                    <option value="/quem-e-quem/lista-de-usuarios" [selected]="routeWhoIs">Quem é quem</option>
-                    <option value="/sites/lista-de-sites" [selected]="routeSites">Sites</option>
+                    <option value="/gestao-de-demandas/lista-de-demandas" [selected]="routeDemandManagement">
+                        {{menuActivate ? 'Gestão de demandas' : 'GD - Gestão de demandas'}}
+                    </option>
+                    <option value="/quem-e-quem/lista-de-usuarios" [selected]="routeWhoIs">
+                        {{menuActivate ? 'Quem é quem' : 'QQ - Quem é quem'}}
+                    </option>
+                    <option value="/sites/lista-de-sites" [selected]="routeSites">
+                        {{menuActivate ? 'Sites' : 'SS - Sites'}}
+                    </option>
                 </select>
             </li>
         </ul>
         <ul class="nav-items" [ngClass]="{'display-none': !routeDemandManagement}">
             <li>
                 <a href="#" routerLinkActive="router-link-active">
-                    <i class="material-icons">dashboard</i> Dashboard
+                    <i class="material-icons">dashboard</i>
+                    <span> Dashboard</span>
                 </a>
             </li>
 
             <li>
                 <a [routerLink]="['/gestao-de-demandas/lista-de-demandas']" routerLinkActive="router-link-active">
-                    <i class="material-icons">view_list</i> Demandas
+                    <i class="material-icons">view_list</i>
+                    <span> Demandas</span>
                 </a>
             </li>
 
             <li>
                 <a href="#" routerLinkActive="router-link-active">
-                    <i class="material-icons">face</i> Usuarios
+                    <i class="material-icons">face</i>
+                    <span> Usuarios</span>
                 </a>
             </li>
 
             <li>
                 <a href="#" routerLinkActive="router-link-active">
-                    <i class="material-icons">history</i> Atividades
+                    <i class="material-icons">history</i>
+                    <span> Atividades</span>
                 </a>
             </li>
 
             <li>
                 <a href="#" routerLinkActive="router-link-active">
                     <i class="material-icons">settings_applications</i>
-                    Configurações
+                    <span> Configurações</span>
                 </a>
             </li>
         </ul>
