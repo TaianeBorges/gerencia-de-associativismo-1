@@ -26,6 +26,11 @@ export const APP_ROUTES: Routes = [
         loadChildren: () => import('./demand-management/demand-management.module').then(mod => mod.DemandManagementModule),
         canActivateChild: [AuthGuardService]
     },
+    {
+        path: 'quem-e-quem',
+        loadChildren: () => import('./who-is/who-is.module').then(mod => mod.WhoIsModule),
+        canActivateChild: [AuthGuardService]
+    },
     { path: 'cadastro', redirectTo: 'usuario' },
     { path: 'login', redirectTo: 'auth/login' },
     { path: 'logout', redirectTo: 'auth/logout' },

@@ -24,15 +24,17 @@
         <div class="logo-nav">
             <a [routerLink]="['/']"><img src="../assets/img/logotipo/logo-white.svg" alt=""></a>
         </div>
-        <ul class="nav-items" *ngIf="true">
+        <ul class="nav-items">
             <li>
                 <select (change)="linkMenu(selectModules.value)" #selectModules>
-                    <option value="/gestao-de-demandas/lista-de-demandas">Gestão de demandas</option>
-                    <option value="/quem-e-quem/lista-de-usuarios">Quem é quem</option>
-                    <option value="/quem-e-quem/lista-de-sites">Sites</option>
+                    <option value="">Selecione o môdulo</option>
+                    <option value="/gestao-de-demandas/lista-de-demandas" [selected]="routeDemandManagement">Gestão de demandas</option>
+                    <option value="/quem-e-quem/lista-de-usuarios" [selected]="routeWhoIs">Quem é quem</option>
+                    <option value="/sites/lista-de-sites" [selected]="routeSites">Sites</option>
                 </select>
             </li>
-
+        </ul>
+        <ul class="nav-items" [ngClass]="{'display-none': !routeDemandManagement}">
             <li>
                 <a href="#" routerLinkActive="router-link-active">
                     <i class="material-icons">dashboard</i> Dashboard

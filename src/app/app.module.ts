@@ -10,6 +10,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from './shared/shared.module';
+import { WhoIsModule } from './who-is/who-is.module';
 
 //Components
 import { AppComponent } from './app.component';
@@ -40,7 +41,8 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     MatProgressSpinnerModule,
     MatIconModule,
-    SharedModule
+    SharedModule,
+    WhoIsModule
   ],
   providers: [
     AuthGuardService,

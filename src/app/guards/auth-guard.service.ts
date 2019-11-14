@@ -18,7 +18,6 @@ export class AuthGuardService {
     state: RouterStateSnapshot): Observable<boolean> | boolean {
 
     this.isLoggedIn().subscribe(res => {
-      console.log(res);
       if (!res.authenticate) {
         this.router.navigate(['/login']);
         return false;
