@@ -19,6 +19,8 @@ export class MenuComponent implements OnInit {
   routeSites = false;
   titlePage;
   menuActivate = true;
+  menuMobileActivate = false;
+  menuPerfilActivate = false;
 
   constructor(
     private authService: AuthService,

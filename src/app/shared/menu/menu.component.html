@@ -28,8 +28,14 @@
                 <img src="{{menuActivate ? '../assets/img/logotipo/logo-white.svg' : '../assets/img/logotipo/logo-initials-white.svg'}}"
                     alt="">
             </a>
+
+            <button class="btn-menu-mobile" (click)="menuMobileActivate = !menuMobileActivate">
+                <em>{{!menuMobileActivate ? 'Menu' : 'Fechar'}}</em>
+                <i class="material-icons">{{!menuMobileActivate  ?  'menu' : 'close'}}</i>
+            </button>
         </div>
-        <ul class="nav-items">
+
+        <ul class="nav-items" [ngClass]="{'nav-items-mobile': menuMobileActivate}">
             <li>
                 <select (change)="linkMenu(selectModules.value)" #selectModules>
                     <option value="">Selecione o môdulo</option>
@@ -45,7 +51,8 @@
                 </select>
             </li>
         </ul>
-        <ul class="nav-items" [ngClass]="{'display-none': !routeDemandManagement}">
+        <ul class="nav-items"
+            [ngClass]="{'display-none': !routeDemandManagement, 'nav-items-mobile': menuMobileActivate && routeDemandManagement}">
             <li>
                 <a href="#" routerLinkActive="router-link-active" placement="right" ngbTooltip="Dashboard">
                     <i class="material-icons">dashboard</i>
@@ -54,32 +61,50 @@
             </li>
 
             <li>
-                <a [routerLink]="['/gestao-de-demandas/lista-de-demandas']"  placement="right" ngbTooltip="Demandas" routerLinkActive="router-link-active">
+                <a [routerLink]="['/gestao-de-demandas/lista-de-demandas']" placement="right" ngbTooltip="Demandas"
+                    routerLinkActive="router-link-active">
                     <i class="material-icons">view_list</i>
                     <span> Demandas</span>
                 </a>
             </li>
 
             <li>
-                <a href="#" routerLinkActive="router-link-active"  placement="right" ngbTooltip="Usuários">
+                <a href="#" routerLinkActive="router-link-active" placement="right" ngbTooltip="Usuários">
                     <i class="material-icons">face</i>
                     <span> Usuarios</span>
                 </a>
             </li>
 
             <li>
-                <a href="#" routerLinkActive="router-link-active"  placement="right" ngbTooltip="Atividades">
+                <a href="#" routerLinkActive="router-link-active" placement="right" ngbTooltip="Atividades">
                     <i class="material-icons">history</i>
                     <span> Atividades</span>
                 </a>
             </li>
 
             <li>
-                <a href="#" routerLinkActive="router-link-active"  placement="right" ngbTooltip="Configurações">
+                <a href="#" routerLinkActive="router-link-active" placement="right" ngbTooltip="Configurações">
                     <i class="material-icons">settings_applications</i>
                     <span> Configurações</span>
                 </a>
             </li>
         </ul>
+
+        <div class="user-menu" [ngClass]="{'nav-items-mobile': menuMobileActivate}">
+            <div class="user-name" (click)="menuPerfilActivate = !menuPerfilActivate">
+                <div class="initial-name">
+                    {{auth?.user.name | initialName}}
+                </div>
+                <p>{{auth?.user.name}}</p>
+                <i class="material-icons">{{ !menuPerfilActivate ? 'expand_more' : 'expand_less'}}</i>
+            </div>
+            <ul class="user-actions" [ngClass]="{'display-none': !menuPerfilActivate}">
+                <li><a href="#"><i class="material-icons">person</i> Perfil</a></li>
+                <li>
+                    <a [routerLink]="['/logout']" [routerLinkActive]="'active'"><i class="material-icons">input</i>
+                        Logout</a>
+                </li>
+            </ul>
+        </div>
     </nav>
 </header>

@@ -47,8 +47,18 @@ header {
       border-bottom: 1px solid #ebebeb;
       transition: 0.3s;
 
+      @media screen and(max-width: 600px) {
+        display: none;
+      }
+
       .title {
         margin: 0 auto 0 20px;
+        max-width: 600px;
+        width: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        padding-right: 10px;
       }
 
       .btn-menu {
@@ -122,6 +132,32 @@ header {
           width: 100%;
           max-width: 150px;
         }
+        .btn-menu-mobile {
+          display: none;
+
+          em {
+            font-style: normal;
+            color: rgba(255, 255, 255, 0.2);
+          }
+
+          @media screen and(max-width:600px) {
+            display: initial;
+            background: transparent;
+            border: none;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-left: auto;
+            width: 100px;
+            padding: 19px 13px;
+            outline: none;
+
+            &:active {
+              opacity: 0.4;
+            }
+          }
+        }
       }
 
       .nav-items {
@@ -164,6 +200,27 @@ header {
           }
         }
       }
+
+      .user-menu {
+        display: none;
+      }
+
+      @media screen and (max-width: 600px) {
+        max-width: initial;
+        height: auto;
+
+        .nav-items {
+          display: none;
+        }
+
+        .user-menu {
+          background: #373a3c;
+        }
+
+        .nav-items-mobile {
+          display: block;
+        }
+      }
     }
   }
 
@@ -196,4 +253,59 @@ header {
 
 .tooltip {
   display: none !important;
+}
+
+.user-menu {
+  padding: 20px 0;
+
+  .user-name {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    i {
+      margin-left: auto;
+      color: #fff;
+    }
+    &:active {
+      opacity: 0.4;
+    }
+
+    .initial-name {
+      padding: 10px;
+      border-radius: 100%;
+      background: white;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    p {
+      margin: 0;
+      padding: 0 15px;
+      color: #fff;
+    }
+  }
+
+  .user-actions {
+    border-left: 2px solid #fff;
+    list-style: none;
+    width: 150px;
+    margin: 5px 0 0 20px;
+    padding: 10px 20px;
+
+    a {
+      i {
+        opacity: 0.5;
+        margin-right: 17px;
+      }
+
+      color: #fff;
+      display: flex;
+      padding: 8px 1px;
+    }
+  }
 }
