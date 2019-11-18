@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Router, ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -7,6 +7,7 @@ import { SharedsService } from '../shareds.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
@@ -22,7 +23,6 @@ export class MenuComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    activatedRoute: ActivatedRoute,
     private titleService: Title,
     private sharedsService: SharedsService
   ) {
@@ -41,7 +41,10 @@ export class MenuComponent implements OnInit {
       this.auth = res;
     });
 
-    this.titlePage = this.titleService.getTitle();
+    this.sharedsService.titlePage.subscribe(res => {
+      this.titlePage = res;
+    });
+
   }
 
   changeMenu() {

@@ -25,7 +25,8 @@
     <nav class="nav-sidebar" *ngIf="auth.authenticate">
         <div class="logo-nav">
             <a [routerLink]="['/']">
-                <img src="{{menuActivate ? '../assets/img/logotipo/logo-white.svg' : '../assets/img/logotipo/logo-initials-white.svg'}}" alt="">
+                <img src="{{menuActivate ? '../assets/img/logotipo/logo-white.svg' : '../assets/img/logotipo/logo-initials-white.svg'}}"
+                    alt="">
             </a>
         </div>
         <ul class="nav-items">
@@ -46,35 +47,35 @@
         </ul>
         <ul class="nav-items" [ngClass]="{'display-none': !routeDemandManagement}">
             <li>
-                <a href="#" routerLinkActive="router-link-active">
+                <a href="#" routerLinkActive="router-link-active" placement="right" ngbTooltip="Dashboard">
                     <i class="material-icons">dashboard</i>
                     <span> Dashboard</span>
                 </a>
             </li>
 
             <li>
-                <a [routerLink]="['/gestao-de-demandas/lista-de-demandas']" routerLinkActive="router-link-active">
+                <a [routerLink]="['/gestao-de-demandas/lista-de-demandas']"  placement="right" ngbTooltip="Demandas" routerLinkActive="router-link-active">
                     <i class="material-icons">view_list</i>
                     <span> Demandas</span>
                 </a>
             </li>
 
             <li>
-                <a href="#" routerLinkActive="router-link-active">
+                <a href="#" routerLinkActive="router-link-active"  placement="right" ngbTooltip="Usuários">
                     <i class="material-icons">face</i>
                     <span> Usuarios</span>
                 </a>
             </li>
 
             <li>
-                <a href="#" routerLinkActive="router-link-active">
+                <a href="#" routerLinkActive="router-link-active"  placement="right" ngbTooltip="Atividades">
                     <i class="material-icons">history</i>
                     <span> Atividades</span>
                 </a>
             </li>
 
             <li>
-                <a href="#" routerLinkActive="router-link-active">
+                <a href="#" routerLinkActive="router-link-active"  placement="right" ngbTooltip="Configurações">
                     <i class="material-icons">settings_applications</i>
                     <span> Configurações</span>
                 </a>

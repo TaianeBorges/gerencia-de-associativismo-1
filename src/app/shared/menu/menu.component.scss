@@ -187,3 +187,13 @@ header {
     }
   }
 }
+
+.close-menu {
+  .tooltip {
+    display: block !important;
+  }
+}
+
+.tooltip {
+  display: none !important;
+}

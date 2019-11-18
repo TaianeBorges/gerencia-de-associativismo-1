@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { SharedsService } from 'src/app/shared/shareds.service';
 
 @Component({
   selector: 'app-demand-list',
@@ -8,10 +9,10 @@ import { Title } from '@angular/platform-browser';
 })
 export class DemandListComponent implements OnInit {
 
-  constructor(private titleService: Title) { }
+  constructor(private sharedService: SharedsService) { }
 
   ngOnInit() {
-    this.titleService.setTitle("Lista de demandas");
+    this.sharedService.setTitle('Lista de demandas');
   }
 
 }
