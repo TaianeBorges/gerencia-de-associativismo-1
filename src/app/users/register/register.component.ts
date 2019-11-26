@@ -49,6 +49,16 @@ export class RegisterComponent implements OnInit {
 
   permissionManagements = true;
 
+  configUnionsSectors = {
+    labelField: 'nome',
+    valueField: 'id',
+    create: false,
+    searchField: ['nome'],
+    plugins: ['dropdown_direction', 'remove_button'],
+    dropdownDirection: 'up',
+    maxItems: 200
+  };
+
   configManagement = {
     labelField: 'sigla',
     valueField: 'id',
@@ -81,6 +91,8 @@ export class RegisterComponent implements OnInit {
   optionManagement = [];
   optionDivisions = [];
   optionsSindicatos = [];
+  getSectors = [];
+  optionsUnionsSectors = [];
 
   optionCargos = [
     { id: 1, nome: 'Gerente' },
@@ -112,8 +124,10 @@ export class RegisterComponent implements OnInit {
       divisao_id: new FormControl(''),
       relacionamento: this.fb.group({
         check_relacionamento: false,
+        check_relacionamento_setorial: false,
         regionais: [],
-        sindicatos: []
+        sindicatos: [],
+        setores_sindicato: []
       }),
       cargos: [],
       representante_regional: this.fb.group({
@@ -235,6 +249,15 @@ export class RegisterComponent implements OnInit {
       this.formRegister.get('gerencia_geral_id').updateValueAndValidity();
     }
   }
+
+  getSector() {
+    const id = this.formRegister.get('lotacao_id').value;
+    if (id && this.optionLotacao[id - 1].nome !== 'Representante Regional') {
+      this.userService.getSectors().subscribe(res => {
+        this.optionsUnionsSectors = res.data;
+      });
+    }
+  };
 
   getManagements() {
     const data = {

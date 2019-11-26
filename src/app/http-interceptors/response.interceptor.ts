@@ -64,7 +64,7 @@ export class ResponseInterceptor implements HttpInterceptor {
                         error
                     };
 
-                    this.router.navigate(['/login']);
+                    // this.router.navigate(['/login']);
                 }
 
                 this.alertService.alertShow(data);

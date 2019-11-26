@@ -32,7 +32,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="lotacao_id">Lotação</label>
-                                <select name="lotacao_id" formControlName="lotacao_id" (change)="getGeneralManagement()"
+                                <select name="lotacao_id" formControlName="lotacao_id"
+                                    (change)="getGeneralManagement(); getSector()"
                                     [ngClass]="{'is-invalid': formRegister.get('lotacao_id').errors && formRegister.get('lotacao_id').touched }"
                                     class="form-control" id="lotacao_id">
                                     <option value="">Selecione a lotação</option>
@@ -137,29 +138,50 @@
                         <p class="form-subtitle">Preencha os dados abaixo.</p>
                         <div class="card">
                             <div class="card-body" formGroupName="relacionamento">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input"
-                                        formControlName="check_relacionamento" id="relacionamento">
-                                    <label class="form-check-label" for="relacionamento">Faço parte da equipe de
-                                        relacionamento</label>
-                                </div>
+                                <div *ngIf="!formRegister.get('relacionamento.check_relacionamento_setorial').value">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input"
+                                            formControlName="check_relacionamento" id="relacionamento">
+                                        <label class="form-check-label" for="relacionamento">Equipe de
+                                            relacionamento</label>
+                                    </div>
 
-                                <div class="form-group margin-t-20"
-                                    *ngIf="formRegister.get('relacionamento.check_relacionamento').value">
-                                    <label for="">Regional</label>
-                                    <ng2-selectize formControlName="regionais"
-                                        [ngClass]="{'is-invalid': formRegister.get('relacionamento.check_relacionamento').errors && formRegister.get('relacionamento.check_relacionamento').touched }"
-                                        class="selectize-regional" [config]="configRegional" [options]="optionRegional">
-                                    </ng2-selectize>
+                                    <div class="form-group margin-t-20"
+                                        *ngIf="formRegister.get('relacionamento.check_relacionamento').value">
+                                        <label for="">Regional</label>
+                                        <ng2-selectize formControlName="regionais"
+                                            [ngClass]="{'is-invalid': formRegister.get('relacionamento.check_relacionamento').errors && formRegister.get('relacionamento.check_relacionamento').touched }"
+                                            class="selectize-regional" [config]="configRegional"
+                                            [options]="optionRegional">
+                                        </ng2-selectize>
+                                    </div>
+                                    <div class="form-group"
+                                        *ngIf="formRegister.get('relacionamento.check_relacionamento').value">
+                                        <label for="">Sindicatos</label>
+                                        <ng2-selectize formControlName="sindicatos" #selectizeSindicato
+                                            class="selectize-sindicato" [config]="configSindicato"
+                                            [options]="optionsSindicatos">
+                                        </ng2-selectize>
+                                    </div>
                                 </div>
+                                <div *ngIf="!formRegister.get('relacionamento.check_relacionamento').value">
 
-                                <div class="form-group"
-                                    *ngIf="formRegister.get('relacionamento.check_relacionamento').value">
-                                    <label for="">Sindicatos</label>
-                                    <ng2-selectize formControlName="sindicatos" #selectizeSindicato
-                                        class="selectize-sindicato" [config]="configSindicato"
-                                        [options]="optionsSindicatos">
-                                    </ng2-selectize>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input"
+                                            formControlName="check_relacionamento_setorial"
+                                            id="relacionamento_setorial">
+                                        <label class="form-check-label" for="relacionamento_setorial">Equipe de
+                                            relacionamento setorial</label>
+                                    </div>
+
+                                    <div class=" margin-t-20"
+                                        *ngIf="formRegister.get('relacionamento.check_relacionamento_setorial').value">
+                                        <label for="">Setores</label>
+                                        <ng2-selectize formControlName="setores_sindicato" #selectizeSector
+                                            class="selectize-setor" [config]="configUnionsSectors"
+                                            [options]="optionsUnionsSectors">
+                                        </ng2-selectize>
+                                    </div>
                                 </div>
                             </div>
                         </div>
