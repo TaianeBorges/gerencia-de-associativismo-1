@@ -1,5 +1,6 @@
 <div class="register-container">
     <div class="main-container">
+        <a [routerLink]="['/login']" class="back-to-login"> <i class="material-icons">chevron_left</i> Voltar para o login</a>
         <h1 class="page-title">Cadastro</h1>
 
         <form [formGroup]="formRegister" (ngSubmit)="onSubmit(formRegister)" autocomplete="off">

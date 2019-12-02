@@ -7,6 +7,15 @@
   padding: 40px;
   min-height: 100vh;
 
+  .back-to-login {
+    display: flex;
+    align-items: center;
+    max-width: 768px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+  }
+  
   @media screen and (max-width: 600px) {
     padding: 20px;
   }

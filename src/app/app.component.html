@@ -2,4 +2,6 @@
 <app-loader></app-loader>
 <app-menu [permission]="permissionLogin.authenticate"></app-menu>
 <app-modal></app-modal>
-<router-outlet></router-outlet>
+<div class="app-container height-max" [ngClass]="{'padding-default': widthContent, 'app-style-default': !urlRegister && !widthContent}" >
+    <router-outlet></router-outlet>
+</div>

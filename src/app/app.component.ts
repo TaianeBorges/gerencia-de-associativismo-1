@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { AuthService } from './auth/auth.service';
 import { SharedsService } from './shared/shareds.service';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -13,12 +14,14 @@ export class AppComponent implements OnInit {
     authenticate: false
   };
   widthContent = true;
+  urlRegister = false;
 
   constructor(
     private authService: AuthService,
-    private sharedService: SharedsService
+    private sharedService: SharedsService,
+    private route: Router
   ) {
-
+    this.routeEvent(this.route);
   }
 
   ngOnInit() {
@@ -28,6 +31,18 @@ export class AppComponent implements OnInit {
 
     this.sharedService.stateMenu.subscribe(res => {
       this.widthContent = res.open;
+    });
+  }
+
+  routeEvent(router: Router) {
+    router.events.subscribe(e => {
+      if (e instanceof NavigationEnd) {
+        if (e.url === '/cadastro' || e.url === '/usuario/cadastro') {
+
+          this.widthContent = false;
+          this.urlRegister = true;
+        }
+      }
     });
   }
 }

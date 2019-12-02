@@ -1,6 +1,21 @@
 @import "./shared/styles/default";
 
 .app-container {
+  // background: #f8f5f7;
+  // position: relative;
+  // height: calc(100% - 65px);
+  // width: calc(100% - 60px);
+  // top: 65px;
+  // left: 60px;
+  // transition: 0.3s;
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.app-style-default {
   background: #f8f5f7;
   position: relative;
   height: calc(100% - 65px);
@@ -8,9 +23,4 @@
   top: 65px;
   left: 60px;
   transition: 0.3s;
-
-  @media screen and (max-width: 600px) {
-    width: 100%;
-    height: auto;
-  }
 }

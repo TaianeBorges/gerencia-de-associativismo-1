@@ -10,12 +10,12 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { AlertService } from '../shared/alerts/alert.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 /** Pass untouched request through to the next request handler. */
 @Injectable()
 export class ResponseInterceptor implements HttpInterceptor {
-    constructor(private alertService: AlertService, private router: Router) { }
+    constructor(private alertService: AlertService, private router: Router, private route: ActivatedRoute) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(
@@ -64,7 +64,8 @@ export class ResponseInterceptor implements HttpInterceptor {
                         error
                     };
 
-                    // this.router.navigate(['/login']);
+                    if (location.pathname !== '/usuario/cadastro')
+                        this.router.navigate(['/login']);
                 }
 
                 this.alertService.alertShow(data);
