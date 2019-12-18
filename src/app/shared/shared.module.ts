@@ -25,8 +25,6 @@ import { InitialName } from './pipes/initial-name.pipe';
     BadgeCreditComponent,
     AlertsComponent,
     MenuComponent,
-    CapitalizePipe,
-    InitialName,
     ModalComponent
   ],
   imports: [

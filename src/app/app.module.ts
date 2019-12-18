@@ -27,11 +27,17 @@ import { LoaderInterceptor } from './http-interceptors/loader.interceptor';
 import { ResponseInterceptor } from './http-interceptors/response.interceptor';
 import { CommonModule } from '@angular/common';
 
+
+import { InitialName } from './shared/pipes/initial-name.pipe';
+import { CapitalizePipe } from './shared/pipes/capitalize.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
-    LoaderComponent
+    LoaderComponent,
+    InitialName,
+    CapitalizePipe
   ],
   imports: [
     CommonModule,
