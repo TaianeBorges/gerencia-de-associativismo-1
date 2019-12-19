@@ -4,7 +4,7 @@ import { DemandListComponent } from './demand-list/demand-list.component';
 import { RouterModule } from '@angular/router';
 import { DEMAND_MANAGEMENT_ROUTES } from './demand-routing';
 import { AuthGuardService } from '../guards/auth-guard.service';
-import { InitialName } from '../shared/pipes/initial-name.pipe';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,7 @@ import { InitialName } from '../shared/pipes/initial-name.pipe';
   imports: [
     CommonModule,
     RouterModule.forChild(DEMAND_MANAGEMENT_ROUTES),
-
+    SharedModule
   ],
   providers: [
     AuthGuardService

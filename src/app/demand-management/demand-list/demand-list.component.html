@@ -1,58 +1,82 @@
-<div class="padding-20">
-    <div class="card" *ngFor="let demand of demands?.data">
-        <div class="card-header">
-            title
+<div class="demand-list-container">
+
+    <div class="row cards-controls">
+        <div class="pagination">
+            <button class="material-icons" (click)="getDemand(demands?.current_page - 1)">
+                navigate_before
+            </button>
+            <button class="material-icons" (click)="getDemand(demands?.current_page + 1)">
+                navigate_next
+            </button>
         </div>
+        <p>{{demands?.current_page}} - {{demands?.to}} de {{demands?.total}}</p>
+    </div>
+
+    <div class="card fadeIn border-status-{{demand.historico_demanda[demand.historico_demanda.length - 1].status}} demand-{{demand.id}}"
+        *ngFor="let demand of demands?.data" (click)="openDemand(demand.id)">
         <div class="card-body">
-            <div class="card-group">
-                <em>Sindicato</em>
-                <p class="card-text" *ngFor="let item of demand.demandas_sindicatos">{{item.sigla}}</p>
-            </div>
-            <div class="card-group">
-                <em>Status</em>
-                <p
-                    class="card-text color-status-{{demand.historico_demanda[demand.historico_demanda.length - 1].status}}">
-                    {{demand.historico_demanda[demand.historico_demanda.length - 1].status_label}}
-                </p>
-            </div>
+            <div class="row">
+                <div class="card-group demand-icon">
+                    <div>
+                        <img alt="" src="../assets/img/illustrations/demand_management.svg">
+                    </div>
+                </div>
+                <div class="card-group">
+                    <em>ID</em>
+                    <p class="card-text">#{{demand.id}}</p>
+                </div>
+                <div class="card-group card-sindicato">
+                    <em>Sindicato</em>
+                    <p class="card-text" *ngFor="let item of demand.demandas_sindicatos">{{item.sigla}}</p>
+                </div>
+                <div class="card-group card-status">
+                    <em>Status</em>
+                    <p
+                        class="badge background-status-{{demand.historico_demanda[demand.historico_demanda.length - 1].status}}">
+                        {{demand.historico_demanda[demand.historico_demanda.length - 1].status_label}}
+                    </p>
+                </div>
 
-            <div class="card-group">
-                <em>Cadastrado em</em>
-                <p class="card-text">{{demand.created_at}}</p>
-            </div>
+                <div class="card-group">
+                    <em>Cadastrado em</em>
+                    <p class="card-text">{{demand.created_at | date:'d MMM, y'}}</p>
+                </div>
 
-            <div class="card-group">
-                <em>Atualizado em</em>
-                <p class="card-text">
-                    {{demand.historico_demanda[demand.historico_demanda.length - 1].created_at}}
-                </p>
-            </div>
+                <div class="card-group">
+                    <em>Atualizado em</em>
+                    <p class="card-text">
+                        {{demand.historico_demanda[demand.historico_demanda.length - 1].created_at | date:'d MMM, y'}}
+                    </p>
+                </div>
 
-            <div class="card-group">
-                <em>Pessoas</em>
-                <div class="card-users" *ngFor="let item of demand.historico_demanda">
-                    <span>{{item.user.name | initialName}}</span>
+                <div class="card-group card-person">
+                    <em>Pessoas</em>
+                    <div class="card-users" *ngFor="let item of demand.historico_demanda">
+                        <span>{{item.user.name | initialName}}</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="card-group">
-                <em>Descrição</em>
-                <p>
-                    {{demand.descricao}}
-                </p>
+            <div class="row extended-items display-none margin-t-30">
+                <div class="card-group card-categoria">
+                    <em>Categoria</em>
+                    <p class="card-text">
+                        {{demand.entidade.nome}}
+                    </p>
+                </div>
+
+                <div class="card-group card-descricao">
+                    <em>Descrição</em>
+                    <p>
+                        {{demand.descricao}}
+                    </p>
+                </div>
             </div>
-
-
-            <div class="card-group">
-                <em>Categoria</em>
-                <p class="card-text">
-                    {{demand.entidade.nome}}
-                </p>
-            </div>
-
         </div>
         <div class="card-footer">
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <a href="#" class="color-status-{{demand.historico_demanda[demand.historico_demanda.length - 1].status}}">
+                <i class="material-icons">open_in_new</i>
+            </a>
         </div>
     </div>
 </div>

@@ -6,12 +6,11 @@ import { Ng2SelectizeModule } from 'ng2-selectize';
 
 import { USER_ROUTES } from './users-routing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { TelephonePipe } from '../shared/pipes/telephone.pipe';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
-    RegisterComponent,
-    TelephonePipe
+    RegisterComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +18,8 @@ import { TelephonePipe } from '../shared/pipes/telephone.pipe';
     FormsModule,
     ReactiveFormsModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
-    RouterModule.forChild(USER_ROUTES)
+    RouterModule.forChild(USER_ROUTES),
+    SharedModule
   ]
 })
 export class UsersModule { }

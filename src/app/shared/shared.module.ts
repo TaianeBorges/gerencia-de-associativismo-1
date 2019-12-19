@@ -14,9 +14,11 @@ import { AlertsComponent } from './alerts/alerts.component';
 import { AlertService } from './alerts/alert.service';
 import { MenuComponent } from './menu/menu.component';
 import { RouterModule } from '@angular/router';
-import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { ModalComponent } from './modal/modal.component';
+import { TelephonePipe } from './pipes/telephone.pipe';
 import { InitialName } from './pipes/initial-name.pipe';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
+
 
 //Pipes
 
@@ -25,14 +27,17 @@ import { InitialName } from './pipes/initial-name.pipe';
     BadgeCreditComponent,
     AlertsComponent,
     MenuComponent,
-    ModalComponent
+    ModalComponent,
+    TelephonePipe,
+    InitialName,
+    CapitalizePipe
   ],
   imports: [
-    BrowserModule,
     CommonModule,
     MatIconModule,
     RouterModule,
-    NgbTooltipModule
+    NgbTooltipModule,
+    
   ],
   providers: [
     AlertService
@@ -41,7 +46,10 @@ import { InitialName } from './pipes/initial-name.pipe';
     BadgeCreditComponent,
     AlertsComponent,
     MenuComponent,
-    ModalComponent
+    ModalComponent,
+    TelephonePipe,
+    InitialName,
+    CapitalizePipe
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

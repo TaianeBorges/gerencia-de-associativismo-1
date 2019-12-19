@@ -1,3 +1,241 @@
-.padding-20 {
+@import "../../shared/styles/color";
+@import "../../shared/styles/spacing";
+
+.demand-list-container {
   padding: 20px;
+  background-color: #f0f3f6;
+
+  .cards-controls {
+    padding: 20px;
+    flex-direction: row-reverse;
+    align-items: center;
+    p {
+      margin: 0;
+      opacity: 0.5;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .pagination {
+      margin-left: 20px;
+
+      button {
+        width: 40px;
+        height: 40px;
+        color: #fff;
+        background-color: rgba(0, 0, 0, 0.2);
+        border-color: none;
+        border-style: none;
+        border-radius: 100%;
+        margin: 0 3px;
+        outline: none;
+
+        &:active {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+
+  .card {
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 1px 1px 8px rgba(220, 220, 220, 1);
+    border-color: none !important;
+
+    &:hover {
+      background-color: rgba(240, 240, 240, 1);
+    }
+    .card-body {
+      margin: 0 10px;
+
+      & > .row {
+        @media screen and (min-width: 1250px) {
+          justify-content: space-between;
+        }
+
+        .card-group {
+          display: flex;
+          flex-direction: column;
+          margin-right: 20px;
+
+          p {
+            margin: 0;
+          }
+
+          &.card-person {
+            height: 70px;
+          }
+
+          &.card-status {
+            width: 120px;
+          }
+
+          &.card-sindicato {
+            width: 180px;
+            p {
+              white-space: nowrap;
+              overflow: hidden; /* "overflow" value must be different from "visible" */
+              text-overflow: ellipsis;
+              width: 100%;
+              max-width: 160px;
+            }
+          }
+
+          em {
+            color: #cccccc;
+            font-style: normal;
+            margin-bottom: 10px;
+          }
+
+          .card-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333333;
+          }
+
+          .badge {
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: 600;
+          }
+
+          &.demand-icon {
+            display: flex;
+            align-items: center;
+
+            div {
+              width: 63px;
+
+              img {
+                width: 100%;
+              }
+            }
+          }
+
+          &.card-descricao {
+            margin-right: auto;
+            max-width: 768px;
+          }
+
+          &.card-categoria {
+            width: 100%;
+            max-width: 120px;
+            p {
+              white-space: nowrap;
+              overflow: hidden; /* "overflow" value must be different from "visible" */
+              text-overflow: ellipsis;
+              width: 100%;
+              max-width: 120px;
+            }
+          }
+
+          .card-users {
+            position: relative;
+
+            span {
+              background: #0275d8;
+              width: 35px;
+              height: 35px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border-radius: 100%;
+              color: #fff;
+              position: absolute;
+              left: 0;
+              border: 2px solid #fff;
+              font-size: 0.8rem;
+            }
+
+            &:nth-child(2) {
+              span {
+                left: 15px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .card-footer {
+      border: none;
+      background: none !important;
+
+      a {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+
+        i {
+          font-size: 1.8rem;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+.fadeIn {
+  -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 1s; /* Firefox < 16 */
+  -ms-animation: fadein 1s; /* Internet Explorer */
+  -o-animation: fadein 1s; /* Opera < 12.1 */
+  animation: fadein 1s;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
