@@ -2,14 +2,10 @@
 
     <div class="row cards-controls">
         <div class="pagination">
-            <button class="material-icons" (click)="getDemand(demands?.current_page - 1)">
-                navigate_before
-            </button>
-            <button class="material-icons" (click)="getDemand(demands?.current_page + 1)">
-                navigate_next
-            </button>
+            <button class="material-icons" (click)="getDemand('before')">navigate_before</button>
+            <button class="material-icons" (click)="getDemand('next')">navigate_next</button>
         </div>
-        <p>{{demands?.current_page}} - {{demands?.to}} de {{demands?.total}}</p>
+        <p>{{demands?.offset}} - {{demands?.limit}} de {{demands?.total}}</p>
     </div>
 
     <div class="card fadeIn border-status-{{demand.historico_demanda[demand.historico_demanda.length - 1].status}} demand-{{demand.id}}"
