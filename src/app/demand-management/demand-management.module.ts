@@ -5,10 +5,12 @@ import { RouterModule } from '@angular/router';
 import { DEMAND_MANAGEMENT_ROUTES } from './demand-routing';
 import { AuthGuardService } from '../guards/auth-guard.service';
 import { SharedModule } from '../shared/shared.module';
+import { DemandPaginationComponent } from './demand-pagination/demand-pagination.component';
 
 @NgModule({
   declarations: [
-    DemandListComponent
+    DemandListComponent,
+    DemandPaginationComponent
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,4 @@
 import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { SharedsService } from 'src/app/shared/shareds.service';
 import { DemandService } from '../demand.service';
 
@@ -11,6 +10,8 @@ import { DemandService } from '../demand.service';
 export class DemandListComponent implements OnInit {
   demandOpened = true;
   demands: any;
+  page = 1;
+
   constructor(
     private sharedService: SharedsService,
     private demandService: DemandService,
@@ -19,6 +20,12 @@ export class DemandListComponent implements OnInit {
 
   ngOnInit() {
     this.sharedService.setTitle('Lista de demandas');
+    this.page = parseInt(window.location.search.substr((window.location.search.indexOf('page=') + 5), 1));
+
+    if (this.page < 1) {
+      this.page = 1;
+    }
+
     this.listDemands();
   }
 
@@ -31,16 +38,34 @@ export class DemandListComponent implements OnInit {
     }
   }
 
-  getDemand(page) {
-    console.log(page);
+  onPagination(event) {
+    this.page = event.page;
+    this.listDemands();
+  }
+
+  usersDemand(items) {
+    let result = [];
+
+    items.forEach(function (item, itemIndex) {
+      let permission = true;
+
+      result.forEach(function (value, i) {
+        if (value.id === item.user.id) {
+          permission = false;
+        }
+      });
+
+      if (permission)
+        result.push(item.user);
+    });
+
+    return result;
   }
 
   listDemands() {
-    this.demandService.getDemands()
+    this.demandService.getDemands(this.page)
       .subscribe(res => {
         this.demands = res;
-        console.log(res);
       });
-
   }
 }

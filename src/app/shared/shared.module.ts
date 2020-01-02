@@ -36,8 +36,7 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
     CommonModule,
     MatIconModule,
     RouterModule,
-    NgbTooltipModule,
-    
+    NgbTooltipModule
   ],
   providers: [
     AlertService

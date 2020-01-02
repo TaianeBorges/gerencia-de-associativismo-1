@@ -1,6 +1,7 @@
 <div class="home-container">
     <div class="modules">
-        <a [routerLink]="['/gestao-de-demandas/lista-de-demandas']" class="module-item card demand_management">
+        <a [routerLink]="['/gestao-de-demandas/lista-de-demandas']" [queryParams]="{page:1}"
+            class="module-item card demand_management">
             <div class="image">
                 <img src="../assets/img/illustrations/demand_management.svg" alt="illustration-module">
             </div>

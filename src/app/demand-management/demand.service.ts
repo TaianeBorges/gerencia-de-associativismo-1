@@ -14,8 +14,8 @@ export class DemandService {
   };
   constructor(private http: HttpClient) { }
 
-  getDemands(): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/demandas`, this.httpOptions)
+  getDemands(page): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/demandas?page=${page}`, this.httpOptions)
       .pipe(
         map(res => {
           return res;

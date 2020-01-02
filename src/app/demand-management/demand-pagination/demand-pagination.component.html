@@ -1,0 +1,11 @@
+<div class="row cards-controls" [ngClass]="{'visibility-initial': demands}">
+    <div class="pagination">
+        <button class="material-icons" [disabled]="beforeButton" (click)="getDemand('before')">navigate_before</button>
+        <button class="material-icons" [disabled]="nextButton" (click)="getDemand('next')">navigate_next</button>
+    </div>
+    <p>
+        {{demands?.offset + 1}} -
+        {{(demands?.offset + demands?.limit) > demands?.total ? demands?.total : demands?.offset + demands?.limit}} de
+        {{demands?.total}}
+    </p>
+</div>

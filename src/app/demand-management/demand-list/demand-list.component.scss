@@ -5,37 +5,6 @@
   padding: 20px;
   background-color: #f0f3f6;
 
-  .cards-controls {
-    padding: 20px;
-    flex-direction: row-reverse;
-    align-items: center;
-    p {
-      margin: 0;
-      opacity: 0.5;
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-    .pagination {
-      margin-left: 20px;
-
-      button {
-        width: 40px;
-        height: 40px;
-        color: #fff;
-        background-color: rgba(0, 0, 0, 0.2);
-        border-color: none;
-        border-style: none;
-        border-radius: 100%;
-        margin: 0 3px;
-        outline: none;
-
-        &:active {
-          opacity: 0.5;
-        }
-      }
-    }
-  }
-
   .card {
     flex-direction: row;
     align-items: center;

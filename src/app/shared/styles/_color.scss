@@ -37,34 +37,28 @@
   }
 }
 
-.color-status {
+.color-entidade {
+  &-1 {
+    color: #f93d77 !important;
+  }
+  &-2 {
+    color: #0275d8 !important;
+  }
+  &-3 {
+    color: #ffc107 !important;
+  }
+  &-4 {
+    color: #28a745 !important;
+  }
   &-5 {
-    color: #f0ad4e !important;
+    color: #dc3545 !important;
   }
   &-6 {
-    color: #339900 !important;
-  }
-  &-8 {
-    color: #999999 !important;
+    color: #6c757d !important;
   }
 }
 
 .background-status {
-  &-5 {
-    color: #fff;
-    background: #f0ad4e !important;
-  }
-  &-6 {
-    color: #fff;
-    background: #339900 !important;
-  }
-  &-8 {
-    color: #fff;
-    background: #999999 !important;
-  }
-}
-
-.border-status {
   &-1,
   &-2,
   &-3,
@@ -73,8 +67,43 @@
   &-6,
   &-7,
   &-8 {
+    color: #fff;
+  }
+  &-1 {
+    background: rgba(212, 66, 80, 0.3) !important;
+  }
+  &-5 {
+    background: rgba(73, 133, 213, 1) !important;
+  }
+  &-6 {
+    background: rgba(52, 182, 150, 0.3) !important;
+  }
+  &-7 {
+    background: rgba(212, 66, 80, 1) !important;
+  }
+  &-8 {
+    background: rgba(52, 182, 150, 1) !important;
+  }
+}
+
+.border-entidade {
+  &-1,
+  &-2,
+  &-3,
+  &-4,
+  &-5,
+  &-6,
+  &-7,
+  &-8,
+  &-9 {
     border-right-width: 5px;
     border-right-style: solid;
+  }
+  &-1 {
+    border-right-color: #f93d77 !important;
+  }
+  &-2 {
+    border-right-color: #0275d8 !important;
   }
   &-5 {
     border-right-color: #f0ad4e !important;

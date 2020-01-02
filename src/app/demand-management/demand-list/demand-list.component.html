@@ -1,15 +1,11 @@
 <div class="demand-list-container">
 
-    <div class="row cards-controls">
-        <div class="pagination">
-            <button class="material-icons" (click)="getDemand('before')">navigate_before</button>
-            <button class="material-icons" (click)="getDemand('next')">navigate_next</button>
-        </div>
-        <p>{{demands?.offset}} - {{demands?.limit}} de {{demands?.total}}</p>
-    </div>
 
-    <div class="card fadeIn border-status-{{demand.historico_demanda[demand.historico_demanda.length - 1].status}} demand-{{demand.id}}"
-        *ngFor="let demand of demands?.data" (click)="openDemand(demand.id)">
+    <app-demand-pagination [demands]="demands" (pagination)="onPagination($event)">
+    </app-demand-pagination>
+
+    <div class="card fadeIn border-entidade-{{demand.entidade.id}} demand-{{demand.id}}"
+        *ngFor="let demand of demands?.data" (click)="openDemand(demand.id)"  placement="top" ngbTooltip="Tooltip on top">
         <div class="card-body">
             <div class="row">
                 <div class="card-group demand-icon">
@@ -40,15 +36,15 @@
 
                 <div class="card-group">
                     <em>Atualizado em</em>
-                    <p class="card-text">
+                    <p class="card-text" >
                         {{demand.historico_demanda[demand.historico_demanda.length - 1].created_at | date:'d MMM, y'}}
                     </p>
                 </div>
 
                 <div class="card-group card-person">
                     <em>Pessoas</em>
-                    <div class="card-users" *ngFor="let item of demand.historico_demanda">
-                        <span>{{item.user.name | initialName}}</span>
+                    <div class="card-users" *ngFor="let item of usersDemand(demand.historico_demanda)">
+                        <span placement="top" ngbTooltip="Tooltip on top">{{item.name | initialName}}</span>
                     </div>
                 </div>
             </div>
@@ -70,9 +66,12 @@
             </div>
         </div>
         <div class="card-footer">
-            <a href="#" class="color-status-{{demand.historico_demanda[demand.historico_demanda.length - 1].status}}">
+            <a href="#" class="color-entidade-{{demand.entidade.id}}">
                 <i class="material-icons">open_in_new</i>
             </a>
         </div>
     </div>
+
+    <app-demand-pagination *ngIf="demands" [demands]="demands" (pagination)="onPagination($event)">
+    </app-demand-pagination>
 </div>
