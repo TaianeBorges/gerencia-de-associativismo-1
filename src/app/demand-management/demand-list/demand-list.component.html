@@ -5,7 +5,8 @@
     </app-demand-pagination>
 
     <div class="card fadeIn border-entidade-{{demand.entidade.id}} demand-{{demand.id}}"
-        *ngFor="let demand of demands?.data" (click)="openDemand(demand.id)"  placement="top" ngbTooltip="Tooltip on top">
+        *ngFor="let demand of demands?.data" (click)="openDemand(demand.id)" placement="top"
+        ngbTooltip="Tooltip on top">
         <div class="card-body">
             <div class="row">
                 <div class="card-group demand-icon">
@@ -36,7 +37,7 @@
 
                 <div class="card-group">
                     <em>Atualizado em</em>
-                    <p class="card-text" >
+                    <p class="card-text">
                         {{demand.historico_demanda[demand.historico_demanda.length - 1].created_at | date:'d MMM, y'}}
                     </p>
                 </div>
@@ -65,13 +66,15 @@
                 </div>
             </div>
         </div>
-        <div class="card-footer">
-            <a href="#" class="color-entidade-{{demand.entidade.id}}">
+        <div class="card-footer display-flex">
+            <a (event)="historyDemand($event); false" class="color-entidade-{{demand.entidade.id}}">
+                <i class="material-icons">
+                    history
+                </i>
+            </a>
+            <a [routerLink]="['/gestao-de-demandas/demanda/', demand.id]" class="color-entidade-{{demand.entidade.id}}">
                 <i class="material-icons">open_in_new</i>
             </a>
         </div>
     </div>
-
-    <app-demand-pagination *ngIf="demands" [demands]="demands" (pagination)="onPagination($event)">
-    </app-demand-pagination>
 </div>

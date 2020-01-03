@@ -20,7 +20,8 @@ export class DemandListComponent implements OnInit {
 
   ngOnInit() {
     this.sharedService.setTitle('Lista de demandas');
-    this.page = parseInt(window.location.search.substr((window.location.search.indexOf('page=') + 5), 1));
+    if (window.location.search.indexOf('page=') !== -1)
+      this.page = parseInt(window.location.search.substr((window.location.search.indexOf('page=') + 5), 1));
 
     if (this.page < 1) {
       this.page = 1;
@@ -60,6 +61,11 @@ export class DemandListComponent implements OnInit {
     });
 
     return result;
+  }
+
+  historyDemand(event, id) {
+    console.log(id);
+    event.stopPropagation();
   }
 
   listDemands() {

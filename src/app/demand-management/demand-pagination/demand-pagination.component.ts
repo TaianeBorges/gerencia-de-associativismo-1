@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class DemandPaginationComponent implements OnInit {
 
-  page: number;
+  page = 1;
   nextButton: boolean;
   beforeButton: boolean;
 
@@ -20,7 +20,9 @@ export class DemandPaginationComponent implements OnInit {
   @Output('pagination') pagination = new EventEmitter();
 
   ngOnInit() {
-    this.page = parseInt(window.location.search.substr((window.location.search.indexOf('page=') + 5), 1));
+    if (window.location.search.indexOf('page=') !== -1)
+      this.page = parseInt(window.location.search.substr((window.location.search.indexOf('page=') + 5), 1));
+
   }
 
   getDemand(direction: string) {

@@ -1,0 +1,105 @@
+<div class="demand-detail-container">
+    <div *ngIf="demand">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a [routerLink]="['/gestao-de-demandas/lista-de-demandas']">Lista de demandas</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Demanda #{{demand.id}}</li>
+            </ol>
+        </nav>
+
+        <div class="demand-card-group">
+            <h3>Dados do solicitante</h3>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h6 class="card-subtitle mb-2 text-muted">Nome</h6>
+                            <h5 class="card-title">{{demand.solicitante.nome}}</h5>
+                        </div>
+                        <div class="col">
+                            <h6 class="card-subtitle mb-2 text-muted">Último nome</h6>
+                            <h5 class="card-title">{{demand.solicitante.sobrenome}}</h5>
+                        </div>
+                        <div class="col">
+                            <h6 class="card-subtitle mb-2 text-muted">E-mail</h6>
+                            <h5 class="card-title">{{demand.solicitante.email}}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="demand-card-group">
+            <h3>Dados gerais</h3>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h6 class="card-subtitle mb-2 text-muted">Entidade</h6>
+                            <h5 class="card-title">{{demand.entidade.nome}}</h5>
+                        </div>
+                        <div class="col">
+                            <h6 class="card-subtitle mb-2 text-muted">Sindicatos</h6>
+                            <h5 class="card-title" *ngFor="let item of demand.demandas_sindicatos">
+                                {{item.sigla}}
+                            </h5>
+                        </div>
+                        <div class="col">
+                            <h6 class="card-subtitle mb-2 text-muted">Prazo</h6>
+                            <h5 class="card-title">{{demand.prazo ? demand.prazo : '---'}}</h5>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <h6 class="card-subtitle mb-2 text-muted">Categoria</h6>
+                            <h5 class="card-title">{{demand.subcategoria_demanda.categoria_demanda.nome}}</h5>
+                        </div>
+                        <div class="col">
+                            <h6 class="card-subtitle mb-2 text-muted">Subcategoria</h6>
+                            <h5 class="card-title">{{demand.subcategoria_demanda.nome}}</h5>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <h6 class="card-subtitle mb-2 text-muted">Do que se trata?</h6>
+                            <h5 class="card-title">{{demand.escopo ? demand.escopo_details.label : '---' }}</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h6 class="card-subtitle mb-2 text-muted">Descrição</h6>
+                            <h5 class="card-title">{{demand.descricao}}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="demand-card-group"
+            *ngIf="demand.subcategoria_demanda.categoria_demanda.nome == 'Defesa de Interesse'">
+            <h3>Objetivo estratégico</h3>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h6 class="card-subtitle mb-2 text-muted">Categoria</h6>
+                            <h5 class="card-title">{{demand}}</h5>
+                        </div>
+                        <div class="col">
+                            <h6 class="card-subtitle mb-2 text-muted">Subcategoria</h6>
+                            <h5 class="card-title">{{demand.entidade.nome}}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

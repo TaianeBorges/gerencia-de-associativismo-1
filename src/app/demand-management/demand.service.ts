@@ -22,4 +22,13 @@ export class DemandService {
         })
       );
   }
+
+  getDemand(id): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/demandas/${id}`, this.httpOptions)
+      .pipe(
+        map(res => {
+          return res;
+        })
+      );
+  }
 }

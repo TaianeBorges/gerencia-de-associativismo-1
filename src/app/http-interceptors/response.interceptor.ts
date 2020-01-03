@@ -64,8 +64,15 @@ export class ResponseInterceptor implements HttpInterceptor {
                         error
                     };
 
-                    if (location.pathname !== '/usuario/cadastro')
-                        this.router.navigate(['/login']);
+                    // if (error && error.status === 401) {
+                    // if (location.pathname !== '/usuario/cadastro')
+                    // this.router.navigate(['/login']);
+                    // .then(() => {
+                    // window.location.reload();
+                    // });
+                    // }
+
+
                 }
 
                 this.alertService.alertShow(data);

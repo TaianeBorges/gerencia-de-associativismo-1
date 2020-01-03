@@ -4,6 +4,7 @@
 .demand-list-container {
   padding: 20px;
   background-color: #f0f3f6;
+  height: calc(100vh - 67px);
 
   .card {
     flex-direction: row;
@@ -36,7 +37,7 @@
           }
 
           &.card-person {
-            height: 70px;
+            // height: 70px;
           }
 
           &.card-status {
@@ -120,7 +121,7 @@
               font-size: 0.8rem;
             }
 
-            &:nth-child(2) {
+            &:nth-child(2n + 2) {
               span {
                 left: 15px;
               }
@@ -207,4 +208,8 @@
   to {
     opacity: 1;
   }
+}
+
+.display-flex {
+  display: flex;
 }
