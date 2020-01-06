@@ -23,6 +23,11 @@ export class DemandPaginationComponent implements OnInit {
     if (window.location.search.indexOf('page=') !== -1)
       this.page = parseInt(window.location.search.substr((window.location.search.indexOf('page=') + 5), 1));
 
+    if (isNaN(this.page))
+      this.page = 1;
+
+    if (typeof this.page === 'number' && this.page === 1)
+      this.permissionButton();
   }
 
   getDemand(direction: string) {

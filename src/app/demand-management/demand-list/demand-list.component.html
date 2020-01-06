@@ -1,6 +1,5 @@
 <div class="demand-list-container">
 
-
     <app-demand-pagination [demands]="demands" (pagination)="onPagination($event)">
     </app-demand-pagination>
 
@@ -14,7 +13,7 @@
                         <img alt="" src="../assets/img/illustrations/demand_management.svg">
                     </div>
                 </div>
-                <div class="card-group">
+                <div class="card-group card-id">
                     <em>ID</em>
                     <p class="card-text">#{{demand.id}}</p>
                 </div>
@@ -24,9 +23,8 @@
                 </div>
                 <div class="card-group card-status">
                     <em>Status</em>
-                    <p
-                        class="badge background-status-{{demand.historico_demanda[demand.historico_demanda.length - 1].status}}">
-                        {{demand.historico_demanda[demand.historico_demanda.length - 1].status_label}}
+                    <p class="badge background-status-{{demand.historico_demanda[0].status}}">
+                        {{demand.historico_demanda[0].status_label}}
                     </p>
                 </div>
 
@@ -38,14 +36,15 @@
                 <div class="card-group">
                     <em>Atualizado em</em>
                     <p class="card-text">
-                        {{demand.historico_demanda[demand.historico_demanda.length - 1].created_at | date:'d MMM, y'}}
+                        {{demand.historico_demanda[0].created_at | date:'d MMM, y'}}
                     </p>
                 </div>
 
                 <div class="card-group card-person">
                     <em>Pessoas</em>
-                    <div class="card-users" *ngFor="let item of usersDemand(demand.historico_demanda)">
-                        <span placement="top" ngbTooltip="Tooltip on top">{{item.name | initialName}}</span>
+                    <div class="card-users">
+                        <span
+                            *ngFor="let item of usersDemand(demand.historico_demanda)">{{item.name | initialName}}</span>
                     </div>
                 </div>
             </div>
@@ -67,7 +66,8 @@
             </div>
         </div>
         <div class="card-footer display-flex">
-            <a (event)="historyDemand($event); false" class="color-entidade-{{demand.entidade.id}}">
+            <a (click)="historyDemand($event); demandSelected = demand; openModal = !openModal"
+                class="color-entidade-{{demand.entidade.id}}">
                 <i class="material-icons">
                     history
                 </i>
@@ -78,3 +78,6 @@
         </div>
     </div>
 </div>
+
+<app-demand-history [demandSelected]="demandSelected" [openModal]="openModal">
+</app-demand-history>

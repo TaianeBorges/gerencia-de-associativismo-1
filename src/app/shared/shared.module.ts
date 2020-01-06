@@ -18,6 +18,8 @@ import { ModalComponent } from './modal/modal.component';
 import { TelephonePipe } from './pipes/telephone.pipe';
 import { InitialName } from './pipes/initial-name.pipe';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { InitialNameComponent } from './initial-name/initial-name.component';
 
 
 //Pipes
@@ -30,13 +32,15 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
     ModalComponent,
     TelephonePipe,
     InitialName,
-    CapitalizePipe
+    CapitalizePipe,
+    InitialNameComponent
   ],
   imports: [
     CommonModule,
     MatIconModule,
     RouterModule,
-    NgbTooltipModule
+    NgbTooltipModule,
+    ModalModule.forRoot()
   ],
   providers: [
     AlertService
@@ -48,7 +52,8 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
     ModalComponent,
     TelephonePipe,
     InitialName,
-    CapitalizePipe
+    CapitalizePipe,
+    InitialNameComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

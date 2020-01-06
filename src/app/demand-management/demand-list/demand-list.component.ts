@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2, TemplateRef } from '@angular/core';
 import { SharedsService } from 'src/app/shared/shareds.service';
 import { DemandService } from '../demand.service';
 
@@ -11,6 +11,7 @@ export class DemandListComponent implements OnInit {
   demandOpened = true;
   demands: any;
   page = 1;
+  demandSelected: any;
 
   constructor(
     private sharedService: SharedsService,
@@ -22,6 +23,9 @@ export class DemandListComponent implements OnInit {
     this.sharedService.setTitle('Lista de demandas');
     if (window.location.search.indexOf('page=') !== -1)
       this.page = parseInt(window.location.search.substr((window.location.search.indexOf('page=') + 5), 1));
+
+    if (isNaN(this.page))
+      this.page = 1;
 
     if (this.page < 1) {
       this.page = 1;
@@ -63,8 +67,7 @@ export class DemandListComponent implements OnInit {
     return result;
   }
 
-  historyDemand(event, id) {
-    console.log(id);
+  historyDemand(event, demand) {
     event.stopPropagation();
   }
 
@@ -73,5 +76,9 @@ export class DemandListComponent implements OnInit {
       .subscribe(res => {
         this.demands = res;
       });
+  }
+
+  closeModal(event) {
+    console.log(event);
   }
 }

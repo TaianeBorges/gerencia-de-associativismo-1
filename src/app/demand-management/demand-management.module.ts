@@ -7,12 +7,14 @@ import { AuthGuardService } from '../guards/auth-guard.service';
 import { SharedModule } from '../shared/shared.module';
 import { DemandPaginationComponent } from './demand-pagination/demand-pagination.component';
 import { DemandDetailComponent } from './demand-detail/demand-detail.component';
+import { DemandHistoryComponent } from './demand-history/demand-history.component';
 
 @NgModule({
   declarations: [
     DemandListComponent,
     DemandPaginationComponent,
-    DemandDetailComponent
+    DemandDetailComponent,
+    DemandHistoryComponent
   ],
   imports: [
     CommonModule,

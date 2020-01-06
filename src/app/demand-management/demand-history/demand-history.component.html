@@ -1,0 +1,57 @@
+<ng-template #modal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Status da demanda #{{demandSelected.id}}</h4>
+
+        <button type="button" class="close pull-right" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="modal-body">
+        <div *ngFor="let item of demandSelected.historico_demanda">
+            <div class="row status-item padding-t-30 padding-b-30">
+                <div class="col-2 display-flex justify-content-center">
+                    <app-initial-name [user]="item.user"></app-initial-name>
+                </div>
+                <div class="col-10">
+                    <div class="row margin-b-20">
+                        <div class="col display-flex">
+                            <div class="demand-group">
+                                <h5 class="demand-label">Status</h5>
+                                <h6 class="demand-text badge background-status-{{item.status}}">
+                                    {{item.status_label}}
+                                </h6>
+                            </div>
+                            <div class="demand-group">
+                                <h5 class="demand-label">Atualizado em</h5>
+                                <h6 class="demand-text">{{item.updated_at | date:'d MMM, y'}}</h6>
+                            </div>
+                            <div class="demand-group">
+                                <h5 class="demand-label">Custo</h5>
+                                <h6 class="demand-text">{{item.custo > 0 ? item.custo : '---'}}</h6>
+                            </div>
+
+                            <div class="demand-group">
+                                <h5 class="demand-label">Prazo</h5>
+                                <h6 class="demand-text">{{item.custo > 0 ? item.custo : '---'}}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="demand-group">
+                                <h5 class="demand-label">Comantário</h5>
+                                <h6 class="demand-text">{{item.comentario}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modalRef.hide()">Fechar</button>
+    </div>
+</ng-template>
