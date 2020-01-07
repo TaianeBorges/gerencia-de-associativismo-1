@@ -8,18 +8,25 @@ import { SharedModule } from '../shared/shared.module';
 import { DemandPaginationComponent } from './demand-pagination/demand-pagination.component';
 import { DemandDetailComponent } from './demand-detail/demand-detail.component';
 import { DemandHistoryComponent } from './demand-history/demand-history.component';
+import { DemandFilterComponent } from './demand-filter/demand-filter.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { Ng2SelectizeModule } from 'ng2-selectize';
 
 @NgModule({
   declarations: [
     DemandListComponent,
     DemandPaginationComponent,
     DemandDetailComponent,
-    DemandHistoryComponent
+    DemandHistoryComponent,
+    DemandFilterComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(DEMAND_MANAGEMENT_ROUTES),
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule,
+    FormsModule,
+    Ng2SelectizeModule
   ],
   providers: [
     AuthGuardService

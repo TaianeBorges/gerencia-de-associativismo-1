@@ -31,4 +31,40 @@ export class DemandService {
         })
       );
   }
+
+  getEntity(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/entidades`, this.httpOptions)
+      .pipe(
+        map(res => {
+          return res;
+        })
+      );
+  }
+
+  getUnions(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/sindicatos`, this.httpOptions)
+      .pipe(
+        map(res => {
+          return res;
+        })
+      );
+  }
+
+  getDemandStatus(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/demandas/status`, this.httpOptions)
+      .pipe(
+        map(res => {
+          return res;
+        })
+      );
+  }
+
+  getDemandCategories(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/demandas/categorias`, this.httpOptions)
+      .pipe(
+        map(res => {
+          return res;
+        })
+      );
+  }
 }
