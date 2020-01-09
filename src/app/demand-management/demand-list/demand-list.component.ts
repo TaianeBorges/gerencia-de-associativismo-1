@@ -15,6 +15,8 @@ export class DemandListComponent implements OnInit {
   page = 1;
   demandSelected: any;
   demandServiceSubscribe: Subscription;
+  params: Object;
+  openModalAddHistory = false;
 
   constructor(
     private sharedService: SharedsService,
@@ -26,18 +28,20 @@ export class DemandListComponent implements OnInit {
 
   ngOnInit() {
     this.sharedService.setTitle('Lista de demandas');
-    console.log(this.activatedRoute.snapshot.params);
-    if (window.location.search.indexOf('page=') !== -1)
-      this.page = parseInt(window.location.search.substr((window.location.search.indexOf('page=') + 5), 1));
 
-    if (isNaN(this.page))
-      this.page = 1;
-
-    if (this.page < 1) {
-      this.page = 1;
-    }
-
+    this.getFilters();
     this.listDemands();
+  }
+
+  getFilters() {
+
+    // let item = window.location.search.split('&');
+
+    let item = 'entidade_id=1&cadastrante_nome=&sindicato_id=&status_id=&demanda_id=&demanda_categoria_id=&page=1'.split('&');
+
+    console.log(item);
+
+    this.params;
   }
 
   openDemand(demand) {
@@ -77,6 +81,10 @@ export class DemandListComponent implements OnInit {
     event.stopPropagation();
   }
 
+  addHistoryDemand(event) {
+    event.stopPropagation();
+  }
+
   listDemands(filters = null) {
     if (!filters) {
       filters = {
@@ -86,7 +94,7 @@ export class DemandListComponent implements OnInit {
       filters['page'] = this.page;
     }
 
-    this.route.navigate(['gestao-de-demandas/lista-de-demandas'], { queryParams: filters });
+    // this.route.navigate(['gestao-de-demandas/lista-de-demandas'], { queryParams: filters });
 
     this.demandServiceSubscribe = this.demandService.getDemands(filters)
       .subscribe(res => {
@@ -99,6 +107,7 @@ export class DemandListComponent implements OnInit {
   }
 
   filterSubmit(event) {
+    this.page = 1;
     this.listDemands(event.filters);
   }
 

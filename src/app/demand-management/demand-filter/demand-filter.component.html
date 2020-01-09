@@ -13,6 +13,9 @@
                         <span class="badge badge-info" [ngClass]="{'badge-light': !filterVisibility}">1</span>
                         Filtros Selecionados
                     </button>
+
+                    <button type="button" class="btn btn-primary margin-l-10">Nova demanda</button>
+
                 </div>
             </div>
             <hr *ngIf="filterVisibility">
@@ -71,8 +74,9 @@
                 </div>
 
                 <div class="form-group col padding-t-30">
-                    <button type="submit" class="btn btn-primary margin-l-10">Filtrar</button>
-                    <button type="reset" (click)="resetForm(); formDemandFilter.reset()" class="btn btn-link">Limpar
+                    <button type="submit" class="btn btn-info">Filtrar</button>
+                    <button type="reset" (click)="resetForm(); formDemandFilter.reset()"
+                        class="btn btn-outline-info margin-l-10">Limpar
                         Filtro</button>
                 </div>
             </div>

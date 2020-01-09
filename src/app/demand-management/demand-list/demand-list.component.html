@@ -77,7 +77,13 @@
                 </div>
             </div>
             <div class="card-footer display-flex">
-                <a (click)="historyDemand($event); demandSelected = demand; openModal = !openModal"
+                <a (click)="addHistoryDemand($event); openModalAddHistory = !openModalAddHistory"
+                    class="color-entidade-{{demand.entidade.id}}">
+                    <i class="material-icons">
+                        add_circle_outline
+                    </i>
+                </a>
+                <a (click)="historyDemand($event); demandSelected = demand; openModalShowHistory = !openModalShowHistory"
                     class="color-entidade-{{demand.entidade.id}}">
                     <i class="material-icons">
                         history
@@ -89,8 +95,15 @@
                 </a>
             </div>
         </div>
+
+        <div *ngIf="demands && !demands?.data.length">
+            <hr>
+            <p> Nenhuma demanda encontrada...</p>
+        </div>
     </div>
 </div>
 
-<app-demand-history [demandSelected]="demandSelected" [openModal]="openModal">
+<app-demand-history [demandSelected]="demandSelected" [openModal]="openModalShowHistory">
 </app-demand-history>
+
+<app-demand-add-history [openModal]="openModalAddHistory"></app-demand-add-history>

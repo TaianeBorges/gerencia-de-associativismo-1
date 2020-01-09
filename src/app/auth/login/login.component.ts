@@ -3,6 +3,7 @@ import { FormControl, Validators, FormGroup, NG_VALIDATORS } from '@angular/form
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { AlertService } from '../../shared/alerts/alert.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -25,6 +26,11 @@ export class LoginComponent implements OnInit {
       email: new FormControl('', [Validators.minLength(4), Validators.required]),
       password: new FormControl('', [Validators.minLength(4), Validators.required])
     });
+
+    if (!environment.production) {
+      this.formLogin.get('email').setValue('aapinheiro@firjan.com.br');
+      this.formLogin.get('password').setValue('abc*123');
+    }
   }
 
   onSubmit(data: any) {
@@ -58,7 +64,7 @@ export class LoginComponent implements OnInit {
 
         this.alertService.alertShow(alert);
 
-        setTimeout(() => { 
+        setTimeout(() => {
           this.alertService.hide();
         }, 2000);
       });

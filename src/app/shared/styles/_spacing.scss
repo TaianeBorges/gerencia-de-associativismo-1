@@ -6,8 +6,8 @@
   display: flex;
 }
 
-.justify-content{
-  &-center{
+.justify-content {
+  &-center {
     justify-content: center;
   }
 }
@@ -91,6 +91,12 @@
       margin-left: 70px;
     }
   }
+
+  &-r {
+    &-auto {
+      margin-right: auto;
+    }
+  }
 }
 
 .padding {
@@ -146,7 +152,7 @@
       padding-bottom: 70px;
     }
   }
-  
+
   &-l {
     &-none {
       padding-left: none !important;
@@ -177,7 +183,6 @@
     }
   }
 
-  
   &-r {
     &-none {
       padding-right: none !important;
