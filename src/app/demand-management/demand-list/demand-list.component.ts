@@ -1,6 +1,8 @@
-import { Component, OnInit, ElementRef, Renderer2, TemplateRef } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
 import { SharedsService } from 'src/app/shared/shareds.service';
 import { DemandService } from '../demand.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-demand-list',
@@ -12,15 +14,19 @@ export class DemandListComponent implements OnInit {
   demands: any;
   page = 1;
   demandSelected: any;
+  demandServiceSubscribe: Subscription;
 
   constructor(
     private sharedService: SharedsService,
     private demandService: DemandService,
     private elRef: ElementRef,
-    private renderer: Renderer2) { }
+    private renderer: Renderer2,
+    private route: Router,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.sharedService.setTitle('Lista de demandas');
+    console.log(this.activatedRoute.snapshot.params);
     if (window.location.search.indexOf('page=') !== -1)
       this.page = parseInt(window.location.search.substr((window.location.search.indexOf('page=') + 5), 1));
 
@@ -71,8 +77,18 @@ export class DemandListComponent implements OnInit {
     event.stopPropagation();
   }
 
-  listDemands() {
-    this.demandService.getDemands(this.page)
+  listDemands(filters = null) {
+    if (!filters) {
+      filters = {
+        page: this.page
+      };
+    } else {
+      filters['page'] = this.page;
+    }
+
+    this.route.navigate(['gestao-de-demandas/lista-de-demandas'], { queryParams: filters });
+
+    this.demandServiceSubscribe = this.demandService.getDemands(filters)
       .subscribe(res => {
         this.demands = res;
       });
@@ -80,5 +96,13 @@ export class DemandListComponent implements OnInit {
 
   closeModal(event) {
     console.log(event);
+  }
+
+  filterSubmit(event) {
+    this.listDemands(event.filters);
+  }
+
+  ngOnDestroy() {
+    this.demandServiceSubscribe.unsubscribe();
   }
 }

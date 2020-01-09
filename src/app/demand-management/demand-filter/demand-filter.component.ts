@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DemandService } from '../demand.service';
 
@@ -8,6 +8,16 @@ import { DemandService } from '../demand.service';
   styleUrls: ['./demand-filter.component.scss']
 })
 export class DemandFilterComponent implements OnInit {
+
+  @ViewChild('formDemandFilter', { static: false }) formDemandFilter;
+  @ViewChild('entidade', { static: false }) entidade;
+  @ViewChild('cadastrante', { static: false }) cadastrante;
+  @ViewChild('sindicatos', { static: false }) sindicatos;
+  @ViewChild('status', { static: false }) status;
+  @ViewChild('categoria', { static: false }) categoria;
+  @ViewChild('setor', { static: false }) setor;
+
+  @Output('formOnSubmit') formOnSubmit = new EventEmitter();
 
   formFilter;
   filterVisibility = true;
@@ -32,7 +42,6 @@ export class DemandFilterComponent implements OnInit {
     searchField: ['nome', 'sigla'],
     plugins: ['dropdown_direction', 'remove_button'],
     dropdownDirection: 'down',
-    maxItems: 101,
     onChange: ($event: any) => {
       // this.getUnions($event);
     },
@@ -68,7 +77,7 @@ export class DemandFilterComponent implements OnInit {
     }
   };
   optionsDemandCategory = [];
-  configDemandSectors = {
+  configSectors = {
     labelField: 'nome',
     valueField: 'id',
     create: false,
@@ -81,7 +90,7 @@ export class DemandFilterComponent implements OnInit {
     onBlur: () => {
     }
   };
-  optionsDemandSectors = [];
+  optionsSectors = [];
 
   constructor(
     private fb: FormBuilder,
@@ -92,17 +101,18 @@ export class DemandFilterComponent implements OnInit {
     this.formFilter = this.fb.group({
       entidade_id: new FormControl(''),
       cadastrante_nome: new FormControl(''),
-      sindicatos: [],
-      status_id: new FormControl(),
-      demanda_id: new FormControl(),
-      demanda_categoria_id: new FormControl(),
-      setores: []
+      sindicato_id: new FormControl(''),
+      status_id: new FormControl(''),
+      demanda_id: new FormControl(''),
+      demanda_categoria_id: new FormControl(''),
+      setor_id: []
     });
 
     this.getEntity();
     this.getUnions();
     this.getDemandStatus();
     this.getDemandCategories();
+    this.getSectors();
   }
 
   getEntity() {
@@ -135,6 +145,27 @@ export class DemandFilterComponent implements OnInit {
         this.optionsDemandCategory = res.data;
       }
     });
+  }
+
+  getSectors() {
+    this.demandService.getSectors().subscribe(res => {
+      if (res.data) {
+        this.optionsSectors = res.data;
+      }
+    });
+  }
+
+  onSubmit(form) {
+    this.formOnSubmit.emit({ filters: form.value });
+  }
+
+  resetForm() {
+    this.entidade = '';
+    this.cadastrante = '';
+    this.sindicatos = '';
+    this.status = '';
+    this.categoria = '';
+    this.setor = '';
   }
 
   test(form) {

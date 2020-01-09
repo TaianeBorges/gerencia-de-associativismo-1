@@ -1,4 +1,5 @@
-<form [formGroup]="formFilter" (ngSubmit)="onSubmit(formFilter)" autocomplete="off">
+<form #formDemandFilter [formGroup]="formFilter" class="demand-filter" (ngSubmit)="onSubmit(formFilter)"
+    autocomplete="off">
 
     <div class="card">
         <div class="card-body">
@@ -9,64 +10,70 @@
                 <div class="col text-right">
                     <button type="button" (click)="filterVisibility = !filterVisibility" class="btn btn-outline-info"
                         [ngClass]="{'btn-info color-text-white': !filterVisibility}">
-                        <span class="badge badge-info" [ngClass]="{'badge-light': !filterVisibility}">4</span>
+                        <span class="badge badge-info" [ngClass]="{'badge-light': !filterVisibility}">1</span>
                         Filtros Selecionados
                     </button>
                 </div>
             </div>
             <hr *ngIf="filterVisibility">
             <div class="row margin-t-30" [ngClass]="{'display-none': !filterVisibility}">
-                <div class="form-group col">
+                <div class="form-group col-lg-3 col-md-6 col-sm-12">
                     <label for="">Entidade</label>
-                    <ng2-selectize formControlName="entidade_id"
+                    <ng2-selectize [(ngModel)]="entidade" formControlName="entidade_id"
                         [ngClass]="{'is-invalid': formFilter.get('entidade_id').errors && formFilter.get('entidade_id').touched }"
                         class="selectize-entity" [config]="configEntity" [options]="optionsEntity"
                         placeholder="Selecione a entidade">
                     </ng2-selectize>
                 </div>
 
-                <div class="form-group col">
+                <div class="form-group col-lg-3 col-md-6 col-sm-12">
                     <label for="">Cadastrante</label>
-                    <input type="text"
+                    <input type="text" [(ngModel)]="cadastrante"
                         [ngClass]="{'is-invalid': formFilter.get('cadastrante_nome').errors && formFilter.get('cadastrante_nome').touched }"
                         formControlName="cadastrante_nome" class="form-control" id="cadastrante_nome"
                         placeholder="Digite o cadastrante">
                 </div>
 
-                <div class="form-group col">
+                <div class="form-group col-lg-3 col-md-6 col-sm-12">
                     <label for="">Sindicatos</label>
-                    <ng2-selectize formControlName="sindicatos"
-                        [ngClass]="{'is-invalid': formFilter.get('sindicatos').errors && formFilter.get('sindicatos').touched }"
+                    <ng2-selectize formControlName="sindicato_id" [(ngModel)]="sindicatos"
+                        [ngClass]="{'is-invalid': formFilter.get('sindicato_id').errors && formFilter.get('sindicato_id').touched }"
                         class="selectize-unions" [config]="configUnions" [options]="optionsUnions"
                         placeholder="Selecione a entidade">
                     </ng2-selectize>
                 </div>
 
-                <div class="form-group col">
+                <div class="form-group col-lg-3 col-md-6 col-sm-12">
                     <label for="">Status</label>
-                    <ng2-selectize formControlName="status_id"
+                    <ng2-selectize formControlName="status_id" [(ngModel)]="status"
                         [ngClass]="{'is-invalid': formFilter.get('status_id').errors && formFilter.get('status_id').touched }"
                         class="selectize-demand-status" [config]="configDemandStatus" [options]="optionsDemandStatus"
                         placeholder="Selecione a entidade">
                     </ng2-selectize>
                 </div>
 
-                <div class="form-group col">
+                <div class="form-group col-lg-3 col-md-6 col-sm-12">
                     <label for="">Categorias</label>
-                    <ng2-selectize formControlName="demanda_categoria_id"
+                    <ng2-selectize formControlName="demanda_categoria_id" [(ngModel)]="categoria"
                         [ngClass]="{'is-invalid': formFilter.get('demanda_categoria_id').errors && formFilter.get('demanda_categoria_id').touched }"
                         class="selectize-demand-category" [config]="configDemandCategory"
                         [options]="optionsDemandCategory" placeholder="Selecione a categoria">
                     </ng2-selectize>
                 </div>
 
-                <div class="form-group col">
+                <div class="form-group col-lg-3 col-md-6 col-sm-12">
                     <label for="">Setor</label>
-                    <ng2-selectize formControlName="setores"
-                        [ngClass]="{'is-invalid': formFilter.get('setores').errors && formFilter.get('setores').touched }"
-                        class="selectize-demand-category" [config]="configDemandSectors"
-                        [options]="optionsDemandSectors" placeholder="Selecione a categoria">
+                    <ng2-selectize formControlName="setor_id" [(ngModel)]="setor"
+                        [ngClass]="{'is-invalid': formFilter.get('setor_id').errors && formFilter.get('setor_id').touched }"
+                        class="selectize-sectors" [config]="configSectors" [options]="optionsSectors"
+                        placeholder="Selecione a categoria">
                     </ng2-selectize>
+                </div>
+
+                <div class="form-group col padding-t-30">
+                    <button type="submit" class="btn btn-primary margin-l-10">Filtrar</button>
+                    <button type="reset" (click)="resetForm(); formDemandFilter.reset()" class="btn btn-link">Limpar
+                        Filtro</button>
                 </div>
             </div>
         </div>

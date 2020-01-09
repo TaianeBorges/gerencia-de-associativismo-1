@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 })
 export class DemandPaginationComponent implements OnInit {
 
-  page = 1;
   nextButton: boolean;
   beforeButton: boolean;
 
@@ -18,42 +17,41 @@ export class DemandPaginationComponent implements OnInit {
 
   @Input('demands') demands: any;
   @Output('pagination') pagination = new EventEmitter();
+  @Input('currentPage') currentPage: number;
 
   ngOnInit() {
     if (window.location.search.indexOf('page=') !== -1)
-      this.page = parseInt(window.location.search.substr((window.location.search.indexOf('page=') + 5), 1));
+      this.currentPage = parseInt(window.location.search.substr((window.location.search.indexOf('page=') + 5), 1));
 
-    if (isNaN(this.page))
-      this.page = 1;
+    if (isNaN(this.currentPage))
+      this.currentPage = 1;
 
-    if (typeof this.page === 'number' && this.page === 1)
+    if (typeof this.currentPage === 'number' && this.currentPage === 1)
       this.permissionButton();
   }
 
   getDemand(direction: string) {
     if (direction === 'next') {
-      this.page++;
+      this.currentPage++;
     } else {
-      this.page--;
+      this.currentPage--;
     }
 
     this.permissionButton();
-
-    this.route.navigate(['gestao-de-demandas/lista-de-demandas'], { queryParams: { page: this.page } });
-    this.pagination.emit({ page: this.page });
+    this.pagination.emit({ page: this.currentPage });
   }
 
   permissionButton() {
-    if (this.page <= 1) {
+    if (this.currentPage <= 1) {
       this.beforeButton = true;
-      this.page = 1;
+      this.currentPage = 1;
     } else {
       this.beforeButton = false;
     }
 
     if (this.demands && (this.demands.offset + this.demands.limit) >= this.demands.total) {
       this.nextButton = true;
-      this.page = this.page - 1;
+      this.currentPage = this.currentPage - 1;
     } else {
       this.nextButton = false;
     }

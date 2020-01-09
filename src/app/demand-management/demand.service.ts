@@ -14,8 +14,20 @@ export class DemandService {
   };
   constructor(private http: HttpClient) { }
 
-  getDemands(page): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/demandas?page=${page}`, this.httpOptions)
+  getDemands(filters): Observable<any> {
+
+    let data = {};
+
+    for (let key in filters) {
+      if (filters[key]) {
+        data[key] = filters[key];
+      }
+    }
+
+    return this.http.get(`${environment.apiUrl}/demandas`, {
+      params: data,
+      headers: this.httpOptions.headers
+    })
       .pipe(
         map(res => {
           return res;
@@ -61,6 +73,15 @@ export class DemandService {
 
   getDemandCategories(): Observable<any> {
     return this.http.get(`${environment.apiUrl}/demandas/categorias`, this.httpOptions)
+      .pipe(
+        map(res => {
+          return res;
+        })
+      );
+  }
+
+  getSectors(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/sindicatos/setores`, this.httpOptions)
       .pipe(
         map(res => {
           return res;

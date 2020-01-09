@@ -1,3 +1,14 @@
 .color-text-white {
-    color: #fff;
+  color: #fff;
+}
+
+.demand-filter {
+  .form-group {
+    label {
+      font-size: 13px;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: #c4c5c5 !important;
+    }
+  }
 }

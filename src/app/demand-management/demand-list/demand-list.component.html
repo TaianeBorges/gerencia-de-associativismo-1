@@ -1,7 +1,8 @@
 <div class="demand-list-container">
-    <app-demand-filter></app-demand-filter>
+    <app-demand-filter (formOnSubmit)="filterSubmit($event)"></app-demand-filter>
 
-    <app-demand-pagination [demands]="demands" (pagination)="onPagination($event)"></app-demand-pagination>
+    <app-demand-pagination [currentPage]="page" [demands]="demands" (pagination)="onPagination($event)">
+    </app-demand-pagination>
 
     <div class="padding-l-20 padding-r-20">
 
@@ -53,11 +54,19 @@
 
                 <div class="row extended-items display-none margin-t-30">
                     <div class="card-group card-categoria">
+                        <em>Entidade</em>
+                        <p class="card-text">
+                            {{demand.entidade.nome}}
+                        </p>
+                    </div>
+
+                    <div class="card-group card-categoria">
                         <em>Categoria</em>
                         <p class="card-text">
                             {{demand.subcategoria_demanda.categoria_demanda.nome}}
                         </p>
                     </div>
+
 
                     <div class="card-group card-descricao">
                         <em>Descrição</em>
