@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, ViewEncapsulation, ViewRef } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsersService } from '../users.service';
@@ -21,6 +21,7 @@ export class RegisterComponent implements OnInit {
   selectRegional: any;
   selectCargo: any;
   permissionOffice = true;
+  @ViewChild('selectizeSector', { static: false }) selectizeSector;
 
   configRegional = {
     labelField: 'nome',
@@ -31,7 +32,7 @@ export class RegisterComponent implements OnInit {
     dropdownDirection: 'down',
     maxItems: 20,
     onChange: ($event: any) => {
-      this.getUnions($event);
+      // this.getUnions($event);
     },
     onBlur: () => {
     }
@@ -56,7 +57,11 @@ export class RegisterComponent implements OnInit {
     searchField: ['nome'],
     plugins: ['dropdown_direction', 'remove_button'],
     dropdownDirection: 'up',
-    maxItems: 200
+    maxItems: 200,
+    onBlur: () => {
+      if (this.selectizeSector.value.length)
+        this.getUnionsBySectors(this.selectizeSector.value);
+    }
   };
 
   configManagement = {
@@ -85,6 +90,7 @@ export class RegisterComponent implements OnInit {
       }
     }
   };
+
 
   optionLotacao = [];
   optionRegional = [];
@@ -314,20 +320,26 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  getUnions(regionals) {
+  getUnionsBySectors(sectors) {
     const data = {
-      regionais: regionals,
-      filter: ['id']
+      setores_sindicato: sectors
     };
 
-    this.userService.getUnions(data).subscribe(res => {
+    let filter = [];
+
+    this.userService.getUnionsBySectors(data).subscribe(res => {
 
       if (res) {
         this.optionsSindicatos = res.data;
 
-        setTimeout(() => {
-          this.formRegister.get('relacionamento.sindicatos').setValue(res.filter);
-        }, 1000);
+        for (let item of res.data) {
+          filter.push(item.id);
+        }
+
+        if (res.data.length)
+          setTimeout(() => {
+            this.formRegister.get('relacionamento.sindicatos').setValue(filter);
+          }, 1000);
       }
     });
   }
