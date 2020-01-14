@@ -1,8 +1,8 @@
-import {Injectable, EventEmitter} from '@angular/core';
-import {environment} from '../../environments/environment';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import { Injectable, EventEmitter } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +10,7 @@ import {Observable} from 'rxjs';
 export class UsersService {
 
     private httpOptions = {
-        headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
     };
 
     constructor(private http: HttpClient) {
@@ -93,12 +93,16 @@ export class UsersService {
             );
     }
 
-    getUsers() {
+    getUsers(): Observable<any> {
         return this.http.get(`${environment.apiUrl}/usuarios`, this.httpOptions)
             .pipe(
                 map(res => {
                     return res;
                 })
             );
+    }
+
+    enableUser(data: any) {
+        return this.http.post(`${environment.apiUrl}/usuario/habilitar`, data, this.httpOptions);
     }
 }

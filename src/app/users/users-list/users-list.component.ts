@@ -1,6 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {UsersService} from '../users.service';
-import {Subscription} from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { UsersService } from '../users.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-users-list',
@@ -10,11 +10,12 @@ import {Subscription} from 'rxjs';
 export class UsersListComponent implements OnInit {
 
     usersServicesSubscribe: Subscription;
+    usersEnableSubscribe: Subscription;
     users = [];
     userActive: boolean;
     optionsPermission = [
-        {id: 0, name: 'Ativado'},
-        {id: 1, name: 'Desativado'}
+        { id: 0, name: 'Desativado' },
+        { id: 1, name: 'Ativado' }
     ];
 
     constructor(private usersServices: UsersService) {
@@ -32,8 +33,19 @@ export class UsersListComponent implements OnInit {
         });
     }
 
-    enableUser(value) {
-        console.log(value);
+    enableUser(value, id) {
+        if (value) {
+            const data = {
+                user_id: id,
+                active: value
+            }
+
+            this.usersEnableSubscribe = this.usersServices.enableUser(data).subscribe(res => {
+                if (res) {
+                    console.log(res);
+                }
+            });
+        }
     }
 
     ngOnDestroy() {

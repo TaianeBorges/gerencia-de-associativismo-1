@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
         } else {
           alert = {
             status: 200,
-            message: 'E-mail ou senha inválido.',
+            message: res.message ? res.message : 'E-mail ou senha inválido.',
             title: 'Ops!',
             icon: 'priority_high',
             color: 'warning'
