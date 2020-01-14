@@ -14,31 +14,30 @@
                             <div class="form-group">
                                 <label for="name">Nome</label>
                                 <input type="text"
-                                       [ngClass]="{'is-invalid': formRegister.get('name').errors && formRegister.get('name').touched }"
-                                       formControlName="name" class="form-control" id="name"
-                                       placeholder="Digite seu nome">
+                                    [ngClass]="{'is-invalid': formRegister.get('name').errors && formRegister.get('name').touched }"
+                                    formControlName="name" class="form-control" id="name" placeholder="Digite seu nome">
                             </div>
                             <div class="form-group">
                                 <label for="email">E-mail</label>
                                 <input type="text"
-                                       [ngClass]="{'is-invalid': formRegister.get('email').errors && formRegister.get('email').touched }"
-                                       formControlName="email" class="form-control" id="email"
-                                       placeholder="Digite seu e-mail">
+                                    [ngClass]="{'is-invalid': formRegister.get('email').errors && formRegister.get('email').touched }"
+                                    formControlName="email" class="form-control" id="email"
+                                    placeholder="Digite seu e-mail">
                             </div>
                             <div class="form-group">
                                 <label for="telephone">Telefone</label>
                                 <input type="text"
-                                       [ngClass]="{'is-invalid': formRegister.get('telephone').errors && formRegister.get('telephone').touched }"
-                                       formControlName="telephone"
-                                       value="{{formRegister.get('telephone').value | telephone}}" class="form-control"
-                                       id="telephone" maxlength="15" placeholder="Digite seu telefone">
+                                    [ngClass]="{'is-invalid': formRegister.get('telephone').errors && formRegister.get('telephone').touched }"
+                                    formControlName="telephone"
+                                    value="{{formRegister.get('telephone').value | telephone}}" class="form-control"
+                                    id="telephone" maxlength="15" placeholder="Digite seu telefone">
                             </div>
                             <div class="form-group">
                                 <label for="lotacao_id">Lotação</label>
                                 <select name="lotacao_id" formControlName="lotacao_id"
-                                        (change)="getGeneralManagement(); getSector()"
-                                        [ngClass]="{'is-invalid': formRegister.get('lotacao_id').errors && formRegister.get('lotacao_id').touched }"
-                                        class="form-control" id="lotacao_id">
+                                    (change)="getGeneralManagement(); getSector()"
+                                    [ngClass]="{'is-invalid': formRegister.get('lotacao_id').errors && formRegister.get('lotacao_id').touched }"
+                                    class="form-control" id="lotacao_id">
                                     <option value="">Selecione a lotação</option>
                                     <option *ngFor="let item of optionLotacao" [value]="item.id">
                                         {{item.nome}}
@@ -58,23 +57,23 @@
                             <div class="form-group">
                                 <label for="username">Usuário</label>
                                 <input type="text"
-                                       [ngClass]="{'is-invalid': formRegister.get('username').errors && formRegister.get('username').touched }"
-                                       formControlName="username" class="form-control" id="username"
-                                       placeholder="Digite seu nome">
+                                    [ngClass]="{'is-invalid': formRegister.get('username').errors && formRegister.get('username').touched }"
+                                    formControlName="username" class="form-control" id="username"
+                                    placeholder="Digite seu nome">
                             </div>
                             <div class="form-group">
                                 <label for="password">Senha</label>
                                 <input type="password"
-                                       [ngClass]="{'is-invalid': formRegister.get('password').errors && formRegister.get('password').touched }"
-                                       formControlName="password" class="form-control" id="password"
-                                       placeholder="Digite seu e-mail">
+                                    [ngClass]="{'is-invalid': formRegister.get('password').errors && formRegister.get('password').touched }"
+                                    formControlName="password" class="form-control" id="password"
+                                    placeholder="Digite seu e-mail">
                             </div>
                             <div class="form-group">
                                 <label for="confirmPassword">Confirmar senha</label>
                                 <input type="password"
-                                       [ngClass]="{'is-invalid': formRegister.get('confirmPassword').errors && formRegister.get('confirmPassword').touched }"
-                                       formControlName="confirmPassword" class="form-control" id="confirmPassword"
-                                       placeholder="Digite seu e-mail" (blur)="matchValues(formRegister)">
+                                    [ngClass]="{'is-invalid': formRegister.get('confirmPassword').errors && formRegister.get('confirmPassword').touched }"
+                                    formControlName="confirmPassword" class="form-control" id="confirmPassword"
+                                    placeholder="Digite seu e-mail" (blur)="matchValues(formRegister)">
                             </div>
                         </div>
                     </div>
@@ -90,8 +89,8 @@
                             <div class="card-body">
                                 <label for="">Gerencia Geral</label>
                                 <select name="gerencia_geral_id" formControlName="gerencia_geral_id"
-                                        class="form-control" (change)="getManagements()"
-                                        [ngClass]="{'is-invalid': formRegister.get('gerencia_geral_id').errors && formRegister.get('gerencia_geral_id').touched }">
+                                    class="form-control" (change)="getManagements()"
+                                    [ngClass]="{'is-invalid': formRegister.get('gerencia_geral_id').errors && formRegister.get('gerencia_geral_id').touched }">
                                     <option value="">Selecione a gerencia geral</option>
                                     <option *ngFor="let item of optionGeneralManagement" [value]="item.id">
                                         {{item.sigla}}
@@ -108,9 +107,8 @@
                             <div class="card-body">
                                 <label for="">Gerencia</label>
                                 <ng2-selectize formControlName="gerencia_id"
-                                               [ngClass]="{'is-invalid': formRegister.get('gerencia_id').errors && formRegister.get('gerencia_id').touched }"
-                                               class="selectize-regional" [config]="configManagement"
-                                               [options]="optionManagement">
+                                    [ngClass]="{'is-invalid': formRegister.get('gerencia_id').errors && formRegister.get('gerencia_id').touched }"
+                                    class="selectize-regional" [config]="configManagement" [options]="optionManagement">
                                 </ng2-selectize>
                             </div>
                         </div>
@@ -125,8 +123,8 @@
                             <div class="card-body">
                                 <label for="divisao_id">Divisão</label>
                                 <select name="divisao_id" formControlName="divisao_id" class="form-control"
-                                        id="divisao_id"
-                                        [ngClass]="{'is-invalid': formRegister.get('divisao_id').errors && formRegister.get('divisao_id').touched }">
+                                    id="divisao_id"
+                                    [ngClass]="{'is-invalid': formRegister.get('divisao_id').errors && formRegister.get('divisao_id').touched }">
                                     <option value="">Selecione a divisão</option>
                                     <option *ngFor="let item of optionDivisions" [value]="item.id">
                                         {{item.sigla}}
@@ -142,59 +140,55 @@
                         <p class="form-subtitle">Preencha os dados abaixo.</p>
                         <div class="card">
                             <div class="card-body" formGroupName="relacionamento">
-                                <!--<div *ngIf="!formRegister.get('relacionamento.check_relacionamento_setorial').value">-->
-                                <!--<div class="form-check">-->
-                                <!--<input type="checkbox" class="form-check-input"-->
-                                <!--formControlName="check_relacionamento" id="relacionamento">-->
-                                <!--<label class="form-check-label" for="relacionamento">Equipe de-->
-                                <!--relacionamento</label>-->
-                                <!--</div>-->
-
-                                <!--<div class="form-group margin-t-20"-->
-                                <!--*ngIf="formRegister.get('relacionamento.check_relacionamento').value">-->
-                                <!--<label for="">Regional</label>-->
-                                <!--<ng2-selectize formControlName="regionais"-->
-                                <!--[ngClass]="{'is-invalid': formRegister.get('relacionamento.check_relacionamento').errors && formRegister.get('relacionamento.check_relacionamento').touched }"-->
-                                <!--class="selectize-regional" [config]="configRegional"-->
-                                <!--[options]="optionRegional">-->
-                                <!--</ng2-selectize>-->
-                                <!--</div>-->
-                                <!--<div class="form-group"-->
-                                <!--*ngIf="formRegister.get('relacionamento.check_relacionamento').value">-->
-                                <!--<label for="">Sindicatos</label>-->
-                                <!--<ng2-selectize formControlName="sindicatos" #selectizeSindicato-->
-                                <!--class="selectize-sindicato" [config]="configSindicato"-->
-                                <!--[options]="optionsSindicatos">-->
-                                <!--</ng2-selectize>-->
-                                <!--</div>-->
-                                <!--</div>-->
-
-                                <div>
+                                <!-- <div *ngIf="!formRegister.get('relacionamento.check_relacionamento_setorial').value">
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input"
-                                               formControlName="check_relacionamento_setorial"
-                                               id="relacionamento_setorial">
-                                        <label class="form-check-label" for="relacionamento_setorial">Equipe de
-                                            relacionamento setorial</label>
+                                            formControlName="check_relacionamento" id="relacionamento">
+                                        <label class="form-check-label" for="relacionamento">Equipe de
+                                            relacionamento</label>
                                     </div>
 
-                                    <div class=" margin-t-20"
-                                         *ngIf="formRegister.get('relacionamento.check_relacionamento_setorial').value">
-                                        <label for="">Setores</label>
-                                        <ng2-selectize formControlName="setores_sindicato" #selectizeSector
-                                                       class="selectize-setor" [config]="configUnionsSectors"
-                                                       [options]="optionsUnionsSectors">
+                                    <div class="form-group margin-t-20"
+                                        *ngIf="formRegister.get('relacionamento.check_relacionamento').value">
+                                        <label for="">Regional</label>
+                                        <ng2-selectize formControlName="regionais"
+                                            [ngClass]="{'is-invalid': formRegister.get('relacionamento.check_relacionamento').errors && formRegister.get('relacionamento.check_relacionamento').touched }"
+                                            class="selectize-regional" [config]="configRegional"
+                                            [options]="optionRegional">
                                         </ng2-selectize>
                                     </div>
-
                                     <div class="form-group"
-                                         *ngIf="formRegister.get('relacionamento.check_relacionamento_setorial').value">
+                                        *ngIf="formRegister.get('relacionamento.check_relacionamento').value">
                                         <label for="">Sindicatos</label>
                                         <ng2-selectize formControlName="sindicatos" #selectizeSindicato
-                                                       class="selectize-sindicato" [config]="configSindicato"
-                                                       [options]="optionsSindicatos">
+                                            class="selectize-sindicato" [config]="configSindicato"
+                                            [options]="optionsSindicatos">
                                         </ng2-selectize>
                                     </div>
+                                </div> -->
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input"
+                                        formControlName="check_relacionamento_setorial" id="relacionamento_setorial">
+                                    <label class="form-check-label" for="relacionamento_setorial">Equipe de
+                                        relacionamento setorial</label>
+                                </div>
+
+                                <div class=" margin-t-20"
+                                    *ngIf="formRegister.get('relacionamento.check_relacionamento_setorial').value">
+                                    <label for="">Setores</label>
+                                    <ng2-selectize formControlName="setores_sindicato" #selectizeSector
+                                        class="selectize-setor" [config]="configUnionsSectors"
+                                        [options]="optionsUnionsSectors">
+                                    </ng2-selectize>
+                                </div>
+
+                                <div class="form-group"
+                                    *ngIf="formRegister.get('relacionamento.check_relacionamento_setorial').value">
+                                    <label for="">Sindicatos</label>
+                                    <ng2-selectize formControlName="sindicatos" #selectizeSindicato
+                                        class="selectize-sindicato" [config]="configSindicato"
+                                        [options]="optionsSindicatos">
+                                    </ng2-selectize>
                                 </div>
                             </div>
                         </div>
@@ -203,7 +197,7 @@
             </div>
 
             <div class="row"
-                 *ngIf="formRegister.get('lotacao_id').value && formRegister.get('lotacao_id').value !== '1'">
+                *ngIf="formRegister.get('lotacao_id').value && formRegister.get('lotacao_id').value !== '1'">
                 <div class="block-group  margin-t-40 col-md-6">
                     <h3 class="form-title">Representante Regional</h3>
                     <p class="form-subtitle">Se você for representante de uma regional, preencha os dados abaixo.</p>
@@ -215,18 +209,17 @@
                                         <div class="form-group">
                                             <label for="" class="text-white">Regional</label>
                                             <input type="text" value="{{cargo.regional.nome}}" class="form-control"
-                                                   readonly>
+                                                readonly>
                                         </div>
                                         <div class="form-group">
                                             <label for="" class="text-white">Cargo</label>
                                             <input type="text" value="{{cargo.cargo.nome}}" class="form-control"
-                                                   readonly>
+                                                readonly>
                                         </div>
 
                                         <div class="text-right">
                                             <button type="button" class="btn btn-link btn-card  text-white border-light"
-                                                    (click)="removeOffice(i)">remover
-                                            </button>
+                                                (click)="removeOffice(i)">remover</button>
                                         </div>
                                     </div>
 
@@ -237,9 +230,9 @@
                                 <div class="form-group">
                                     <label for="representante_regional">Regional</label>
                                     <select name="representante_regional"
-                                            [ngClass]="{'is-invalid': formRegister.get('representante_regional.regional').errors && formRegister.get('representante_regional.regional').touched }"
-                                            formControlName="regional" [(ngModel)]="selectRegional" class="form-control"
-                                            id="representante_regional">
+                                        [ngClass]="{'is-invalid': formRegister.get('representante_regional.regional').errors && formRegister.get('representante_regional.regional').touched }"
+                                        formControlName="regional" [(ngModel)]="selectRegional" class="form-control"
+                                        id="representante_regional">
                                         <option *ngFor="let item of optionRegional" value="{{item.id}}">
                                             {{item.nome}}
                                         </option>
@@ -248,11 +241,11 @@
                                 <div class="form-group">
                                     <label for="cargo_representante">Cargo</label>
                                     <select name="cargo_representante"
-                                            [ngClass]="{'is-invalid': formRegister.get('representante_regional.cargo').errors && formRegister.get('representante_regional.cargo').touched }"
-                                            formControlName="cargo" [(ngModel)]="selectCargo" class="form-control"
-                                            id="cargo_representante">
+                                        [ngClass]="{'is-invalid': formRegister.get('representante_regional.cargo').errors && formRegister.get('representante_regional.cargo').touched }"
+                                        formControlName="cargo" [(ngModel)]="selectCargo" class="form-control"
+                                        id="cargo_representante">
                                         <option *ngFor="let item of optionCargos; trackBy: trackByFn"
-                                                value="{{item.id}}">
+                                            value="{{item.id}}">
                                             {{item.nome}}
                                         </option>
                                     </select>
@@ -262,7 +255,7 @@
 
                         <div class="card-footer text-center" *ngIf="permissionOffice">
                             <button type="button" class="btn btn-link btn-card"
-                                    (click)="selectRegional && selectCargo ? addOffice([selectRegional, selectCargo]) : null">
+                                (click)="selectRegional && selectCargo ? addOffice([selectRegional, selectCargo]) : null">
                                 Adicionar cargo
                             </button>
                         </div>
