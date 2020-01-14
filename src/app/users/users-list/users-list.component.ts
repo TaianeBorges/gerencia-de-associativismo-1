@@ -34,7 +34,6 @@ export class UsersListComponent implements OnInit {
 
     enableUser(value) {
         console.log(value);
-        // console.log(this.userActive);
     }
 
     ngOnDestroy() {
