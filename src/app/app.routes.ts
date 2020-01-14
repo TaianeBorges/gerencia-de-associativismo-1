@@ -1,6 +1,6 @@
-import { Routes } from '@angular/router';
-import { AuthGuardService } from './guards/auth-guard.service';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import {Routes} from '@angular/router';
+import {AuthGuardService} from './guards/auth-guard.service';
+import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 export const APP_ROUTES: Routes = [
     {
@@ -18,7 +18,7 @@ export const APP_ROUTES: Routes = [
         canActivateChild: [AuthGuardService]
     },
     {
-        path: 'usuario',
+        path: 'usuarios',
         loadChildren: () => import('./users/users.module').then(mod => mod.UsersModule)
     },
     {
@@ -31,8 +31,8 @@ export const APP_ROUTES: Routes = [
         loadChildren: () => import('./who-is/who-is.module').then(mod => mod.WhoIsModule),
         canActivateChild: [AuthGuardService]
     },
-    { path: 'cadastro', redirectTo: 'usuario' },
-    { path: 'login', redirectTo: 'auth/login' },
-    { path: 'logout', redirectTo: 'auth/logout' },
-    { path: '**', component: PageNotFoundComponent }
+    {path: 'cadastro', redirectTo: 'usuarios/lista-de-usuarios'},
+    {path: 'login', redirectTo: 'auth/login'},
+    {path: 'logout', redirectTo: 'auth/logout'},
+    {path: '**', component: PageNotFoundComponent}
 ];

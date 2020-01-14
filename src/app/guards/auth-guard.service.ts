@@ -1,54 +1,66 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { AuthService } from '../auth/auth.service';
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
+import {Observable} from 'rxjs';
+import {AuthService} from '../auth/auth.service';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthGuardService {
-  private isAuthenticated = false;
+    private isAuthenticated = false;
 
-  constructor(
-    private router: Router,
-    private authService: AuthService) { }
+    constructor(
+        private router: Router,
+        private authService: AuthService) {
+    }
 
-  canActivateChild(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | boolean {
+    canActivateChild(
+        route: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot): Observable<boolean> | boolean {
 
-    this.isLoggedIn().subscribe(res => {
-      if (!res.authenticate) {
-        this.router.navigate(['/login']);
-        return false;
-      }
-    },
-      error => {
-        console.log(`Ocorreu o seguinte erro: ${error}`);
-        return false;
-      });
+        this.isLoggedIn().subscribe(res => {
+                if (!res.authenticate) {
+                    this.router.navigate(['/login']);
+                    return false;
+                }
+            },
+            error => {
+                console.log(`Ocorreu o seguinte erro: ${error}`);
+                return false;
+            });
 
-    return true;
-  }
+        return true;
+    }
 
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.isLoggedIn();
-  }
+    canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-  login(): any {
-    return this.isLoggedIn().subscribe(res => {
-      if (!res.authenticate) {
-        this.router.navigate(['/login']);
-        return false;
-      }
-    },
-      error => {
-        console.log(`Ocorreu o seguinte erro: ${error}`);
-        return false;
-      });
-  }
+        this.isLoggedIn().subscribe(res => {
+            if (!res.authenticate) {
+                this.router.navigate(['/login']);
+                return false;
+            }
+        }, error1 => {
+            console.log(`Ocorreu o seguinte erro: ${error1}`);
+            return false;
+        });
 
-  isLoggedIn(): Observable<any> {
-    return this.authService.checkAuthorization();
-  }
+        return true;
+    }
+
+    login(): any {
+        return this.isLoggedIn().subscribe(res => {
+                if (!res.authenticate) {
+                    this.router.navigate(['/login']);
+                    return false;
+                }
+            },
+            error => {
+                console.log(`Ocorreu o seguinte erro: ${error}`);
+                return false;
+            });
+    }
+
+    isLoggedIn(): Observable<any> {
+        return this.authService.checkAuthorization();
+    }
 }
