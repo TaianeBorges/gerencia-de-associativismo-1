@@ -20,6 +20,12 @@
                         <em>ID</em>
                         <p class="card-text">#{{demand.id}}</p>
                     </div>
+                    <div class="card-group card-categoria">
+                        <em>Entidade</em>
+                        <p class="card-text">
+                            {{demand.entidade.nome}}
+                        </p>
+                    </div>
                     <div class="card-group card-sindicato">
                         <em>Sindicato</em>
                         <p class="card-text" *ngFor="let item of demand.demandas_sindicatos">{{item.sigla}}</p>
@@ -31,12 +37,12 @@
                         </p>
                     </div>
 
-                    <div class="card-group">
+                    <div class="card-group card-date">
                         <em>Cadastrado em</em>
                         <p class="card-text">{{demand.created_at | date:'d MMM, y'}}</p>
                     </div>
 
-                    <div class="card-group">
+                    <div class="card-group card-date">
                         <em>Atualizado em</em>
                         <p class="card-text">
                             {{demand.historico_demanda[0].created_at | date:'d MMM, y'}}
@@ -53,12 +59,7 @@
                 </div>
 
                 <div class="row extended-items display-none margin-t-30">
-                    <div class="card-group card-categoria">
-                        <em>Entidade</em>
-                        <p class="card-text">
-                            {{demand.entidade.nome}}
-                        </p>
-                    </div>
+
 
                     <div class="card-group card-categoria">
                         <em>Categoria</em>

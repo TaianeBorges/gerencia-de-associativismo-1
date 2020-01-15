@@ -29,6 +29,9 @@ input::-webkit-input-placeholder {
     color: #ccc;
     margin: 0;
   }
+  &-control {
+    background: white;
+  }
 }
 
 form {

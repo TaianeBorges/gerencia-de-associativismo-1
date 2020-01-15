@@ -1,13 +1,17 @@
+@import "../../shared/styles/forms";
+
 .color-text-white {
   color: #fff;
 }
 
 .demand-filter {
-
-  .card {
-
+  h1 {
+    margin-bottom: 0;
   }
-  
+  .card {
+    max-width: initial;
+  }
+
   .form-group {
     label {
       font-size: 13px;

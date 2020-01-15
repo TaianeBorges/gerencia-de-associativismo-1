@@ -216,10 +216,11 @@ export class RegisterComponent implements OnInit {
           };
 
           this.formRegister.reset();
-          this.authService.storeAuthorizationToken(res.token);
+          // this.authService.storeAuthorizationToken(res.token);
 
           this.alertService.alertShow(dataAlert);
-          this.router.navigate(['/']);
+          
+          this.router.navigate(['/auth/login']);
 
           setTimeout(() => {
             this.alertService.hide();

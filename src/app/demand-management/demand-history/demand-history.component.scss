@@ -1,3 +1,14 @@
+.modal-header {
+  .modal-title {
+    max-width: 600px;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right: 10px;
+  }
+}
+
 .modal-body {
   & > div:not(:last-child) .status-item {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -16,7 +27,7 @@
     .demand-label {
       font-size: 13px;
       text-transform: uppercase;
-      font-weight: 500;
+      font-weight: 600;
       color: #c4c5c5 !important;
     }
 
