@@ -10,7 +10,7 @@
                         <th scope="col">E-mail</th>
                         <th scope="col">Tipo de usuário</th>
                         <th scope="col">Lotação</th>
-                        <th scope="col">Ativado</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,11 +23,20 @@
                         <td>{{user.role_details.label}}</td>
                         <td>{{user.lotacao.nome}}</td>
                         <td>
-                            <select class="form-control" (change)="enableUser($event.target.value, user.id)"
-                                [(ngModel)]="user.active">
-                                <option value="{{item.id}}" *ngFor="let item of optionsPermission">{{item.name}}
-                                </option>
-                            </select>
+                            <div class="btn-action">
+                                <div class="btn btn-link">
+                                    <i class="material-icons">
+                                        face
+                                    </i>
+                                </div>
+
+                                <div (click)="enableUser(user.active, user.id)">
+                                    <i class="material-icons icon-toggle"
+                                        [ngClass]="{'text-success': user.active, 'text-danger': !user.active}">
+                                        {{user.active ? 'toggle_on' : 'toggle_off'}}
+                                    </i>
+                                </div>
+                            </div>
                         </td>
                     </tr>
 

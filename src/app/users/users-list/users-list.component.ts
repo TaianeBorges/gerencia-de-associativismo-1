@@ -34,15 +34,19 @@ export class UsersListComponent implements OnInit {
     }
 
     enableUser(value, id) {
-        if (value) {
+        if (confirm('Tem certeza desta operação?')) {
             const data = {
                 user_id: id,
-                active: value
+                active: !value
             }
 
             this.usersEnableSubscribe = this.usersServices.enableUser(data).subscribe(res => {
                 if (res) {
-                    console.log(res);
+                    this.users.forEach((element, index) => {
+                        if (element.id == res.user.id) {
+                            this.users[index].active = res.user.active;
+                        }
+                    });
                 }
             });
         }

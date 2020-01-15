@@ -102,7 +102,11 @@ export class UsersService {
             );
     }
 
-    enableUser(data: any) {
-        return this.http.post(`${environment.apiUrl}/usuario/habilitar`, data, this.httpOptions);
+    enableUser(data: any): Observable<any> {
+        return this.http.post(`${environment.apiUrl}/usuario/habilitar`, data, this.httpOptions).pipe(
+            map(res => {
+                return res;
+            })
+        );
     }
 }
