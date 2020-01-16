@@ -1,0 +1,179 @@
+<div class="demand-add-container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a [routerLink]="['/gestao-de-demandas/lista-de-demandas']">Lista de demandas</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Nova demanda</li>
+        </ol>
+    </nav>
+
+    <form [formGroup]="formDemand" class="margin-t-60" (ngSubmit)="onSubmit(formDemand)" autocomplete="off">
+        <div class="demand-card-group">
+            <h3>Dados do solicitante</h3>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="row" formGroupName="cadastrante">
+                        <div class="form-group col-lg-4">
+                            <label class="card-label mb-2 text-muted">Nome</label>
+                            <input type="text"
+                                [ngClass]="{'is-invalid': formDemand.get('cadastrante.nome').errors && formDemand.get('cadastrante.nome').touched }"
+                                formControlName="nome" class="form-control" id="nome"
+                                placeholder="Digite o nome do cadastrante">
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label class="card-label mb-2 text-muted">Último nome</label>
+                            <input type="text" class="form-control"
+                                [ngClass]="{'is-invalid': formDemand.get('cadastrante.sobrenome').errors && formDemand.get('cadastrante.sobrenome').touched }"
+                                formControlName="sobrenome" class="form-control" id="sobrenome"
+                                placeholder="Digite o sobrenome do cadastrante">
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label class="card-label mb-2 text-muted">E-mail</label>
+                            <input type="text" class="form-control"
+                                [ngClass]="{'is-invalid': formDemand.get('cadastrante.email').errors && formDemand.get('cadastrante.email').touched }"
+                                formControlName="email" class="form-control" id="email"
+                                placeholder="Digite o email do cadastrante">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="demand-card-group">
+            <h3>Dados Gerais</h3>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            <label class="card-label mb-2 text-muted">Entidade</label>
+                            <ng2-selectize formControlName="entidade_id"
+                                [ngClass]="{'is-invalid': formDemand.get('entidade_id').errors && formDemand.get('entidade_id').touched }"
+                                class="selectize-entity" [config]="configEntities" [options]="optionsEntities"
+                                placeholder="Selecione a entidade">
+                            </ng2-selectize>
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label class="card-label mb-2 text-muted">Sindicato</label>
+                            <ng2-selectize formControlName="sindicato_id"
+                                [ngClass]="{'is-invalid': formDemand.get('sindicato_id').errors && formDemand.get('sindicato_id').touched }"
+                                class="selectize-syndicate" [config]="configUnions" [options]="optionsUnions"
+                                placeholder="Selecione o sindicato">
+                            </ng2-selectize>
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label class="card-label mb-2 text-muted">Prazo</label>
+                            <input type="date" class="form-control"
+                                [ngClass]="{'is-invalid': formDemand.get('prazo').errors && formDemand.get('prazo').touched }"
+                                formControlName="prazo" class="form-control" id="prazo">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            <label class="card-label mb-2 text-muted">Categoria</label>
+                            <ng2-selectize formControlName="categoria_demanda"
+                                [ngClass]="{'is-invalid': formDemand.get('categoria_demanda').errors && formDemand.get('categoria_demanda').touched }"
+                                class="selectize-category" [config]="configCategory" [options]="optionsCategory"
+                                placeholder="Selecione a categoria">
+                            </ng2-selectize>
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label class="card-label mb-2 text-muted">Subcategoria da demanda</label>
+                            <ng2-selectize formControlName="subcategoria_demanda"
+                                [ngClass]="{'is-invalid': formDemand.get('subcategoria_demanda').errors && formDemand.get('subcategoria_demanda').touched }"
+                                class="selectize-subcategory" [config]="configSubcategory"
+                                [options]="optionsSubcategory" placeholder="Selecione a subcategoria">
+                            </ng2-selectize>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            <label class="card-label mb-2 text-muted">Do que se trata?</label>
+                            <ng2-selectize formControlName="escopo"
+                                [ngClass]="{'is-invalid': formDemand.get('escopo').errors && formDemand.get('escopo').touched }"
+                                class="selectize-scope" [config]="configScope" [options]="optionsScope"
+                                placeholder="Selecione">
+                            </ng2-selectize>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label class="card-label mb-2 text-muted">Descrição</label>
+                            <textarea class="form-control" formControlName="descricao"
+                                [ngClass]="{'is-invalid': formDemand.get('descricao').errors && formDemand.get('descricao').touched }"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="demand-card-group">
+            <h3>Objetivo estratégico</h3>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-lg-6">
+                            <label class="card-label mb-2 text-muted">Categoria</label>
+                            <ng2-selectize formControlName="categoria_oe"
+                                [ngClass]="{'is-invalid': formDemand.get('categoria_oe').errors && formDemand.get('categoria_oe').touched }"
+                                class="selectize-category" [config]="configCategoryOE" [options]="optionsCategoryOE"
+                                placeholder="Selecione">
+                            </ng2-selectize>
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label class="card-label mb-2 text-muted">Subcategoria</label>
+                            <ng2-selectize formControlName="subcategoria_oe"
+                                [ngClass]="{'is-invalid': formDemand.get('subcategoria_oe').errors && formDemand.get('subcategoria_oe').touched }"
+                                class="selectize-subcategory" [config]="configSubCategoryOE"
+                                [options]="optionsSubCategoryOE" placeholder="Selecione">
+                            </ng2-selectize>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="demand-card-group">
+            <h3>Encaminhamento</h3>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="row" formGroupName="encaminhamento">
+                        <div class="form-group col-lg-12">
+                            <label class="card-label mb-2 text-muted">Áreas envolvidas</label>
+                            <ng2-selectize formControlName="areas_envolvidas"
+                                [ngClass]="{'is-invalid': formDemand.get('encaminhamento.areas_envolvidas').errors && formDemand.get('encaminhamento.areas_envolvidas').touched }"
+                                class="selectize-areas" [config]="configAreas" [options]="optionsAreas"
+                                placeholder="Selecione">
+                            </ng2-selectize>
+                        </div>
+
+                        <div class="form-group col-lg-12 padding-l-40">
+                            <input id="encaminhamento_check" formControlName="encaminhar_check" type="checkbox"
+                                class="form-check-input">
+                            <label class="form-check-label" for="encaminhamento_check">Encaminhamento</label>
+                        </div>
+
+                        <div class="form-group col-lg-12">
+                            <label for="">E-mail</label>
+                            <ng2-selectize formControlName="emails"
+                                [ngClass]="{'is-invalid': formDemand.get('encaminhamento.emails').errors && formDemand.get('encaminhamento.emails').touched }"
+                                class="selectize-emails" [config]="configForwardEmails" [options]="optionsForwardEmails"
+                                placeholder="Selecione">
+                            </ng2-selectize>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group margin-t-50 text-right">
+            <button type="submit" class="btn btn-primary btn-lg">Cadastrar</button>
+        </div>
+    </form>
+</div>

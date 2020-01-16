@@ -12,6 +12,7 @@ import { DemandFilterComponent } from './demand-filter/demand-filter.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Ng2SelectizeModule } from 'ng2-selectize';
 import { DemandAddHistoryComponent } from './demand-add-history/demand-add-history.component';
+import { DemandAddComponent } from './demand-add/demand-add.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { DemandAddHistoryComponent } from './demand-add-history/demand-add-histo
     DemandDetailComponent,
     DemandHistoryComponent,
     DemandFilterComponent,
-    DemandAddHistoryComponent
+    DemandAddHistoryComponent,
+    DemandAddComponent
   ],
   imports: [
     CommonModule,
