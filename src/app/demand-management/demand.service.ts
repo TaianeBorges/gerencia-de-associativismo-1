@@ -90,4 +90,22 @@ export class DemandService {
                 })
             );
     }
+
+    getDemandSubcategories(id): Observable<any> {
+        return this.http.get(`${environment.apiUrl}/demandas/categorias/${id}/subcategorias`, this.httpOptions)
+            .pipe(
+                map(res => {
+                    return res;
+                })
+            );
+    }
+
+    getScope(): Observable<any> {
+        return this.http.get(`${environment.apiUrl}/demandas/escopos`, this.httpOptions)
+            .pipe(
+                map(res => {
+                    return res;
+                })
+            );
+    }
 }
