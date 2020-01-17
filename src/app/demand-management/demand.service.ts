@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {environment} from '../../environments/environment';
-import {map} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +10,7 @@ import {map} from 'rxjs/operators';
 export class DemandService {
 
     private httpOptions = {
-        headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
     };
 
     constructor(private http: HttpClient) {
@@ -107,5 +107,31 @@ export class DemandService {
                     return res;
                 })
             );
+    }
+
+    getDemandCategoriesEO(): Observable<any> {
+        return this.http.get(`${environment.apiUrl}/demandas/categorias_oe`)
+            .pipe(
+                map(res => {
+                    return res;
+                })
+            )
+    }
+
+    getDemandSubcategoriesOE(id): Observable<any> {
+        return this.http.get(`${environment.apiUrl}/demandas/categorias_oe/${id}/subcategorias_oe`, this.httpOptions)
+            .pipe(
+                map(res => {
+                    return res;
+                })
+            );
+    }
+
+    setDemand(data): Observable<any> {
+        return this.http.post(`${environment.apiUrl}/demandas/nova`, data, this.httpOptions).pipe(
+            map(res => {
+                return res;
+            })
+        )
     }
 }

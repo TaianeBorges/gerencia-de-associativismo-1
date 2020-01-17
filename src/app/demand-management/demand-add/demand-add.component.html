@@ -81,7 +81,7 @@
                         </div>
                         <div class="form-group col-lg-4">
                             <label class="card-label mb-2 text-muted">Subcategoria da demanda</label>
-                            <ng2-selectize formControlName="subcategoria_demanda"
+                            <ng2-selectize formControlName="subcategoria_demanda" [(ngModel)]="subCategory"
                                 [ngClass]="{'is-invalid': formDemand.get('subcategoria_demanda').errors && formDemand.get('subcategoria_demanda').touched }"
                                 class="selectize-subcategory" [config]="configSubcategory"
                                 [options]="optionsSubcategory" placeholder="Selecione a subcategoria">
@@ -125,7 +125,7 @@
                         </div>
                         <div class="form-group col-lg-6">
                             <label class="card-label mb-2 text-muted">Subcategoria</label>
-                            <ng2-selectize formControlName="subcategoria_oe"
+                            <ng2-selectize formControlName="subcategoria_oe" [(ngModel)]="subCategoryEO"
                                 [ngClass]="{'is-invalid': formDemand.get('subcategoria_oe').errors && formDemand.get('subcategoria_oe').touched }"
                                 class="selectize-subcategory" [config]="configSubcategoryOE"
                                 [options]="optionsSubcategoryOE" placeholder="Selecione" id="subcategory">
@@ -173,6 +173,7 @@
         </div>
 
         <div class="form-group margin-t-50 text-right">
+            <button type="reset" (click)="resetForm()" class="btn btn-link btn-md margin-r-20">Limpar</button>
             <button type="submit" class="btn btn-primary btn-lg">Cadastrar</button>
         </div>
     </form>

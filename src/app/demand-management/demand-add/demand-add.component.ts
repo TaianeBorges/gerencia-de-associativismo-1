@@ -1,8 +1,8 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {SharedsService} from 'src/app/shared/shareds.service';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Subscription} from 'rxjs';
-import {DemandService} from '../demand.service';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { SharedsService } from 'src/app/shared/shareds.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { DemandService } from '../demand.service';
 
 @Component({
     selector: 'app-demand-add',
@@ -12,6 +12,8 @@ import {DemandService} from '../demand.service';
 export class DemandAddComponent implements OnInit, OnDestroy {
 
     formDemand: FormGroup;
+    subCategory;
+    subCategoryEO;
     optionsEntities = [];
     configEntities = {
         labelField: 'nome',
@@ -42,6 +44,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         plugins: ['dropdown_direction', 'remove_button'],
         dropdownDirection: 'down',
         onChange: ($event: any) => {
+            this.subCategory = '';
             this.getSubcategories($event);
         }
     };
@@ -63,7 +66,12 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         create: false,
         searchField: ['nome'],
         plugins: ['dropdown_direction', 'remove_button'],
-        dropdownDirection: 'down'
+        dropdownDirection: 'down',
+        onChange: ($event: any) => {
+            this.subCategoryEO = '';
+
+            this.getSubcategoriesOE($event);
+        }
     };
 
     optionsSubcategoryOE = [];
@@ -111,6 +119,9 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     categoryServiceSubscribe: Subscription;
     subCategoryServiceSubscribe: Subscription;
     subScopeServiceSubscribe: Subscription;
+    categoryEOServiceSubscribe: Subscription;
+    subCategoryOEServiceSubscribe: Subscription;
+    registerDemandService: Subscription;
 
     constructor(
         private sharedService: SharedsService,
@@ -155,6 +166,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             this.getUnions();
             this.getCategories();
             this.getScope();
+            this.getCategoriesOE();
         }
     }
 
@@ -190,15 +202,44 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         });
     }
 
+    getCategoriesOE(): void {
+        this.categoryEOServiceSubscribe = this.demandServices.getDemandCategoriesEO().subscribe(res => {
+            this.optionsCategoryOE = res.data;
+        });
+    }
+
+    getSubcategoriesOE(id: any): void {
+        if (id) {
+            this.subCategoryOEServiceSubscribe = this.demandServices.getDemandSubcategoriesOE(id).subscribe(res => {
+                this.optionsSubcategoryOE = res.data;
+            });
+        }
+    }
+
     onSubmit(form) {
         console.log(form.value);
+        this.registerDemandService = this.demandServices.setDemand(form.value).subscribe(res => {
+            console.log(res);
+        })
+    }
+
+    resetForm() {
     }
 
     ngOnDestroy() {
         this.entityServiceSubscribe.unsubscribe();
         this.unionServiceSubscribe.unsubscribe();
         this.categoryServiceSubscribe.unsubscribe();
-        this.subCategoryServiceSubscribe.unsubscribe();
         this.subScopeServiceSubscribe.unsubscribe();
+        this.categoryEOServiceSubscribe.unsubscribe();
+
+        if (this.subCategoryOEServiceSubscribe) {
+
+            this.subCategoryOEServiceSubscribe.unsubscribe();
+        }
+
+        if (this.subCategoryServiceSubscribe) {
+            this.subCategoryServiceSubscribe.unsubscribe();
+        }
     }
 }
