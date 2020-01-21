@@ -91,7 +91,21 @@ export class RegisterComponent implements OnInit {
     }
   };
 
+  configSectorGroup = {
+    labelField: 'nome',
+    valueField: 'id',
+    create: false,
+    searchField: ['nome'],
+    plugins: ['dropdown_direction', 'remove_button'],
+    dropdownDirection: 'up',
+    maxItems: 200,
+    onBlur: () => {
+      if (this.selectizeSector.value.length)
+        this.getUnionsBySectors(this.selectizeSector.value);
+    }
+  };
 
+  optionsSectorGroup = [];
   optionLotacao = [];
   optionRegional = [];
   optionManagement = [];
@@ -219,7 +233,7 @@ export class RegisterComponent implements OnInit {
           // this.authService.storeAuthorizationToken(res.token);
 
           this.alertService.alertShow(dataAlert);
-          
+
           this.router.navigate(['/auth/login']);
 
           setTimeout(() => {

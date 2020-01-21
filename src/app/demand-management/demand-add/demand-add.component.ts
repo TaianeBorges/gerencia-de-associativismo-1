@@ -21,7 +21,20 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         create: false,
         searchField: ['nome'],
         plugins: ['dropdown_direction', 'remove_button'],
-        dropdownDirection: 'down'
+        dropdownDirection: 'down',
+        onChange: ($event) => {
+            if ($event == 1 || $event == 2) {
+                this.getUnions();
+            }
+
+            if ($event == 5) {
+                this.getSectorGroup();
+            }
+
+            if ($event == 6 || $event == 7) {
+                this.getAdvices($event);
+            }
+        }
     };
 
     optionsUnions = [];
@@ -48,6 +61,16 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             this.getSubcategories($event);
         }
     };
+
+    configSectorGroup = {
+        labelField: 'nome',
+        valueField: 'id',
+        create: false,
+        searchField: ['nome'],
+        plugins: ['dropdown_direction', 'remove_button'],
+        dropdownDirection: 'down'
+    };
+    optionsSectorGroup = [];
 
     optionsSubcategory = [];
     configSubcategory = {
@@ -84,6 +107,16 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         dropdownDirection: 'down'
     };
 
+    optionsAdvices = [];
+    configAdvices = {
+        labelField: 'nome',
+        valueField: 'id',
+        create: false,
+        searchField: ['nome'],
+        plugins: ['dropdown_direction', 'remove_button'],
+        dropdownDirection: 'down'
+    };
+
     optionsScope = [];
     configScope = {
         labelField: 'label',
@@ -96,22 +129,38 @@ export class DemandAddComponent implements OnInit, OnDestroy {
 
     optionsAreas = [];
     configAreas = {
-        labelField: 'nome',
+        labelField: 'sigla',
         valueField: 'id',
         create: false,
-        searchField: ['nome'],
+        searchField: ['sigla'],
         plugins: ['dropdown_direction', 'remove_button'],
-        dropdownDirection: 'down'
+        dropdownDirection: 'down',
+        maxItems: 100,
+        onBlur: () => {
+            this.getEmailsByAreasTecnicas()
+        }
     };
 
     optionsForwardEmails = [];
     configForwardEmails = {
-        labelField: 'nome',
+        labelField: 'email',
         valueField: 'id',
         create: false,
-        searchField: ['nome'],
+        searchField: ['email'],
         plugins: ['dropdown_direction', 'remove_button'],
-        dropdownDirection: 'down'
+        dropdownDirection: 'down',
+        maxItems: 100,
+        render: {
+            option(data: any, escape: any) {
+                return `<div class="option">
+                    <span class="nome">${escape(data.name)}</span> -
+                    <span class="sigla"><b>${escape(data.email)}</b></span>
+                    </div>`;
+            },
+            item(data: any, escape: any) {
+                return '<div class="item">' + escape(data.email) + '</div>';
+            }
+        }
     };
 
     entityServiceSubscribe: Subscription;
@@ -122,6 +171,10 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     categoryEOServiceSubscribe: Subscription;
     subCategoryOEServiceSubscribe: Subscription;
     registerDemandService: Subscription;
+    areasServiceSubscribe: Subscription;
+    emailsByAreasTecnicasServiceSubscribe: Subscription;
+    groupUnionServiceSubScribe: Subscription;
+    advicesServiceSubscribe: Subscription;
 
     constructor(
         private sharedService: SharedsService,
@@ -152,6 +205,11 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             descricao: new FormControl(''),
             sindicato_id: [],
             setor_sindicato: new FormControl(),
+            empresa: this.fb.group({
+                cnpj: new FormControl(),
+                razao_social: new FormControl()
+            }),
+            conselhos: [],
             encaminhamento: this.fb.group({
                 areas_envolvidas: [],
                 encaminhar_check: new FormControl(false),
@@ -163,10 +221,10 @@ export class DemandAddComponent implements OnInit, OnDestroy {
 
         if (this.formDemand) {
             this.getEntity();
-            this.getUnions();
             this.getCategories();
             this.getScope();
             this.getCategoriesOE();
+            this.getAreasTecnicas();
         }
     }
 
@@ -180,6 +238,12 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         this.unionServiceSubscribe = this.demandServices.getUnions().subscribe(res => {
             this.optionsUnions = res.data;
         });
+    }
+
+    getSectorGroup() {
+        this.groupUnionServiceSubScribe = this.demandServices.getSectors().subscribe(res => {
+            this.optionsSectorGroup = res.data;
+        })
     }
 
     getCategories(): void {
@@ -216,6 +280,35 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         }
     }
 
+    getAreasTecnicas() {
+        this.areasServiceSubscribe = this.demandServices.getAreasTecnicas().subscribe(res => {
+            if (res)
+                this.optionsAreas = res.data;
+        })
+    }
+
+    getEmailsByAreasTecnicas() {
+        const data = this.formDemand.get('encaminhamento.areas_envolvidas').value;
+
+        if (data) {
+            this.emailsByAreasTecnicasServiceSubscribe = this.demandServices.getEmailsByAreasTecnicas(data).subscribe(res => {
+                if (res)
+                    this.optionsForwardEmails = res.data;
+            })
+        }
+
+    }
+
+    getAdvices(data) {
+        if (data) {
+            this.advicesServiceSubscribe = this.demandServices.getAdvices(data).subscribe(res => {
+                if (res) {
+                    this.optionsAdvices = res.data;
+                }
+            })
+        }
+    }
+
     onSubmit(form) {
         console.log(form.value);
         this.registerDemandService = this.demandServices.setDemand(form.value).subscribe(res => {
@@ -228,18 +321,33 @@ export class DemandAddComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.entityServiceSubscribe.unsubscribe();
-        this.unionServiceSubscribe.unsubscribe();
         this.categoryServiceSubscribe.unsubscribe();
         this.subScopeServiceSubscribe.unsubscribe();
         this.categoryEOServiceSubscribe.unsubscribe();
+        this.areasServiceSubscribe.unsubscribe();
+
+        if (this.unionServiceSubscribe) {
+            this.unionServiceSubscribe.unsubscribe();
+        }
+
+        if (this.emailsByAreasTecnicasServiceSubscribe) {
+            this.emailsByAreasTecnicasServiceSubscribe.unsubscribe();
+        }
 
         if (this.subCategoryOEServiceSubscribe) {
-
             this.subCategoryOEServiceSubscribe.unsubscribe();
         }
 
         if (this.subCategoryServiceSubscribe) {
             this.subCategoryServiceSubscribe.unsubscribe();
+        }
+
+        if (this.groupUnionServiceSubScribe) {
+            this.groupUnionServiceSubScribe.unsubscribe();
+        }
+
+        if (this.advicesServiceSubscribe) {
+            this.advicesServiceSubscribe.unsubscribe();
         }
     }
 }

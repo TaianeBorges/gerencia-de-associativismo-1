@@ -55,7 +55,19 @@
                                 placeholder="Selecione a entidade">
                             </ng2-selectize>
                         </div>
-                        <div class="form-group col-lg-4">
+
+                        <div class="form-group col-lg-4"
+                            *ngIf="formDemand.get('entidade_id') && formDemand.get('entidade_id').value == 5">
+                            <label class="card-label mb-2 text-muted">Grupo setorial</label>
+                            <ng2-selectize formControlName="setor_sindicato"
+                                [ngClass]="{'is-invalid': formDemand.get('setor_sindicato').errors && formDemand.get('setor_sindicato').touched }"
+                                class="selectize-syndicate" [config]="configSectorGroup" [options]="optionsSectorGroup"
+                                placeholder="Selecione o sindicato">
+                            </ng2-selectize>
+                        </div>
+
+                        <div class="form-group col-lg-4"
+                            *ngIf="formDemand.get('entidade_id') && (formDemand.get('entidade_id').value == 1 || formDemand.get('entidade_id').value == 2)">
                             <label class="card-label mb-2 text-muted">Sindicato</label>
                             <ng2-selectize formControlName="sindicato_id"
                                 [ngClass]="{'is-invalid': formDemand.get('sindicato_id').errors && formDemand.get('sindicato_id').touched }"
@@ -63,13 +75,41 @@
                                 placeholder="Selecione o sindicato">
                             </ng2-selectize>
                         </div>
+
+                        <div class="form-group col-lg-4"
+                            *ngIf="formDemand.get('entidade_id') && (formDemand.get('entidade_id').value == 6 || formDemand.get('entidade_id').value == 7 )">
+                            <label class="card-label mb-2 text-muted">Conselhos</label>
+                            <ng2-selectize formControlName="conselhos"
+                                [ngClass]="{'is-invalid': formDemand.get('conselhos').errors && formDemand.get('conselhos').touched }"
+                                class="selectize-advices" [config]="configAdvices" [options]="optionsAdvices"
+                                placeholder="Selecione o conselhos">
+                            </ng2-selectize>
+                        </div>
+
                         <div class="form-group col-lg-4">
                             <label class="card-label mb-2 text-muted">Prazo</label>
                             <input type="date" class="form-control"
                                 [ngClass]="{'is-invalid': formDemand.get('prazo').errors && formDemand.get('prazo').touched }"
-                                formControlName="prazo" class="form-control" id="prazo">
+                                formControlName="prazo" id="prazo">
                         </div>
                     </div>
+
+                    <div class="row" formGroupName="empresa"
+                        *ngIf="formDemand.get('entidade_id') && (formDemand.get('entidade_id').value == 2 || formDemand.get('entidade_id').value == 3)">
+                        <div class="form-group col-lg-4">
+                            <label class="card-label mb-2 text-muted">CNPJ</label>
+                            <input type="text" formControlName="cnpj"
+                                [ngClass]="{'is-invalid': formDemand.get('empresa.cnpj').errors && formDemand.get('empresa.cnpj').touched }"
+                                class="form-control">
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label class="card-label mb-2 text-muted">Razão social</label>
+                            <input type="text" formControlName="razao_social"
+                                [ngClass]="{'is-invalid': formDemand.get('empresa.razao_social').errors && formDemand.get('empresa.razao_social').touched }"
+                                class="form-control">
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="form-group col-lg-4">
                             <label class="card-label mb-2 text-muted">Categoria</label>
@@ -88,7 +128,8 @@
                             </ng2-selectize>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row"
+                        *ngIf="formDemand.get('categoria_demanda').value && formDemand.get('categoria_demanda').value == 4">
                         <div class="form-group col-lg-4">
                             <label class="card-label mb-2 text-muted">Do que se trata?</label>
                             <ng2-selectize formControlName="escopo"
@@ -109,7 +150,8 @@
             </div>
         </div>
 
-        <div class="demand-card-group">
+        <div class="demand-card-group"
+            *ngIf="formDemand.get('categoria_demanda').value && formDemand.get('categoria_demanda').value == 4">
             <h3>Objetivo estratégico</h3>
 
             <div class="card">
@@ -138,7 +180,7 @@
 
 
 
-        <div class="demand-card-group">
+        <div class="demand-card-group card-forward">
             <h3>Encaminhamento</h3>
 
             <div class="card">
@@ -159,8 +201,9 @@
                             <label class="form-check-label" for="encaminhamento_check">Encaminhamento</label>
                         </div>
 
-                        <div class="form-group col-lg-12">
-                            <label for="">E-mail</label>
+                        <div class="form-group col-lg-12"
+                            *ngIf="formDemand.get('encaminhamento.encaminhar_check').value">
+                            <label for="">E-mails</label>
                             <ng2-selectize formControlName="emails"
                                 [ngClass]="{'is-invalid': formDemand.get('encaminhamento.emails').errors && formDemand.get('encaminhamento.emails').touched }"
                                 class="selectize-emails" [config]="configForwardEmails" [options]="optionsForwardEmails"

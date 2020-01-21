@@ -56,7 +56,7 @@ export class DemandService {
     }
 
     getUnions(): Observable<any> {
-        return this.http.post(`${environment.apiUrl}/sindicatos`, this.httpOptions)
+        return this.http.post(`${environment.apiUrl}/sindicatos`, {}, this.httpOptions)
             .pipe(
                 map(res => {
                     return res;
@@ -133,5 +133,30 @@ export class DemandService {
                 return res;
             })
         )
+    }
+
+    getAreasTecnicas(): Observable<any> {
+        return this.http.get(`${environment.apiUrl}/areas_tecnicas`, this.httpOptions)
+            .pipe(
+                map(res => {
+                    return res;
+                })
+            );
+    }
+
+    getEmailsByAreasTecnicas(data: Array<any>): Observable<any> {
+        return this.http.post(`${environment.apiUrl}/areas_tecnicas/emails`, { gerencia_id: data }, this.httpOptions).pipe(
+            map(res => {
+                return res;
+            })
+        )
+    }
+
+    getAdvices(data: any): Observable<any> {
+        return this.http.post(`${environment.apiUrl}/conselhos`, { entidade_id: data }, this.httpOptions).pipe(
+            map(res => {
+                return res;
+            })
+        );
     }
 }
