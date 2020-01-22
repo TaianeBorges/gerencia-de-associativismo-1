@@ -31,8 +31,12 @@ export class DemandAddComponent implements OnInit, OnDestroy {
                 this.getSectorGroup();
             }
 
-            if ($event == 6 || $event == 7) {
+            if ($event == 4 || $event == 6 || $event == 7) {
                 this.getAdvices($event);
+            }
+
+            if ($event == 8) {
+                this.getState();
             }
         }
     };
@@ -163,6 +167,30 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         }
     };
 
+    optionState = [];
+
+    optionsAmbito = [];
+    configAmbito = {
+        labelField: 'label',
+        valueField: 'id',
+        create: false,
+        searchField: ['label'],
+        plugins: ['dropdown_direction', 'remove_button'],
+        dropdownDirection: 'down'
+    };
+
+    optionsTipo = [];
+    configTipo = {
+        labelField: 'label',
+        valueField: 'id',
+        create: false,
+        searchField: ['label'],
+        plugins: ['dropdown_direction', 'remove_button'],
+        dropdownDirection: 'down'
+    };
+
+
+
     entityServiceSubscribe: Subscription;
     unionServiceSubscribe: Subscription;
     categoryServiceSubscribe: Subscription;
@@ -175,6 +203,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     emailsByAreasTecnicasServiceSubscribe: Subscription;
     groupUnionServiceSubScribe: Subscription;
     advicesServiceSubscribe: Subscription;
+    stateServiceSubscribe: Subscription;
 
     constructor(
         private sharedService: SharedsService,
@@ -205,6 +234,10 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             descricao: new FormControl(''),
             sindicato_id: [],
             setor_sindicato: new FormControl(),
+            poder_publico: this.fb.group({
+                ambito: new FormControl(),
+                tipo: new FormControl()
+            }),
             empresa: this.fb.group({
                 cnpj: new FormControl(),
                 razao_social: new FormControl()
@@ -309,6 +342,15 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         }
     }
 
+    getState() {
+        this.stateServiceSubscribe = this.demandServices.getState().subscribe(res => {
+            if (res) {
+                this.optionsAmbito = res.data.ambito;
+                this.optionsTipo = res.data.tipo;
+            }
+        })
+    }
+
     onSubmit(form) {
         console.log(form.value);
         this.registerDemandService = this.demandServices.setDemand(form.value).subscribe(res => {
@@ -348,6 +390,10 @@ export class DemandAddComponent implements OnInit, OnDestroy {
 
         if (this.advicesServiceSubscribe) {
             this.advicesServiceSubscribe.unsubscribe();
+        }
+
+        if (this.stateServiceSubscribe) {
+            this.stateServiceSubscribe.unsubscribe();
         }
     }
 }

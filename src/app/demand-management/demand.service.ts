@@ -159,4 +159,13 @@ export class DemandService {
             })
         );
     }
+
+    getState(): Observable<any> {
+        return this.http.get(`${environment.apiUrl}/entidades/poder_publico`, this.httpOptions)
+            .pipe(
+                map(res => {
+                    return res;
+                })
+            );
+    }
 }
