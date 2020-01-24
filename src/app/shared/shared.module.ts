@@ -15,14 +15,14 @@ import { AlertService } from './alerts/alert.service';
 import { MenuComponent } from './menu/menu.component';
 import { RouterModule } from '@angular/router';
 import { ModalComponent } from './modal/modal.component';
-import { TelephonePipe } from './pipes/telephone.pipe';
 import { InitialName } from './pipes/initial-name.pipe';
-import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { InitialNameComponent } from './initial-name/initial-name.component';
 
-
 //Pipes
+import { TelephonePipe } from './pipes/telephone.pipe';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { CNPJPipe } from './pipes/cnpj.pipe';
 
 @NgModule({
   declarations: [
@@ -43,7 +43,8 @@ import { InitialNameComponent } from './initial-name/initial-name.component';
     ModalModule.forRoot()
   ],
   providers: [
-    AlertService
+    AlertService,
+    CNPJPipe
   ],
   exports: [
     BadgeCreditComponent,
@@ -54,6 +55,7 @@ import { InitialNameComponent } from './initial-name/initial-name.component';
     InitialName,
     CapitalizePipe,
     InitialNameComponent
+    
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

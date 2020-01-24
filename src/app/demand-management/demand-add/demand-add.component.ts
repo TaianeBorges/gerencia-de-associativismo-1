@@ -3,6 +3,7 @@ import { SharedsService } from 'src/app/shared/shareds.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { DemandService } from '../demand.service';
+import { CNPJPipe } from '../../shared/pipes/cnpj.pipe';
 
 @Component({
     selector: 'app-demand-add',
@@ -204,12 +205,14 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     groupUnionServiceSubScribe: Subscription;
     advicesServiceSubscribe: Subscription;
     stateServiceSubscribe: Subscription;
+    cnpjChangesSubscription:Subscription;
 
     constructor(
         private sharedService: SharedsService,
         private fb: FormBuilder,
         private demandServices: DemandService,
-        private el: ElementRef
+        private el: ElementRef,
+        private cnpjPipe: CNPJPipe
     ) {
     }
 
@@ -223,6 +226,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
                 email: new FormControl('', [Validators.required])
             }),
             entidade_id: new FormControl(''),
+            permissao_sindicato: new FormControl(''),
             categoria_demanda: new FormControl(''),
             subcategoria_demanda: new FormControl(''),
             escopo: new FormControl(''),
@@ -258,6 +262,18 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             this.getScope();
             this.getCategoriesOE();
             this.getAreasTecnicas();
+        }
+
+        if (this.formDemand) {
+            this.cnpjChangesSubscription = this.formDemand.get('empresa').get('cnpj').valueChanges.subscribe((res: string) => {
+                if (res && res.length) {
+                    // const val = this.cnpjPipe.transform(res);
+                    // console.log(val);
+                    // this.formDemand.get('empresa').get('cnpj').setValue(val);
+                    // this.formDemand.get('empresa').get('cnpj').updateValueAndValidity();
+
+                }
+            })
         }
     }
 
@@ -394,6 +410,10 @@ export class DemandAddComponent implements OnInit, OnDestroy {
 
         if (this.stateServiceSubscribe) {
             this.stateServiceSubscribe.unsubscribe();
+        }
+
+        if(this.cnpjChangesSubscription) {
+            this.cnpjChangesSubscription.unsubscribe();
         }
     }
 }
