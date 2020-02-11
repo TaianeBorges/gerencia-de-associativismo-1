@@ -16,7 +16,7 @@ export class UsersService {
     constructor(private http: HttpClient) {
     }
 
-    getLotacoes(): Observable<any> {
+    getCapacities(): Observable<any> {
         return this.http.get(`${environment.apiUrl}/lotacoes`, this.httpOptions)
             .pipe(
                 map(res => {
@@ -25,15 +25,15 @@ export class UsersService {
             );
     }
 
-    getGeneralManagement(lotacaoId: number): Observable<any> {
-        return this.http.get(`${environment.apiUrl}/lotacoes/${lotacaoId}/gerencias-gerais`, this.httpOptions)
+    getGeneralManagement(capacity_id: number): Observable<any> {
+        return this.http.get(`${environment.apiUrl}/lotacoes/${capacity_id}/gerencias-gerais`, this.httpOptions)
             .pipe(map(res => {
                 return res;
             }));
     }
 
     getManagements(data: any): Observable<any> {
-        const url = `${environment.apiUrl}/lotacoes/${data.lotacao_id}/gerencias-gerais/${data.general_management_id}/gerencias`;
+        const url = `${environment.apiUrl}/lotacoes/${data.capacity_id}/gerencias-gerais/${data.general_management_id}/gerencias`;
         return this.http.get(url, this.httpOptions)
             .pipe(map(res => {
                 return res;
@@ -49,8 +49,13 @@ export class UsersService {
             );
     }
 
-    getDivisions(data: any): Observable<any> {
-        const url = `${environment.apiUrl}/lotacoes/${data.lotacao_id}/gerencias-gerais/${data.gerenal_management_id}/gerencias/${data.general_id}/divisoes`;
+    getDepartments(data: any): Observable<any> {
+        
+        if (typeof data.management_id === 'object') {
+            data.management_id = data.management_id[0];
+        }
+        
+        const url = `${environment.apiUrl}/lotacoes/${data.capacity_id}/gerencias-gerais/${data.general_management_id}/gerencias/${data.management_id}/divisoes`;
         return this.http.get(url, this.httpOptions)
             .pipe(
                 map(res => {
@@ -59,7 +64,7 @@ export class UsersService {
             );
     }
 
-    getUnionsBySectors(data: any): Observable<any> {
+    getSyndicatesBySectors(data: any): Observable<any> {
         return this.http.post(`${environment.apiUrl}/sindicatos`, data, this.httpOptions)
             .pipe(
                 map(res => {
@@ -68,8 +73,8 @@ export class UsersService {
             );
     }
 
-    getSectors(): Observable<any> {
-        return this.http.get(`${environment.apiUrl}/setores_sindicato`)
+    getSectorsService(): Observable<any> {
+        return this.http.get(`${environment.apiUrl}/sindicatos/setores`)
             .pipe(
                 map(res => {
                     return res;

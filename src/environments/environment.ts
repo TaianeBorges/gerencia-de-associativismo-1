@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost/associativismo-api/public/api/v1'
+  apiUrl: 'http://localhost/gerencia-de-associativismo-api/public/api'
 };
 
 /*

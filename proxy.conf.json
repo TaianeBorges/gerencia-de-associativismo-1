@@ -1,0 +1,10 @@
+{
+  "/posts": {
+    "target": "http://localhost/gerencia-de-associativismo-api/api",
+    "secure": true,
+    "pathRewrite": {
+    "^/posts": ""
+  },
+    "changeOrigin": true
+  }
+}

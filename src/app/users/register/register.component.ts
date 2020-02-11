@@ -38,11 +38,11 @@ export class RegisterComponent implements OnInit {
     }
   };
 
-  configSindicato = {
-    labelField: 'sigla',
+  configSyndicates = {
+    labelField: 'initial',
     valueField: 'id',
     create: false,
-    searchField: ['nome', 'sigla'],
+    searchField: ['name', 'initial'],
     plugins: ['dropdown_direction', 'remove_button'],
     dropdownDirection: 'down',
     maxItems: 200
@@ -50,30 +50,30 @@ export class RegisterComponent implements OnInit {
 
   permissionManagements = true;
 
-  configUnionsSectors = {
-    labelField: 'nome',
+  configSyndicateSectors = {
+    labelField: 'name',
     valueField: 'id',
     create: false,
-    searchField: ['nome'],
+    searchField: ['name'],
     plugins: ['dropdown_direction', 'remove_button'],
     dropdownDirection: 'up',
     maxItems: 200,
     onBlur: () => {
       if (this.selectizeSector.value.length)
-        this.getUnionsBySectors(this.selectizeSector.value);
+        this.getSyndicatesBySectors(this.selectizeSector.value);
     }
   };
 
   configManagement = {
-    labelField: 'sigla',
+    labelField: 'initial',
     valueField: 'id',
     create: false,
-    searchField: ['nome', 'sigla'],
+    searchField: ['name', 'initial'],
     plugins: ['dropdown_direction', 'remove_button'],
     dropdownDirection: 'down',
     maxItems: 200,
     onBlur: () => {
-      this.getDivisions();
+      this.getDepartments();
     },
     onChange: ($event: any) => {
       this.permissionManagements = !($event.length > 1);
@@ -81,38 +81,37 @@ export class RegisterComponent implements OnInit {
     render: {
       option(data: any, escape: any) {
         return '<div class="option">' +
-          '<span class="sigla"><b>' + escape(data.sigla) + '</b></span>' +
-          '<span class="nome"> - ' + escape(data.nome) + '</span>' +
+          '<span class="initial"><b>' + escape(data.initial) + '</b></span>' +
+          '<span class="name"> - ' + escape(data.name) + '</span>' +
           '</div>';
       },
       item(data: any, escape: any) {
-        return '<div class="item">' + escape(data.sigla) + '</div>';
+        return '<div class="item">' + escape(data.initial) + '</div>';
       }
     }
   };
 
-  configSectorGroup = {
-    labelField: 'nome',
+  configSyndicatesSectors = {
+    labelField: 'name',
     valueField: 'id',
     create: false,
-    searchField: ['nome'],
+    searchField: ['name'],
     plugins: ['dropdown_direction', 'remove_button'],
     dropdownDirection: 'up',
     maxItems: 200,
     onBlur: () => {
       if (this.selectizeSector.value.length)
-        this.getUnionsBySectors(this.selectizeSector.value);
+        this.getSyndicatesBySectors(this.selectizeSector.value);
     }
   };
 
   optionsSectorGroup = [];
-  optionLotacao = [];
+  optionsCapacity = [];
   optionRegional = [];
   optionManagement = [];
-  optionDivisions = [];
-  optionsSindicatos = [];
-  getSectors = [];
-  optionsUnionsSectors = [];
+  optionDepartments = [];
+  optionsSyndicates = [];
+  optionsSyndicatesSectors = [];
 
   optionCargos = [
     { id: 1, nome: 'Gerente' },
@@ -135,19 +134,19 @@ export class RegisterComponent implements OnInit {
       name: new FormControl('', [Validators.minLength(4), Validators.required]),
       email: new FormControl('', [Validators.minLength(4), Validators.required, Validators.email]),
       telephone: new FormControl('', [Validators.minLength(14), Validators.required]),
-      lotacao_id: new FormControl('', [Validators.required]),
+      capacity_id: new FormControl('', [Validators.required]),
       username: new FormControl('', [Validators.minLength(4), Validators.required]),
       password: new FormControl('', [Validators.minLength(4), Validators.required]),
       confirmPassword: new FormControl('', [Validators.minLength(4), Validators.required]),
-      gerencia_geral_id: new FormControl('', [Validators.required]),
-      gerencia_id: new FormControl(''),
-      divisao_id: new FormControl(''),
-      relacionamento: this.fb.group({
-        check_relacionamento: false,
-        check_relacionamento_setorial: false,
-        regionais: [],
-        sindicatos: [],
-        setores_sindicato: []
+      general_management_id: new FormControl('', [Validators.required]),
+      management_id: new FormControl(''),
+      department_id: new FormControl(''),
+      relationship: this.fb.group({
+        check_relationship: false,
+        check_industry_relationship: false,
+        regionals: [],
+        syndicates: [],
+        syndicates_sectors: []
       }),
       cargos: [],
       representante_regional: this.fb.group({
@@ -157,20 +156,13 @@ export class RegisterComponent implements OnInit {
     });
 
     if (this.formRegister) {
-      this.getLotacoes();
+      this.getCapacities();
       this.getRegionals();
     }
   }
 
   addOffice(data: any) {
 
-    // console.log({
-    //   'teste1': data,
-    //   'teste2': this.optionCargos,
-    //   'teste3': this.cargos
-    // });
-
-    console.log(this.cargos);
     const reg = this.optionRegional[data[0] - 1];
     const carg = this.optionCargos[data[1] - 1];
 
@@ -244,60 +236,60 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  getLotacoes() {
-    this.userService.getLotacoes().subscribe(res => {
+  getCapacities() {
+    this.userService.getCapacities().subscribe(res => {
       if (res.data) {
-        this.optionLotacao = res.data;
+        this.optionsCapacity = res.data;
       }
     });
   }
 
   getGeneralManagement() {
-    const id = this.formRegister.get('lotacao_id').value;
-    if (id && this.optionLotacao[id - 1].nome !== 'Representante Regional') {
+    const id = this.formRegister.get('capacity_id').value;
+    if (id && this.optionsCapacity[id - 1].nome !== 'Representante Regional') {
       this.userService.getGeneralManagement(id).subscribe(res => {
         if (res.data) {
           this.optionGeneralManagement = res.data;
 
           if (res.data.length === 1) {
-            this.formRegister.get('gerencia_geral_id').setValue(res.data[0].id);
+            this.formRegister.get('general_management_id').setValue(res.data[0].id);
             this.getManagements();
           }
         }
       });
     } else {
-      this.formRegister.get('gerencia_geral_id').clearValidators();
-      this.formRegister.get('gerencia_geral_id').updateValueAndValidity();
+      this.formRegister.get('general_management_id').clearValidators();
+      this.formRegister.get('general_management_id').updateValueAndValidity();
     }
   }
 
-  getSector() {
-    const id = this.formRegister.get('lotacao_id').value;
-    if (id && this.optionLotacao[id - 1].nome !== 'Representante Regional') {
-      this.userService.getSectors().subscribe(res => {
-        this.optionsUnionsSectors = res.data;
+  getSectors() {
+    const id = this.formRegister.get('capacity_id').value;
+    if (id && this.optionsCapacity[id - 1].nome !== 'Representante Regional') {
+      this.userService.getSectorsService().subscribe(res => {
+        this.optionsSyndicatesSectors = res.data;
       });
     }
   };
 
   getManagements() {
     const data = {
-      lotacao_id: this.formRegister.get('lotacao_id').value,
-      general_management_id: this.formRegister.get('gerencia_geral_id').value
+      capacity_id: this.formRegister.get('capacity_id').value,
+      general_management_id: this.formRegister.get('general_management_id').value
     };
 
-    if (data.lotacao_id && data.general_management_id) {
+    if (data.capacity_id && data.general_management_id) {
       this.userService.getManagements(data).subscribe(res => {
         if (res.data) {
           this.optionManagement = res.data;
 
           if (res.data.length === 1) {
             setTimeout(() => {
-              this.formRegister.get('gerencia_id').setValue(res.data[0].id);
+              this.formRegister.get('management_id').setValue(res.data[0].id);
 
-              if (this.formRegister.get('gerencia_id').value && this.formRegister.get('gerencia_id').value.length === 1) {
+              if (this.formRegister.get('management_id').value && this.formRegister.get('management_id').value.length === 1) {
                 this.permissionManagements = true;
-                this.getDivisions();
+                this.getDepartments();
               }
             }, 500);
           }
@@ -314,38 +306,40 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  getDivisions() {
+  getDepartments() {
     const data = {
-      lotacao_id: this.formRegister.get('lotacao_id').value,
-      general_management_id: this.formRegister.get('gerencia_geral_id').value,
-      general_id: this.formRegister.get('gerencia_id').value
+      capacity_id: this.formRegister.get('capacity_id').value,
+      general_management_id: this.formRegister.get('general_management_id').value,
+      management_id: this.formRegister.get('management_id').value
     };
 
-    if (data.lotacao_id && data.general_management_id && this.formRegister.get('gerencia_id').value.length === 1) {
+    console.log(this.formRegister.value);
+
+    if (data.capacity_id && data.general_management_id && this.formRegister.get('management_id').value.length === 1) {
       this.cargos = [];
 
-      this.userService.getDivisions(data).subscribe(res => {
+      this.userService.getDepartments(data).subscribe(res => {
         if (res.data) {
-          this.optionDivisions = res.data;
+          this.optionDepartments = res.data;
           if (res.data.length === 1) {
-            this.formRegister.get('divisao_id').setValue(res.data[0].id);
+            this.formRegister.get('department_id').setValue(res.data[0].id);
           }
         }
       });
     }
   }
 
-  getUnionsBySectors(sectors) {
+  getSyndicatesBySectors(sectors) {
     const data = {
-      setores_sindicato: sectors
+      syndicates_sectors: sectors
     };
 
     let filter = [];
 
-    this.userService.getUnionsBySectors(data).subscribe(res => {
+    this.userService.getSyndicatesBySectors(data).subscribe(res => {
 
       if (res) {
-        this.optionsSindicatos = res.data;
+        this.optionsSyndicates = res.data;
 
         for (let item of res.data) {
           filter.push(item.id);
@@ -353,7 +347,7 @@ export class RegisterComponent implements OnInit {
 
         if (res.data.length)
           setTimeout(() => {
-            this.formRegister.get('relacionamento.sindicatos').setValue(filter);
+            this.formRegister.get('relationship.syndicates').setValue(filter);
           }, 1000);
       }
     });
@@ -361,7 +355,7 @@ export class RegisterComponent implements OnInit {
 
   validateRepresentanteRegional() {
     const representanteRegional = this.formRegister.get('representante_regional.regional');
-    const regionalId = this.formRegister.get('lotacao_id').value;
+    const regionalId = this.formRegister.get('capacity_id').value;
     const representanteCargo = this.formRegister.get('representante_regional.cargo');
     const validateRegional = regionalId && regionalId !== '1';
 
@@ -385,37 +379,37 @@ export class RegisterComponent implements OnInit {
   }
 
   validateSede() {
-    const checkRelacionamento = this.formRegister.get('relacionamento.check_relacionamento');
-    const relacionamentoRegionais = this.formRegister.get('relacionamento.regionais');
-    const relacionamentoSindicatos = this.formRegister.get('relacionamento.sindicatos');
-    const lotacaoId = this.formRegister.get('lotacao_id');
-    const divisaoId = this.formRegister.get('divisao_id');
-    const gerenciaId = this.formRegister.get('gerencia_id');
+    const check_relationship = this.formRegister.get('relationship.check_relationship');
+    const relationship_regionals = this.formRegister.get('relationship.regionais');
+    const relationship_syndicates = this.formRegister.get('relationship.syndicates');
+    const capacity_id = this.formRegister.get('capacity_id');
+    const depatment_id = this.formRegister.get('department_id');
+    const management_id = this.formRegister.get('management_id');
 
-    if (lotacaoId.value && lotacaoId.value === '1' && !gerenciaId.value.length) {
-      gerenciaId.setErrors({ required: true });
+    if (capacity_id.value && capacity_id.value === '1' && !management_id.value.length) {
+      management_id.setErrors({ required: true });
     } else {
-      gerenciaId.updateValueAndValidity();
+      management_id.updateValueAndValidity();
     }
 
-    if (lotacaoId.value && lotacaoId.value === '1' && !divisaoId.value) {
-      divisaoId.setErrors({ required: true });
+    if (capacity_id.value && capacity_id.value === '1' && !depatment_id.value) {
+      depatment_id.setErrors({ required: true });
     } else {
-      divisaoId.updateValueAndValidity();
+      depatment_id.updateValueAndValidity();
     }
 
-    if (checkRelacionamento.value && !relacionamentoRegionais.value) {
+    if (check_relationship.value && !relationship_regionals.value) {
       alert('Adicione as regionais');
-      relacionamentoRegionais.setErrors({ required: true });
+      relationship_regionals.setErrors({ required: true });
     } else {
-      relacionamentoRegionais.updateValueAndValidity();
+      relationship_regionals.updateValueAndValidity();
     }
 
-    if (checkRelacionamento.value && !relacionamentoSindicatos.value) {
-      relacionamentoSindicatos.setErrors({ required: true });
+    if (check_relationship.value && !relationship_syndicates.value) {
+      relationship_syndicates.setErrors({ required: true });
       alert('Adicione os sindicatos');
     } else {
-      relacionamentoSindicatos.updateValueAndValidity();
+      relationship_syndicates.updateValueAndValidity();
     }
   }
 }
