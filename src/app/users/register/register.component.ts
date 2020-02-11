@@ -331,7 +331,7 @@ export class RegisterComponent implements OnInit {
 
   getSyndicatesBySectors(sectors) {
     const data = {
-      syndicates_sectors: sectors
+      sectors: sectors
     };
 
     let filter = [];

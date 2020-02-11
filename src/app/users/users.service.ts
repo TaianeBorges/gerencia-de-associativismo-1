@@ -10,7 +10,10 @@ import { Observable } from 'rxjs';
 export class UsersService {
 
     private httpOptions = {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
+        headers: new HttpHeaders({ 
+            'Content-Type': 'application/json', 
+            'Access-Control-Allow-Origin': 'http://localhost:4200/'
+         })
     };
 
     constructor(private http: HttpClient) {
