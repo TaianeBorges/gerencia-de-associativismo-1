@@ -20,12 +20,12 @@ export class AuthService {
     }
 
     checkAuthorization(): Observable<any> {
-        return this.http.get(`${environment.apiUrl}/auth/usuario`).pipe(
+        return this.http.post(`${environment.apiUrl}/auth/usuario`, {}, this.httpOptions)
+        .pipe(
             map(res => {
                 this.authorizationLogin.emit(res);
                 return res;
-            })
-        );
+            }));
     }
 
     storeAuthorizationToken(token: string) {
@@ -54,7 +54,7 @@ export class AuthService {
         return this.http.post(`${environment.apiUrl}/logout`, token, this.httpOptions)
             .pipe(
                 map(res => {
-                    localStorage.removeItem('token');
+                    localStorage.removeItem('Token');
                     localStorage.removeItem('user');
                     this.authorizationLogin.emit(res);
                     return res;

@@ -8,7 +8,7 @@
 
         <h2 class="title">{{titlePage}}</h2>
 
-        <div class="user-dropdown">
+        <div class="user-dropdown" *ngIf="auth && auth.user">
             <div class="dropdown">
                 <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
@@ -90,7 +90,7 @@
             </li>
         </ul>
 
-        <div class="user-menu" [ngClass]="{'nav-items-mobile': menuMobileActivate}">
+        <div class="user-menu" [ngClass]="{'nav-items-mobile': menuMobileActivate}" *ngIf="auth && auth.user">
             <div class="user-name" (click)="menuPerfilActivate = !menuPerfilActivate">
                 <div class="initial-name">
                     {{auth?.user.name | initialName}}
