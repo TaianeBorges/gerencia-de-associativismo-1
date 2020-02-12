@@ -1,8 +1,8 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { environment } from '../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import {Injectable, EventEmitter} from '@angular/core';
+import {environment} from '../../environments/environment';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -10,10 +10,10 @@ import { Observable } from 'rxjs';
 export class UsersService {
 
     private httpOptions = {
-        headers: new HttpHeaders({ 
-            'Content-Type': 'application/json', 
-            'Access-Control-Allow-Origin': 'http://localhost:4200/'
-         })
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        })
     };
 
     constructor(private http: HttpClient) {
@@ -53,11 +53,11 @@ export class UsersService {
     }
 
     getDepartments(data: any): Observable<any> {
-        
+
         if (typeof data.management_id === 'object') {
             data.management_id = data.management_id[0];
         }
-        
+
         const url = `${environment.apiUrl}/lotacoes/${data.capacity_id}/gerencias-gerais/${data.general_management_id}/gerencias/${data.management_id}/divisoes`;
         return this.http.get(url, this.httpOptions)
             .pipe(
