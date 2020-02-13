@@ -1,5 +1,5 @@
 <form #formDemandFilter [formGroup]="formFilter" class="demand-filter" (ngSubmit)="onSubmit(formFilter)"
-    autocomplete="off">
+      autocomplete="off">
 
     <div class="card">
         <div class="card-body">
@@ -9,75 +9,79 @@
                 </div>
                 <div class="col text-right">
                     <button type="button" (click)="filterVisibility = !filterVisibility" class="btn btn-outline-info"
-                        [ngClass]="{'btn-info color-text-white': !filterVisibility}">
+                            [ngClass]="{'btn-info color-text-white': !filterVisibility}">
                         <span class="badge badge-info" [ngClass]="{'badge-light': !filterVisibility}">1</span>
                         Filtros Selecionados
                     </button>
 
-                    <a [routerLink]="['/gestao-de-demandas/nova-demanda']" routerLinkActive="router-link-active"  class="btn btn-primary margin-l-10">Nova demanda</a>
+                    <a [routerLink]="['/gestao-de-demandas/nova-demanda']" routerLinkActive="router-link-active"
+                       class="btn btn-primary margin-l-10">Nova demanda</a>
 
                 </div>
             </div>
             <hr *ngIf="filterVisibility">
             <div class="row margin-t-30" [ngClass]="{'display-none': !filterVisibility}">
                 <div class="form-group col-lg-3 col-md-6 col-sm-12">
-                    <label for="">Entidade</label>
-                    <ng2-selectize [(ngModel)]="entidade" formControlName="entidade_id"
-                        [ngClass]="{'is-invalid': formFilter.get('entidade_id').errors && formFilter.get('entidade_id').touched }"
-                        class="selectize-entity" [config]="configEntity" [options]="optionsEntity"
-                        placeholder="Selecione a entidade">
+                    <label for="entity">Entidade</label>
+                    <ng2-selectize [(ngModel)]="entidade" formControlName="entity_id"
+                                   [ngClass]="{'is-invalid': formFilter.get('entity_id').errors && formFilter.get('entity_id').touched }"
+                                   id="entity"
+                                   class="selectize-entity" [config]="configEntity" [options]="optionsEntity"
+                                   placeholder="Selecione a entidade">
                     </ng2-selectize>
                 </div>
 
                 <div class="form-group col-lg-3 col-md-6 col-sm-12">
-                    <label for="">Cadastrante</label>
+                    <label>Cadastrante</label>
                     <input type="text" [(ngModel)]="cadastrante"
-                        [ngClass]="{'is-invalid': formFilter.get('cadastrante_nome').errors && formFilter.get('cadastrante_nome').touched }"
-                        formControlName="cadastrante_nome" class="form-control" id="cadastrante_nome"
-                        placeholder="Digite o cadastrante">
+                           [ngClass]="{'is-invalid': formFilter.get('demand_requester').errors && formFilter.get('demand_requester').touched }"
+                           formControlName="demand_requester" class="form-control" id="demand_requester"
+                           placeholder="Digite o cadastrante">
                 </div>
 
                 <div class="form-group col-lg-3 col-md-6 col-sm-12">
-                    <label for="">Sindicatos</label>
-                    <ng2-selectize formControlName="sindicato_id" [(ngModel)]="sindicatos"
-                        [ngClass]="{'is-invalid': formFilter.get('sindicato_id').errors && formFilter.get('sindicato_id').touched }"
-                        class="selectize-unions" [config]="configUnions" [options]="optionsUnions"
-                        placeholder="Selecione a entidade">
+                    <label>Sindicatos</label>
+                    <ng2-selectize formControlName="syndicate_id" [(ngModel)]="syndicates"
+                                   [ngClass]="{'is-invalid': formFilter.get('syndicate_id').errors && formFilter.get('syndicate_id').touched }"
+                                   class="selectize-unions" [config]="configUnions" [options]="optionsUnions"
+                                   placeholder="Selecione os sindicatos">
                     </ng2-selectize>
                 </div>
 
                 <div class="form-group col-lg-3 col-md-6 col-sm-12">
-                    <label for="">Status</label>
+                    <label>Status</label>
                     <ng2-selectize formControlName="status_id" [(ngModel)]="status"
-                        [ngClass]="{'is-invalid': formFilter.get('status_id').errors && formFilter.get('status_id').touched }"
-                        class="selectize-demand-status" [config]="configDemandStatus" [options]="optionsDemandStatus"
-                        placeholder="Selecione a entidade">
+                                   [ngClass]="{'is-invalid': formFilter.get('status_id').errors && formFilter.get('status_id').touched }"
+                                   class="selectize-demand-status" [config]="configDemandStatus"
+                                   [options]="optionsDemandStatus"
+                                   placeholder="Selecione o status">
                     </ng2-selectize>
                 </div>
 
                 <div class="form-group col-lg-3 col-md-6 col-sm-12">
-                    <label for="">Categorias</label>
-                    <ng2-selectize formControlName="demanda_categoria_id" [(ngModel)]="categoria"
-                        [ngClass]="{'is-invalid': formFilter.get('demanda_categoria_id').errors && formFilter.get('demanda_categoria_id').touched }"
-                        class="selectize-demand-category" [config]="configDemandCategory"
-                        [options]="optionsDemandCategory" placeholder="Selecione a categoria">
+                    <label>Categorias</label>
+                    <ng2-selectize formControlName="demand_category_id" [(ngModel)]="categories"
+                                   [ngClass]="{'is-invalid': formFilter.get('demand_category_id').errors && formFilter.get('demand_category_id').touched }"
+                                   class="selectize-demand-category" [config]="configDemandCategory"
+                                   [options]="optionsDemandCategory" placeholder="Selecione a categoria">
                     </ng2-selectize>
                 </div>
 
                 <div class="form-group col-lg-3 col-md-6 col-sm-12">
-                    <label for="">Setor</label>
-                    <ng2-selectize formControlName="setor_id" [(ngModel)]="setor"
-                        [ngClass]="{'is-invalid': formFilter.get('setor_id').errors && formFilter.get('setor_id').touched }"
-                        class="selectize-sectors" [config]="configSectors" [options]="optionsSectors"
-                        placeholder="Selecione a categoria">
+                    <label>Setor</label>
+                    <ng2-selectize formControlName="sector_id" [(ngModel)]="sector"
+                                   [ngClass]="{'is-invalid': formFilter.get('sector_id').errors && formFilter.get('sector_id').touched }"
+                                   class="selectize-sectors" [config]="configSectors" [options]="optionsSectors"
+                                   placeholder="Selecione o setor">
                     </ng2-selectize>
                 </div>
 
                 <div class="form-group col padding-t-30">
                     <button type="submit" class="btn btn-info">Filtrar</button>
                     <button type="reset" (click)="resetForm(); formDemandFilter.reset()"
-                        class="btn btn-outline-info margin-l-10">Limpar
-                        Filtro</button>
+                            class="btn btn-outline-info margin-l-10">Limpar
+                        Filtro
+                    </button>
                 </div>
             </div>
         </div>

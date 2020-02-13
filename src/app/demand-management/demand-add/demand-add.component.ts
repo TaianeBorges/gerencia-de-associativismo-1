@@ -1,9 +1,9 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { SharedsService } from 'src/app/shared/shareds.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { DemandService } from '../demand.service';
-import { CNPJPipe } from '../../shared/pipes/cnpj.pipe';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {SharedsService} from 'src/app/shared/shareds.service';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Subscription} from 'rxjs';
+import {DemandService} from '../demand.service';
+import {CNPJPipe} from '../../shared/pipes/cnpj.pipe';
 
 @Component({
     selector: 'app-demand-add',
@@ -17,10 +17,10 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     subCategoryEO;
     optionsEntities = [];
     configEntities = {
-        labelField: 'nome',
+        labelField: 'name',
         valueField: 'id',
         create: false,
-        searchField: ['nome'],
+        searchField: ['name'],
         plugins: ['dropdown_direction', 'remove_button'],
         dropdownDirection: 'down',
         onChange: ($event) => {
@@ -44,10 +44,10 @@ export class DemandAddComponent implements OnInit, OnDestroy {
 
     optionsUnions = [];
     configUnions = {
-        labelField: 'sigla',
+        labelField: 'initial',
         valueField: 'id',
         create: false,
-        searchField: ['sigla', 'nome'],
+        searchField: ['initial', 'name'],
         plugins: ['dropdown_direction', 'remove_button'],
         dropdownDirection: 'down',
         maxItems: 100
@@ -55,10 +55,10 @@ export class DemandAddComponent implements OnInit, OnDestroy {
 
     optionsCategory = [];
     configCategory = {
-        labelField: 'nome',
+        labelField: 'name',
         valueField: 'id',
         create: false,
-        searchField: ['nome'],
+        searchField: ['name'],
         plugins: ['dropdown_direction', 'remove_button'],
         dropdownDirection: 'down',
         onChange: ($event: any) => {
@@ -68,10 +68,10 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     };
 
     configSectorGroup = {
-        labelField: 'nome',
+        labelField: 'name',
         valueField: 'id',
         create: false,
-        searchField: ['nome'],
+        searchField: ['name'],
         plugins: ['dropdown_direction', 'remove_button'],
         dropdownDirection: 'down'
     };
@@ -79,20 +79,20 @@ export class DemandAddComponent implements OnInit, OnDestroy {
 
     optionsSubcategory = [];
     configSubcategory = {
-        labelField: 'nome',
+        labelField: 'name',
         valueField: 'id',
         create: false,
-        searchField: ['nome'],
+        searchField: ['name'],
         plugins: ['dropdown_direction', 'remove_button'],
         dropdownDirection: 'down'
     };
 
     optionsCategoryOE = [];
     configCategoryOE = {
-        labelField: 'nome',
+        labelField: 'name',
         valueField: 'id',
         create: false,
-        searchField: ['nome'],
+        searchField: ['name'],
         plugins: ['dropdown_direction', 'remove_button'],
         dropdownDirection: 'down',
         onChange: ($event: any) => {
@@ -104,20 +104,20 @@ export class DemandAddComponent implements OnInit, OnDestroy {
 
     optionsSubcategoryOE = [];
     configSubcategoryOE = {
-        labelField: 'nome',
+        labelField: 'name',
         valueField: 'id',
         create: false,
-        searchField: ['nome'],
+        searchField: ['name'],
         plugins: ['dropdown_direction', 'remove_button'],
         dropdownDirection: 'down'
     };
 
     optionsAdvices = [];
     configAdvices = {
-        labelField: 'nome',
+        labelField: 'name',
         valueField: 'id',
         create: false,
-        searchField: ['nome'],
+        searchField: ['name'],
         plugins: ['dropdown_direction', 'remove_button'],
         dropdownDirection: 'down'
     };
@@ -134,15 +134,15 @@ export class DemandAddComponent implements OnInit, OnDestroy {
 
     optionsAreas = [];
     configAreas = {
-        labelField: 'sigla',
+        labelField: 'initial',
         valueField: 'id',
         create: false,
-        searchField: ['sigla'],
+        searchField: ['initial'],
         plugins: ['dropdown_direction', 'remove_button'],
         dropdownDirection: 'down',
         maxItems: 100,
         onBlur: () => {
-            this.getEmailsByAreasTecnicas()
+            this.getEmailsByAreasTecnicas();
         }
     };
 
@@ -158,8 +158,8 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         render: {
             option(data: any, escape: any) {
                 return `<div class="option">
-                    <span class="nome">${escape(data.name)}</span> -
-                    <span class="sigla"><b>${escape(data.email)}</b></span>
+                    <span class="name">${escape(data.name)}</span> -
+                    <span class="initial"><b>${escape(data.email)}</b></span>
                     </div>`;
             },
             item(data: any, escape: any) {
@@ -191,7 +191,6 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     };
 
 
-
     entityServiceSubscribe: Subscription;
     unionServiceSubscribe: Subscription;
     categoryServiceSubscribe: Subscription;
@@ -205,7 +204,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     groupUnionServiceSubScribe: Subscription;
     advicesServiceSubscribe: Subscription;
     stateServiceSubscribe: Subscription;
-    cnpjChangesSubscription:Subscription;
+    cnpjChangesSubscription: Subscription;
 
     constructor(
         private sharedService: SharedsService,
@@ -220,40 +219,34 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         this.sharedService.setTitle(`Nova Demanda`);
 
         this.formDemand = this.fb.group({
-            cadastrante: new FormGroup({
-                nome: new FormControl('', [Validators.required]),
-                sobrenome: new FormControl('', [Validators.required]),
+            requester: new FormGroup({
+                name: new FormControl('', [Validators.required]),
+                last_name: new FormControl('', [Validators.required]),
                 email: new FormControl('', [Validators.required])
             }),
-            entidade_id: new FormControl(''),
-            permissao_sindicato: new FormControl(''),
-            categoria_demanda: new FormControl(''),
-            subcategoria_demanda: new FormControl(''),
-            escopo: new FormControl(''),
-            empresa_associada: new FormGroup({
+            entity_id: new FormControl(''),
+            syndicate_permission: new FormControl(''),
+            demand_category: new FormControl(''),
+            demand_subcategory: new FormControl(''),
+            scope: new FormControl(''),
+            company: new FormGroup({
                 cnpj: new FormControl(''),
-                nome_fantasia: new FormControl('')
+                name: new FormControl('')
             }),
-            prazo: new FormControl(''),
-            descricao: new FormControl(''),
-            sindicato_id: [],
-            setor_sindicato: new FormControl(),
-            poder_publico: this.fb.group({
-                ambito: new FormControl(),
-                tipo: new FormControl()
-            }),
-            empresa: this.fb.group({
-                cnpj: new FormControl(),
-                razao_social: new FormControl()
-            }),
-            conselhos: [],
-            encaminhamento: this.fb.group({
+            time_period: new FormControl(''),
+            description: new FormControl(''),
+            syndicates_ids: [],
+            sector: new FormControl(),
+            legal_framework: new FormControl(),
+            type: new FormControl(),
+            councils: [],
+            forwarded_to_the_technical_area: this.fb.group({
                 areas_envolvidas: [],
                 encaminhar_check: new FormControl(false),
                 emails: []
             }),
-            subcategoria_oe: new FormControl(''),
-            categoria_oe: new FormControl(''),
+            oe_subcategory: new FormControl(''),
+            oe_category: new FormControl(''),
         });
 
         if (this.formDemand) {
@@ -265,15 +258,14 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         }
 
         if (this.formDemand) {
-            this.cnpjChangesSubscription = this.formDemand.get('empresa').get('cnpj').valueChanges.subscribe((res: string) => {
+            this.cnpjChangesSubscription = this.formDemand.get('company').get('cnpj').valueChanges.subscribe((res: string) => {
                 if (res && res.length) {
                     // const val = this.cnpjPipe.transform(res);
                     // console.log(val);
                     // this.formDemand.get('empresa').get('cnpj').setValue(val);
                     // this.formDemand.get('empresa').get('cnpj').updateValueAndValidity();
-
                 }
-            })
+            });
         }
     }
 
@@ -292,7 +284,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     getSectorGroup() {
         this.groupUnionServiceSubScribe = this.demandServices.getSectors().subscribe(res => {
             this.optionsSectorGroup = res.data;
-        })
+        });
     }
 
     getCategories(): void {
@@ -333,7 +325,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         this.areasServiceSubscribe = this.demandServices.getAreasTecnicas().subscribe(res => {
             if (res)
                 this.optionsAreas = res.data;
-        })
+        });
     }
 
     getEmailsByAreasTecnicas() {
@@ -343,7 +335,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             this.emailsByAreasTecnicasServiceSubscribe = this.demandServices.getEmailsByAreasTecnicas(data).subscribe(res => {
                 if (res)
                     this.optionsForwardEmails = res.data;
-            })
+            });
         }
 
     }
@@ -354,7 +346,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
                 if (res) {
                     this.optionsAdvices = res.data;
                 }
-            })
+            });
         }
     }
 
@@ -364,14 +356,14 @@ export class DemandAddComponent implements OnInit, OnDestroy {
                 this.optionsAmbito = res.data.ambito;
                 this.optionsTipo = res.data.tipo;
             }
-        })
+        });
     }
 
     onSubmit(form) {
         console.log(form.value);
         this.registerDemandService = this.demandServices.setDemand(form.value).subscribe(res => {
             console.log(res);
-        })
+        });
     }
 
     resetForm() {
@@ -412,7 +404,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             this.stateServiceSubscribe.unsubscribe();
         }
 
-        if(this.cnpjChangesSubscription) {
+        if (this.cnpjChangesSubscription) {
             this.cnpjChangesSubscription.unsubscribe();
         }
     }

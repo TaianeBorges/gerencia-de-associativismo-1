@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {
     HttpInterceptor,
     HttpRequest,
@@ -7,15 +7,16 @@ import {
     HttpErrorResponse
 } from '@angular/common/http';
 
-import { Observable, throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
-import { AlertService } from '../shared/alerts/alert.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Observable, throwError} from 'rxjs';
+import {map, catchError} from 'rxjs/operators';
+import {AlertService} from '../shared/alerts/alert.service';
+import {Router, ActivatedRoute} from '@angular/router';
 
 /** Pass untouched request through to the next request handler. */
 @Injectable()
 export class ResponseInterceptor implements HttpInterceptor {
-    constructor(private alertService: AlertService, private router: Router, private route: ActivatedRoute) { }
+    constructor(private alertService: AlertService, private router: Router, private route: ActivatedRoute) {
+    }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(

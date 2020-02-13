@@ -18,49 +18,35 @@ export class AuthGuardService {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<boolean> | boolean {
 
-        this.isLoggedIn().subscribe(res => {
-                if (!res.authenticate) {
-                    this.router.navigate(['/login']);
-                    return false;
-                }
-            },
-            error => {
-                console.log(`Ocorreu o seguinte erro: ${error}`);
-                return false;
-            });
-
-        return true;
+        return this.isLoggedIn();
     }
 
     canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-        this.isLoggedIn().subscribe(res => {
+        return this.isLoggedIn();
+    }
+
+    login(): any {
+        return this.isLoggedIn();
+    }
+
+    isLoggedIn(): boolean {
+
+        this.authService.checkAuthorization().subscribe(res => {
             if (!res.authenticate) {
                 this.router.navigate(['/login']);
+                this.authService.authorizationLogin.emit(res);
                 return false;
+            } else {
+                return true;
             }
         }, error1 => {
-            console.log(`Ocorreu o seguinte erro: ${error1}`);
+
+            this.authService.authorizationLogin.emit({authenticate: false});
+            this.router.navigate(['/login']);
             return false;
         });
 
         return true;
-    }
-
-    login(): any {
-        return this.isLoggedIn().subscribe(res => {
-                if (!res.authenticate) {
-                    this.router.navigate(['/login']);
-                    return false;
-                }
-            },
-            error => {
-                console.log(`Ocorreu o seguinte erro: ${error}`);
-                return false;
-            });
-    }
-
-    isLoggedIn(): Observable<any> {
-        return this.authService.checkAuthorization();
     }
 }
