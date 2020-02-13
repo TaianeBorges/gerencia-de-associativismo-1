@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-demand-pagination',
@@ -10,23 +10,26 @@ export class DemandPaginationComponent implements OnInit {
 
   nextButton: boolean;
   beforeButton: boolean;
+  filtersParams: any;
 
   constructor(
-    private route: Router
-  ) { }
+    private route: Router,
+    private activatedRoute: ActivatedRoute) {
+      
+    this.activatedRoute.queryParams.subscribe(params => {
+        this.filtersParams = params;
+
+    });
+   }
 
   @Input('demands') demands: any;
   @Output('pagination') pagination = new EventEmitter();
   @Input('currentPage') currentPage: number;
 
   ngOnInit() {
-    if (window.location.search.indexOf('page=') !== -1)
-      this.currentPage = parseInt(window.location.search.substr((window.location.search.indexOf('page=') + 5), 1));
+      
+      this.currentPage = this.filtersParams.page ? this.filtersParams.page : 1;
 
-    if (isNaN(this.currentPage))
-      this.currentPage = 1;
-
-    if (typeof this.currentPage === 'number' && this.currentPage === 1)
       this.permissionButton();
   }
 
@@ -38,6 +41,7 @@ export class DemandPaginationComponent implements OnInit {
     }
 
     this.permissionButton();
+    
     this.pagination.emit({ page: this.currentPage });
   }
 

@@ -3,6 +3,7 @@ import {SharedsService} from 'src/app/shared/shareds.service';
 import {DemandService} from '../demand.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
     selector: 'app-demand-list',
@@ -17,6 +18,16 @@ export class DemandListComponent implements OnInit, OnDestroy {
     demandServiceSubscribe: Subscription;
     params: object;
     openModalAddHistory = false;
+    filtersParams = {
+        entity_id: "",
+        demand_requester: "",
+        syndicate_id: "",
+        status_id: "",
+        demand_id: "",
+        demand_category_id: "",
+        sector_id: "",
+        page: 1
+    };
 
     constructor(
         private sharedService: SharedsService,
@@ -25,18 +36,19 @@ export class DemandListComponent implements OnInit, OnDestroy {
         private renderer: Renderer2,
         private route: Router,
         private activatedRoute: ActivatedRoute) {
+
+            this.activatedRoute.queryParams.subscribe((params: any) => {
+                if (params.length) {
+                    this.filtersParams = params;
+                }
+            });
     }
 
     ngOnInit() {
         this.sharedService.setTitle('Lista de demandas');
 
-        this.getFilters();
         this.listDemands();
-    }
 
-    getFilters() {
-
-        // const item = 'entidade_id=1&cadastrante_nome=&sindicato_id=&status_id=&demanda_id=&demanda_categoria_id=&page=1'.split('&');
     }
 
     openDemand(demand) {
@@ -49,7 +61,10 @@ export class DemandListComponent implements OnInit, OnDestroy {
     }
 
     onPagination(event) {
-        this.page = event.page;
+        if (event ) {
+            this.filtersParams.page = event.page;
+        }
+
         this.listDemands();
     }
 
@@ -81,18 +96,13 @@ export class DemandListComponent implements OnInit, OnDestroy {
         event.stopPropagation();
     }
 
-    listDemands(filters = null) {
-        if (!filters) {
-            filters = {
-                page: this.page
-            };
-        } else {
-            filters.page = this.page;
-        }
+    listDemands() {
+        
 
-        // this.route.navigate(['gestao-de-demandas/lista-de-demandas'], { queryParams: filters });
 
-        this.demandServiceSubscribe = this.demandService.getDemands(filters)
+        this.route.navigate(['gestao-de-demandas/lista-de-demandas'], { queryParams: this.filtersParams });
+
+        this.demandServiceSubscribe = this.demandService.getDemands(this.filtersParams)
             .subscribe(res => {
                 this.demands = res;
             });
@@ -103,8 +113,12 @@ export class DemandListComponent implements OnInit, OnDestroy {
     }
 
     filterSubmit(event) {
-        this.page = 1;
-        this.listDemands(event.filters);
+        this.filtersParams.page = 1;
+        for (let key in event.filters) {
+            this.filtersParams[key] = event.filters[key];
+        }
+
+        this.listDemands();
     }
 
     ngOnDestroy() {
