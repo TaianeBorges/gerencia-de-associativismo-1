@@ -134,12 +134,12 @@
                                 <div class="form-group col-lg-6">
                                     <label class="card-label mb-2 text-muted">CNPJ</label>
                                     <input type="text" formControlName="cnpj" maxlength="18"
-                                        [ngClass]="{'is-invalid': formDemand.get('company.cnpj').errors && formDemand.get('company.cnpj').touched }"
+                                        [ngClass]="{'is-invalid': formDemand.get('company.cnpj') && formDemand.get('company.cnpj').errors && formDemand.get('company.cnpj').touched }"
                                         class="form-control">
                                 </div>
                                 <div class="form-group col-lg-6">
                                     <label class="card-label mb-2 text-muted">Razão social</label>
-                                    <input type="text" formControlName="razao_social"
+                                    <input type="text" formControlName="name"
                                         [ngClass]="{'is-invalid': formDemand.get('company.name').errors && formDemand.get('company.name').touched }"
                                         class="form-control">
                                 </div>
@@ -225,21 +225,21 @@
                     <div class="row" formGroupName="forwarded_to_the_technical_area">
                         <div class="form-group col-lg-12">
                             <label class="card-label mb-2 text-muted">Áreas envolvidas</label>
-                            <ng2-selectize formControlName="areas_envolvidas"
-                                [ngClass]="{'is-invalid': formDemand.get('forwarded_to_the_technical_area.areas_envolvidas').errors && formDemand.get('forwarded_to_the_technical_area.areas_envolvidas').touched }"
-                                class="selectize-areas" [config]="configAreas" [options]="optionsAreas"
+                            <ng2-selectize formControlName="managements"
+                                [ngClass]="{'is-invalid': formDemand.get('forwarded_to_the_technical_area.managements').errors && formDemand.get('forwarded_to_the_technical_area.managements').touched }"
+                                class="selectize-areas" [config]="configManagements" [options]="optionsManagements"
                                 placeholder="Selecione">
                             </ng2-selectize>
                         </div>
 
                         <div class="form-group col-lg-12 padding-l-40">
-                            <input id="encaminhamento_check" formControlName="encaminhar_check" type="checkbox"
+                            <input id="encaminhamento_check" formControlName="check_forwarded" type="checkbox"
                                 class="form-check-input">
                             <label class="form-check-label" for="encaminhamento_check">Encaminhamento</label>
                         </div>
 
                         <div class="form-group col-lg-12"
-                            *ngIf="formDemand.get('forwarded_to_the_technical_area.encaminhar_check').value">
+                            *ngIf="formDemand.get('forwarded_to_the_technical_area.check_forwarded').value">
                             <label for="">E-mails</label>
                             <ng2-selectize formControlName="emails"
                                 [ngClass]="{'is-invalid': formDemand.get('forwarded_to_the_technical_area.emails').errors && formDemand.get('forwarded_to_the_technical_area.emails').touched }"

@@ -35,7 +35,6 @@ export class DemandDetailComponent implements OnInit {
     this.demandService.getDemand(id)
       .subscribe(res => {
         this.demand = res.data[0];
-        console.log(this.demand);
       });
   }
 

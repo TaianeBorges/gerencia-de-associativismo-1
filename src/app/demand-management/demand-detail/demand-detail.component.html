@@ -29,15 +29,15 @@
                     <div class="row">
                         <div class="col">
                             <h6 class="card-label mb-2 text-muted">Nome</h6>
-                            <h5 class="card-text">{{demand.solicitante.nome}}</h5>
+                            <h5 class="card-text">{{demand.demand_requester.name}}</h5>
                         </div>
                         <div class="col">
                             <h6 class="card-label mb-2 text-muted">Último nome</h6>
-                            <h5 class="card-text">{{demand.solicitante.sobrenome}}</h5>
+                            <h5 class="card-text">{{demand.demand_requester.last_name}}</h5>
                         </div>
                         <div class="col">
                             <h6 class="card-label mb-2 text-muted">E-mail</h6>
-                            <h5 class="card-text">{{demand.solicitante.email}}</h5>
+                            <h5 class="card-text">{{demand.demand_requester.email}}</h5>
                         </div>
                     </div>
                 </div>
@@ -52,41 +52,41 @@
                     <div class="row">
                         <div class="col">
                             <h6 class="card-label mb-2 text-muted">Entidade</h6>
-                            <h5 class="card-text">{{demand.entidade.nome}}</h5>
+                            <h5 class="card-text">{{demand.entity.name}}</h5>
                         </div>
                         <div class="col">
                             <h6 class="card-label mb-2 text-muted">Sindicatos</h6>
-                            <h5 class="card-text" *ngFor="let item of demand.demandas_sindicatos">
-                                {{item.sigla}}
+                            <h5 class="card-text" *ngFor="let item of demand.demands_syndicates">
+                                {{item.initial}}
                             </h5>
                         </div>
                         <div class="col">
                             <h6 class="card-label mb-2 text-muted">Prazo</h6>
-                            <h5 class="card-text">{{demand.prazo ? demand.prazo : '---'}}</h5>
+                            <h5 class="card-text">{{demand.time_period ? demand.time_period : '---'}}</h5>
                         </div>
                     </div>
 
                     <div class="row margin-t-30">
                         <div class="col-lg-4">
                             <h6 class="card-label mb-2 text-muted">Categoria</h6>
-                            <h5 class="card-text">{{demand.subcategoria_demanda.categoria_demanda.nome}}</h5>
+                            <h5 class="card-text">{{demand.demand_subcategory.demand_category.name}}</h5>
                         </div>
                         <div class="col-lg-4">
                             <h6 class="card-label mb-2 text-muted">Subcategoria</h6>
-                            <h5 class="card-text">{{demand.subcategoria_demanda.nome}}</h5>
+                            <h5 class="card-text">{{demand.demand_subcategory.name}}</h5>
                         </div>
                     </div>
 
                     <div class="row margin-t-30">
                         <div class="col">
                             <h6 class="card-label mb-2 text-muted">Do que se trata?</h6>
-                            <h5 class="card-text">{{demand.escopo ? demand.escopo_details.label : '---' }}</h5>
+                            <h5 class="card-text">{{demand.scope ? demand.scope_details.label : '---' }}</h5>
                         </div>
                     </div>
                     <div class="row margin-t-30">
                         <div class="col">
                             <h6 class="card-label mb-2 text-muted">Descrição</h6>
-                            <h5 class="card-text">{{demand.descricao}}</h5>
+                            <h5 class="card-text">{{demand.description}}</h5>
                         </div>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
         </div>
 
         <div class="demand-card-group"
-            *ngIf="demand.subcategoria_demanda.categoria_demanda.nome == 'Defesa de Interesse'">
+            *ngIf="demand.demand_subcategory.demand_category.name == 'Defesa de Interesse'">
             <h3>Objetivo estratégico</h3>
 
             <div class="card">
@@ -106,7 +106,7 @@
                         </div>
                         <div class="col">
                             <h6 class="card-label mb-2 text-muted">Subcategoria</h6>
-                            <h5 class="card-text">{{demand.entidade.nome}}</h5>
+                            <h5 class="card-text">{{demand.entity.name}}</h5>
                         </div>
                     </div>
                 </div>

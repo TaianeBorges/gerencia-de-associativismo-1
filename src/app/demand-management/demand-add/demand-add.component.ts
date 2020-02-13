@@ -132,8 +132,8 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         dropdownDirection: 'down'
     };
 
-    optionsAreas = [];
-    configAreas = {
+    optionsManagements = [];
+    configManagements = {
         labelField: 'initial',
         valueField: 'id',
         create: false,
@@ -142,7 +142,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         dropdownDirection: 'down',
         maxItems: 100,
         onBlur: () => {
-            this.getEmailsByAreasTecnicas();
+            this.getEmailsByManagements();
         }
     };
 
@@ -199,7 +199,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     categoryEOServiceSubscribe: Subscription;
     subCategoryOEServiceSubscribe: Subscription;
     registerDemandService: Subscription;
-    areasServiceSubscribe: Subscription;
+    managementsServiceSubscribe: Subscription;
     emailsByAreasTecnicasServiceSubscribe: Subscription;
     groupUnionServiceSubScribe: Subscription;
     advicesServiceSubscribe: Subscription;
@@ -241,8 +241,8 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             type: new FormControl(),
             councils: [],
             forwarded_to_the_technical_area: this.fb.group({
-                areas_envolvidas: [],
-                encaminhar_check: new FormControl(false),
+                managements: [],
+                check_forwarded: new FormControl(false),
                 emails: []
             }),
             oe_subcategory: new FormControl(''),
@@ -254,7 +254,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             this.getCategories();
             this.getScope();
             this.getCategoriesOE();
-            this.getAreasTecnicas();
+            this.getManagements();
         }
 
         if (this.formDemand) {
@@ -321,18 +321,19 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         }
     }
 
-    getAreasTecnicas() {
-        this.areasServiceSubscribe = this.demandServices.getAreasTecnicas().subscribe(res => {
-            if (res)
-                this.optionsAreas = res.data;
+    getManagements() {
+        this.managementsServiceSubscribe = this.demandServices.getManagements().subscribe(res => {
+            if (res) {
+                this.optionsManagements = res.data;
+            }
         });
     }
 
-    getEmailsByAreasTecnicas() {
-        const data = this.formDemand.get('encaminhamento.areas_envolvidas').value;
+    getEmailsByManagements() {
+        const data = this.formDemand.get('forwarded_to_the_technical_area.managements').value;
 
         if (data) {
-            this.emailsByAreasTecnicasServiceSubscribe = this.demandServices.getEmailsByAreasTecnicas(data).subscribe(res => {
+            this.emailsByAreasTecnicasServiceSubscribe = this.demandServices.getEmailsByManagements(data).subscribe(res => {
                 if (res)
                     this.optionsForwardEmails = res.data;
             });
@@ -374,7 +375,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         this.categoryServiceSubscribe.unsubscribe();
         this.subScopeServiceSubscribe.unsubscribe();
         this.categoryEOServiceSubscribe.unsubscribe();
-        this.areasServiceSubscribe.unsubscribe();
+        this.managementsServiceSubscribe.unsubscribe();
 
         if (this.unionServiceSubscribe) {
             this.unionServiceSubscribe.unsubscribe();

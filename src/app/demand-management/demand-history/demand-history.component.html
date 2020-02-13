@@ -9,7 +9,7 @@
 
     <!-- Modal Body -->
     <div class="modal-body">
-        <div *ngFor="let item of demandSelected.historico_demanda">
+        <div *ngFor="let item of demandSelected.histories">
             <div class="row status-item padding-t-30 padding-b-30">
                 <div class="col-2 display-flex justify-content-center">
                     <app-initial-name [user]="item.user"></app-initial-name>
@@ -29,12 +29,12 @@
                             </div>
                             <div class="demand-group">
                                 <h5 class="demand-label">Custo</h5>
-                                <h6 class="demand-text">{{item.custo > 0 ? item.custo : '---'}}</h6>
+                                <h6 class="demand-text">{{item.cost > 0 ? item.cost : '---'}}</h6>
                             </div>
 
                             <div class="demand-group">
                                 <h5 class="demand-label">Prazo</h5>
-                                <h6 class="demand-text">{{item.custo > 0 ? item.custo : '---'}}</h6>
+                                <h6 class="demand-text">{{item.cost > 0 ? item.cost : '---'}}</h6>
                             </div>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                         <div class="col">
                             <div class="demand-group">
                                 <h5 class="demand-label">Comantário</h5>
-                                <h6 class="demand-text">{{item.comentario}}</h6>
+                                <h6 class="demand-text">{{item.comment}}</h6>
                             </div>
                         </div>
                     </div>

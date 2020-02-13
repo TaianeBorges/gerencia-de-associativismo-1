@@ -144,12 +144,20 @@ export class DemandService {
             );
     }
 
-    getEmailsByAreasTecnicas(data: Array<any>): Observable<any> {
-        return this.http.post(`${environment.apiUrl}/areas_tecnicas/emails`, { gerencia_id: data }, this.httpOptions).pipe(
+    getEmailsByManagements(data: Array<any>): Observable<any> {
+        return this.http.post(`${environment.apiUrl}/lotacoes/gerencias-gerais/gerencias/emails`, { managements_ids: data }, this.httpOptions).pipe(
             map(res => {
                 return res;
             })
         )
+    }
+
+    getManagements(): Observable<any> {
+        return this.http.get(`${environment.apiUrl}/lotacoes/gerencias-gerais/gerencias`, this.httpOptions).pipe(
+            map(res => {
+                return res;
+            })
+        );
     }
 
     getAdvices(data: any): Observable<any> {
