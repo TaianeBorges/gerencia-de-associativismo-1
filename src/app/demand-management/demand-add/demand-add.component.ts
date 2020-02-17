@@ -236,7 +236,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             time_period: new FormControl(''),
             description: new FormControl(''),
             syndicates_ids: [],
-            sector: new FormControl(),
+            sector_id: new FormControl(),
             legal_framework: new FormControl(),
             type: new FormControl(),
             councils: [],

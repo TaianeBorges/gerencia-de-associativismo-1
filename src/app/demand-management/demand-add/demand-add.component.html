@@ -59,8 +59,8 @@
                         <div class="form-group col-lg-4"
                             *ngIf="formDemand.get('entity_id') && formDemand.get('entity_id').value == 5">
                             <label class="card-label mb-2 text-muted">Grupo setorial</label>
-                            <ng2-selectize formControlName="sector"
-                                [ngClass]="{'is-invalid': formDemand.get('sector').errors && formDemand.get('sector').touched }"
+                            <ng2-selectize formControlName="sector_id"
+                                [ngClass]="{'is-invalid': formDemand.get('sector_id').errors && formDemand.get('sector_id').touched }"
                                 class="selectize-syndicate" [config]="configSectorGroup" [options]="optionsSectorGroup"
                                 placeholder="Selecione o setor">
                             </ng2-selectize>
