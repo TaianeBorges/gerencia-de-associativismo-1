@@ -9,11 +9,35 @@
 
     <!-- Modal Body -->
     <div class="modal-body">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corporis, cupiditate, rerum fugit iste maxime hic
-        facilis quia itaque mollitia non et voluptas nostrum distinctio illum sed voluptatem nam exercitationem
-        quibusdam?
+        <div class="status-item padding-t-30 padding-b-30">
+            <form action="">
+                <div class="row">
+                    <div class="col form-group">
+                        <label for="">Status</label>
+                        <select name="" id="" class="form-control">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="col form-group">
+                        <label for="">Custo</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="col form-group">
+                        <label for="">Prazo</label>
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col form-group">
+                        <label for="">Comentario</label>
+                        <textarea name="" id="" class="form-control"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-light" (click)="modalRef.hide()">Fechar</button>
+        <button type="" class="btn btn-success">Atualizar demanda</button>
     </div>
 </ng-template>

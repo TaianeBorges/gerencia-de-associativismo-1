@@ -90,7 +90,7 @@
                 </div>
             </div>
             <div class="card-footer display-flex">
-                <a (click)="addHistoryDemand($event); openModalAddHistory = !openModalAddHistory"
+                <a (click)="addHistoryDemand($event); demandAddSelected = demand; openModalAddHistory = !openModalAddHistory"
                     class="color-entidade-{{demand.entity.id}}">
                     <i class="material-icons">
                         add_circle_outline
@@ -118,4 +118,4 @@
 <app-demand-history [demandSelected]="demandSelected" [openModal]="openModalShowHistory">
 </app-demand-history>
 
-<app-demand-add-history [openModal]="openModalAddHistory"></app-demand-add-history>
+<app-demand-add-history [demandSelected]="demandAddSelected"  [openModal]="openModalAddHistory"></app-demand-add-history>

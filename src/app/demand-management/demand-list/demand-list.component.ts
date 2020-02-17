@@ -15,9 +15,9 @@ export class DemandListComponent implements OnInit, OnDestroy {
     demands: any;
     page = 1;
     demandSelected: any;
+    demandAddSelected: any;
     demandServiceSubscribe: Subscription;
     params: object;
-    openModalAddHistory = false;
     filtersParams = {
         entity_id: "",
         demand_requester: "",
@@ -92,14 +92,12 @@ export class DemandListComponent implements OnInit, OnDestroy {
         event.stopPropagation();
     }
 
-    addHistoryDemand(event) {
+    addHistoryDemand(event, demand) {
         event.stopPropagation();
     }
 
     listDemands() {
         
-
-
         this.route.navigate(['gestao-de-demandas/lista-de-demandas'], { queryParams: this.filtersParams });
 
         this.demandServiceSubscribe = this.demandService.getDemands(this.filtersParams)

@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { EventEmitter } from 'protractor';
 
 @Component({
   selector: 'app-demand-add-history',
@@ -11,6 +12,8 @@ export class DemandAddHistoryComponent implements OnInit {
   modalRef: BsModalRef;
   @ViewChild('modal', { static: false }) modal;
   @Input('openModal') openModal: boolean;
+  @Input('demandSelected') demandSelected: any;
+  @Output('close') close: EventEmitter;
 
   constructor(private modalService: BsModalService) { }
 
@@ -18,8 +21,8 @@ export class DemandAddHistoryComponent implements OnInit {
   }
 
   ngOnChanges(changes: any) {
-    if (changes && changes.openModal.currentValue) {
-      this.open();
+    if (changes && changes.openModal) {
+      // this.open();
     }
   }
 
