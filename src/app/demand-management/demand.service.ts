@@ -82,8 +82,8 @@ export class DemandService {
             );
     }
 
-    getSectors(): Observable<any> {
-        return this.http.get(`${environment.apiUrl}/sindicatos/setores`, this.httpOptions)
+    getCouncils(): Observable<any> {
+        return this.http.post(`${environment.apiUrl}/conselhos`, {}, this.httpOptions)
             .pipe(
                 map(res => {
                     return res;
@@ -161,7 +161,7 @@ export class DemandService {
     }
 
     getAdvices(data: any): Observable<any> {
-        return this.http.post(`${environment.apiUrl}/conselhos`, { entidade_id: data }, this.httpOptions).pipe(
+        return this.http.post(`${environment.apiUrl}/conselhos`, { entity_id: data }, this.httpOptions).pipe(
             map(res => {
                 return res;
             })

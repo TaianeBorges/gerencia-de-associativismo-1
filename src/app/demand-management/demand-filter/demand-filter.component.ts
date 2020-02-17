@@ -16,6 +16,7 @@ export class DemandFilterComponent implements OnInit {
     @ViewChild('status', {static: false}) status;
     @ViewChild('categories', {static: false}) categories;
     @ViewChild('sector', {static: false}) sector;
+    @ViewChild('council', {static: false}) council;
 
     @Output('formOnSubmit') formOnSubmit = new EventEmitter();
 
@@ -54,7 +55,7 @@ export class DemandFilterComponent implements OnInit {
         dropdownDirection: 'down'
     };
 
-    configSectors = {
+    configCouncils = {
         labelField: 'name',
         valueField: 'id',
         create: false,
@@ -67,7 +68,7 @@ export class DemandFilterComponent implements OnInit {
     optionsUnions = [];
     optionsDemandStatus = [];
     optionsDemandCategory = [];
-    optionsSectors = [];
+    optionsCouncils = [];
 
 
     constructor(
@@ -84,14 +85,14 @@ export class DemandFilterComponent implements OnInit {
             status_id: new FormControl(''),
             demand_id: new FormControl(''),
             demand_category_id: new FormControl(''),
-            sector_id: []
+            council_id: []
         });
 
         this.getEntity();
         this.getUnions();
         this.getDemandStatus();
         this.getDemandCategories();
-        this.getSectors();
+        this.getCouncils();
     }
 
     getEntity() {
@@ -126,10 +127,10 @@ export class DemandFilterComponent implements OnInit {
         });
     }
 
-    getSectors() {
-        this.demandService.getSectors().subscribe(res => {
+    getCouncils() {
+        this.demandService.getCouncils().subscribe(res => {
             if (res.data) {
-                this.optionsSectors = res.data;
+                this.optionsCouncils = res.data;
             }
         });
     }
@@ -144,6 +145,6 @@ export class DemandFilterComponent implements OnInit {
         this.syndicates = '';
         this.status = '';
         this.categories = '';
-        this.sector = '';
+        this.council = '';
     }
 }

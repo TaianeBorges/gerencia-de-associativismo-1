@@ -12,4 +12,10 @@
   .card-forward {
     max-width: 400px;
   }
+
+  .selectize-control.single .selectize-input, 
+  .selectize-control.single .selectize-input input {
+    min-height: 36px;
+  }
 }
+

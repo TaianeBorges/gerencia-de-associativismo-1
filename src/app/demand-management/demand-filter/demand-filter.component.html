@@ -68,11 +68,11 @@
                 </div>
 
                 <div class="form-group col-lg-3 col-md-6 col-sm-12">
-                    <label>Setor</label>
-                    <ng2-selectize formControlName="sector_id" [(ngModel)]="sector"
-                                   [ngClass]="{'is-invalid': formFilter.get('sector_id').errors && formFilter.get('sector_id').touched }"
-                                   class="selectize-sectors" [config]="configSectors" [options]="optionsSectors"
-                                   placeholder="Selecione o setor">
+                    <label>Conselho</label>
+                    <ng2-selectize formControlName="council_id" [(ngModel)]="council"
+                                   [ngClass]="{'is-invalid': formFilter.get('council_id').errors && formFilter.get('council_id').touched }"
+                                   class="selectize-councils" [config]="configCouncils" [options]="optionsCouncils"
+                                   placeholder="Selecione o Conselho">
                     </ng2-selectize>
                 </div>
 

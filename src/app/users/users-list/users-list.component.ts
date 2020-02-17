@@ -37,14 +37,14 @@ export class UsersListComponent implements OnInit {
         if (confirm('Tem certeza desta operação?')) {
             const data = {
                 user_id: id,
-                active: !value
+                status: !value
             }
 
             this.usersEnableSubscribe = this.usersServices.enableUser(data).subscribe(res => {
                 if (res) {
                     this.users.forEach((element, index) => {
                         if (element.id == res.user.id) {
-                            this.users[index].active = res.user.active;
+                            this.users[index].status = res.user.status;
                         }
                     });
                 }

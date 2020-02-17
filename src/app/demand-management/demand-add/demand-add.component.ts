@@ -1,14 +1,18 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild,ViewEncapsulation} from '@angular/core';
 import {SharedsService} from 'src/app/shared/shareds.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {DemandService} from '../demand.service';
 import {CNPJPipe} from '../../shared/pipes/cnpj.pipe';
+import { Ng2SelectizeComponent } from 'ng2-selectize';
+import { Router } from '@angular/router';
+import { AlertService } from '../../shared/alerts/alert.service';
 
 @Component({
     selector: 'app-demand-add',
     templateUrl: './demand-add.component.html',
-    styleUrls: ['./demand-add.component.scss']
+    styleUrls: ['./demand-add.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class DemandAddComponent implements OnInit, OnDestroy {
 
@@ -24,6 +28,13 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         plugins: ['dropdown_direction', 'remove_button'],
         dropdownDirection: 'down',
         onChange: ($event) => {
+
+            this.formDemand.get('syndicates_ids').setValue([]);
+            this.formDemand.get('sector_id').reset('');
+            this.formDemand.get('council_id').reset('');
+            this.formDemand.get('company').get('cnpj').reset('');
+            this.formDemand.get('company').get('name').reset('');
+            
             if ($event == 1 || $event == 2) {
                 this.getUnions();
             }
@@ -129,7 +140,8 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         create: false,
         searchField: ['label'],
         plugins: ['dropdown_direction', 'remove_button'],
-        dropdownDirection: 'down'
+        dropdownDirection: 'down',
+        maxItems: 10
     };
 
     optionsManagements = [];
@@ -170,8 +182,8 @@ export class DemandAddComponent implements OnInit, OnDestroy {
 
     optionState = [];
 
-    optionsAmbito = [];
-    configAmbito = {
+    optionsLegalFramework = [];
+    configLegalFramework = {
         labelField: 'label',
         valueField: 'id',
         create: false,
@@ -180,8 +192,8 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         dropdownDirection: 'down'
     };
 
-    optionsTipo = [];
-    configTipo = {
+    optionsType = [];
+    configType = {
         labelField: 'label',
         valueField: 'id',
         create: false,
@@ -211,7 +223,9 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         private fb: FormBuilder,
         private demandServices: DemandService,
         private el: ElementRef,
-        private cnpjPipe: CNPJPipe
+        private cnpjPipe: CNPJPipe,
+        private router: Router,
+        private alertService: AlertService
     ) {
     }
 
@@ -228,7 +242,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             syndicate_permission: new FormControl(''),
             demand_category: new FormControl(''),
             demand_subcategory: new FormControl(''),
-            scope: new FormControl(''),
+            scope: [],
             company: new FormGroup({
                 cnpj: new FormControl(''),
                 name: new FormControl('')
@@ -239,7 +253,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             sector_id: new FormControl(),
             legal_framework: new FormControl(),
             type: new FormControl(),
-            councils: [],
+            council_id: new FormControl(''),
             forwarded_to_the_technical_area: this.fb.group({
                 managements: [],
                 check_forwarded: new FormControl(false),
@@ -256,19 +270,18 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             this.getCategoriesOE();
             this.getManagements();
         }
-
-        if (this.formDemand) {
-            this.cnpjChangesSubscription = this.formDemand.get('company').get('cnpj').valueChanges.subscribe((res: string) => {
-                if (res && res.length) {
-                    // const val = this.cnpjPipe.transform(res);
-                    // console.log(val);
-                    // this.formDemand.get('empresa').get('cnpj').setValue(val);
-                    // this.formDemand.get('empresa').get('cnpj').updateValueAndValidity();
-                }
-            });
-        }
     }
 
+    changeCnpj(val) {
+        val = this.cnpjPipe.transform(val.value);
+        this.formDemand.get('company').get('cnpj').setValue(val);
+        this.formDemand.get('company').get('cnpj').updateValueAndValidity();
+    }
+
+
+    dateChanged($event) {
+        console.log(event);
+    }
     getEntity(): void {
         this.entityServiceSubscribe = this.demandServices.getEntity().subscribe(res => {
             this.optionsEntities = res.data;
@@ -296,6 +309,10 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     getSubcategories(id: any): void {
         if (id) {
             this.subCategoryServiceSubscribe = this.demandServices.getDemandSubcategories(id).subscribe(res => {
+                // this.demand_subcategory = null;
+                this.formDemand.get('demand_subcategory').reset('');
+                // this.formDemand.get('demand_subcategory').updateValueAndValidity();
+
                 this.optionsSubcategory = res.data;
             });
         }
@@ -353,17 +370,40 @@ export class DemandAddComponent implements OnInit, OnDestroy {
 
     getState() {
         this.stateServiceSubscribe = this.demandServices.getState().subscribe(res => {
-            if (res) {
-                this.optionsAmbito = res.data.ambito;
-                this.optionsTipo = res.data.tipo;
+            if (res && res.data) {
+                this.optionsLegalFramework = res.data.legal_framework;
+                this.optionsType = res.data.type;
             }
         });
     }
 
     onSubmit(form) {
-        console.log(form.value);
-        this.registerDemandService = this.demandServices.setDemand(form.value).subscribe(res => {
-            console.log(res);
+        this.registerDemandService = this.demandServices.setDemand(form.value).subscribe((res: any) => {
+            let alert;
+            if (res.create) {   
+                alert = {
+                    status: 200,
+                    icon: 'check_circle',
+                    color: 'success',
+                    title: 'Parabéns!',
+                    message: 'Logado com sucesso.',
+                    copy: false
+                };
+
+                this.router.navigate([`/gestao-de-demandas/demanda/${res.data.id}`]);
+
+            } else {
+                alert = {
+                    status: 200,
+                    message: res.message ? res.message : 'E-mail ou senha inválido.',
+                    title: 'Ops!',
+                    icon: 'priority_high',
+                    color: 'warning'
+                };
+            }
+          
+            this.alertService.alertShow(alert);
+
         });
     }
 
