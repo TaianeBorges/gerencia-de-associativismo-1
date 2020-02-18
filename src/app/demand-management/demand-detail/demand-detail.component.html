@@ -14,12 +14,13 @@
                 <button (click)="openModal = !openModal" class="btn btn-outline-info">
                     Histórico de status
                 </button>
-                
-                <button (click)="openModal = !openModal" class="btn btn-info margin-l-10">
+
+                <button (click)="demandAddSelected = demand; openModalAddHistory = !openModalAddHistory"
+                        class="btn btn-info margin-l-10">
                     Atualizar status
                 </button>
 
-                <button class="btn btn-primary margin-l-10">Editar demanda</button>
+                <button disabled class="btn btn-primary margin-l-10">Editar demanda</button>
             </div>
         </div>
 
@@ -56,26 +57,26 @@
                             <h6 class="card-label mb-2 text-muted">Entidade</h6>
                             <h5 class="card-text">{{demand.entity.name}}</h5>
                         </div>
-                        
+
                         <div class="col" *ngIf="demand.council">
                             <h6 class="card-label mb-2 text-muted">Conselho</h6>
                             <h5>{{demand.council.name}}</h5>
                         </div>
-                        
+
                         <div class="col" *ngIf="demand.demands_syndicates.length">
                             <h6 class="card-label mb-2 text-muted">Sindicatos</h6>
                             <h5 class="card-text" *ngFor="let item of demand.demands_syndicates">
                                 {{item.initial}}
                             </h5>
                         </div>
-                        
+
                         <div class="col" *ngIf="demand.company && !demand.demands_syndicates.length">
                             <h6 class="card-label mb-2 text-muted">Razão social</h6>
                             <h5 class="card-text">
                                 {{demand.company.name}}
                             </h5>
                         </div>
-                        
+
                         <div class="col" *ngIf="demand.company && !demand.demands_syndicates.length">
                             <h6 class="card-label mb-2 text-muted">CNPJ</h6>
                             <h5 class="card-text">
@@ -85,18 +86,19 @@
 
                         <div class="col" *ngIf="!demand.company || demand.demands_syndicates.length">
                             <h6 class="card-label mb-2 text-muted">Prazo</h6>
-                            <h5 class="card-text">{{demand.time_period ? (demand.time_period | date:'d MMM, y')  : '---'}}</h5>
+                            <h5 class="card-text">{{demand.time_period ? (demand.time_period | date:'d MMM, y') :
+                                '---'}}</h5>
                         </div>
                     </div>
 
-                    <div class="row margin-t-30" *ngIf="demand.company && demand.demands_syndicates.length">                        
+                    <div class="row margin-t-30" *ngIf="demand.company && demand.demands_syndicates.length">
                         <div class="col-lg-4">
                             <h6 class="card-label mb-2 text-muted">Razão social</h6>
                             <h5 class="card-text">
                                 {{demand.company.name}}
                             </h5>
                         </div>
-                        
+
                         <div class="col-lg-4">
                             <h6 class="card-label mb-2 text-muted">CNPJ</h6>
                             <h5 class="card-text">
@@ -133,7 +135,7 @@
         </div>
 
         <div class="demand-card-group"
-            *ngIf="demand.demand_subcategory.demand_category.id == 4">
+             *ngIf="demand.demand_subcategory.demand_category.id == 4">
             <h3>Objetivo estratégico</h3>
 
             <div class="card">
@@ -141,7 +143,8 @@
                     <div class="row">
                         <div class="col">
                             <h6 class="card-label mb-2 text-muted">Categoria</h6>
-                            <h5 class="card-text">{{demand.strategic_objective_subcategory.strategic_objective_category.name}}</h5>
+                            <h5 class="card-text">
+                                {{demand.strategic_objective_subcategory.strategic_objective_category.name}}</h5>
                         </div>
                         <div class="col">
                             <h6 class="card-label mb-2 text-muted">Subcategoria</h6>
@@ -167,7 +170,7 @@
                         </div>
                         <div class="col">
                             <h6 class="card-label mb-2 text-muted">E-mail da área técnica</h6>
-                            <h5 class="card-text" *ngFor="let item of demand.demands_users" >{{item.email}}</h5>
+                            <h5 class="card-text" *ngFor="let item of demand.demands_users">{{item.email}}</h5>
                         </div>
                     </div>
                 </div>
@@ -179,3 +182,5 @@
 
 <app-demand-history [demandSelected]="demand" [openModal]="openModal">
 </app-demand-history>
+
+<app-demand-add-history [demandSelected]="demandAddSelected" [openModal]="openModalAddHistory"></app-demand-add-history>

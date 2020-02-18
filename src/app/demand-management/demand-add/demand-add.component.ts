@@ -1,12 +1,12 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild,ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {SharedsService} from 'src/app/shared/shareds.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {DemandService} from '../demand.service';
 import {CNPJPipe} from '../../shared/pipes/cnpj.pipe';
-import { Ng2SelectizeComponent } from 'ng2-selectize';
-import { Router } from '@angular/router';
-import { AlertService } from '../../shared/alerts/alert.service';
+import {Ng2SelectizeComponent} from 'ng2-selectize';
+import {Router} from '@angular/router';
+import {AlertService} from '../../shared/alerts/alert.service';
 
 @Component({
     selector: 'app-demand-add',
@@ -34,7 +34,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             this.formDemand.get('council_id').reset('');
             this.formDemand.get('company').get('cnpj').reset('');
             this.formDemand.get('company').get('name').reset('');
-            
+
             if ($event == 1 || $event == 2) {
                 this.getUnions();
             }
@@ -282,6 +282,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     dateChanged($event) {
         console.log(event);
     }
+
     getEntity(): void {
         this.entityServiceSubscribe = this.demandServices.getEntity().subscribe(res => {
             this.optionsEntities = res.data;
@@ -380,7 +381,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     onSubmit(form) {
         this.registerDemandService = this.demandServices.setDemand(form.value).subscribe((res: any) => {
             let alert;
-            if (res.create) {   
+            if (res.create) {
                 alert = {
                     status: 200,
                     icon: 'check_circle',
@@ -401,7 +402,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
                     color: 'warning'
                 };
             }
-          
+
             this.alertService.alertShow(alert);
 
         });

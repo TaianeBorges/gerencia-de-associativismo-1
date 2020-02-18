@@ -1,6 +1,6 @@
 <ng-template #modal>
     <div class="modal-header">
-        <h4 class="modal-title pull-left">Status da demanda #</h4>
+        <h4 class="modal-title pull-left">Atualizar status da demanda</h4>
 
         <button type="button" class="close pull-right" (click)="modalRef.hide()">
             <span aria-hidden="true">&times;</span>
@@ -8,36 +8,36 @@
     </div>
 
     <!-- Modal Body -->
-    <div class="modal-body">
-        <div class="status-item padding-t-30 padding-b-30">
-            <form action="">
+    <form [formGroup]="formStatus" (ngSubmit)="onSubmit(formStatus)">
+        <div class="modal-body">
+            <div class="status-item padding-t-30 padding-b-30" *ngIf="formStatus">
                 <div class="row">
                     <div class="col form-group">
-                        <label for="">Status</label>
-                        <select name="" id="" class="form-control">
+                        <label>Status</label>
+                        <select formControlName="status" class="form-control">
                             <option value=""></option>
                         </select>
                     </div>
                     <div class="col form-group">
-                        <label for="">Custo</label>
-                        <input type="text" class="form-control">
+                        <label>Custo</label>
+                        <input type="text" formControlName="cost" class="form-control">
                     </div>
                     <div class="col form-group">
-                        <label for="">Prazo</label>
-                        <input type="text" class="form-control">
+                        <label>Prazo</label>
+                        <input type="date" formControlName="time_period" class="form-control">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col form-group">
-                        <label for="">Comentario</label>
-                        <textarea name="" id="" class="form-control"></textarea>
+                        <label>Comentario</label>
+                        <textarea formControlName="comment" class="form-control"></textarea>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-light" (click)="modalRef.hide()">Fechar</button>
-        <button type="" class="btn btn-success">Atualizar demanda</button>
-    </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="modalRef.hide()">Fechar</button>
+            <button type="submit" class="btn btn-success">Atualizar status</button>
+        </div>
+    </form>
 </ng-template>

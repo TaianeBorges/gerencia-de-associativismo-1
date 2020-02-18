@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
-import { map } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {environment} from '../../environments/environment';
+import {map} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 export class DemandService {
 
     private httpOptions = {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
+        headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
 
     constructor(private http: HttpClient) {
@@ -115,7 +115,7 @@ export class DemandService {
                 map(res => {
                     return res;
                 })
-            )
+            );
     }
 
     getDemandSubcategoriesOE(id): Observable<any> {
@@ -132,7 +132,7 @@ export class DemandService {
             map(res => {
                 return res;
             })
-        )
+        );
     }
 
     getAreasTecnicas(): Observable<any> {
@@ -145,11 +145,11 @@ export class DemandService {
     }
 
     getEmailsByManagements(data: Array<any>): Observable<any> {
-        return this.http.post(`${environment.apiUrl}/lotacoes/gerencias-gerais/gerencias/emails`, { managements_ids: data }, this.httpOptions).pipe(
+        return this.http.post(`${environment.apiUrl}/lotacoes/gerencias-gerais/gerencias/emails`, {managements_ids: data}, this.httpOptions).pipe(
             map(res => {
                 return res;
             })
-        )
+        );
     }
 
     getManagements(): Observable<any> {
@@ -161,7 +161,7 @@ export class DemandService {
     }
 
     getAdvices(data: any): Observable<any> {
-        return this.http.post(`${environment.apiUrl}/conselhos`, { entity_id: data }, this.httpOptions).pipe(
+        return this.http.post(`${environment.apiUrl}/conselhos`, {entity_id: data}, this.httpOptions).pipe(
             map(res => {
                 return res;
             })
@@ -170,6 +170,15 @@ export class DemandService {
 
     getState(): Observable<any> {
         return this.http.get(`${environment.apiUrl}/entidades/poder_publico`, this.httpOptions)
+            .pipe(
+                map(res => {
+                    return res;
+                })
+            );
+    }
+
+    getSectors(): Observable<any> {
+        return this.http.get(`${environment.apiUrl}/sindicatos/setores`, this.httpOptions)
             .pipe(
                 map(res => {
                     return res;
