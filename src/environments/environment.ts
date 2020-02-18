@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost/gerencia-de-associativismo-api/public/api'
+  apiUrl: 'http://172.16.50.29/gerencia-de-associativismo-api/public/api'
 };
 
 /*

@@ -14,6 +14,7 @@ export class DemandDetailComponent implements OnInit {
     demand: any;
     currentUrl;
     previousUrl;
+    total = 0;
 
     constructor(
         private route: ActivatedRoute,
@@ -35,7 +36,13 @@ export class DemandDetailComponent implements OnInit {
         this.demandService.getDemand(id)
             .subscribe(res => {
                 this.demand = res.data[0];
-            });
+
+                this.demand.histories.forEach(element => {
+                    if (element.cost) {
+                        this.total = this.total + parseFloat(element.cost);
+                    }
+                });
+        });
     }
 
     addHistoryDemand(event, demand) {

@@ -22,6 +22,7 @@ import { InitialNameComponent } from './initial-name/initial-name.component';
 //Pipes
 import { TelephonePipe } from './pipes/telephone.pipe';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { CurrencyPipe } from './pipes/currency.pipe';
 import { CNPJPipe } from './pipes/cnpj.pipe';
 
 @NgModule({
@@ -33,6 +34,7 @@ import { CNPJPipe } from './pipes/cnpj.pipe';
     TelephonePipe,
     InitialName,
     CapitalizePipe,
+    CurrencyPipe,
     InitialNameComponent
   ],
   imports: [
@@ -54,6 +56,7 @@ import { CNPJPipe } from './pipes/cnpj.pipe';
     TelephonePipe,
     InitialName,
     CapitalizePipe,
+    CurrencyPipe,
     InitialNameComponent
     
   ],

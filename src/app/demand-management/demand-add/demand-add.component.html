@@ -20,21 +20,21 @@
                             <input type="text"
                                 [ngClass]="{'is-invalid': formDemand.get('requester.name').errors && formDemand.get('requester.name').touched }"
                                 formControlName="name" class="form-control" id="nome"
-                                placeholder="Digite o nome do cadastrante">
+                                placeholder="Digite o nome do solicitante">
                         </div>
                         <div class="form-group col-lg-4">
                             <label class="card-label mb-2 text-muted">Último nome <i class="color-required">*</i></label>
                             <input type="text" class="form-control"
                                 [ngClass]="{'is-invalid': formDemand.get('requester.last_name').errors && formDemand.get('requester.last_name').touched }"
                                 formControlName="last_name" id="sobrenome"
-                                placeholder="Digite o sobrenome do cadastrante">
+                                placeholder="Digite o sobrenome do solicitante">
                         </div>
                         <div class="form-group col-lg-4">
                             <label class="card-label mb-2 text-muted">E-mail <i class="color-required">*</i></label>
                             <input type="text" class="form-control"
                                 [ngClass]="{'is-invalid': formDemand.get('requester.email').errors && formDemand.get('requester.email').touched }"
                                 formControlName="email" class="form-control" id="email"
-                                placeholder="Digite o email do cadastrante">
+                                placeholder="Digite o email do solicitante">
                         </div>
                     </div>
                 </div>
@@ -136,7 +136,8 @@
                                     <input type="text" formControlName="cnpj" maxlength="18"
                                         (keypress)="changeCnpj(formDemand.get('company.cnpj'))"
                                         [ngClass]="{'is-invalid': formDemand.get('company.cnpj') && formDemand.get('company.cnpj').errors && formDemand.get('company.cnpj').touched }"
-                                        class="form-control">
+                                        class="form-control"
+                                        (blur)="validatorCnpj(formDemand.get('company.cnpj').value)">
                                 </div>
                                 <div class="form-group col-lg-6">
                                     <label class="card-label mb-2 text-muted">Razão social</label>

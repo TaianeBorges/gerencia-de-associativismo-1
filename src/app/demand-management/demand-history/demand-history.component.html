@@ -29,12 +29,12 @@
                             </div>
                             <div class="demand-group">
                                 <h5 class="demand-label">Custo</h5>
-                                <h6 class="demand-text">{{item.cost > 0 ? item.cost : '---'}}</h6>
+                                <h6 class="demand-text">{{item.cost > 0 ? 'R$ ' + (item.cost | currency) : '---'}}</h6>
                             </div>
 
                             <div class="demand-group">
                                 <h5 class="demand-label">Prazo</h5>
-                                <h6 class="demand-text">{{item.cost > 0 ? item.cost : '---'}}</h6>
+                                <h6 class="demand-text">{{item.time_period | date:'d MMM, y'}}</h6>
                             </div>
                         </div>
                     </div>

@@ -28,7 +28,14 @@ export class DemandFilterComponent implements OnInit {
         create: false,
         searchField: ['name'],
         plugins: ['dropdown_direction', 'remove_button'],
-        dropdownDirection: 'down'
+        dropdownDirection: 'down',
+        onChange: ($event: any) => {
+            console.log($event);
+            if ($event) {
+                this.getDemandCategories($event);
+            }
+
+        }
     };
     configUnions = {
         labelField: 'initial',
@@ -91,7 +98,6 @@ export class DemandFilterComponent implements OnInit {
         this.getEntity();
         this.getUnions();
         this.getDemandStatus();
-        this.getDemandCategories();
         this.getCouncils();
     }
 
@@ -119,7 +125,7 @@ export class DemandFilterComponent implements OnInit {
         });
     }
 
-    getDemandCategories() {
+    getDemandCategories(data) {
         this.demandService.getDemandCategories().subscribe(res => {
             if (res.data) {
                 this.optionsDemandCategory = res.data;

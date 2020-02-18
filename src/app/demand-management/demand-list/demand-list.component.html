@@ -4,7 +4,7 @@
     <app-demand-pagination [currentPage]="page" [demands]="demands" (pagination)="onPagination($event)">
     </app-demand-pagination>
 
-    <div class="padding-l-20 padding-r-20">
+    <div class="padding-l-20 padding-b-20  padding-r-20">
 
         <div class="card fadeIn border-entidade-{{demand.entity.id}} demand-{{demand.id}}"
             *ngFor="let demand of demands?.data" (click)="openDemand(demand.id)" placement="top"
@@ -30,8 +30,12 @@
                         <em>Razão social</em>
                         <p class="card-text">{{demand.company.name}}</p>
                     </div>
+                    <div class="card-group card-sindicato" *ngIf="demand.entity_id === 5">
+                        <em>setor</em>
+                        <p class="card-text">{{demand.sector.name}}</p>
+                    </div>
                     <div class="card-group card-sindicato" *ngIf="demand.council">
-                        <em>CONSELHO</em>
+                        <em>Conselho</em>
                         <p class="card-text">{{demand.council.name}}</p>
                     </div>
                     <div class="card-group card-sindicato" *ngIf="demand.demands_syndicates.length">
@@ -90,8 +94,14 @@
                 </div>
             </div>
             <div class="card-footer display-flex">
+                <a (click)="addHistoryDemand($event);" class=" text-muted " *ngIf="demand.histories[0].status === 1 || demand.histories[0].status === 7 || demand.histories[0].status === 6">
+                    <i class="material-icons">
+                        add_circle_outline
+                    </i>
+                </a>
                 <a (click)="addHistoryDemand($event); demandAddSelected = demand; openModalAddHistory = !openModalAddHistory"
-                    class="color-entidade-{{demand.entity.id}}">
+                    class="color-entidade-{{demand.entity.id}}"
+                    *ngIf="!(demand.histories[0].status === 1 || demand.histories[0].status === 7 || demand.histories[0].status === 6)">
                     <i class="material-icons">
                         add_circle_outline
                     </i>

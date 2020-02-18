@@ -5,6 +5,10 @@
   background-color: #f0f3f6;
   min-height: calc(100vh - 67px);
 
+  .text-muted {
+    color: #dcdcdc!important;
+  }
+
   .card {
     flex-direction: row;
     align-items: center;
@@ -41,6 +45,8 @@
 
           &.card-person {
             min-height: 70px;
+            max-width: 120px;
+            width: 100%;
           }
 
           &.card-status {
@@ -127,8 +133,10 @@
               border: 2px solid #fff;
               font-size: 0.8rem;
 
-              &:nth-child(2n + 2) {
-                left: -15px;
+              @for $i from 1 through 9 {
+                &:nth-child(#{$i}) {
+                  left: calc(-15px * (#{$i} - 1));
+                }
               }
             }
           }

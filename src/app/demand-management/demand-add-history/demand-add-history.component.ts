@@ -1,8 +1,10 @@
-import {Component, OnInit, ViewChild, Input, Output, OnChanges} from '@angular/core';
+import {Component, OnInit, ViewChild, Input, Output, OnChanges, OnDestroy} from '@angular/core';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {EventEmitter} from 'protractor';
 import {DatePipe} from '@angular/common';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import { DemandService } from '../demand.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-demand-add-history',
@@ -10,7 +12,7 @@ import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
     styleUrls: ['./demand-add-history.component.scss'],
     providers: [DatePipe]
 })
-export class DemandAddHistoryComponent implements OnInit, OnChanges {
+export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
 
     modalRef: BsModalRef;
     @ViewChild('modal', {static: false}) modal;
@@ -18,11 +20,22 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges {
     @Input('demandSelected') demandSelected: any;
     @Output('close') close: EventEmitter;
 
-    optionsStatus = [];
-
+    optionsDemandStatus = [];
+    statusServiceSubscription: Subscription;
     formStatus: FormGroup;
+    configDemandStatus = {
+        labelField: 'label',
+        valueField: 'id',
+        create: false,
+        searchField: ['label'],
+        plugins: ['dropdown_direction', 'remove_button'],
+        dropdownDirection: 'down'
+    };
 
-    constructor(private modalService: BsModalService, private fb: FormBuilder) {
+    constructor(
+        private modalService: BsModalService,
+        private fb: FormBuilder,
+        private demandService: DemandService) {
     }
 
     ngOnInit() {
@@ -31,7 +44,8 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges {
             status: new FormControl(''),
             cost: new FormControl(''),
             time_period: new FormControl(''),
-            comment: new FormControl('')
+            comment: new FormControl(''),
+            demand_id: new FormControl('')
         });
     }
 
@@ -43,11 +57,34 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges {
 
     open() {
         if (this.demandSelected) {
+            console.log(this.demandSelected);
+            this.formStatus.get('demand_id').setValue(this.demandSelected.id);
+            this.getStatus();
             this.modalRef = this.modalService.show(this.modal, {class: 'modal-lg modal-dialog-centered modal-demand'});
         }
     }
 
+    getStatus() {
+        this.statusServiceSubscription = this.demandService.getDemandStatus().subscribe(res => {
+            if (res.data) {
+                this.optionsDemandStatus = res.data;
+            }
+        });
+    }
+
     onSubmit(form: any) {
-        console.log(form.value);
+        if (form.value) {
+            this.demandService.setHistory(form.value).subscribe(res => {
+                if (res.create) {
+                    window.location.reload();
+                }
+            });
+        }
+    }
+
+    ngOnDestroy() {
+        if (this.statusServiceSubscription) {
+            this.statusServiceSubscription.unsubscribe();
+        }
     }
 }
