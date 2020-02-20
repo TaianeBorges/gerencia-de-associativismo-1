@@ -10,8 +10,7 @@
                 <div class="col text-right">
                     <button type="button" (click)="filterVisibility = !filterVisibility" class="btn btn-outline-info"
                             [ngClass]="{'btn-info color-text-white': !filterVisibility}">
-                        <span class="badge badge-info" [ngClass]="{'badge-light': !filterVisibility}">1</span>
-                        Filtros Selecionados
+                      {{!filterVisibility ? 'Mostrar filtros' : 'Esconder filtros'}}
                     </button>
 
                     <a [routerLink]="['/gestao-de-demandas/nova-demanda']" routerLinkActive="router-link-active"
@@ -24,10 +23,18 @@
                 <div class="form-group col-lg-3 col-md-6 col-sm-12">
                     <label for="entity">Entidade</label>
                     <ng2-selectize [(ngModel)]="entidade" formControlName="entity_id"
-                                   [ngClass]="{'is-invalid': formFilter.get('entity_id').errors && formFilter.get('entity_id').touched }"
                                    id="entity"
                                    class="selectize-entity" [config]="configEntity" [options]="optionsEntity"
                                    placeholder="Selecione a entidade">
+                    </ng2-selectize>
+                </div>
+
+                <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                    <label>Status</label>
+                    <ng2-selectize formControlName="status_id" [(ngModel)]="status"
+                                   class="selectize-demand-status" [config]="configDemandStatus"
+                                   [options]="optionsDemandStatus"
+                                   placeholder="Selecione o status">
                     </ng2-selectize>
                 </div>
 
@@ -38,26 +45,7 @@
                            formControlName="demand_requester" class="form-control" id="demand_requester"
                            placeholder="Digite o cadastrante">
                 </div>
-
-                <div class="form-group col-lg-3 col-md-6 col-sm-12">
-                    <label>Sindicatos</label>
-                    <ng2-selectize formControlName="syndicate_id" [(ngModel)]="syndicates"
-                                   [ngClass]="{'is-invalid': formFilter.get('syndicate_id').errors && formFilter.get('syndicate_id').touched }"
-                                   class="selectize-unions" [config]="configUnions" [options]="optionsUnions"
-                                   placeholder="Selecione os sindicatos">
-                    </ng2-selectize>
-                </div>
-
-                <div class="form-group col-lg-3 col-md-6 col-sm-12">
-                    <label>Status</label>
-                    <ng2-selectize formControlName="status_id" [(ngModel)]="status"
-                                   [ngClass]="{'is-invalid': formFilter.get('status_id').errors && formFilter.get('status_id').touched }"
-                                   class="selectize-demand-status" [config]="configDemandStatus"
-                                   [options]="optionsDemandStatus"
-                                   placeholder="Selecione o status">
-                    </ng2-selectize>
-                </div>
-
+                
                 <div class="form-group col-lg-3 col-md-6 col-sm-12">
                     <label>Categorias</label>
                     <ng2-selectize formControlName="demand_category_id" [(ngModel)]="categories"
@@ -67,12 +55,36 @@
                     </ng2-selectize>
                 </div>
 
-                <div class="form-group col-lg-3 col-md-6 col-sm-12">
-                    <label>Conselho</label>
+                <div class="form-group col-lg-3 col-md-6 col-sm-12" *ngIf="formFilter.get('entity_id').value == 1 || formFilter.get('entity_id').value == 2">
+                    <label>Setores</label>
+                    <ng2-selectize formControlName="sector_id" [(ngModel)]="sectors"
+                                   [ngClass]="{'is-invalid': formFilter.get('sector_id').errors && formFilter.get('sector_id').touched }"
+                                   class="selectize-sector" [config]="configSector" [options]="optionsSector"
+                                   placeholder="Selecione um setor">
+                    </ng2-selectize>
+                </div>
+
+                <div class="form-group col-lg-3 col-md-6 col-sm-12" *ngIf="formFilter.get('entity_id').value == 1 || formFilter.get('entity_id').value == 2">
+                    <label>Sindicatos</label>
+                    <ng2-selectize formControlName="syndicate_id" [(ngModel)]="syndicates"
+                                   [ngClass]="{'is-invalid': formFilter.get('syndicate_id').errors && formFilter.get('syndicate_id').touched }"
+                                   class="selectize-unions" [config]="configUnions" [options]="optionsUnions"
+                                   placeholder="Selecione os sindicatos">
+                    </ng2-selectize>
+                </div>
+
+                <div class="form-group col-lg-3 col-md-6 col-sm-12" *ngIf="formFilter.get('entity_id').value == 2 || formFilter.get('entity_id').value == 3">
+                    <label>Razão social</label>
+                    <input type="text" formControlName="company_name" 
+                    class="form-control" placeholder="Digite a Razão social">
+                </div>
+
+                <div class="form-group col-lg-3 col-md-6 col-sm-12"  *ngIf="formFilter.get('entity_id').value == 4 || formFilter.get('entity_id').value == 5 || formFilter.get('entity_id').value == 6 || formFilter.get('entity_id').value == 7">
+                    <label>{{formFilter.get('entity_id').value == 5 ? 'Grupo setorial' : 'Conselho'}}</label>
                     <ng2-selectize formControlName="council_id" [(ngModel)]="council"
                                    [ngClass]="{'is-invalid': formFilter.get('council_id').errors && formFilter.get('council_id').touched }"
                                    class="selectize-councils" [config]="configCouncils" [options]="optionsCouncils"
-                                   placeholder="Selecione o Conselho">
+                                   placeholder="Selecione o {{formFilter.get('entity_id').value == 5 ? 'Grupo setorial' : 'Conselho'}}">
                     </ng2-selectize>
                 </div>
 

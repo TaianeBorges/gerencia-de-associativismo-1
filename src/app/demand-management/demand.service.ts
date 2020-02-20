@@ -56,8 +56,16 @@ export class DemandService {
             );
     }
 
-    getUnions(): Observable<any> {
-        return this.http.post(`${environment.apiUrl}/sindicatos`, {}, this.httpOptions)
+    getUnions(sector_id?): Observable<any> {
+        let data = {};
+
+        if (sector_id) {
+            data = {
+                sector_id
+            }
+        }
+
+        return this.http.post(`${environment.apiUrl}/sindicatos`, data, this.httpOptions)
             .pipe(
                 map(res => {
                     return res;
@@ -83,8 +91,14 @@ export class DemandService {
             );
     }
 
-    getCouncils(): Observable<any> {
-        return this.http.post(`${environment.apiUrl}/conselhos`, {}, this.httpOptions)
+    getCouncils(entity_id?): Observable<any> {
+        let data = {};
+        if (entity_id) {
+            data = {
+                entity_id
+            }
+        }
+        return this.http.post(`${environment.apiUrl}/conselhos`, data, this.httpOptions)
             .pipe(
                 map(res => {
                     return res;

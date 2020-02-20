@@ -30,12 +30,8 @@
                         <em>Razão social</em>
                         <p class="card-text">{{demand.company.name}}</p>
                     </div>
-                    <div class="card-group card-sindicato" *ngIf="demand.entity_id === 5">
-                        <em>setor</em>
-                        <p class="card-text">{{demand.sector.name}}</p>
-                    </div>
                     <div class="card-group card-sindicato" *ngIf="demand.council">
-                        <em>Conselho</em>
+                        <em>{{demand.entity == 5 ? 'Grupo setorial' : 'Conselho' }}</em>
                         <p class="card-text">{{demand.council.name}}</p>
                     </div>
                     <div class="card-group card-sindicato" *ngIf="demand.demands_syndicates.length">

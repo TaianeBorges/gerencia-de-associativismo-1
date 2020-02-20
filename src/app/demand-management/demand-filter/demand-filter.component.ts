@@ -10,13 +10,13 @@ import {DemandService} from '../demand.service';
 export class DemandFilterComponent implements OnInit {
 
     @ViewChild('formDemandFilter', {static: false}) formDemandFilter;
-    @ViewChild('entity', {static: false}) entity;
-    @ViewChild('requester', {static: false}) cadastrante;
-    @ViewChild('syndicates', {static: false}) syndicates;
-    @ViewChild('status', {static: false}) status;
-    @ViewChild('categories', {static: false}) categories;
-    @ViewChild('sector', {static: false}) sector;
-    @ViewChild('council', {static: false}) council;
+    // @ViewChild('entity', {static: false}) entity;
+    // @ViewChild('requester', {static: false}) cadastrante;
+    // @ViewChild('syndicates', {static: false}) syndicates;
+    // @ViewChild('status', {static: false}) status;
+    // @ViewChild('categories', {static: false}) categories;
+    // @ViewChild('sector', {static: false}) sector;
+    // @ViewChild('council', {static: false}) council;
 
     @Output('formOnSubmit') formOnSubmit = new EventEmitter();
 
@@ -30,11 +30,16 @@ export class DemandFilterComponent implements OnInit {
         plugins: ['dropdown_direction', 'remove_button'],
         dropdownDirection: 'down',
         onChange: ($event: any) => {
-            console.log($event);
             if ($event) {
-                this.getDemandCategories($event);
-            }
 
+                if ($event == 1 || $event == 2) {
+                    this.getSectors();
+                }
+                
+                if ($event > 3) {
+                    this.getCouncils($event);
+                }
+            }
         }
     };
     configUnions = {
@@ -70,12 +75,25 @@ export class DemandFilterComponent implements OnInit {
         plugins: ['dropdown_direction', 'remove_button'],
         dropdownDirection: 'down'
     };
+    
+    configSector = {
+        labelField: 'name',
+        valueField: 'id',
+        create: false,
+        searchField: ['name'],
+        plugins: ['dropdown_direction', 'remove_button'],
+        dropdownDirection: 'down',
+        onChange: ($event: any) => {
+            this.getUnions($event);
+        }
+    };
 
     optionsEntity = [];
     optionsUnions = [];
     optionsDemandStatus = [];
     optionsDemandCategory = [];
     optionsCouncils = [];
+    optionsSector = [];
 
 
     constructor(
@@ -92,13 +110,14 @@ export class DemandFilterComponent implements OnInit {
             status_id: new FormControl(''),
             demand_id: new FormControl(''),
             demand_category_id: new FormControl(''),
-            council_id: []
+            council_id: [],
+            sector_id: new FormControl(''),
+            company_name: new FormControl('')
         });
 
         this.getEntity();
-        this.getUnions();
         this.getDemandStatus();
-        this.getCouncils();
+        this.getDemandCategories();
     }
 
     getEntity() {
@@ -109,8 +128,8 @@ export class DemandFilterComponent implements OnInit {
         });
     }
 
-    getUnions() {
-        this.demandService.getUnions().subscribe(res => {
+    getUnions(sector_id) {
+        this.demandService.getUnions(sector_id).subscribe(res => {
             if (res.data) {
                 this.optionsUnions = res.data;
             }
@@ -125,7 +144,7 @@ export class DemandFilterComponent implements OnInit {
         });
     }
 
-    getDemandCategories(data) {
+    getDemandCategories() {
         this.demandService.getDemandCategories().subscribe(res => {
             if (res.data) {
                 this.optionsDemandCategory = res.data;
@@ -133,12 +152,20 @@ export class DemandFilterComponent implements OnInit {
         });
     }
 
-    getCouncils() {
-        this.demandService.getCouncils().subscribe(res => {
+    getCouncils(entity_id) {
+        this.demandService.getCouncils(entity_id).subscribe(res => {
             if (res.data) {
                 this.optionsCouncils = res.data;
             }
         });
+    }
+    
+    getSectors() {
+        this.demandService.getSectors().subscribe(res => {
+            if (res.data) {
+                this.optionsSector = res.data;
+            }
+        })
     }
 
     onSubmit(form) {
@@ -146,11 +173,15 @@ export class DemandFilterComponent implements OnInit {
     }
 
     resetForm() {
-        this.entity = '';
-        this.cadastrante = '';
-        this.syndicates = '';
-        this.status = '';
-        this.categories = '';
-        this.council = '';
+        this.formFilter.get('entity_id').reset('');
+        this.formFilter.get('demand_requester').reset('');
+        this.formFilter.get('syndicate_id').reset('');
+        this.formFilter.get('status_id').reset('');
+        this.formFilter.get('demand_category_id').reset('');
+        this.formFilter.get('sector_id').reset('');
+        this.formFilter.get('company_name').reset('');
+       
+        this.onSubmit(this.formFilter);
+        
     }
 }
