@@ -1,12 +1,13 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {SharedsService} from 'src/app/shared/shareds.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {DemandService} from '../demand.service';
 import {CNPJPipe} from '../../shared/pipes/cnpj.pipe';
-import {Ng2SelectizeComponent} from 'ng2-selectize';
 import {Router} from '@angular/router';
 import {AlertService} from '../../shared/alerts/alert.service';
+import { UsersService } from 'src/app/users/users.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
     selector: 'app-demand-add',
@@ -17,6 +18,7 @@ import {AlertService} from '../../shared/alerts/alert.service';
 export class DemandAddComponent implements OnInit, OnDestroy {
 
     formDemand: FormGroup;
+    user;
     subCategory;
     subCategoryEO;
     optionsEntities = [];
@@ -221,8 +223,11 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         private el: ElementRef,
         private cnpjPipe: CNPJPipe,
         private router: Router,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private userService: UsersService,
+        private checkAuthorization: AuthService
     ) {
+        this.getUser();
     }
 
     ngOnInit() {
@@ -266,6 +271,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             this.getCategoriesOE();
             this.getManagements();
         }
+
     }
 
     changeCnpj(val) {
@@ -475,6 +481,11 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             this.alertService.alertShow(alert);
 
         });
+    }
+
+    getUser() {
+        const data = this.checkAuthorization.getUser();
+        this.user = data.user;
     }
 
     resetForm() {

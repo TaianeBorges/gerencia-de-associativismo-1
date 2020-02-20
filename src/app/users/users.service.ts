@@ -1,4 +1,4 @@
-import {Injectable, EventEmitter} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {map} from 'rxjs/operators';
@@ -86,7 +86,7 @@ export class UsersService {
     }
 
     getUserAuthenticated(): Observable<any> {
-        return this.http.get(`${environment.apiUrl}/auth/usuario`, this.httpOptions)
+        return this.http.post(`${environment.apiUrl}/auth/usuario`, {}, this.httpOptions)
             .pipe(map(res => {
                 return res;
             }));

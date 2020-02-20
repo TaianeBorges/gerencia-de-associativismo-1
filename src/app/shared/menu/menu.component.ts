@@ -36,12 +36,13 @@ export class MenuComponent implements OnInit {
                 this.routeSites = res.url.indexOf('/sites/') !== (-1);
             }
         });
-    }
-
-    ngOnInit() {
+        
         this.authService.authorizationLogin.subscribe(res => {
             this.auth = res;
         });
+    }
+
+    ngOnInit() {
 
         this.sharedsService.titlePage.subscribe(res => {
             this.titlePage = res;
