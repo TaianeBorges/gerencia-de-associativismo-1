@@ -57,7 +57,6 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
 
     open() {
         if (this.demandSelected) {
-            console.log(this.demandSelected);
             this.formStatus.get('demand_id').setValue(this.demandSelected.id);
             this.getStatus();
             this.modalRef = this.modalService.show(this.modal, {class: 'modal-lg modal-dialog-centered modal-demand'});
