@@ -46,7 +46,9 @@
                     </div>
                 </div>
 
-                <div class="row" *ngIf="currentUser.role !== 11" formGroupName="forwarded_to_the_technical_area">
+                <div class="row"
+                *ngIf="currentUser.role !== 11 && currentUser.role !== 3 && currentUser.role !== 4 && currentUser.role !== 5"
+                formGroupName="forwarded_to_the_technical_area">
                     <div class="form-group col-lg-6">
                         <label class="card-label mb-2 text-muted">Áreas envolvidas</label>
                         <ng2-selectize formControlName="managements"
