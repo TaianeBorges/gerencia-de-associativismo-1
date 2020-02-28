@@ -73,8 +73,8 @@ export class DemandService {
             );
     }
 
-    getDemandStatus(): Observable<any> {
-        return this.http.get(`${environment.apiUrl}/demandas/status`, this.httpOptions)
+    getDemandStatus(data = {}): Observable<any> {
+        return this.http.post(`${environment.apiUrl}/demandas/status`, data, this.httpOptions)
             .pipe(
                 map(res => {
                     return res;

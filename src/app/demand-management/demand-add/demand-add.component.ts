@@ -215,6 +215,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     advicesServiceSubscribe: Subscription;
     stateServiceSubscribe: Subscription;
     cnpjChangesSubscription: Subscription;
+    currentUser;
 
     constructor(
         private sharedService: SharedsService,
@@ -263,6 +264,12 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             oe_subcategory: new FormControl(''),
             oe_category: new FormControl(''),
         });
+
+        this.userService.getUserAuthenticated().subscribe(res => {
+            if (res.authenticate) {
+                this.currentUser = res.user;
+            }
+        })
 
         if (this.formDemand) {
             this.getEntity();

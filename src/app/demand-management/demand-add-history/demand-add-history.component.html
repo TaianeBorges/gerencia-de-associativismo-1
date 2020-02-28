@@ -24,7 +24,15 @@
                     </div>
                     <div class="col form-group">
                         <label>Custo</label>
-                        <input type="text" formControlName="cost" class="form-control">
+                        
+                                                
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">R$</span>
+                            </div>
+                            
+                            <input type="text" formControlName="cost" placeholder="00,00" value="{{formControlCurrency}}"  class="form-control">
+                        </div>
                     </div>
                     <div class="col form-group">
                         <label>Prazo</label>
@@ -35,6 +43,33 @@
                     <div class="col form-group">
                         <label>Comentario</label>
                         <textarea formControlName="comment" class="form-control"></textarea>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="currentUser.role !== 11" formGroupName="forwarded_to_the_technical_area">
+                    <div class="form-group col-lg-6">
+                        <label class="card-label mb-2 text-muted">Áreas envolvidas</label>
+                        <ng2-selectize formControlName="managements"
+                            [ngClass]="{'is-invalid': formStatus.get('forwarded_to_the_technical_area.managements').errors && formStatus.get('forwarded_to_the_technical_area.managements').touched }"
+                            class="selectize-areas" [config]="configManagements" [options]="optionsManagements"
+                            placeholder="Selecione">
+                        </ng2-selectize>
+                    </div>
+
+                    <div class="form-group col-lg-12 padding-l-40">
+                        <input id="encaminhamento_check" formControlName="check_forwarded" type="checkbox"
+                            class="form-check-input">
+                        <label class="form-check-label" for="encaminhamento_check">Encaminhamento</label>
+                    </div>
+
+                    <div class="form-group col-lg-6"
+                        *ngIf="formStatus.get('forwarded_to_the_technical_area.check_forwarded').value">
+                        <label for="">E-mails</label>
+                        <ng2-selectize formControlName="emails"
+                            [ngClass]="{'is-invalid': formStatus.get('forwarded_to_the_technical_area.emails').errors && formStatus.get('forwarded_to_the_technical_area.emails').touched }"
+                            class="selectize-emails" [config]="configForwardEmails" [options]="optionsForwardEmails"
+                            placeholder="Selecione">
+                        </ng2-selectize>
                     </div>
                 </div>
             </div>
