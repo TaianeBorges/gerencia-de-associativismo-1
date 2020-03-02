@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -6,7 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './demand-pagination.component.html',
   styleUrls: ['./demand-pagination.component.scss']
 })
-export class DemandPaginationComponent implements OnInit {
+export class DemandPaginationComponent implements OnInit, OnChanges {
 
   nextButton: boolean;
   beforeButton: boolean;
@@ -45,6 +45,16 @@ export class DemandPaginationComponent implements OnInit {
     this.pagination.emit({ page: this.currentPage });
   }
 
+  
+  ngOnChanges(changes) {
+    if (changes && changes.demands) {
+      this.currentPage = this.filtersParams.page ? this.filtersParams.page : 1;
+      this.demands = changes.demands.currentValue;
+      this.permissionButton();
+    }
+  }
+
+
   permissionButton() {
     if (this.currentPage <= 1) {
       this.beforeButton = true;
@@ -55,7 +65,6 @@ export class DemandPaginationComponent implements OnInit {
 
     if (this.demands && (this.demands.offset + this.demands.limit) >= this.demands.total) {
       this.nextButton = true;
-      this.currentPage = this.currentPage - 1;
     } else {
       this.nextButton = false;
     }
