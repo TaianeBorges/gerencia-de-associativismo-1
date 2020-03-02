@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from "@angular/platform-browser";
 import { SharedsService } from 'src/app/shared/shareds.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -9,12 +10,20 @@ import { SharedsService } from 'src/app/shared/shareds.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private titleService: Title, private sharedService: SharedsService) {
+  currentUser;
+
+  constructor(
+    private titleService: Title,
+    private sharedService: SharedsService,
+    private authService: AuthService) {
 
   }
 
   ngOnInit() {
     this.sharedService.setTitle('Gerencia de associativismo');
+
+    this.currentUser = JSON.parse(localStorage.getItem('user'));
+    
   }
 
 }

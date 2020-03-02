@@ -1,4 +1,4 @@
-<div class="home-container">
+<div class="home-container" *ngIf="currentUser?.authenticate">
     <div class="modules">
         <a [routerLink]="['/gestao-de-demandas']" 
             class="module-item card demand_management">
@@ -12,7 +12,7 @@
                 </p>
             </div>
         </a>
-        <a [routerLink]="['/quem-e-quem/sindicatos/lista-de-sindicatos']" class="module-item card who_is">
+        <!-- <a [routerLink]="['/quem-e-quem/sindicatos/lista-de-sindicatos']" class="module-item card who_is">
             <div class="image">
                 <img src="../assets/img/illustrations/who_is.svg" alt="illustration-module">
             </div>
@@ -31,6 +31,6 @@
                 <p class="text">Some quick example text to build on the card title and make up the bulk of the
                     card's content.</p>
             </div>
-        </a>
+        </a> -->
     </div>
 </div>

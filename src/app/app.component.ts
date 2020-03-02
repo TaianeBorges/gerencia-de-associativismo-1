@@ -32,6 +32,7 @@ export class AppComponent implements OnInit {
         });
 
         this.sharedServiceSubscription = this.sharedService.stateMenu.subscribe(res => {
+            console.log(res);
             this.widthContent = res.open;
         });
     }
