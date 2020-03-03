@@ -16,7 +16,7 @@ declare const $: any;
     encapsulation: ViewEncapsulation.None
 })
 export class RegisterComponent implements OnInit {
-    private formRegister: any;
+    formRegister: any;
     unidadeSelect: any;
     selectRegional: any;
     selectCargo: any;

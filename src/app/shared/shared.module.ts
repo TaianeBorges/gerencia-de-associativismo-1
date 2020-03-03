@@ -35,7 +35,8 @@ import { CNPJPipe } from './pipes/cnpj.pipe';
     InitialName,
     CapitalizePipe,
     CurrencyPipe,
-    InitialNameComponent
+    InitialNameComponent,
+    CNPJPipe
   ],
   imports: [
     CommonModule,
@@ -57,8 +58,8 @@ import { CNPJPipe } from './pipes/cnpj.pipe';
     InitialName,
     CapitalizePipe,
     CurrencyPipe,
-    InitialNameComponent
-    
+    InitialNameComponent,
+    CNPJPipe
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -159,8 +159,8 @@ export class DemandService {
             );
     }
 
-    getEmailsByManagements(data: Array<any>): Observable<any> {
-        return this.http.post(`${environment.apiUrl}/lotacoes/gerencias-gerais/gerencias/emails`, {managements_ids: data}, this.httpOptions).pipe(
+    getEmails(data): Observable<any> {
+        return this.http.post(`${environment.apiUrl}/usuarios/emails`, data, this.httpOptions).pipe(
             map(res => {
                 return res;
             })
@@ -207,5 +207,14 @@ export class DemandService {
                 return res;
             })
         );
+    }
+
+    getRegionals(): Observable<any> {
+        return this.http.get(`${environment.apiUrl}/regionais`, this.httpOptions)
+            .pipe(
+                map(res => {
+                    return res;
+                })
+            );
     }
 }

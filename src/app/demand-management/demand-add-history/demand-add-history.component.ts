@@ -26,11 +26,29 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
     optionsForwardEmails = [];
     optionsDemandStatus = [];
     optionsManagements = [];
+    optionsRegional = [];
     statusServiceSubscription: Subscription;
     emailsByAreasTecnicasServiceSubscribe: Subscription;
     formStatus: FormGroup;
     managementsServiceSubscribe: Subscription;
     formStatusSubscription: Subscription;
+    setHistoryServiceSubscription: Subscription;
+    regionalsServiceSubscribe: Subscription;
+
+
+    configRegional = {
+        labelField: 'name',
+        valueField: 'id',
+        create: false,
+        searchField: ['name'],
+        plugins: ['dropdown_direction', 'remove_button'],
+        dropdownDirection: 'down',
+        onChange: ($event: any) => {
+            if($event) {
+                this.getEmails($event);
+            }
+        }
+    };
 
     configDemandStatus = {
         labelField: 'label',
@@ -71,7 +89,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
         dropdownDirection: 'down',
         maxItems: 100,
         onBlur: () => {
-            this.getEmailsByManagements();
+            this.getEmails();
         }
     };
     
@@ -95,6 +113,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
             comment: new FormControl(''),
             demand_id: new FormControl(''),
             forwarded_to_the_technical_area: this.fb.group({
+                regional: new FormControl(),
                 managements: [],
                 check_forwarded: new FormControl(false),
                 emails: []
@@ -115,6 +134,9 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
                     this.formControlCurrency = this.currency.transform(res);
                 }
             })
+
+            
+            this.getRegionals();
         }
     }
 
@@ -123,6 +145,15 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
             this.open();
         }
     }
+
+    getRegionals() {
+        this.regionalsServiceSubscribe = this.demandServices.getRegionals().subscribe(res => {
+            if (res && res.data) {
+                this.optionsRegional = res.data;
+            }
+        })
+    }
+
 
     open() {
         if (this.demandSelected) {
@@ -150,24 +181,26 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
         });
     }
 
-    getEmailsByManagements() {
-        const data = this.formStatus.get('forwarded_to_the_technical_area.managements').value;
+    getEmails(regional?) {
+        const data = {
+            managements: this.formStatus.get('forwarded_to_the_technical_area.managements').value,
+            regional: regional ? regional : this.formStatus.get('forwarded_to_the_technical_area.regional').value
+        };
 
         if (data) {
-            this.emailsByAreasTecnicasServiceSubscribe = this.demandServices.getEmailsByManagements(data).subscribe(res => {
+            this.emailsByAreasTecnicasServiceSubscribe = this.demandServices.getEmails(data).subscribe(res => {
                 if (res) {
                     this.optionsForwardEmails = res.data;
                 }
             });
         }
-
     }
 
     onSubmit(form: any) {
         if (form.value) {
             this.formStatus.get('cost').setValue(this.formControlCurrency);
             
-            this.demandServices.setHistory(form.value).subscribe(res => {
+            this.setHistoryServiceSubscription = this.demandServices.setHistory(form.value).subscribe(res => {
                 if (res.create) {
                     window.location.reload();
                 }
@@ -190,6 +223,14 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
 
         if (this.formStatusSubscription) {
             this.formStatusSubscription.unsubscribe();
+        }
+
+        if (this.setHistoryServiceSubscription) {
+            this.setHistoryServiceSubscription.unsubscribe();
+        }
+
+        if(this.regionalsServiceSubscribe) {
+            this.regionalsServiceSubscribe.unsubscribe();
         }
     }
 }

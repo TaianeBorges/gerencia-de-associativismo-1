@@ -16,6 +16,8 @@ export class DemandListComponent implements OnInit, OnDestroy {
     page = 1;
     demandSelected: any;
     demandAddSelected: any;
+    openModalAddHistory: any;
+    openModalShowHistory: any;
     demandServiceSubscribe: Subscription;
     params: object;
     filtersParams = {
@@ -61,7 +63,7 @@ export class DemandListComponent implements OnInit, OnDestroy {
     }
 
     onPagination(event) {
-        if (event ) {
+        if (event) {
             this.filtersParams.page = event.page;
         }
 
@@ -88,11 +90,11 @@ export class DemandListComponent implements OnInit, OnDestroy {
         return result;
     }
 
-    historyDemand(event, demand) {
+    historyDemand(event) {
         event.stopPropagation();
     }
 
-    addHistoryDemand(event, demand) {
+    addHistoryDemand(event) {
         event.stopPropagation();
     }
 
