@@ -152,7 +152,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         dropdownDirection: 'down',
         maxItems: 100,
         onBlur: () => {
-            this.getEmailsByManagements();
+            this.getEmails();
         }
     };
 
@@ -161,7 +161,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         labelField: 'email',
         valueField: 'id',
         create: false,
-        searchField: ['email'],
+        searchField: ['name', 'email'],
         plugins: ['dropdown_direction', 'remove_button'],
         dropdownDirection: 'down',
         maxItems: 100,
@@ -179,8 +179,23 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     };
 
     optionState = [];
-
     optionsLegalFramework = [];
+    optionsRegional = [];
+    
+    configRegional = {
+        labelField: 'name',
+        valueField: 'id',
+        create: false,
+        searchField: ['name'],
+        plugins: ['dropdown_direction', 'remove_button'],
+        dropdownDirection: 'down',
+        onChange: ($event: any) => {
+            if($event) {
+                this.getEmails($event);
+            }
+        }
+    };
+
     configLegalFramework = {
         labelField: 'label',
         valueField: 'id',
@@ -215,6 +230,8 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     advicesServiceSubscribe: Subscription;
     stateServiceSubscribe: Subscription;
     cnpjChangesSubscription: Subscription;
+    regionalsServiceSubscribe: Subscription;
+    currentUser;
 
     constructor(
         private sharedService: SharedsService,
@@ -256,6 +273,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             type: new FormControl(),
             council_id: new FormControl(''),
             forwarded_to_the_technical_area: this.fb.group({
+                regional: new FormControl(),
                 managements: [],
                 check_forwarded: new FormControl(false),
                 emails: []
@@ -264,12 +282,19 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             oe_category: new FormControl(''),
         });
 
+        this.userService.getUserAuthenticated().subscribe(res => {
+            if (res.authenticate) {
+                this.currentUser = res.user;
+            }
+        })
+
         if (this.formDemand) {
             this.getEntity();
             this.getCategories();
             this.getScope();
             this.getCategoriesOE();
             this.getManagements();
+            this.getRegionals();
         }
 
     }
@@ -282,7 +307,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
 
 
     dateChanged($event) {
-        console.log(event);
+        // console.log(event);
     }
 
     getEntity(): void {
@@ -389,10 +414,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     getSubcategories(id: any): void {
         if (id) {
             this.subCategoryServiceSubscribe = this.demandServices.getDemandSubcategories(id).subscribe(res => {
-                // this.demand_subcategory = null;
                 this.formDemand.get('demand_subcategory').reset('');
-                // this.formDemand.get('demand_subcategory').updateValueAndValidity();
-
                 this.optionsSubcategory = res.data;
             });
         }
@@ -426,16 +448,19 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         });
     }
 
-    getEmailsByManagements() {
-        const data = this.formDemand.get('forwarded_to_the_technical_area.managements').value;
+    getEmails(regional?) {
+        const data = {
+            managements: this.formDemand.get('forwarded_to_the_technical_area.managements').value,
+            regional: regional ? regional : this.formDemand.get('forwarded_to_the_technical_area.regional').value
+        };
 
         if (data) {
-            this.emailsByAreasTecnicasServiceSubscribe = this.demandServices.getEmailsByManagements(data).subscribe(res => {
-                if (res)
+            this.emailsByAreasTecnicasServiceSubscribe = this.demandServices.getEmails(data).subscribe(res => {
+                if (res) {
                     this.optionsForwardEmails = res.data;
+                }
             });
         }
-
     }
 
     getAdvices(data) {
@@ -455,6 +480,14 @@ export class DemandAddComponent implements OnInit, OnDestroy {
                 this.optionsType = res.data.type;
             }
         });
+    }
+
+    getRegionals() {
+        this.regionalsServiceSubscribe = this.demandServices.getRegionals().subscribe(res => {
+            if (res && res.data) {
+                this.optionsRegional = res.data;
+            }
+        })
     }
 
     onSubmit(form) {
@@ -532,6 +565,10 @@ export class DemandAddComponent implements OnInit, OnDestroy {
 
         if (this.cnpjChangesSubscription) {
             this.cnpjChangesSubscription.unsubscribe();
+        }
+
+        if (this.regionalsServiceSubscribe) {
+            this.regionalsServiceSubscribe.unsubscribe();
         }
     }
 }

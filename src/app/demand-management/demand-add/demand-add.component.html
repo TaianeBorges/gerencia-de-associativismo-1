@@ -8,7 +8,7 @@
         </ol>
     </nav>
 
-    <form [formGroup]="formDemand" class="margin-t-60" (ngSubmit)="onSubmit(formDemand)" autocomplete="off">
+    <form [formGroup]="formDemand" class="margin-t-60" (ngSubmit)="onSubmit(formDemand)">
         <div class="demand-card-group">
             <h3>Dados do solicitante</h3>
 
@@ -158,7 +158,7 @@
                         </div>
                         <div class="form-group col-lg-4">
                             <label class="card-label mb-2 text-muted">Subcategoria da demanda <i class="color-required">*</i></label>
-                            <ng2-selectize (ngModelChange)="dateChanged($event)" formControlName="demand_subcategory" [(ngModel)]="demand_subcategory"
+                            <ng2-selectize (ngModelChange)="dateChanged($event)" formControlName="demand_subcategory"
                                 [ngClass]="{'is-invalid': formDemand.get('demand_subcategory').errors && formDemand.get('demand_subcategory').touched }"
                                 class="selectize-subcategory" [config]="configSubcategory"
                                 [options]="optionsSubcategory" [hasOptionsPlaceholder]="'Selecione a subcategoria'">
@@ -217,13 +217,31 @@
 
 
 
-        <div class="demand-card-group card-forward">
+        <div class="demand-card-group card-forward" *ngIf="currentUser && currentUser.role !== 11 && currentUser.role !== 3 && currentUser.role !== 4 && currentUser.role !== 5">
             <h3>Encaminhamento</h3>
 
             <div class="card">
                 <div class="card-body">
                     <div class="row" formGroupName="forwarded_to_the_technical_area">
-                        <div class="form-group col-lg-12">
+                        
+                        <div class="form-group col-lg-12 padding-l-40"
+                        [ngClass]="{'form-group': formDemand.get('forwarded_to_the_technical_area.check_forwarded').value}">
+                            <input id="encaminhamento_check" formControlName="check_forwarded" type="checkbox"
+                                class="form-check-input">
+                            <label class="form-check-label" for="encaminhamento_check">Deseja encaminhar a demanda?</label>
+                        </div>
+
+                        <div class="form-group col-lg-12" 
+                        *ngIf="formDemand.get('forwarded_to_the_technical_area.check_forwarded').value">
+                            <label class="card-label mb-2 text-muted">Regional</label>
+                            <ng2-selectize formControlName="regional"
+                                [ngClass]="{'is-invalid': formDemand.get('forwarded_to_the_technical_area.regional').errors && formDemand.get('forwarded_to_the_technical_area.regional').touched }"
+                                class="selectize-areas" [config]="configRegional" [options]="optionsRegional"
+                                placeholder="Selecione">
+                            </ng2-selectize>
+                        </div>
+
+                        <div class="form-group col-lg-12" *ngIf="formDemand.get('forwarded_to_the_technical_area.check_forwarded').value">
                             <label class="card-label mb-2 text-muted">Áreas envolvidas</label>
                             <ng2-selectize formControlName="managements"
                                 [ngClass]="{'is-invalid': formDemand.get('forwarded_to_the_technical_area.managements').errors && formDemand.get('forwarded_to_the_technical_area.managements').touched }"
@@ -232,19 +250,13 @@
                             </ng2-selectize>
                         </div>
 
-                        <div class="form-group col-lg-12 padding-l-40">
-                            <input id="encaminhamento_check" formControlName="check_forwarded" type="checkbox"
-                                class="form-check-input">
-                            <label class="form-check-label" for="encaminhamento_check">Encaminhamento</label>
-                        </div>
-
                         <div class="form-group col-lg-12"
                             *ngIf="formDemand.get('forwarded_to_the_technical_area.check_forwarded').value">
                             <label for="">E-mails</label>
                             <ng2-selectize formControlName="emails"
                                 [ngClass]="{'is-invalid': formDemand.get('forwarded_to_the_technical_area.emails').errors && formDemand.get('forwarded_to_the_technical_area.emails').touched }"
                                 class="selectize-emails" [config]="configForwardEmails" [options]="optionsForwardEmails"
-                                placeholder="Selecione">
+                                placeholder="Selecione os e-mails" autocomplete="off">
                             </ng2-selectize>
                         </div>
                     </div>

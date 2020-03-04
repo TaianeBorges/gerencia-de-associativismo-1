@@ -12,6 +12,9 @@ export class DemandDetailComponent implements OnInit {
 
     demandId: number;
     demand: any;
+    demandAddSelected: any;
+    openModalAddHistory: any;
+    openModal: any;
     currentUrl;
     previousUrl;
     total = 0;

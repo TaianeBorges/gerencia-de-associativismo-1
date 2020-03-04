@@ -10,14 +10,6 @@ import {DemandService} from '../demand.service';
 export class DemandFilterComponent implements OnInit {
 
     @ViewChild('formDemandFilter', {static: false}) formDemandFilter;
-    // @ViewChild('entity', {static: false}) entity;
-    // @ViewChild('requester', {static: false}) cadastrante;
-    // @ViewChild('syndicates', {static: false}) syndicates;
-    // @ViewChild('status', {static: false}) status;
-    // @ViewChild('categories', {static: false}) categories;
-    // @ViewChild('sector', {static: false}) sector;
-    // @ViewChild('council', {static: false}) council;
-
     @Output('formOnSubmit') formOnSubmit = new EventEmitter();
 
     formFilter;
@@ -34,6 +26,7 @@ export class DemandFilterComponent implements OnInit {
 
                 if ($event == 1 || $event == 2) {
                     this.getSectors();
+                    this.getUnions();
                 }
                 
                 if ($event > 3) {
@@ -128,7 +121,7 @@ export class DemandFilterComponent implements OnInit {
         });
     }
 
-    getUnions(sector_id) {
+    getUnions(sector_id?) {
         this.demandService.getUnions(sector_id).subscribe(res => {
             if (res.data) {
                 this.optionsUnions = res.data;

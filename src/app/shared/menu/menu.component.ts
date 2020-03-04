@@ -12,13 +12,13 @@ import {SharedsService} from '../shareds.service';
 })
 export class MenuComponent implements OnInit {
     @Input() permission: boolean;
-    auth = {};
+    auth: any;
 
     routeDemandManagement = false;
     routeWhoIs = false;
     routeSites = false;
     titlePage;
-    menuActivate = true;
+    menuActivate = false;
     menuMobileActivate = false;
     menuPerfilActivate = false;
 
@@ -43,6 +43,7 @@ export class MenuComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.sharedsService.actionMenu(this.menuActivate);
 
         this.sharedsService.titlePage.subscribe(res => {
             this.titlePage = res;
