@@ -50,20 +50,36 @@ export class ResponseInterceptor implements HttpInterceptor {
                     };
                 } else {
 
-                    data = {
-                        reason: error && error.error.reason ? error.error.reason : '',
-                        status: error.status,
-                        icon: 'report',
-                        color: 'error',
-                        title: 'Ops! Ocorreu um erro.',
-                        message: 'Não foi possível se conectar com o servidor.',
-                        copy: true,
-                        actions: {
-                            close: true,
-                            copy: true
-                        },
-                        error
-                    };
+                    if (error.status === 401) {
+
+                        data = {
+                            reason: error && error.error.reason ? error.error.reason : '',
+                            status: error.status,
+                            icon: 'warning',
+                            color: 'warning',
+                            title: 'Atenção!',
+                            message: `<ul class="alert-list">${error.error.message}</ul>`,
+                            copy: false,
+                            error
+                        };
+
+                    } else {
+
+                        data = {
+                            reason: error && error.error.reason ? error.error.reason : '',
+                            status: error.status,
+                            icon: 'report',
+                            color: 'error',
+                            title: 'Ops! Ocorreu um erro.',
+                            message: 'Não foi possível se conectar com o servidor.',
+                            copy: true,
+                            actions: {
+                                close: true,
+                                copy: true
+                            },
+                            error
+                        };
+                    }
                 }
 
                 this.alertService.alertShow(data);

@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject} from '@angular/core';
+import {Component, OnInit, Inject, OnDestroy} from '@angular/core';
 import {AuthService} from './auth/auth.service';
 import {SharedsService} from './shared/shareds.service';
 import {Router, NavigationEnd} from '@angular/router';
@@ -9,7 +9,7 @@ import {Subscription} from 'rxjs';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
     title = 'gerencia-de-associativismo';
     permissionLogin: any = {
         authenticate: false
@@ -32,7 +32,6 @@ export class AppComponent implements OnInit {
         });
 
         this.sharedServiceSubscription = this.sharedService.stateMenu.subscribe(res => {
-            console.log(res);
             this.widthContent = res.open;
         });
     }
