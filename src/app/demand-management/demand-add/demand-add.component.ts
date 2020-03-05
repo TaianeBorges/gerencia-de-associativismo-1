@@ -45,7 +45,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
                 this.getAdvices($event);
             }
 
-            if ($event === 8) {
+            if ($event == 8) {
                 this.getState();
             }
         }
