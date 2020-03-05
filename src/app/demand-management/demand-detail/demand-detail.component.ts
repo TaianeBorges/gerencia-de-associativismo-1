@@ -18,6 +18,7 @@ export class DemandDetailComponent implements OnInit {
     currentUrl;
     previousUrl;
     total = 0;
+    currentUser;
 
     constructor(
         private route: ActivatedRoute,
@@ -31,8 +32,11 @@ export class DemandDetailComponent implements OnInit {
         this.demandId = parseInt(this.route.snapshot.paramMap.get('demandaId'));
         this.sharedService.setTitle(`Demanda #${this.demandId}`);
 
-        if (this.demandId)
+        if (this.demandId) {
             this.getDemand(this.demandId);
+        }
+
+        this.currentUser = JSON.parse(localStorage.getItem('user'));
     }
 
     getDemand(id: number) {

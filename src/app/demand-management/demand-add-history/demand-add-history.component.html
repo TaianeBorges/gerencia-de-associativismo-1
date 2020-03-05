@@ -11,7 +11,17 @@
     <form [formGroup]="formStatus" (ngSubmit)="onSubmit(formStatus)" autocomplete="off">
         <div class="modal-body">
             <div class="status-item padding-t-30 padding-b-30" *ngIf="formStatus">
-                <div class="row">
+                <div class="row" *ngIf="demandSelected?.entity_id == 2 && (demandSelected?.permission_syndicate == null)">
+                    <div class="col form-group">
+                        <label>Sindicato autorizou a demanda?</label>
+                        <select formControlName="syndicate_permission" name="" id="" class="form-control">
+                            <option value="" disabled>Selecione</option>
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" *ngIf="(formStatus.get('syndicate_permission')?.value == 1 && permissionSyndicate) || (demandSelected?.entity_id == 2 && demandSelected?.permission_syndicate == 1) || this.demandSelected?.entity_id != 2">
                     <div class="col form-group">
                         <label>Status</label>
                         
@@ -39,7 +49,8 @@
                         <input type="date" formControlName="time_period" class="form-control">
                     </div>
                 </div>
-                <div class="row">
+
+                <div class="row" *ngIf="(formStatus.get('syndicate_permission')?.value == 1 && permissionSyndicate) || (demandSelected?.entity_id == 2 && demandSelected?.permission_syndicate == 1) || this.demandSelected?.entity_id != 2">
                     <div class="col form-group">
                         <label>Comentario</label>
                         <textarea formControlName="comment" class="form-control"></textarea>
@@ -47,7 +58,7 @@
                 </div>
 
                 <div class="row"
-                *ngIf="currentUser.role !== 11 && currentUser.role !== 3 && currentUser.role !== 4 && currentUser.role !== 5"
+                *ngIf="currentUser?.role !== 11 && currentUser?.role !== 3 && currentUser?.role !== 4 && currentUser?.role !== 5"
                 formGroupName="forwarded_to_the_technical_area">
 
                     <div class="form-group col-lg-12 padding-l-40">

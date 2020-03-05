@@ -30,7 +30,8 @@ export class DemandListComponent implements OnInit, OnDestroy {
         sector_id: "",
         page: 1
     };
-
+    currentUser;
+    
     constructor(
         private sharedService: SharedsService,
         private demandService: DemandService,
@@ -50,6 +51,8 @@ export class DemandListComponent implements OnInit, OnDestroy {
         this.sharedService.setTitle('Lista de demandas');
 
         this.listDemands();
+
+        this.currentUser = JSON.parse(localStorage.getItem('user'));
 
     }
 
@@ -109,7 +112,7 @@ export class DemandListComponent implements OnInit, OnDestroy {
     }
 
     closeModal(event) {
-        console.log(event);
+        // console.log(event);
     }
 
     filterSubmit(event) {

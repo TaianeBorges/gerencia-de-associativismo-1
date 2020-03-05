@@ -15,11 +15,11 @@
                     Histórico de status
                 </button>
 
-                <button disabled *ngIf="(demand.histories[0].status === 1 || demand.histories[0].status === 7 || demand.histories[0].status === 6)" class=" btn btn-info margin-l-10">
+                <button disabled *ngIf="((currentUser.user.role == 11 && !demand.permission_syndicate && demand.entity_id == 2) || demand.histories[0].status === 1 || demand.histories[0].status === 7 || demand.histories[0].status === 6)" class=" btn btn-info margin-l-10">
                     Atualizar status
                 </button>
 
-                <button *ngIf="!(demand.histories[0].status === 1 || demand.histories[0].status === 7 || demand.histories[0].status === 6)" (click)="demandAddSelected = demand; openModalAddHistory = !openModalAddHistory"
+                <button *ngIf="!(currentUser.user.role == 11 && demand.entity_id == 2 && !demand.permission_syndicate) && !(demand.histories[0].status === 1 || demand.histories[0].status === 7 || demand.histories[0].status === 6)" (click)="demandAddSelected = demand; openModalAddHistory = !openModalAddHistory"
                         class="btn btn-info margin-l-10">
                     Atualizar status
                 </button>
@@ -145,7 +145,7 @@
         </div>
 
         <div class="demand-card-group"
-             *ngIf="demand.demand_subcategory.demand_category.id == 4">
+             *ngIf="demand.demand_subcategory.demand_category.id == 5">
             <h3>Objetivo estratégico</h3>
 
             <div class="card">

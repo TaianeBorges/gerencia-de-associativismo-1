@@ -94,6 +94,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
     };
     
     currentUser;
+    permissionSyndicate;
 
     constructor(
         private modalService: BsModalService,
@@ -112,6 +113,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
             time_period: new FormControl(''),
             comment: new FormControl(''),
             demand_id: new FormControl(''),
+            syndicate_permission: new FormControl(''),
             forwarded_to_the_technical_area: this.fb.group({
                 regional: new FormControl(),
                 managements: [],
@@ -119,12 +121,6 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
                 emails: []
             })
         });
-
-        this.userService.getUserAuthenticated().subscribe(res => {
-            if (res.authenticate) {
-                this.currentUser = res.user;
-            }
-        })
 
         this.getManagements();
 
@@ -160,6 +156,14 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
             this.formStatus.get('demand_id').setValue(this.demandSelected.id);
             this.getStatus();
             this.modalRef = this.modalService.show(this.modal, {class: 'modal-lg modal-dialog-centered modal-demand'});
+
+            this.permissionSyndicate = (this.demandSelected.entity_id == 2 && !this.demandSelected.permission_syndicate);
+
+            this.userService.getUserAuthenticated().subscribe(res => {
+                if (res.authenticate) {
+                    this.currentUser = res.user;
+                }
+            });
         }
     }
 

@@ -90,14 +90,16 @@
                 </div>
             </div>
             <div class="card-footer display-flex">
-                <a (click)="addHistoryDemand($event);" class=" text-muted " *ngIf="demand.histories[0].status === 1 || demand.histories[0].status === 7 || demand.histories[0].status === 6">
+
+                <a (click)="addHistoryDemand($event);" class="text-muted "
+                *ngIf="(currentUser.user.role == 11 && !demand.permission_syndicate && demand.entity_id == 2) || demand.histories[0].status === 1 || demand.histories[0].status === 7 || demand.histories[0].status === 6">
                     <i class="material-icons">
                         add_circle_outline
                     </i>
                 </a>
                 <a (click)="addHistoryDemand($event); demandAddSelected = demand; openModalAddHistory = !openModalAddHistory"
                     class="color-entidade-{{demand.entity.id}}"
-                    *ngIf="!(demand.histories[0].status === 1 || demand.histories[0].status === 7 || demand.histories[0].status === 6)">
+                    *ngIf="!(currentUser.user.role == 11 && !demand.permission_syndicate && demand.entity_id == 2) && !(demand.histories[0].status === 1 || demand.histories[0].status === 7 || demand.histories[0].status === 6)">
                     <i class="material-icons">
                         add_circle_outline
                     </i>
