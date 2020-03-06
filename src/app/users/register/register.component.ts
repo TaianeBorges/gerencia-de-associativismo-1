@@ -209,7 +209,6 @@ export class RegisterComponent implements OnInit {
 
         if (this.formRegister.get('capacity_id').value && parseInt(this.formRegister.get('capacity_id').value) === 2) {
 
-            console.log('fpo');
             this.validateRepresentanteRegional();
         }
 
@@ -320,8 +319,6 @@ export class RegisterComponent implements OnInit {
             management_id: this.formRegister.get('management_id').value
         };
 
-        console.log(this.formRegister.value);
-
         if (data.capacity_id && data.general_management_id && this.formRegister.get('management_id').value.length === 1) {
             this.offices = [];
 
@@ -392,16 +389,16 @@ export class RegisterComponent implements OnInit {
         const depatment_id = this.formRegister.get('department_id');
         const management_id = this.formRegister.get('management_id');
 
-        if (capacity_id.value && capacity_id.value === '1' && !management_id.value.length) {
-            management_id.setErrors({required: true});
-        } else {
-            management_id.updateValueAndValidity();
-        }
+        // if (capacity_id.value && capacity_id.value === '1' && !management_id.value.length) {
+        //     management_id.setErrors({required: true});
+        // } else {
+        //     management_id.updateValueAndValidity();
+        // }
 
-        if (capacity_id.value && capacity_id.value === '1' && !depatment_id.value) {
-            depatment_id.setErrors({required: true});
-        } else {
-            depatment_id.updateValueAndValidity();
-        }
+        // if (capacity_id.value && capacity_id.value === '1' && !depatment_id.value) {
+        //     depatment_id.setErrors({required: true});
+        // } else {
+        //     depatment_id.updateValueAndValidity();
+        // }
     }
 }
