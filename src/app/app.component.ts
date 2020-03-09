@@ -27,7 +27,6 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        console.log('successfully built...');
         this.permissionLogin = this.authService.authorizationLogin.subscribe(res => {
             return res;
         });
