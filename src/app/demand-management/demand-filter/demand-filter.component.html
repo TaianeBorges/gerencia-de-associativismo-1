@@ -19,7 +19,20 @@
                 </div>
             </div>
             <hr *ngIf="filterVisibility">
+            
+
             <div class="row margin-t-30" [ngClass]="{'display-none': !filterVisibility}">
+                <div class="form-group col-lg-1 col-md-2">
+                    <label>ID</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">#</span>
+                        </div>
+    
+                        <input type="text" id="demand_id" class="form-control" formControlName="demand_id">
+                    </div>
+                </div>
+
                 <div class="form-group col-lg-3 col-md-6 col-sm-12">
                     <label for="entity">Entidade</label>
                     <ng2-selectize  formControlName="entity_id"
@@ -29,7 +42,7 @@
                     </ng2-selectize>
                 </div>
 
-                <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                <div class="form-group col-lg-2 col-sm-4">
                     <label>Status</label>
                     <ng2-selectize formControlName="status_id" 
                                    class="selectize-demand-status" [config]="configDemandStatus"
