@@ -22,7 +22,7 @@
             
 
             <div class="row margin-t-30" [ngClass]="{'display-none': !filterVisibility}">
-                <div class="form-group col-lg-1 col-md-2">
+                <div class="form-group col-lg-2 col-md-2">
                     <label>ID</label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -33,7 +33,7 @@
                     </div>
                 </div>
 
-                <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                <div class="form-group col-lg-3 col-md-5 col-sm-12">
                     <label for="entity">Entidade</label>
                     <ng2-selectize  formControlName="entity_id"
                                    id="entity"
@@ -42,7 +42,7 @@
                     </ng2-selectize>
                 </div>
 
-                <div class="form-group col-lg-2 col-sm-4">
+                <div class="form-group col-lg-2 col-md-5 col-sm-12">
                     <label>Status</label>
                     <ng2-selectize formControlName="status_id" 
                                    class="selectize-demand-status" [config]="configDemandStatus"
@@ -51,7 +51,7 @@
                     </ng2-selectize>
                 </div>
 
-                <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                <div class="form-group col-lg-2 col-md-6 col-sm-12">
                     <label>Cadastrante</label>
                     <input type="text" 
                            [ngClass]="{'is-invalid': formFilter.get('demand_requester').errors && formFilter.get('demand_requester').touched }"
