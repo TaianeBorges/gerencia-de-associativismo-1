@@ -44,7 +44,9 @@
                         </div>
                         <div class="col-lg-4">
                             <h6 class="card-label mb-2 text-muted">E-mail</h6>
-                            <h5 class="card-text">{{demand.demand_requester.email}}</h5>
+                            <h5 class="card-text" *ngFor="let item of demand.demand_requester.demand_requesters_emails">
+                                {{item.email}}
+                            </h5>
                         </div>
                     </div>
                 </div>

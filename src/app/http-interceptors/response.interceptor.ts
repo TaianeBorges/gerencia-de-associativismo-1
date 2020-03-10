@@ -87,6 +87,7 @@ export class ResponseInterceptor implements HttpInterceptor {
                 
                 if (error.status === 401) {
                     this.router.navigate(['auth/login']);
+                    location.reload();
                 }
 
                 return throwError(error);
