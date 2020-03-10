@@ -40,8 +40,8 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             if ($event == 1 || $event == 2) {
                 this.getUnions();
             }
-
-            if ($event == 4 || $event == 5|| $event == 6 || $event == 7) {
+            
+            if ($event == 4 || $event == 5|| $event == 6 || $event == 7 || $event == 9) {
                 this.getAdvices($event);
             }
 
