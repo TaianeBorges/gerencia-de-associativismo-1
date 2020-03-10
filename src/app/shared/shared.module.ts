@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 //modules
 import { MatIconModule } from '@angular/material/icon';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 //components

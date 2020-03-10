@@ -26,7 +26,6 @@ import {AuthInterceptor} from './http-interceptors/auth-interceptor';
 import {LoaderInterceptor} from './http-interceptors/loader.interceptor';
 import {ResponseInterceptor} from './http-interceptors/response.interceptor';
 import {CommonModule} from '@angular/common';
-import {DemandManagementModule} from './demand-management/demand-management.module';
 
 @NgModule({
     declarations: [

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, Input, ViewEncapsulation, ViewRef} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UsersService} from '../users.service';
