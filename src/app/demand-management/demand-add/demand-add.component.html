@@ -119,11 +119,11 @@
                         *ngIf="formDemand.get('entity_id') && (formDemand.get('entity_id').value == 2 || formDemand.get('entity_id').value == 3)">
                         <div class="form-group col-lg-4"
                             *ngIf="formDemand.get('entity_id') && formDemand.get('entity_id').value == 2">
-                            <label class="card-label mb-2 text-muted">O sindicato foi consultado?</label>
+                            <label class="card-label mb-2 text-muted">Sindicato aprovou a demanda?</label>
                             <select class="form-control" formControlName="syndicate_permission">
                                 <option value="" disabled selected>Selecione a opção</option>
-                                <option value="0">Não foi consultado</option>
-                                <option value="">Não</option>
+                                <option value="">Não foi consultado</option>
+                                <option value="0">Não</option>
                                 <option value="1">Sim</option>
                             </select>
                         </div>
