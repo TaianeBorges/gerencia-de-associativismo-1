@@ -43,6 +43,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
                     this.widthContent = false;
                     this.urlRegister = true;
+                } else {
+                    this.urlRegister = false;
                 }
             }
         });
