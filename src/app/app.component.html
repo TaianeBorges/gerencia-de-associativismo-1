@@ -1,3 +1,4 @@
+<div class="environment-message alert alert-warning" role="alert" *ngIf="!environmentStatus.production">Você está em um ambiente de {{environmentStatus?.name}}</div>
 <app-alerts></app-alerts>
 <app-loader></app-loader>
 <app-menu [permission]="permissionLogin.authenticate"></app-menu>
