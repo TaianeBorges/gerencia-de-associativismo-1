@@ -15,7 +15,7 @@
                     Histórico de status
                 </button>
 
-                <button disabled *ngIf="((currentUser.user.role == 11 && !demand.permission_syndicate && demand.entity_id == 2) || demand.histories[0].status === 1 || demand.histories[0].status === 7 || demand.histories[0].status === 6)" class=" btn btn-info margin-l-10">
+                <button disabled *ngIf="((currentUser.user.role == 11 && !demand.permission_syndicate && demand.entity_id == 2) || demand.histories[0].status === 1 || demand.histories[0].status === 7 || demand.histories[0].status === 6)" class=" btn btn-secondary margin-l-10">
                     Atualizar status
                 </button>
 
@@ -24,7 +24,7 @@
                     Atualizar status
                 </button>
 
-                <button disabled class="btn btn-primary margin-l-10">Editar demanda</button>
+                <button disabled class="btn btn-secondary margin-l-10">Editar demanda</button>
             </div>
         </div>
 
@@ -58,7 +58,15 @@
 
             <div class="card">
                 <div class="card-body">
-                    <div class="row">
+                    
+                    <div class="row" *ngIf="demand.regional_id">
+                        <div class="col-lg-4">
+                            <h6 class="card-label mb-2 text-muted">Regional</h6>
+                            <h5 class="card-text">{{demand.regional.name}}</h5>
+                        </div>
+                    </div>
+
+                    <div class="row" [ngClass]="{' margin-t-30': demand.regional_id}">
                         <div class="col-lg-4">
                             <h6 class="card-label mb-2 text-muted">Entidade</h6>
                             <h5 class="card-text">{{demand.entity.name}}</h5>
@@ -177,7 +185,7 @@
                             <h6 class="card-label mb-2 text-muted">Foi encaminhado?</h6>
                             <h5 class="card-text">
                                 <input type="checkbox" disabled [checked]="demand.forwarded_to_the_technical_area">
-                                <label for="" class="margin-l-10">{{demand.forwarded_to_the_technical_area ? 'Foi' : 'não foi'}} encaminhado</label>
+                                <label for="" class="margin-l-10">{{demand.forwarded_to_the_technical_area ? 'Foi' : 'Não foi'}} encaminhado</label>
                             </h5>
                         </div>
                         <div class="col-lg-6">

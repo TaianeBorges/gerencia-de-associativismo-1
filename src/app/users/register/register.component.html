@@ -36,7 +36,7 @@
                             <div class="form-group">
                                 <label for="capacity_id">Lotação</label>
                                 <select name="capacity_id" formControlName="capacity_id"
-                                        (change)="getGeneralManagement(); getSectors()"
+                                        (change)="getGeneralManagement(); getSectors(); resetValidations()"
                                         [ngClass]="{'is-invalid': formRegister.get('capacity_id').errors && formRegister.get('capacity_id').touched }"
                                         class="form-control" id="capacity_id">
                                     <option value="">Selecione a lotação</option>

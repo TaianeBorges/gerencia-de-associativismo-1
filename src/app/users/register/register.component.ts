@@ -139,7 +139,7 @@ export class RegisterComponent implements OnInit {
             username: new FormControl('', [Validators.minLength(4), Validators.required]),
             password: new FormControl('', [Validators.minLength(4), Validators.required]),
             confirmPassword: new FormControl('', [Validators.minLength(4), Validators.required]),
-            general_management_id: new FormControl('', [Validators.required]),
+            general_management_id: new FormControl(''),
             management_id: new FormControl(''),
             department_id: new FormControl(''),
             relationship: this.fb.group({
@@ -160,6 +160,19 @@ export class RegisterComponent implements OnInit {
             this.getCapacities();
             this.getRegionals();
         }
+    }
+
+    resetValidations() {
+        const representanteRegional = this.formRegister.get('regional_representation.regional');
+        const representanteCargo = this.formRegister.get('regional_representation.office');
+        const general_management_id = this.formRegister.get('general_management_id');
+
+        general_management_id.clearValidators();
+        general_management_id.updateValueAndValidity();
+        representanteRegional.clearValidators();
+        representanteRegional.updateValueAndValidity();
+        representanteCargo.clearValidators();
+        representanteCargo.updateValueAndValidity();
     }
 
     addOffice(data: any) {
@@ -208,11 +221,11 @@ export class RegisterComponent implements OnInit {
         this.formRegister.markAllAsTouched();
 
         if (this.formRegister.get('capacity_id').value && parseInt(this.formRegister.get('capacity_id').value) === 2) {
-
             this.validateRepresentanteRegional();
+        } else {
+            this.validateSede();
         }
 
-        this.validateSede();
         let dataAlert = {};
 
         if (data.valid) {
@@ -230,13 +243,13 @@ export class RegisterComponent implements OnInit {
                     this.formRegister.reset();
                     // this.authService.storeAuthorizationToken(res.token);
 
-                    this.alertService.alertShow(dataAlert);
+                    // this.alertService.alertShow(dataAlert);
 
-                    this.router.navigate(['/auth/login']);
+                    // this.router.navigate(['/auth/login']);
 
-                    setTimeout(() => {
-                        this.alertService.hide();
-                    }, 1000);
+                    // setTimeout(() => {
+                    //     this.alertService.hide();
+                    // }, 1000);
                 }
             });
         }
@@ -383,11 +396,19 @@ export class RegisterComponent implements OnInit {
     }
 
     validateSede() {
-        const relationship_regionals = this.formRegister.get('relationship.regionals');
-        const relationship_syndicates = this.formRegister.get('relationship.syndicates');
+        // const relationship_regionals = this.formRegister.get('relationship.regionals');
+        // const relationship_syndicates = this.formRegister.get('relationship.syndicates');
         const capacity_id = this.formRegister.get('capacity_id');
         const depatment_id = this.formRegister.get('department_id');
         const management_id = this.formRegister.get('management_id');
+        const general_management_id = this.formRegister.get('general_management_id');
+
+        if (capacity_id.value && capacity_id.value === '1' && !general_management_id.value.length) {
+            general_management_id.setErrors({required: true});
+        } else {
+            general_management_id.clearValidators();
+            general_management_id.updateValueAndValidity();
+        }
 
         // if (capacity_id.value && capacity_id.value === '1' && !management_id.value.length) {
         //     management_id.setErrors({required: true});
