@@ -8,11 +8,13 @@
                     <h1 class="page-title">Filtros</h1>
                 </div>
                 <div class="col text-right">
-                    <button type="button" (click)="filterVisibility = !filterVisibility" class="btn btn-outline-info"
+                    <button type="button" (click)="filterVisibility = !filterVisibility" class="btn btn-outline-info margin-l-10"
                             [ngClass]="{'btn-info color-text-white': !filterVisibility}">
                       {{!filterVisibility ? 'Mostrar filtros' : 'Esconder filtros'}}
                     </button>
 
+                    <app-demand-excel [demandsFilter]="formFilter.value"></app-demand-excel>
+    
                     <a [routerLink]="['/gestao-de-demandas/nova-demanda']" routerLinkActive="router-link-active"
                        class="btn btn-primary margin-l-10">Nova demanda</a>
 

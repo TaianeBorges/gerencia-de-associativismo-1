@@ -13,6 +13,7 @@ export class DemandFilterComponent implements OnInit {
     @Output('formOnSubmit') formOnSubmit = new EventEmitter();
 
     formFilter;
+    demandsList;
     filterVisibility = true;
     configEntity = {
         labelField: 'name',

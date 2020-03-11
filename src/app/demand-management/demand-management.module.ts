@@ -13,6 +13,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Ng2SelectizeModule } from 'ng2-selectize';
 import { DemandAddHistoryComponent } from './demand-add-history/demand-add-history.component';
 import { DemandAddComponent } from './demand-add/demand-add.component';
+import { DemandExcelComponent } from './demand-excel/demand-excel.component';
+import { ExcelService } from './demand-excel/demand-excel.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { DemandAddComponent } from './demand-add/demand-add.component';
     DemandHistoryComponent,
     DemandFilterComponent,
     DemandAddHistoryComponent,
-    DemandAddComponent
+    DemandAddComponent,
+    DemandExcelComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +36,8 @@ import { DemandAddComponent } from './demand-add/demand-add.component';
     Ng2SelectizeModule
   ],
   providers: [
-    AuthGuardService
+    AuthGuardService,
+    ExcelService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
