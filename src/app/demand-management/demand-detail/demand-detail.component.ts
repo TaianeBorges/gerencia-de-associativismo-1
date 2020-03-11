@@ -42,13 +42,18 @@ export class DemandDetailComponent implements OnInit {
     getDemand(id: number) {
         this.demandService.getDemand(id)
             .subscribe(res => {
-                this.demand = res.data[0];
+                if (res && res.permission) {
 
-                this.demand.histories.forEach(element => {
-                    if (element.cost) {
-                        this.total = this.total + parseFloat(element.cost);
-                    }
-                });
+                    this.demand = res.data[0];
+
+                    this.demand.histories.forEach(element => {
+                        if (element.cost) {
+                            this.total = this.total + parseFloat(element.cost);
+                        }
+                    });
+            } else {
+                this.router.navigate(['nao-autorizado']);
+            }
         });
     }
 

@@ -53,12 +53,14 @@
         </ul>
         <ul class="nav-items"
             [ngClass]="{'display-none': !routeDemandManagement, 'nav-items-mobile': menuMobileActivate && routeDemandManagement}">
-            <!-- <li>
+        <!-- 
+            <li>
                 <a href="#" routerLinkActive="router-link-active" placement="right" ngbTooltip="Dashboard">
                     <i class="material-icons">dashboard</i>
                     <span> Dashboard</span>
                 </a>
-            </li> -->
+            </li>
+        -->
 
             <li>
                 <a [routerLink]="['/gestao-de-demandas']" placement="right" ngbTooltip="Demandas"
@@ -67,14 +69,15 @@
                     <span> Demandas</span>
                 </a>
             </li>
+
+            <li>
+                <a [routerLink]="['/usuarios']" routerLinkActive="router-link-active" placement="right" ngbTooltip="Usuários">
+                    <i class="material-icons">face</i>
+                    <span> Usuarios</span>
+                </a>
+            </li>
             <!--
 
-                        <li>
-                            <a [routerLink]="['/usuarios']" routerLinkActive="router-link-active" placement="right" ngbTooltip="Usuários">
-                                <i class="material-icons">face</i>
-                                <span> Usuarios</span>
-                            </a>
-                        </li>
                         <li>
                             <a href="#" routerLinkActive="router-link-active" placement="right" ngbTooltip="Atividades">
                                 <i class="material-icons">history</i>

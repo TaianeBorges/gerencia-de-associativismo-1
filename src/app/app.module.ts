@@ -26,12 +26,14 @@ import {AuthInterceptor} from './http-interceptors/auth-interceptor';
 import {LoaderInterceptor} from './http-interceptors/loader.interceptor';
 import {ResponseInterceptor} from './http-interceptors/response.interceptor';
 import {CommonModule} from '@angular/common';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         PageNotFoundComponent,
-        LoaderComponent
+        LoaderComponent,
+        UnauthorizedComponent
     ],
     imports: [
         CommonModule,
