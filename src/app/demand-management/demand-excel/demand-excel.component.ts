@@ -10,13 +10,6 @@ import { DemandService } from '../demand.service';
 export class DemandExcelComponent implements OnInit {
   
   @Input('demandsFilter') demandsFilter: any;
-
-
-  data: any = [
-    {eid: 'e101', ename: 'ravi', esal: 1000},
-    {eid: 'e102', ename: 'ram', esal: 2000},
-    {eid: 'e103', ename: 'rajesh', esal: 3000}
-  ];
   
   constructor(private excelService: ExcelService, private demandService: DemandService) { }
 
@@ -24,23 +17,19 @@ export class DemandExcelComponent implements OnInit {
     }
 
     ngOnChanges(event) {
-      if (event && !event.demandsFilter.firstChange) {
-        console.log(event);
-        console.log(this.demandsFilter);
-      }
     }
   
     getDemandsExcel() {
-
     }
 
     exportAsXLSX():void {
       if (this.demandsFilter) {
         this.demandService.getDemandsExcel(this.demandsFilter).subscribe(res => {
-          console.log(res);
+          if (res && res.data && res.data.length) {
+             this.excelService.exportAsExcelFile(res.data, 'demands');
+          }
         });
       }
-      //  this.excelService.exportAsExcelFile(this.data, 'demands');
     }
 
 
