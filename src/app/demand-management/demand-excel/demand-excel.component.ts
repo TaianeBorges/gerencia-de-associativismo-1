@@ -26,7 +26,7 @@ export class DemandExcelComponent implements OnInit {
       if (this.demandsFilter) {
         this.demandService.getDemandsExcel(this.demandsFilter).subscribe(res => {
           if (res && res.data && res.data.length) {
-             this.excelService.exportAsExcelFile(res.data, 'demands');
+             this.excelService.exportAsExcelFile(res.data, 'demandas');
           }
         });
       }

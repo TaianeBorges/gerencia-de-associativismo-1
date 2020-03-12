@@ -19,6 +19,7 @@ export class DemandDetailComponent implements OnInit {
     previousUrl;
     total = 0;
     currentUser;
+    timePeriod;
 
     constructor(
         private route: ActivatedRoute,
@@ -49,6 +50,10 @@ export class DemandDetailComponent implements OnInit {
                     this.demand.histories.forEach(element => {
                         if (element.cost) {
                             this.total = this.total + parseFloat(element.cost);
+                        }
+
+                        if (element.time_period) {
+                            this.timePeriod = element.time_period;
                         }
                     });
             } else {

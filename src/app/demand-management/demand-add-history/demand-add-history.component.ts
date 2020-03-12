@@ -65,7 +65,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
         labelField: 'email',
         valueField: 'id',
         create: false,
-        searchField: ['email'],
+        searchField: ['name', 'email'],
         plugins: ['dropdown_direction', 'remove_button'],
         dropdownDirection: 'down',
         maxItems: 100,

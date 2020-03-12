@@ -102,8 +102,9 @@
                     <div class="row margin-t-30">
                         <div class="col-lg-4" >
                             <h6 class="card-label mb-2 text-muted">Prazo</h6>
-                            <h5 class="card-text">{{demand.time_period ? (demand.time_period | date:'d MMM, y') :
-                                '---'}}</h5>
+                            <h5  class="card-text">
+                                {{demand.time_period ? (demand.time_period | date:'d MMM, y') : (timePeriod ? (timePeriod | date:'d MMM, y') : '---')}}
+                            </h5>
                         </div>
                         <div class="col-lg-4" >
                             <h6 class="card-label mb-2 text-muted">Soma de todos os custos</h6>

@@ -20,7 +20,16 @@ export class ExcelService {
 }
 
     private saveAsExcelFile(buffer: any, fileName: string): void {
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const yyyy = today.getFullYear();
+        const hour = today.getHours() > 12 ? today.getHours() - 12 : (today.getHours() < 10 ? "0" + today.getHours() : today.getHours());
+        const minute = today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes();
+        const seconds = today.getSeconds() < 10 ? "0" + today.getSeconds() : today.getSeconds();
+        const date = `_${mm}_${dd}_${yyyy}_${hour}${minute}${seconds}`;
+
         const data: Blob = new Blob([buffer], {type: EXCEL_TYPE});
-        FileSaver.saveAs(data, fileName + '_export_' + new  Date().getTime() + EXCEL_EXTENSION);
+        FileSaver.saveAs(data, fileName + date + EXCEL_EXTENSION);
     }
 }
