@@ -40,7 +40,7 @@
           }
 
           &.card-id {
-            width: 70px;
+            width: 60px;
           }
 
           &.card-person {
@@ -58,7 +58,7 @@
           }
 
           &.card-sindicato {
-            width: 180px;
+            width: 120px;
             p {
               white-space: nowrap;
               overflow: hidden; /* "overflow" value must be different from "visible" */
@@ -75,7 +75,7 @@
           }
 
           .card-text {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: #333333;
           }
@@ -89,9 +89,10 @@
           &.demand-icon {
             display: flex;
             align-items: center;
+            justify-content: center;
 
             div {
-              width: 63px;
+              width: 50px;
 
               img {
                 width: 100%;
@@ -106,7 +107,7 @@
 
           &.card-categoria {
             width: 100%;
-            max-width: 170px;
+            max-width: 140px;
             p {
               white-space: nowrap;
               overflow: hidden; /* "overflow" value must be different from "visible" */
