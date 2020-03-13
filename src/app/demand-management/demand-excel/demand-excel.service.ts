@@ -27,7 +27,7 @@ export class ExcelService {
         const hour = today.getHours() > 12 ? today.getHours() - 12 : (today.getHours() < 10 ? "0" + today.getHours() : today.getHours());
         const minute = today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes();
         const seconds = today.getSeconds() < 10 ? "0" + today.getSeconds() : today.getSeconds();
-        const date = `_${mm}_${dd}_${yyyy}_${hour}${minute}${seconds}`;
+        const date = `_${dd}_${mm}_${yyyy}_${hour}${minute}${seconds}`;
 
         const data: Blob = new Blob([buffer], {type: EXCEL_TYPE});
         FileSaver.saveAs(data, fileName + date + EXCEL_EXTENSION);
