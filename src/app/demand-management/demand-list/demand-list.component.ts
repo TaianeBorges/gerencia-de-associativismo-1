@@ -4,6 +4,7 @@ import {DemandService} from '../demand.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
 import { filter } from 'rxjs/operators';
+import {MomentPipe} from '../../shared/pipes/moment.pipe';
 
 @Component({
     selector: 'app-demand-list',

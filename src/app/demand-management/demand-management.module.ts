@@ -15,6 +15,7 @@ import { DemandAddHistoryComponent } from './demand-add-history/demand-add-histo
 import { DemandAddComponent } from './demand-add/demand-add.component';
 import { DemandExcelComponent } from './demand-excel/demand-excel.component';
 import { ExcelService } from './demand-excel/demand-excel.service';
+import { MomentPipe } from '../shared/pipes/moment.pipe';
 
 @NgModule({
   declarations: [

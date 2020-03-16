@@ -147,7 +147,6 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
     getRegionals() {
         this.regionalsServiceSubscribe = this.demandServices.getRegionals().subscribe(res => {
             if (res && res.data) {
-
                 this.regionals = res.data;
             }
         })
@@ -162,12 +161,15 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
 
             this.permissionSyndicate = (this.demandSelected.entity_id == 2 && !this.demandSelected.permission_syndicate);
 
-
-            let regional = null;
+            let regional = [];
 
             this.regionals.forEach(element => {
-                if (element.id == this.demandSelected.regional_id) {
-                    regional = element;
+                if (this.demandSelected.regional_id && element.id == this.demandSelected.regional_id) {
+                    regional.push(element);
+                }
+
+                if (this.demandSelected.regional_id == null) {
+                    regional.push(element);
                 }
             });
 
