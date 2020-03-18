@@ -8,19 +8,34 @@
                     <h1 class="page-title">Filtros</h1>
                 </div>
                 <div class="col text-right">
-                    <button type="button" (click)="filterVisibility = !filterVisibility" class="btn btn-outline-info"
+                    <button type="button" (click)="filterVisibility = !filterVisibility" class="btn btn-outline-info margin-l-10"
                             [ngClass]="{'btn-info color-text-white': !filterVisibility}">
                       {{!filterVisibility ? 'Mostrar filtros' : 'Esconder filtros'}}
                     </button>
 
+                    <app-demand-excel [demandsFilter]="formFilter.value"></app-demand-excel>
+    
                     <a [routerLink]="['/gestao-de-demandas/nova-demanda']" routerLinkActive="router-link-active"
                        class="btn btn-primary margin-l-10">Nova demanda</a>
 
                 </div>
             </div>
             <hr *ngIf="filterVisibility">
+            
+
             <div class="row margin-t-30" [ngClass]="{'display-none': !filterVisibility}">
-                <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                <div class="form-group col-lg-2 col-md-2">
+                    <label>ID</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">#</span>
+                        </div>
+    
+                        <input type="text" id="demand_id" class="form-control" formControlName="demand_id">
+                    </div>
+                </div>
+
+                <div class="form-group col-lg-3 col-md-5 col-sm-12">
                     <label for="entity">Entidade</label>
                     <ng2-selectize  formControlName="entity_id"
                                    id="entity"
@@ -29,7 +44,7 @@
                     </ng2-selectize>
                 </div>
 
-                <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                <div class="form-group col-lg-2 col-md-5 col-sm-12">
                     <label>Status</label>
                     <ng2-selectize formControlName="status_id" 
                                    class="selectize-demand-status" [config]="configDemandStatus"
@@ -38,7 +53,7 @@
                     </ng2-selectize>
                 </div>
 
-                <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                <div class="form-group col-lg-2 col-md-6 col-sm-12">
                     <label>Cadastrante</label>
                     <input type="text" 
                            [ngClass]="{'is-invalid': formFilter.get('demand_requester').errors && formFilter.get('demand_requester').touched }"
@@ -79,18 +94,21 @@
                     class="form-control" placeholder="Digite a Razão social">
                 </div>
 
-                <div class="form-group col-lg-3 col-md-6 col-sm-12"  *ngIf="formFilter.get('entity_id').value == 4 || formFilter.get('entity_id').value == 5 || formFilter.get('entity_id').value == 6 || formFilter.get('entity_id').value == 7">
-                    <label>{{formFilter.get('entity_id').value == 5 ? 'Grupo setorial' : 'Conselho'}}</label>
+                <div class="form-group col-lg-3 col-md-6 col-sm-12"  *ngIf="formFilter.get('entity_id').value == 4 || formFilter.get('entity_id').value == 5 || formFilter.get('entity_id').value == 6 || formFilter.get('entity_id').value == 7 || formFilter.get('entity_id').value == 9">
+                    <label *ngIf="formFilter.get('entity_id').value == 5">Grupo setorial</label>
+                    <label *ngIf="formFilter.get('entity_id').value == 4 || formFilter.get('entity_id').value == 6">Conselhos</label>
+                    <label *ngIf="formFilter.get('entity_id').value == 7">Diretoria</label>
+                    <label *ngIf="formFilter.get('entity_id').value == 9">Forúns</label>
                     <ng2-selectize formControlName="council_id"
                                    [ngClass]="{'is-invalid': formFilter.get('council_id').errors && formFilter.get('council_id').touched }"
                                    class="selectize-councils" [config]="configCouncils" [options]="optionsCouncils"
-                                   placeholder="Selecione o {{formFilter.get('entity_id').value == 5 ? 'Grupo setorial' : 'Conselho'}}">
+                                   placeholder="Selecione">
                     </ng2-selectize>
                 </div>
 
                 <div class="form-group col padding-t-30">
                     <button type="submit" class="btn btn-info">Filtrar</button>
-                    <button type="reset" (click)="resetForm(); formDemandFilter.reset()"
+                    <button type="submit" (click)="resetForm(); formDemandFilter.reset()"
                             class="btn btn-outline-info margin-l-10">Limpar
                         Filtro
                     </button>

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, Input, Output, OnChanges, OnDestroy} from '@angular/core';
+import {Component, OnInit, ViewChild, Input, Output, OnChanges, OnDestroy, ElementRef} from '@angular/core';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {EventEmitter} from 'protractor';
 import {DatePipe} from '@angular/common';
@@ -21,12 +21,14 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
     @Input('openModal') openModal: boolean;
     @Input('demandSelected') demandSelected: any;
     @Output('close') close: EventEmitter;
+    @ViewChild('selectizeRegional', {static: false}) redel:ElementRef;
 
     formControlCurrency;
     optionsForwardEmails = [];
     optionsDemandStatus = [];
     optionsManagements = [];
     optionsRegional = [];
+    regionals = [];
     statusServiceSubscription: Subscription;
     emailsByAreasTecnicasServiceSubscribe: Subscription;
     formStatus: FormGroup;
@@ -44,9 +46,9 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
         plugins: ['dropdown_direction', 'remove_button'],
         dropdownDirection: 'down',
         onChange: ($event: any) => {
-            if($event) {
-                this.getEmails($event);
-            }
+            setTimeout(() => {
+                this.getEmails();
+            }, 500);
         }
     };
 
@@ -63,7 +65,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
         labelField: 'email',
         valueField: 'id',
         create: false,
-        searchField: ['email'],
+        searchField: ['name', 'email'],
         plugins: ['dropdown_direction', 'remove_button'],
         dropdownDirection: 'down',
         maxItems: 100,
@@ -145,7 +147,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
     getRegionals() {
         this.regionalsServiceSubscribe = this.demandServices.getRegionals().subscribe(res => {
             if (res && res.data) {
-                this.optionsRegional = res.data;
+                this.regionals = res.data;
             }
         })
     }
@@ -158,6 +160,24 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
             this.modalRef = this.modalService.show(this.modal, {class: 'modal-lg modal-dialog-centered modal-demand'});
 
             this.permissionSyndicate = (this.demandSelected.entity_id == 2 && !this.demandSelected.permission_syndicate);
+
+            let regional = [];
+
+            this.regionals.forEach(element => {
+                if (this.demandSelected.regional_id && element.id == this.demandSelected.regional_id) {
+                    regional.push(element);
+                }
+
+                if (this.demandSelected.regional_id == null) {
+                    regional.push(element);
+                }
+            });
+
+            if (regional) {
+                this.optionsRegional = [];
+                this.optionsRegional.push(regional);
+            }
+
 
             this.userService.getUserAuthenticated().subscribe(res => {
                 if (res.authenticate) {
@@ -185,19 +205,17 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
         });
     }
 
-    getEmails(regional?) {
+    getEmails() {
         const data = {
             managements: this.formStatus.get('forwarded_to_the_technical_area.managements').value,
-            regional: regional ? regional : this.formStatus.get('forwarded_to_the_technical_area.regional').value
+            regional: this.formStatus.get('forwarded_to_the_technical_area.regional').value
         };
 
-        if (data) {
-            this.emailsByAreasTecnicasServiceSubscribe = this.demandServices.getEmails(data).subscribe(res => {
-                if (res) {
-                    this.optionsForwardEmails = res.data;
-                }
-            });
-        }
+        this.emailsByAreasTecnicasServiceSubscribe = this.demandServices.getEmails(data).subscribe(res => {
+            if (res) {
+                this.optionsForwardEmails = res.data;
+            }
+        });
     }
 
     onSubmit(form: any) {

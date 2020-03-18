@@ -1,4 +1,4 @@
-<div class="demand-list-container">
+<div class="demand-list-container"  *ngIf="currentUser && currentUser.authenticate">
     <app-demand-filter (formOnSubmit)="filterSubmit($event)"></app-demand-filter>
 
     <app-demand-pagination [currentPage]="page" [demands]="demands" (pagination)="onPagination($event)">

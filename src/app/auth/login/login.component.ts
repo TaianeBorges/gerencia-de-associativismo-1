@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
       password: new FormControl('', [Validators.minLength(4), Validators.required])
     });
 
-    if (!environment.production) {
+    if (!environment.production && !environment.homologation) {
       this.formLogin.get('email').setValue('aapinheiro@firjan.com.br');
       this.formLogin.get('password').setValue('abc*123');
     }
@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
         }
 
         this.alertService.alertShow(alert);
-
+        
         setTimeout(() => {
           this.alertService.hide();
         }, 2000);

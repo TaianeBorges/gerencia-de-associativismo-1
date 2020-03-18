@@ -1,8 +1,9 @@
-import {Component, OnInit, Inject, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AuthService} from './auth/auth.service';
 import {SharedsService} from './shared/shareds.service';
 import {Router, NavigationEnd} from '@angular/router';
 import {Subscription} from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Component({
     selector: 'app-root',
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit, OnDestroy {
     widthContent = true;
     urlRegister = false;
     sharedServiceSubscription: Subscription;
+    environmentStatus;
 
     constructor(
         private authService: AuthService,
@@ -34,6 +36,8 @@ export class AppComponent implements OnInit, OnDestroy {
         this.sharedServiceSubscription = this.sharedService.stateMenu.subscribe(res => {
             this.widthContent = res.open;
         });
+
+        this.environmentStatus = environment;
     }
 
     routeEvent(router: Router) {
@@ -43,6 +47,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
                     this.widthContent = false;
                     this.urlRegister = true;
+                } else {
+                    this.urlRegister = false;
                 }
             }
         });

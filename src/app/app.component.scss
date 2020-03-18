@@ -1,13 +1,6 @@
 @import "./shared/styles/default";
 
 .app-container {
-  // background: #f8f5f7;
-  // position: relative;
-  // height: calc(100% - 65px);
-  // width: calc(100% - 60px);
-  // top: 65px;
-  // left: 60px;
-  // transition: 0.3s;
 
   @media screen and (max-width: 600px) {
     width: 100%;
@@ -23,4 +16,21 @@
   top: 65px;
   left: 60px;
   transition: 0.3s;
+}
+
+.display-none {
+  display: none;
+}
+
+.environment-message{
+  z-index: 10;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  text-align: center;
+  padding: 0px;
+  font-size: 13px;
+  border-radius: 0;
+  opacity: .6;
 }

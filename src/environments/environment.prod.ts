@@ -1,5 +1,7 @@
 
 export const environment = {
   production: true,
-  apiUrl: 'https://homologacao-gea-api.associativismo-firjan.com.br/api'
+  homologation: false,
+  name: "Produção",
+  apiUrl: 'https://gea-api.associativismo-firjan.com.br/api'
 };

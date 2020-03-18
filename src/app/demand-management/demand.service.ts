@@ -217,4 +217,12 @@ export class DemandService {
                 })
             );
     }
+
+    getDemandsExcel(data): Observable<any> {
+        return this.http.post(`${environment.apiUrl}/demandas/excel`, data, this.httpOptions).pipe(
+            map(res => {
+                return res;
+            })
+        );
+    }
 }

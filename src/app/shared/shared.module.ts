@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 //modules
 import { MatIconModule } from '@angular/material/icon';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 //components
@@ -24,6 +23,7 @@ import { TelephonePipe } from './pipes/telephone.pipe';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { CurrencyPipe } from './pipes/currency.pipe';
 import { CNPJPipe } from './pipes/cnpj.pipe';
+import { MomentPipe } from './pipes/moment.pipe';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,8 @@ import { CNPJPipe } from './pipes/cnpj.pipe';
     CapitalizePipe,
     CurrencyPipe,
     InitialNameComponent,
-    CNPJPipe
+    CNPJPipe,
+    MomentPipe
   ],
   imports: [
     CommonModule,
@@ -59,7 +60,8 @@ import { CNPJPipe } from './pipes/cnpj.pipe';
     CapitalizePipe,
     CurrencyPipe,
     InitialNameComponent,
-    CNPJPipe
+    CNPJPipe,
+    MomentPipe
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

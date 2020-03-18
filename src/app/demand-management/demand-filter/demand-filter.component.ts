@@ -13,6 +13,7 @@ export class DemandFilterComponent implements OnInit {
     @Output('formOnSubmit') formOnSubmit = new EventEmitter();
 
     formFilter;
+    demandsList;
     filterVisibility = true;
     configEntity = {
         labelField: 'name',
@@ -97,11 +98,11 @@ export class DemandFilterComponent implements OnInit {
 
     ngOnInit() {
         this.formFilter = this.fb.group({
+            demand_id: new FormControl(''),
             entity_id: new FormControl(''),
             demand_requester: new FormControl(''),
             syndicate_id: new FormControl(''),
             status_id: new FormControl(''),
-            demand_id: new FormControl(''),
             demand_category_id: new FormControl(''),
             council_id: [],
             sector_id: new FormControl(''),

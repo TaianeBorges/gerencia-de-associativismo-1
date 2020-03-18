@@ -1,6 +1,7 @@
 import {Routes} from '@angular/router';
 import {AuthGuardService} from './guards/auth-guard.service';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 export const APP_ROUTES: Routes = [
     {
@@ -34,5 +35,6 @@ export const APP_ROUTES: Routes = [
     {path: 'cadastro', redirectTo: 'usuarios/lista-de-usuarios'},
     {path: 'login', redirectTo: 'auth/login'},
     {path: 'logout', redirectTo: 'auth/logout'},
+    {path: 'nao-autorizado', component: UnauthorizedComponent},
     {path: '**', component: PageNotFoundComponent}
 ];

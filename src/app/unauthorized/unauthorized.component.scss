@@ -1,0 +1,50 @@
+.pnf-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+  
+    div {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+      .pnf-text {
+        display: flex;
+        flex-direction: column;
+        background: white;
+  
+        div {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            max-width: 390px;
+        }
+      }
+  
+      .pnf-image {
+        width: 100%;
+        height: 100%;
+        background: url("../../assets/img/backgrounds/tyler-nix-ahee6DMcUcI-unsplash.jpg") center no-repeat;
+        background-size: cover;
+  
+        .credits {
+          display: inline-block;
+          padding: 15px;
+          width: 100%;
+          text-align: right;
+          margin-top: auto;
+          height: 50px;
+          color: #fff;
+         }
+      }
+    }
+  }
+  

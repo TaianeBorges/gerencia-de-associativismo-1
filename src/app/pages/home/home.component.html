@@ -1,4 +1,4 @@
-<div class="home-container" *ngIf="currentUser?.authenticate">
+<div class="home-container" *ngIf="currentUser && currentUser.authenticate">
     <div class="modules">
         <a [routerLink]="['/gestao-de-demandas']" 
             class="module-item card demand_management">
