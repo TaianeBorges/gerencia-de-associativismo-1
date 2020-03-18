@@ -5,10 +5,10 @@
 const ip = '172.16.50.29';
 
 export const environment = {
-  production: false,
-  homologation: false,
-  name: "Desenvolvimento",
-  apiUrl: 'http://localhost/gerencia-de-associativismo-api/public/api'
+    production: false,
+    homologation: false,
+    name: 'Desenvolvimento',
+    apiUrl: 'http://localhost/gerencia-de-associativismo-api/public/api'
 };
 
 /*

@@ -15,11 +15,14 @@
                     Histórico de status
                 </button>
 
-                <button disabled *ngIf="((currentUser.user.role == 11 && !demand.permission_syndicate && demand.entity_id == 2) || demand.histories[0].status === 1 || demand.histories[0].status === 7 || demand.histories[0].status === 6)" class=" btn btn-secondary margin-l-10">
+                <button disabled
+                        *ngIf="((currentUser.user.role == 11 && !demand.permission_syndicate && demand.entity_id == 2) || demand.histories[0].status === 1 || demand.histories[0].status === 7 || demand.histories[0].status === 6)"
+                        class=" btn btn-secondary margin-l-10">
                     Atualizar status
                 </button>
 
-                <button *ngIf="!(currentUser.user.role == 11 && demand.entity_id == 2 && !demand.permission_syndicate) && !(demand.histories[0].status === 1 || demand.histories[0].status === 7 || demand.histories[0].status === 6)" (click)="demandAddSelected = demand; openModalAddHistory = !openModalAddHistory"
+                <button *ngIf="!(currentUser.user.role == 11 && demand.entity_id == 2 && !demand.permission_syndicate) && !(demand.histories[0].status === 1 || demand.histories[0].status === 7 || demand.histories[0].status === 6)"
+                        (click)="demandAddSelected = demand; openModalAddHistory = !openModalAddHistory"
                         class="btn btn-info margin-l-10">
                     Atualizar status
                 </button>
@@ -58,7 +61,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    
+
                     <div class="row" *ngIf="demand.regional_id">
                         <div class="col-lg-4">
                             <h6 class="card-label mb-2 text-muted">Regional</h6>
@@ -100,15 +103,16 @@
                     </div>
 
                     <div class="row margin-t-30">
-                        <div class="col-lg-4" >
+                        <div class="col-lg-4">
                             <h6 class="card-label mb-2 text-muted">Prazo</h6>
-                            <h5  class="card-text">
-                                {{demand.time_period ? (demand.time_period | date:'d MMM, y') : (timePeriod ? (timePeriod | date:'d MMM, y') : '---')}}
+                            <h5 class="card-text">
+                                {{demand.time_period ? (demand.time_period | date:'d MMM, y') : (timePeriod ?
+                                (timePeriod | date:'d MMM, y') : '---')}}
                             </h5>
                         </div>
-                        <div class="col-lg-4" >
+                        <div class="col-lg-4">
                             <h6 class="card-label mb-2 text-muted">Soma de todos os custos</h6>
-                            <h5 class="card-text">R$ {{total | currency}}</h5>
+                            <h5 class="card-text">R$ {{total ? (total | currency) : "0,00" }}</h5>
                         </div>
                     </div>
 
@@ -142,6 +146,7 @@
                     <div class="row margin-t-30">
                         <div class="col-lg-4">
                             <h6 class="card-label mb-2 text-muted">Do que se trata?</h6>
+                            <h5 *ngIf="!demand.demands_scopes.length">--</h5>
                             <h5 class="card-text" *ngFor="let item of demand.demands_scopes">{{item.name}}</h5>
                         </div>
                     </div>
@@ -165,11 +170,16 @@
                         <div class="col-lg-4">
                             <h6 class="card-label mb-2 text-muted">Categoria</h6>
                             <h5 class="card-text">
-                                {{demand.strategic_objective_subcategory?.strategic_objective_category?.name}}</h5>
+                                {{!demand.strategic_objective_subcategory ? "--" :
+                                demand.strategic_objective_subcategory?.strategic_objective_category?.name}}
+                            </h5>
                         </div>
                         <div class="col-lg-4">
                             <h6 class="card-label mb-2 text-muted">Subcategoria</h6>
-                            <h5 class="card-text">{{demand.strategic_objective_subcategory.name}}</h5>
+                            <h5 class="card-text">
+                                {{!demand.strategic_objective_subcategory ? "--" :
+                                demand?.strategic_objective_subcategory?.name}}
+                            </h5>
                         </div>
                     </div>
                 </div>
@@ -186,12 +196,15 @@
                             <h6 class="card-label mb-2 text-muted">Foi encaminhado?</h6>
                             <h5 class="card-text">
                                 <input type="checkbox" disabled [checked]="demand.forwarded_to_the_technical_area">
-                                <label for="" class="margin-l-10">{{demand.forwarded_to_the_technical_area ? 'Foi' : 'Não foi'}} encaminhado</label>
+                                <label for="" class="margin-l-10">{{demand.forwarded_to_the_technical_area ? 'Foi' :
+                                    'Não foi'}} encaminhado</label>
                             </h5>
                         </div>
                         <div class="col-lg-6">
                             <h6 class="card-label mb-2 text-muted">Historico de e-mails</h6>
-                            <p class="card-text" *ngFor="let item of demand.demands_users">{{item.email}} - <small>{{item.created_at | date:'dd/MM/yyyy'}}</small></p>
+                            <p class="card-text" *ngFor="let item of demand.demands_users">{{item.email}} -
+                                <small>{{item.pivot.created_at | date:'dd/MM/yyyy'}}</small>
+                            </p>
                         </div>
                     </div>
                 </div>
