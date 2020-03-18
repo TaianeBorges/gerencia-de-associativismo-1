@@ -6,8 +6,8 @@ import {DemandService} from '../demand.service';
 import {CNPJPipe} from '../../shared/pipes/cnpj.pipe';
 import {Router} from '@angular/router';
 import {AlertService} from '../../shared/alerts/alert.service';
-import { UsersService } from 'src/app/users/users.service';
-import { AuthService } from 'src/app/auth/auth.service';
+import {UsersService} from 'src/app/users/users.service';
+import {AuthService} from 'src/app/auth/auth.service';
 
 @Component({
     selector: 'app-demand-add',
@@ -40,8 +40,8 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             if ($event == 1 || $event == 2) {
                 this.getUnions();
             }
-            
-            if ($event == 4 || $event == 5|| $event == 6 || $event == 7 || $event == 9) {
+
+            if ($event == 4 || $event == 5 || $event == 6 || $event == 7 || $event == 9) {
                 this.getAdvices($event);
             }
 
@@ -181,7 +181,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     optionState = [];
     optionsLegalFramework = [];
     optionsRegional = [];
-    
+
     configRegional = {
         labelField: 'name',
         valueField: 'id',
@@ -190,7 +190,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         plugins: ['dropdown_direction', 'remove_button'],
         dropdownDirection: 'down',
         onChange: ($event: any) => {
-            if($event) {
+            if ($event) {
                 this.getEmails($event);
             }
         }
@@ -280,13 +280,15 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             }),
             oe_subcategory: new FormControl(''),
             oe_category: new FormControl(''),
+            regional_id: new FormControl('')
         });
 
         this.userService.getUserAuthenticated().subscribe(res => {
             if (res.authenticate) {
-                this.currentUser = res.user;
+                console.log(res);
+                this.currentUser = res;
             }
-        })
+        });
 
         if (this.formDemand) {
             this.getEntity();
@@ -324,58 +326,58 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     }
 
     testCnpj(cnpj) {
- 
-        cnpj = cnpj.replace(/[^\d]+/g,'');
-     
-        if(cnpj == '') return false;
-         
+
+        cnpj = cnpj.replace(/[^\d]+/g, '');
+
+        if (cnpj == '') return false;
+
         if (cnpj.length != 14)
             return false;
-     
+
         // Elimina CNPJs invalidos conhecidos
-        if (cnpj == "00000000000000" || 
-            cnpj == "11111111111111" || 
-            cnpj == "22222222222222" || 
-            cnpj == "33333333333333" || 
-            cnpj == "44444444444444" || 
-            cnpj == "55555555555555" || 
-            cnpj == "66666666666666" || 
-            cnpj == "77777777777777" || 
-            cnpj == "88888888888888" || 
-            cnpj == "99999999999999")
+        if (cnpj == '00000000000000' ||
+            cnpj == '11111111111111' ||
+            cnpj == '22222222222222' ||
+            cnpj == '33333333333333' ||
+            cnpj == '44444444444444' ||
+            cnpj == '55555555555555' ||
+            cnpj == '66666666666666' ||
+            cnpj == '77777777777777' ||
+            cnpj == '88888888888888' ||
+            cnpj == '99999999999999')
             return false;
-             
+
         // Valida DVs
-        let tamanho = cnpj.length - 2
-        let numeros = cnpj.substring(0,tamanho);
+        let tamanho = cnpj.length - 2;
+        let numeros = cnpj.substring(0, tamanho);
         let digitos = cnpj.substring(tamanho);
         let soma = 0;
         let pos = tamanho - 7;
 
         for (let i = tamanho; i >= 1; i--) {
-          soma += numeros.charAt(tamanho - i) * pos--;
-          if (pos < 2)
+            soma += numeros.charAt(tamanho - i) * pos--;
+            if (pos < 2)
                 pos = 9;
         }
-        
+
         let resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-        
+
         if (resultado != digitos.charAt(0))
             return false;
-             
+
         tamanho = tamanho + 1;
-        numeros = cnpj.substring(0,tamanho);
+        numeros = cnpj.substring(0, tamanho);
         soma = 0;
         pos = tamanho - 7;
         for (let i = tamanho; i >= 1; i--) {
-          soma += numeros.charAt(tamanho - i) * pos--;
-          if (pos < 2)
+            soma += numeros.charAt(tamanho - i) * pos--;
+            if (pos < 2)
                 pos = 9;
         }
         resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
         if (resultado != digitos.charAt(1))
-              return false;
-               
+            return false;
+
         return true;
     }
 
@@ -473,7 +475,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             if (res && res.data) {
                 this.optionsRegional = res.data;
             }
-        })
+        });
     }
 
     onSubmit(form) {
