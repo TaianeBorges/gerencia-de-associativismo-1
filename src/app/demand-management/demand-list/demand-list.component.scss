@@ -6,7 +6,7 @@
   min-height: calc(100vh - 67px);
 
   .text-muted {
-    color: #dcdcdc!important;
+    color: #dcdcdc !important;
   }
 
   .card {
@@ -35,12 +35,20 @@
           flex-direction: column;
           margin-right: 20px;
 
+          @media screen and (max-width: 1280px) {
+            margin-right: 15px;
+          }
+
           p {
             margin: 0;
           }
 
           &.card-id {
             width: 60px;
+
+            @media screen and (max-width: 1280px) {
+              width: 50px;
+            }
           }
 
           &.card-person {
@@ -53,8 +61,12 @@
             width: 120px;
           }
 
-          &.card-date{
+          &.card-date {
             width: 150px;
+
+            @media screen and (max-width: 1280px) {
+              width: 115px;
+            }
           }
 
           &.card-sindicato {
@@ -78,6 +90,10 @@
             font-size: 1.1rem;
             font-weight: 600;
             color: #333333;
+
+            @media screen and (max-width: 1280px) {
+              font-size: 1rem;
+            }
           }
 
           .badge {
@@ -94,6 +110,10 @@
             div {
               width: 50px;
 
+              @media screen and (max-width: 1280px) {
+                width: 40px;
+              }
+
               img {
                 width: 100%;
               }
@@ -108,6 +128,11 @@
           &.card-categoria {
             width: 100%;
             max-width: 140px;
+
+            @media screen and (max-width: 1280px) {
+              max-width: 130px;
+            }
+
             p {
               white-space: nowrap;
               overflow: hidden; /* "overflow" value must be different from "visible" */
