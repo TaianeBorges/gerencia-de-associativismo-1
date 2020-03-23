@@ -15,8 +15,6 @@ export class DemandDetailComponent implements OnInit {
     demandAddSelected: any;
     openModalAddHistory: any;
     openModal: any;
-    currentUrl;
-    previousUrl;
     total = 0;
     currentUser;
     timePeriod;
@@ -56,10 +54,10 @@ export class DemandDetailComponent implements OnInit {
                             this.timePeriod = element.time_period;
                         }
                     });
-            } else {
-                this.router.navigate(['nao-autorizado']);
-            }
-        });
+                } else {
+                    this.router.navigate(['nao-autorizado']);
+                }
+            });
     }
 
     addHistoryDemand(event, demand) {
