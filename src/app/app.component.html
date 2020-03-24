@@ -1,8 +1,11 @@
-<div class="environment-message alert alert-warning" role="alert" *ngIf="!environmentStatus.production">Você está em um ambiente de {{environmentStatus?.name}}</div>
+<div class="environment-message alert alert-warning" role="alert" *ngIf="!environmentStatus.production">Você está em um
+    ambiente de {{environmentStatus?.name}}
+</div>
 <app-alerts></app-alerts>
 <app-loader></app-loader>
 <app-menu [permission]="permissionLogin.authenticate"></app-menu>
 <app-modal></app-modal>
-<div class="app-container height-max" [ngClass]="{'padding-default': widthContent, 'app-style-default': !urlRegister && !widthContent}" >
+<div class="app-container height-max"
+     [ngClass]="{'padding-default': widthContent, 'app-style-default': !urlRegister && !widthContent}">
     <router-outlet></router-outlet>
 </div>

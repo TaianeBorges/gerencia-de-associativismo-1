@@ -35,7 +35,7 @@ export class MenuComponent implements OnInit {
                 this.routeSites = res.url.indexOf('/sites/') !== (-1);
             }
         });
-        
+
         this.authService.authorizationLogin.subscribe(res => {
             this.auth = res;
         });
@@ -47,7 +47,7 @@ export class MenuComponent implements OnInit {
         this.sharedsService.titlePage.subscribe(res => {
             this.titlePage = res;
         });
-        
+
     }
 
     changeMenu() {

@@ -196,6 +196,8 @@ export class DemandFilterComponent implements OnInit {
             this.optionsDemandStatus = valuesDemandCategory;
         }, 200);
 
-        this.onSubmit(this.formFilter);
+        setTimeout(() => {
+            this.onSubmit(this.formFilter);
+        }, 200);
     }
 }

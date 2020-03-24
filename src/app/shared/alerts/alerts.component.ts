@@ -1,52 +1,53 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { AlertService } from './alert.service';
+import {Component, OnInit, Input, OnDestroy} from '@angular/core';
+import {AlertService} from './alert.service';
 
-import { from, Subscription } from 'rxjs';
-import { ViewEncapsulation } from '@angular/core';
+import {from, Subscription} from 'rxjs';
+import {ViewEncapsulation} from '@angular/core';
 
 @Component({
-  selector: 'app-alerts',
-  encapsulation: ViewEncapsulation.None,
-  templateUrl: './alerts.component.html',
-  styleUrls: ['./alerts.component.scss']
+    selector: 'app-alerts',
+    encapsulation: ViewEncapsulation.None,
+    templateUrl: './alerts.component.html',
+    styleUrls: ['./alerts.component.scss']
 })
 export class AlertsComponent implements OnInit, OnDestroy {
 
-  show: boolean;
-  response: any;
+    show: boolean;
+    response: any;
+    items = [];
 
-  private subscriptionAlertState: Subscription;
+    private subscriptionAlertState: Subscription;
 
-  constructor(private alertService: AlertService) { }
+    constructor(private alertService: AlertService) {
+    }
 
-  ngOnInit() {
-    this.alertService.alertStateSubject.subscribe(res => {
-      this.response = res;
-      this.show = res.show;
-    });
-  }
+    ngOnInit() {
+        this.alertService.alertStateSubject.subscribe(res => {
+            this.items = res;
+        });
+    }
 
-  close() {
-    this.alertService.hide();
-  }
+    close(i) {
+        this.alertService.hide(i);
+    }
 
-  ngOnDestroy() {
-    this.subscriptionAlertState.unsubscribe();
-  }
+    copyError(i) {
+        const selBox = document.createElement('textarea');
+        selBox.style.position = 'fixed';
+        selBox.style.left = '0';
+        selBox.style.top = '0';
+        selBox.style.opacity = '0';
+        selBox.value = JSON.stringify(this.items[i].error);
+        document.body.appendChild(selBox);
+        selBox.focus();
+        selBox.select();
+        document.execCommand('copy');
+        document.body.removeChild(selBox);
 
-  copyError() {
-    const selBox = document.createElement('textarea');
-    selBox.style.position = 'fixed';
-    selBox.style.left = '0';
-    selBox.style.top = '0';
-    selBox.style.opacity = '0';
-    selBox.value = JSON.stringify(this.response.data.error);
-    document.body.appendChild(selBox);
-    selBox.focus();
-    selBox.select();
-    document.execCommand('copy');
-    document.body.removeChild(selBox);
-    this.alertService.hide();
-  }
+        this.alertService.hide(i);
+    }
 
+    ngOnDestroy() {
+        this.subscriptionAlertState.unsubscribe();
+    }
 }

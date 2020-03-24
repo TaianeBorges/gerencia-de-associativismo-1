@@ -1,32 +1,31 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AlertService {
 
-  alertStateSubject: any = new Subject();
-  loaderState = this.alertStateSubject.asObservable();
-  alertSetTimeout;
+    alertStateSubject: any = new Subject();
+    loaderState = this.alertStateSubject.asObservable();
+    messages = [];
 
-  constructor() { }
-
-  alertShow(data: any) {
-    this.alertStateSubject.next({ show: true, data });
-
-    if (!this.alertSetTimeout) {
-      // this.alertSetTimeout = setTimeout(() => { this.hide(); }, 10000);
-    } else {
-      // clearTimeout(this.alertSetTimeout);
-      // this.alertSetTimeout = setTimeout(() => {
-        // this.hide();
-      // }, 10000);
+    constructor() {
     }
-  }
 
-  hide() {
-    const data = {};
-    this.alertStateSubject.next({ show: false, data });
-  }
+    alertShow(data: any) {
+        this.messages.push(data);
+        this.alertStateSubject.next(this.messages);
+
+        if (this.messages.length) {
+            setTimeout(() => {
+                this.hide(0);
+            }, 10000);
+        }
+    }
+
+    hide(i) {
+        this.messages.splice(i, 1);
+        this.alertStateSubject.next(this.messages);
+    }
 }
