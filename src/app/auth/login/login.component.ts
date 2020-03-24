@@ -75,10 +75,6 @@ export class LoginComponent implements OnInit {
                 }
 
                 this.alertService.alertShow(alert);
-
-                setTimeout(() => {
-                    this.alertService.hide();
-                }, 2000);
             });
         }
     }

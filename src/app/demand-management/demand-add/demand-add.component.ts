@@ -31,21 +31,28 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         dropdownDirection: 'down',
         onChange: ($event) => {
 
+            this.formDemand.get('syndicate_permission').reset('');
             this.formDemand.get('syndicates_ids').setValue([]);
             this.formDemand.get('sector_id').reset('');
             this.formDemand.get('council_id').reset('');
             this.formDemand.get('company').get('cnpj').reset('');
             this.formDemand.get('company').get('name').reset('');
 
-            if ($event == 1 || $event == 2) {
+            if (parseInt($event, 10) === 1 || parseInt($event, 10) === 2) {
                 this.getUnions();
             }
 
-            if ($event == 4 || $event == 5 || $event == 6 || $event == 7 || $event == 9) {
+            if (
+                parseInt($event, 10) === 4 ||
+                parseInt($event, 10) === 5 ||
+                parseInt($event, 10) === 6 ||
+                parseInt($event, 10) === 7 ||
+                parseInt($event, 10) === 9
+            ) {
                 this.getAdvices($event);
             }
 
-            if ($event == 8) {
+            if (parseInt($event, 10) === 8) {
                 this.getState();
             }
         }
@@ -285,7 +292,6 @@ export class DemandAddComponent implements OnInit, OnDestroy {
 
         this.userService.getUserAuthenticated().subscribe(res => {
             if (res.authenticate) {
-                console.log(res);
                 this.currentUser = res;
             }
         });

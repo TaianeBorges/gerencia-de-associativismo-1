@@ -8,23 +8,18 @@
                     <h1 class="page-title">Filtros</h1>
                 </div>
                 <div class="col text-right">
-                    <button type="button" (click)="filterVisibility = !filterVisibility"
-                            class="btn btn-outline-info margin-l-10"
-                            [ngClass]="{'btn-info color-text-white': !filterVisibility}">
-                        {{!filterVisibility ? 'Mostrar filtros' : 'Esconder filtros'}}
-                    </button>
-
                     <app-demand-excel [demandsFilter]="formFilter.value"></app-demand-excel>
 
                     <a [routerLink]="['/gestao-de-demandas/nova-demanda']" routerLinkActive="router-link-active"
-                       class="btn btn-primary margin-l-10">Nova demanda</a>
+                       class="btn btn-primary margin-l-10 btn-with-icon">
+                        <i class="material-icons">library_books</i>
+                        <span>Nova demanda</span>
+                    </a>
 
                 </div>
             </div>
-            <hr *ngIf="filterVisibility">
 
-
-            <div class="row margin-t-30" [ngClass]="{'display-none': !filterVisibility}">
+            <div class="row margin-t-30">
                 <div class="form-group col-lg-2 col-md-2">
                     <label>ID</label>
                     <div class="input-group mb-3">
@@ -112,10 +107,14 @@
                 </div>
 
                 <div class="form-group col padding-t-30">
-                    <button type="submit" class="btn btn-info">Filtrar</button>
-                    <button type="submit" (click)="resetForm(); formDemandFilter.reset()"
-                            class="btn btn-outline-info margin-l-10">Limpar
-                        Filtro
+                    <button type="submit" class="btn btn-info btn-with-icon">
+                        <i class="material-icons">search</i>
+                        <span>Filtrar</span>
+                    </button>
+                    <button type="button" (click)="resetForm(); formDemandFilter.reset()"
+                            class="btn btn-outline-info margin-l-10 btn-with-icon">
+                        <i class="material-icons">clear</i>
+                        <span>Limpar filtro</span>
                     </button>
                 </div>
             </div>

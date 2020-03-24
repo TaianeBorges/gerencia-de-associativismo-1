@@ -86,6 +86,7 @@ export class ResponseInterceptor implements HttpInterceptor {
                 this.alertService.alertShow(data);
                 
                 if (error.status === 401) {
+
                     this.router.navigate(['auth/login']);
                 }
 

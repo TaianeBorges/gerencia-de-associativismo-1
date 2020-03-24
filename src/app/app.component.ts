@@ -3,7 +3,7 @@ import {AuthService} from './auth/auth.service';
 import {SharedsService} from './shared/shareds.service';
 import {Router, NavigationEnd} from '@angular/router';
 import {Subscription} from 'rxjs';
-import { environment } from '../environments/environment';
+import {environment} from '../environments/environment';
 
 @Component({
     selector: 'app-root',

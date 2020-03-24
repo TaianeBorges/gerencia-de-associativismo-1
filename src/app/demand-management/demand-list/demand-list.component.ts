@@ -3,8 +3,6 @@ import {SharedsService} from 'src/app/shared/shareds.service';
 import {DemandService} from '../demand.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
-import { filter } from 'rxjs/operators';
-import {MomentPipe} from '../../shared/pipes/moment.pipe';
 
 @Component({
     selector: 'app-demand-list',
@@ -22,17 +20,17 @@ export class DemandListComponent implements OnInit, OnDestroy {
     demandServiceSubscribe: Subscription;
     params: object;
     filtersParams = {
-        entity_id: "",
-        demand_requester: "",
-        syndicate_id: "",
-        status_id: "",
-        demand_id: "",
-        demand_category_id: "",
-        sector_id: "",
+        entity_id: '',
+        demand_requester: '',
+        syndicate_id: '',
+        status_id: '',
+        demand_id: '',
+        demand_category_id: '',
+        sector_id: '',
         page: 1
     };
     currentUser;
-    
+
     constructor(
         private sharedService: SharedsService,
         private demandService: DemandService,
@@ -41,11 +39,11 @@ export class DemandListComponent implements OnInit, OnDestroy {
         private route: Router,
         private activatedRoute: ActivatedRoute) {
 
-            this.activatedRoute.queryParams.subscribe((params: any) => {
-                if (params.length) {
-                    this.filtersParams = params;
-                }
-            });
+        this.activatedRoute.queryParams.subscribe((params: any) => {
+            if (params.length) {
+                this.filtersParams = params;
+            }
+        });
     }
 
     ngOnInit() {
@@ -103,8 +101,8 @@ export class DemandListComponent implements OnInit, OnDestroy {
     }
 
     listDemands() {
-        
-        this.route.navigate(['gestao-de-demandas/lista-de-demandas'], { queryParams: this.filtersParams });
+
+        this.route.navigate(['gestao-de-demandas/lista-de-demandas'], {queryParams: this.filtersParams});
 
         this.demandServiceSubscribe = this.demandService.getDemands(this.filtersParams)
             .subscribe(res => {
@@ -118,7 +116,7 @@ export class DemandListComponent implements OnInit, OnDestroy {
 
     filterSubmit(event) {
         this.filtersParams.page = 1;
-        for (let key in event.filters) {
+        for (const key in event.filters) {
             this.filtersParams[key] = event.filters[key];
         }
 

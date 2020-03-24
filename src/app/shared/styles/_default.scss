@@ -106,3 +106,16 @@ em {
     margin-bottom: 30px;
   }
 }
+
+.btn-with-icon {
+  span {
+    margin-left: 4px;
+    position: relative;
+    top: -3px;
+  }
+
+  i {
+    position: relative;
+    top: 3px;
+  }
+}

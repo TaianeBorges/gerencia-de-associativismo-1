@@ -1,4 +1,4 @@
-<div class="demand-list-container"  *ngIf="currentUser && currentUser.authenticate">
+<div class="demand-list-container" *ngIf="currentUser && currentUser.authenticate">
     <app-demand-filter (formOnSubmit)="filterSubmit($event)"></app-demand-filter>
 
     <app-demand-pagination [currentPage]="page" [demands]="demands" (pagination)="onPagination($event)">
@@ -6,9 +6,9 @@
 
     <div class="padding-l-20 padding-b-20  padding-r-20">
 
-        <div class="card fadeIn border-entidade-{{demand.entity.id}} demand-{{demand.id}}"
-            *ngFor="let demand of demands?.data" (click)="openDemand(demand.id)" placement="top"
-            ngbTooltip="Tooltip on top">
+        <div class="card animated fadeIn faster delay-{{i}}s border-entidade-{{demand.entity.id}} demand-{{demand.id}}"
+             *ngFor="let demand of demands?.data; let i = index" (click)="openDemand(demand.id)" placement="top"
+             ngbTooltip="Tooltip on top">
             <div class="card-body">
                 <div class="row">
                     <div class="card-group demand-icon">
@@ -61,7 +61,7 @@
                         <em>Pessoas</em>
                         <div class="card-users">
                             <span
-                                *ngFor="let item of usersDemand(demand.histories)">{{item.name | initialName}}</span>
+                                    *ngFor="let item of usersDemand(demand.histories)">{{item.name | initialName}}</span>
                         </div>
                     </div>
                 </div>
@@ -92,26 +92,28 @@
             <div class="card-footer display-flex">
 
                 <a (click)="addHistoryDemand($event);" class="text-muted "
-                *ngIf="(currentUser.user.role == 11 && !demand.permission_syndicate && demand.entity_id == 2) || demand.histories[0].status === 1 || demand.histories[0].status === 7 || demand.histories[0].status === 6">
+                   *ngIf="(currentUser.user.role == 11 && !demand.permission_syndicate && demand.entity_id == 2) || demand.histories[0].status === 1 || demand.histories[0].status === 7 || demand.histories[0].status === 6">
                     <i class="material-icons">
                         add_circle_outline
                     </i>
                 </a>
                 <a (click)="addHistoryDemand($event); demandAddSelected = demand; openModalAddHistory = !openModalAddHistory"
-                    class="color-entidade-{{demand.entity.id}}"
-                    *ngIf="!(currentUser.user.role == 11 && !demand.permission_syndicate && demand.entity_id == 2) && !(demand.histories[0].status === 1 || demand.histories[0].status === 7 || demand.histories[0].status === 6)">
+                   class="color-entidade-{{demand.entity.id}}"
+                   *ngIf="!(currentUser.user.role == 11 && !demand.permission_syndicate && demand.entity_id == 2) && !(demand.histories[0].status === 1 || demand.histories[0].status === 7 || demand.histories[0].status === 6)">
                     <i class="material-icons">
                         add_circle_outline
                     </i>
                 </a>
                 <a (click)="historyDemand($event); demandSelected = demand; openModalShowHistory = !openModalShowHistory"
-                    class="color-entidade-{{demand.entity.id}}">
+
+                   class="color-entidade-{{demand.entity.id}}">
                     <i class="material-icons">
                         history
                     </i>
                 </a>
                 <a [routerLink]="['/gestao-de-demandas/demanda/', demand.id]"
-                    class="color-entidade-{{demand.entity.id}}">
+                   class="color-entidade-{{demand.entity.id}}"
+                   data-toggle="tooltip" data-placement="left" title="Tooltip on left">
                     <i class="material-icons">open_in_new</i>
                 </a>
             </div>
@@ -126,4 +128,4 @@
 <app-demand-history [demandSelected]="demandSelected" [openModal]="openModalShowHistory">
 </app-demand-history>
 
-<app-demand-add-history [demandSelected]="demandAddSelected"  [openModal]="openModalAddHistory"></app-demand-add-history>
+<app-demand-add-history [demandSelected]="demandAddSelected" [openModal]="openModalAddHistory"></app-demand-add-history>

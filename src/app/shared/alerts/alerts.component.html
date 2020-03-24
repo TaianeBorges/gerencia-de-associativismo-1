@@ -1,19 +1,18 @@
-<div class="alert-container" *ngIf="show" [ngClass]="{'show-message': show}">
-    <div class="alert-icon ">
-        <i class="icon color-{{response.data.color}}">
-            <mat-icon aria-hidden="false">{{response.data.icon}}</mat-icon>
-        </i>
-    </div>
-    <div class="alert-message">
-        <span class="alert-title">{{response.data.title}}</span>
-        <span class="alert-text" [innerHTML]="response.data.message"></span>
-    </div>
-    <div *ngIf="response.data.actions" class="alert-actions">
-        <span (click)="close()">
-            fechar
-        </span>
-        <span *ngIf="response.data.copy" (click)="copyError()" class="copy-error">
-            Copiar
-        </span>
+<div class="alert-container">
+    <div class="alert-item show-message animated" [ngClass]="{'shake': item.error, 'fadeIn': !item.error}"
+         *ngFor="let item of items; let i = index">
+        <div class="alert-icon ">
+            <i class="icon color-{{item.color}}">
+                <mat-icon aria-hidden="false">{{item.icon}}</mat-icon>
+            </i>
+        </div>
+        <div class="alert-message">
+            <span class="alert-title">{{item.title}}</span>
+            <span class="alert-text" [innerHTML]="item.message"></span>
+        </div>
+        <div *ngIf="item.actions" class="alert-actions">
+            <span (click)="close(i)">fechar</span>
+            <span *ngIf="item.copy" (click)="copyError(i)" class="copy-error">Copiar</span>
+        </div>
     </div>
 </div>
