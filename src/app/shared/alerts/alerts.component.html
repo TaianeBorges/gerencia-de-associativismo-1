@@ -1,5 +1,5 @@
 <div class="alert-container">
-    <div class="alert-item show-message animated" [ngClass]="{'shake': item.error}"
+    <div class="alert-item show-message animated" [ngClass]="{'shake': item.error, 'fadeIn': !item.error}"
          *ngFor="let item of items; let i = index">
         <div class="alert-icon ">
             <i class="icon color-{{item.color}}">
