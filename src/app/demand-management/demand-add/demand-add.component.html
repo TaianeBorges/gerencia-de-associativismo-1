@@ -126,7 +126,7 @@
                     </div>
 
                     <div class="row"
-                         *ngIf="(currentUser && currentUser.user && currentUser.user.role !== 11) && formDemand.get('entity_id') && (formDemand.get('entity_id').value == 2 || formDemand.get('entity_id').value == 3)">
+                         *ngIf="(currentUser && currentUser.user) && formDemand.get('entity_id') && (formDemand.get('entity_id').value == 2 || formDemand.get('entity_id').value == 3)">
                         <div class="form-group col-lg-4"
                              *ngIf="formDemand.get('entity_id') && formDemand.get('entity_id').value == 2">
                             <label class="card-label mb-2 text-muted">Sindicato aprovou a demanda?</label>
