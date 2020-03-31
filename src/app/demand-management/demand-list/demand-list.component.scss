@@ -35,7 +35,7 @@
           flex-direction: column;
           margin-right: 20px;
 
-          @media screen and (max-width: 1280px) {
+          @media screen and (max-width: 1420px) {
             margin-right: 15px;
           }
 
@@ -46,7 +46,7 @@
           &.card-id {
             width: 60px;
 
-            @media screen and (max-width: 1280px) {
+            @media screen and (max-width: 1420px) {
               width: 50px;
             }
           }
@@ -64,7 +64,7 @@
           &.card-date {
             width: 150px;
 
-            @media screen and (max-width: 1280px) {
+            @media screen and (max-width: 1420px) {
               width: 115px;
             }
           }
@@ -91,7 +91,7 @@
             font-weight: 600;
             color: #333333;
 
-            @media screen and (max-width: 1280px) {
+            @media screen and (max-width: 1420px) {
               font-size: 1rem;
             }
           }
@@ -110,7 +110,7 @@
             div {
               width: 50px;
 
-              @media screen and (max-width: 1280px) {
+              @media screen and (max-width: 1420px) {
                 width: 40px;
               }
 
@@ -129,7 +129,7 @@
             width: 100%;
             max-width: 140px;
 
-            @media screen and (max-width: 1280px) {
+            @media screen and (max-width: 1420px) {
               max-width: 130px;
             }
 

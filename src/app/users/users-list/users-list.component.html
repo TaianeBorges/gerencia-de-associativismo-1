@@ -10,6 +10,7 @@
                     <th scope="col">E-mail</th>
                     <th scope="col">Tipo de usuário</th>
                     <th scope="col">Lotação</th>
+                    <th scope="col">Regional</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -22,6 +23,12 @@
                     <td class="animated fadeIn">{{user.email}}</td>
                     <td class="animated fadeIn">{{user.role_details.label}}</td>
                     <td class="animated fadeIn">{{user.capacity.name}}</td>
+                    <td class="animated fadeIn">
+                        <span *ngFor="let item of user.representation_offices; let i = index; last as isLast">
+                            {{item.regional.name ? (item.regional.name && isLast && user.representation_offices.length > 1 ? ' - ' + item.regional.name : item.regional.name) : item.regional.name}}
+                        </span>
+                        <span *ngIf="!user.representation_offices.length">--</span>
+                    </td>
                     <td class="animated fadeIn">
                         <div class="btn-action">
                             <div class="btn btn-link">
@@ -41,6 +48,7 @@
                 </tr>
 
                 <tr *ngIf="users && !users.length" class="margin-t-20">
+                    <td>---</td>
                     <td>---</td>
                     <td>---</td>
                     <td>---</td>
