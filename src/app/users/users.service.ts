@@ -101,8 +101,8 @@ export class UsersService {
             );
     }
 
-    getUsers(): Observable<any> {
-        return this.http.get(`${environment.apiUrl}/usuarios`, this.httpOptions)
+    getUsers(data): Observable<any> {
+        return this.http.post(`${environment.apiUrl}/usuarios`, data, this.httpOptions)
             .pipe(
                 map(res => {
                     return res;

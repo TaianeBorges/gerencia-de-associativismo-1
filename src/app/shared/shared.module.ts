@@ -3,10 +3,12 @@ import {CommonModule} from '@angular/common';
 
 // modules
 import {MatIconModule} from '@angular/material/icon';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 // components
 import {BadgeCreditComponent} from './badge-credit/badge-credit.component';
 import {AlertsComponent} from './alerts/alerts.component';
+import { InfiniteScrollComponent } from './infinite-scroll/ininite-scroll.component';
 
 // services
 import {AlertService} from './alerts/alert.service';
@@ -36,13 +38,15 @@ import {MomentPipe} from './pipes/moment.pipe';
         CurrencyPipe,
         InitialNameComponent,
         CNPJPipe,
-        MomentPipe
+        MomentPipe,
+        InfiniteScrollComponent
     ],
     imports: [
         CommonModule,
         MatIconModule,
         RouterModule,
-        ModalModule.forRoot()
+        ModalModule.forRoot(),
+        InfiniteScrollModule
     ],
     providers: [
         AlertService,
@@ -58,7 +62,8 @@ import {MomentPipe} from './pipes/moment.pipe';
         CapitalizePipe,
         CurrencyPipe,
         InitialNameComponent,
-        CNPJPipe
+        CNPJPipe,
+        InfiniteScrollComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
