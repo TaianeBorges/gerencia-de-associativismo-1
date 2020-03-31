@@ -54,7 +54,9 @@ export class LoginComponent implements OnInit {
                         color: 'success',
                         title: 'Parabéns!',
                         message: 'Logado com sucesso.',
-                        copy: false
+                        actions: {
+                            close: true
+                        }
                     };
 
                     this.authService.storeAuthorizationToken(res.token);
@@ -70,7 +72,10 @@ export class LoginComponent implements OnInit {
                         message: res.message ? res.message : 'E-mail ou senha inválido.',
                         title: 'Ops!',
                         icon: 'priority_high',
-                        color: 'warning'
+                        color: 'warning',
+                        actions: {
+                            close: true
+                        }
                     };
                 }
 

@@ -60,6 +60,9 @@ export class ResponseInterceptor implements HttpInterceptor {
                             title: 'Atenção!',
                             message: `<ul class="alert-list">${error.error.message}</ul>`,
                             copy: false,
+                            actions: {
+                                close: true
+                            },
                             error
                         };
 
@@ -84,7 +87,7 @@ export class ResponseInterceptor implements HttpInterceptor {
                 }
 
                 this.alertService.alertShow(data);
-                
+
                 if (error.status === 401) {
 
                     this.router.navigate(['auth/login']);
