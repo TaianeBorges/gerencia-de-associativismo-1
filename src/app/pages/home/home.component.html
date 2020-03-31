@@ -1,7 +1,7 @@
 <div class="home-container animated fadeIn" *ngIf="currentUser && currentUser.authenticate">
     <div class="modules">
         <a [routerLink]="['/gestao-de-demandas']"
-           class="module-item card demand_management" (click)="loader = true">
+           class="module-item card demand_management" (click)="setLoader('demand')">
             <div class="image">
                 <img src="../assets/img/illustrations/demand_management.svg" alt="illustration-module">
             </div>
@@ -11,33 +11,23 @@
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidun
                 </p>
             </div>
-            <div class="lds-container animated fadeIn faster" *ngIf="loader">
-                <div class="lds-spinner">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-            </div>
+            <app-menu-loader [visibility]="loaderDemand" [color]="'demand'"></app-menu-loader>
         </a>
-        <!--<a [routerLink]="['/quem-e-quem/sindicatos/lista-de-sindicatos']" class="module-item card who_is">-->
-        <!--<div class="image">-->
-        <!--<img src="../assets/img/illustrations/who_is.svg" alt="illustration-module">-->
-        <!--</div>-->
-        <!--<div class="card-body">-->
-        <!--<h5 class="title">Quem é quem?</h5>-->
-        <!--<p class="text">Some quick example text to build on the card title and make up the bulk of the-->
-        <!--card's content.</p>-->
-        <!--</div>-->
-        <!--</a>-->
+
+        <a [routerLink]="['/usuarios']" class="module-item card who_is"
+           *ngIf="currentUser && (currentUser.user.role == 10)" (click)="setLoader('user')">
+            <div class="image">
+                <img src="../assets/img/illustrations/admin_user.svg" alt="illustration-module">
+            </div>
+            <div class="card-body">
+                <h5 class="title">Gestão de usuários</h5>
+                <p class="text">
+                    Módulo que permite registrar, atualizar e deletar informações, e gerenciar as permissões de acesso
+                    de forma automatizada sobre os usuários.
+                </p>
+            </div>
+            <app-menu-loader [visibility]="loaderUser" [color]="'user'"></app-menu-loader>
+        </a>
         <!--<a [routerLink]="['/sites/lista-de-sites']" class="module-item card site_management">-->
         <!--<div class="image">-->
         <!--<img src="../assets/img/illustrations/site_management.svg" alt="illustration-module">-->

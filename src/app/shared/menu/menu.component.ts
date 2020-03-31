@@ -30,7 +30,7 @@ export class MenuComponent implements OnInit {
 
         router.events.subscribe((res) => {
             if (res instanceof NavigationEnd) {
-                this.routeDemandManagement = (res.url.indexOf('/gestao-de-demandas') !== (-1) || res.url.indexOf('/usuarios') !== (-1));
+                this.routeDemandManagement = (res.url.indexOf('/gestao-de-demandas') !== (-1));
                 this.routeWhoIs = res.url.indexOf('/quem-e-quem/') !== (-1);
                 this.routeSites = res.url.indexOf('/sites/') !== (-1);
             }

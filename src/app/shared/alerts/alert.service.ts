@@ -55,7 +55,6 @@ export class AlertService {
 
     getIndex(array, attr, value) {
         for (let i = 0; i < array.length; i += 1) {
-            console.log(value);
             if (array[i][attr] === value) {
                 return i;
             }

@@ -12,7 +12,8 @@ export class HomeComponent implements OnInit {
 
     currentUser;
     auth;
-    loader = false;
+    loaderDemand = false;
+    loaderUser = false;
 
     constructor(
         private titleService: Title,
@@ -28,4 +29,13 @@ export class HomeComponent implements OnInit {
         this.sharedService.setTitle('Gerencia de associativismo');
     }
 
+    setLoader(e: string) {
+        if (e === 'demand') {
+            this.loaderDemand = true;
+        }
+
+        if (e === 'user') {
+            this.loaderUser = true;
+        }
+    }
 }
