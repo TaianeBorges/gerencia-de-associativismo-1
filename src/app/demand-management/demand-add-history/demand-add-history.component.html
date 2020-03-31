@@ -11,9 +11,10 @@
     <form [formGroup]="formStatus" (ngSubmit)="onSubmit(formStatus)" autocomplete="off">
         <div class="modal-body">
             <div class="status-item padding-t-30 padding-b-30" *ngIf="formStatus">
-                <div class="row" *ngIf="demandSelected?.entity_id == 2 && (demandSelected?.permission_syndicate == null)">
+                <div class="row"
+                     *ngIf="(demandSelected?.entity_id == 2 || demandSelected?.entity_id == 3) && (demandSelected?.permission_syndicate == null)">
                     <div class="col form-group">
-                        <label>Sindicato autorizou a demanda?</label>
+                        <label>{{demandSelected.entity_id == 3 ? 'A Empresa foi consultada?' : 'Sindicato autorizou a demanda?'}}</label>
                         <select formControlName="syndicate_permission" name="" id="" class="form-control">
                             <option value="" disabled>Selecione</option>
                             <option value="0">Não</option>
@@ -21,27 +22,29 @@
                         </select>
                     </div>
                 </div>
-                <div class="row" *ngIf="(formStatus.get('syndicate_permission')?.value == 1 && permissionSyndicate) || (demandSelected?.entity_id == 2 && demandSelected?.permission_syndicate == 1) || this.demandSelected?.entity_id != 2">
+                <div class="row"
+                     *ngIf="(formStatus.get('syndicate_permission')?.value == 1 && permissionSyndicate) || ((demandSelected?.entity_id == 2 && demandSelected?.permission_syndicate == 1) || (demandSelected?.entity_id == 3 && demandSelected?.permission_syndicate == 1)) || (this.demandSelected?.entity_id != 2 && this.demandSelected?.entity_id != 3)">
                     <div class="col form-group">
                         <label>Status</label>
-                        
+
                         <ng2-selectize formControlName="status"
-                            [ngClass]="{'is-invalid': formStatus.get('status').errors && formStatus.get('status').touched }"
-                            class="selectize-demand-status" [config]="configDemandStatus"
-                            [options]="optionsDemandStatus"
-                            placeholder="Selecione o status">
+                                       [ngClass]="{'is-invalid': formStatus.get('status').errors && formStatus.get('status').touched }"
+                                       class="selectize-demand-status" [config]="configDemandStatus"
+                                       [options]="optionsDemandStatus"
+                                       placeholder="Selecione o status">
                         </ng2-selectize>
                     </div>
                     <div class="col form-group">
                         <label>Custo</label>
-                        
-                                                
+
+
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">R$</span>
                             </div>
-                            
-                            <input type="text" formControlName="cost" placeholder="00,00" value="{{formControlCurrency}}"  class="form-control">
+
+                            <input type="text" formControlName="cost" placeholder="00,00"
+                                   value="{{formControlCurrency}}" class="form-control">
                         </div>
                     </div>
                     <div class="col form-group">
@@ -50,7 +53,11 @@
                     </div>
                 </div>
 
-                <div class="row" *ngIf="(formStatus.get('syndicate_permission')?.value == 1 && permissionSyndicate) || (demandSelected?.entity_id == 2 && demandSelected?.permission_syndicate == 1) || this.demandSelected?.entity_id != 2">
+                <div class="row"
+                     *ngIf="
+                     (formStatus.get('syndicate_permission')?.value == 1 && permissionSyndicate) ||
+                     ((demandSelected?.entity_id == 2 && demandSelected?.permission_syndicate == 1) || (demandSelected?.entity_id == 3 && demandSelected?.permission_syndicate == 1))
+                     || (this.demandSelected?.entity_id != 2 && this.demandSelected?.entity_id != 3)">
                     <div class="col form-group">
                         <label>Comentario</label>
                         <textarea formControlName="comment" class="form-control"></textarea>
@@ -58,36 +65,37 @@
                 </div>
 
                 <div class="row"
-                *ngIf="currentUser?.role !== 3 && currentUser?.role !== 4 && currentUser?.role !== 5"
-                formGroupName="forwarded_to_the_technical_area">
+                     *ngIf="currentUser?.role !== 3 && currentUser?.role !== 4 && currentUser?.role !== 5"
+                     formGroupName="forwarded_to_the_technical_area">
 
                     <div class="form-group col-lg-12 padding-l-40">
                         <input id="encaminhamento_check" formControlName="check_forwarded" type="checkbox"
-                            class="form-check-input">
+                               class="form-check-input">
                         <label class="form-check-label" for="encaminhamento_check">Deseja encaminhar a demanda?</label>
                     </div>
 
-                    
 
-                    <div class="form-group col-lg-6" 
-                    *ngIf="formStatus.get('forwarded_to_the_technical_area.check_forwarded').value">
+                    <div class="form-group col-lg-6"
+                         *ngIf="formStatus.get('forwarded_to_the_technical_area.check_forwarded').value">
                         <label class="card-label mb-2 text-muted">Regional</label>
                         <ng2-selectize formControlName="regional"
-                            [ngClass]="{'is-invalid': formStatus.get('forwarded_to_the_technical_area.regional').errors && formStatus.get('forwarded_to_the_technical_area.regional').touched }"
-                            class="selectize-areas" [config]="configRegional" [options]="optionsRegional"
-                            placeholder="Selecione">
+                                       [ngClass]="{'is-invalid': formStatus.get('forwarded_to_the_technical_area.regional').errors && formStatus.get('forwarded_to_the_technical_area.regional').touched }"
+                                       class="selectize-areas" [config]="configRegional" [options]="optionsRegional"
+                                       placeholder="Selecione">
                         </ng2-selectize>
                     </div>
 
-                    <div class="form-group col-lg-6" *ngIf="formStatus.get('forwarded_to_the_technical_area.check_forwarded').value">
+                    <div class="form-group col-lg-6"
+                         *ngIf="formStatus.get('forwarded_to_the_technical_area.check_forwarded').value">
                         <label class="card-label mb-2 text-muted">Áreas envolvidas</label>
                         <ng2-selectize formControlName="managements"
-                            [ngClass]="{'is-invalid': formStatus.get('forwarded_to_the_technical_area.managements').errors && formStatus.get('forwarded_to_the_technical_area.managements').touched }"
-                            class="selectize-areas" [config]="configManagements" [options]="optionsManagements"
-                            placeholder="Selecione">
+                                       [ngClass]="{'is-invalid': formStatus.get('forwarded_to_the_technical_area.managements').errors && formStatus.get('forwarded_to_the_technical_area.managements').touched }"
+                                       class="selectize-areas" [config]="configManagements"
+                                       [options]="optionsManagements"
+                                       placeholder="Selecione">
                         </ng2-selectize>
                     </div>
-                    
+
                     <!-- <div class="form-group col-lg-6"
                     *ngIf="formStatus.get('forwarded_to_the_technical_area.check_forwarded').value">
                         <label class="card-label mb-2 text-muted">Áreas envolvidas</label>
@@ -99,12 +107,13 @@
                     </div> -->
 
                     <div class="form-group col-lg-6"
-                        *ngIf="formStatus.get('forwarded_to_the_technical_area.check_forwarded').value">
+                         *ngIf="formStatus.get('forwarded_to_the_technical_area.check_forwarded').value">
                         <label for="">E-mails</label>
                         <ng2-selectize formControlName="emails"
-                            [ngClass]="{'is-invalid': formStatus.get('forwarded_to_the_technical_area.emails').errors && formStatus.get('forwarded_to_the_technical_area.emails').touched }"
-                            class="selectize-emails" [config]="configForwardEmails" [options]="optionsForwardEmails"
-                            placeholder="Selecione">
+                                       [ngClass]="{'is-invalid': formStatus.get('forwarded_to_the_technical_area.emails').errors && formStatus.get('forwarded_to_the_technical_area.emails').touched }"
+                                       class="selectize-emails" [config]="configForwardEmails"
+                                       [options]="optionsForwardEmails"
+                                       placeholder="Selecione">
                         </ng2-selectize>
                     </div>
                 </div>

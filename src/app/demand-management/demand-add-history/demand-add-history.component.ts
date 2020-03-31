@@ -3,10 +3,10 @@ import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {EventEmitter} from 'protractor';
 import {DatePipe} from '@angular/common';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import { DemandService } from '../demand.service';
-import { Subscription } from 'rxjs';
+import {DemandService} from '../demand.service';
+import {Subscription} from 'rxjs';
 import {CurrencyPipe} from '../../shared/pipes/currency.pipe';
-import { UsersService } from 'src/app/users/users.service';
+import {UsersService} from 'src/app/users/users.service';
 
 @Component({
     selector: 'app-demand-add-history',
@@ -21,7 +21,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
     @Input('openModal') openModal: boolean;
     @Input('demandSelected') demandSelected: any;
     @Output('close') close: EventEmitter;
-    @ViewChild('selectizeRegional', {static: false}) redel:ElementRef;
+    @ViewChild('selectizeRegional', {static: false}) redel: ElementRef;
 
     formControlCurrency;
     optionsForwardEmails = [];
@@ -94,7 +94,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
             this.getEmails();
         }
     };
-    
+
     currentUser;
     permissionSyndicate;
 
@@ -104,7 +104,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
         private demandServices: DemandService,
         private currency: CurrencyPipe,
         private userService: UsersService
-        ) {
+    ) {
     }
 
     ngOnInit() {
@@ -131,9 +131,9 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
                 if (res) {
                     this.formControlCurrency = this.currency.transform(res);
                 }
-            })
+            });
 
-            
+
             this.getRegionals();
         }
     }
@@ -149,7 +149,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
             if (res && res.data) {
                 this.regionals = res.data;
             }
-        })
+        });
     }
 
 
@@ -159,7 +159,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
             this.getStatus();
             this.modalRef = this.modalService.show(this.modal, {class: 'modal-lg modal-dialog-centered modal-demand'});
 
-            this.permissionSyndicate = (this.demandSelected.entity_id == 2 && !this.demandSelected.permission_syndicate);
+            this.permissionSyndicate = ((this.demandSelected.entity_id == 2 || this.demandSelected.entity_id == 3) && !this.demandSelected.permission_syndicate);
 
             let regional = [];
 
@@ -188,7 +188,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     getStatus() {
-        const data = {register:true};
+        const data = {register: true};
 
         this.statusServiceSubscription = this.demandServices.getDemandStatus(data).subscribe(res => {
             if (res.data) {
@@ -221,7 +221,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
     onSubmit(form: any) {
         if (form.value) {
             this.formStatus.get('cost').setValue(this.formControlCurrency);
-            
+
             this.setHistoryServiceSubscription = this.demandServices.setHistory(form.value).subscribe(res => {
                 if (res.create) {
                     window.location.reload();
@@ -251,7 +251,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
             this.setHistoryServiceSubscription.unsubscribe();
         }
 
-        if(this.regionalsServiceSubscribe) {
+        if (this.regionalsServiceSubscribe) {
             this.regionalsServiceSubscribe.unsubscribe();
         }
     }
