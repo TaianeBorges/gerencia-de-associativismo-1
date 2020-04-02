@@ -42,13 +42,13 @@ export class AuthGuardService {
         this.authService.checkAuthorization().subscribe(res => {
             if (!res.authenticate) {
                 this.router.navigate(['/login'], {queryParams: {url: btoa(this.currentUrl)}});
-                this.authService.authorizationLogin.emit(res);
+                // this.authService.authorizationLogin.emit(res);
                 return false;
             } else {
                 return true;
             }
         }, error1 => {
-            this.authService.authorizationLogin.emit({authenticate: false});
+            // this.authService.authorizationLogin.emit({authenticate: false});
             this.router.navigate(['/login'], {queryParams: {url: btoa(this.currentUrl)}});
             return false;
         });

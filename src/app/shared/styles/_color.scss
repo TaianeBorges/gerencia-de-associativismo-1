@@ -56,6 +56,18 @@
   &-6 {
     color: #6c757d !important;
   }
+  &-7 {
+    color: #000 !important;
+  }
+  &-8 {
+    color: #000 !important;
+  }
+  &-9 {
+    color: #000 !important;
+  }
+  &-10 {
+    color: #999 !important;
+  }
 }
 
 .background-status {
@@ -93,6 +105,12 @@
   &-8 {
     background: #999 !important;
   }
+  &-9 {
+    background: #999 !important;
+  }
+  &-10 {
+    background: #999 !important;
+  }
 }
 
 .border-entidade {
@@ -104,7 +122,8 @@
   &-6,
   &-7,
   &-8,
-  &-9 {
+  &-9,
+  &-10 {
     border-right-width: 5px;
     border-right-style: solid;
   }
@@ -123,7 +142,19 @@
   &-4 {
     border-right-color: #339900 !important;
   }
+  &-6 {
+    border-right-color: #6c757d !important;
+  }
+  &-7 {
+    border-right-color: #000 !important;
+  }
   &-8 {
+    border-right-color: #999999 !important;
+  }
+  &-9 {
+    border-right-color: #999999 !important;
+  }
+  &-10 {
     border-right-color: #999999 !important;
   }
 }

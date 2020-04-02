@@ -19,6 +19,8 @@ export class AppComponent implements OnInit, OnDestroy {
     urlRegister = false;
     sharedServiceSubscription: Subscription;
     environmentStatus;
+    auth;
+    currentUser;
 
     constructor(
         private authService: AuthService,
@@ -26,13 +28,14 @@ export class AppComponent implements OnInit, OnDestroy {
         private route: Router
     ) {
         this.routeEvent(this.route);
+
+        this.authService.authorizationLogin.subscribe(res => {
+            this.auth = res;
+            this.currentUser = this.authService.getUser();
+        });
     }
 
     ngOnInit() {
-        this.permissionLogin = this.authService.authorizationLogin.subscribe(res => {
-            return res;
-        });
-
         this.sharedServiceSubscription = this.sharedService.stateMenu.subscribe(res => {
             this.widthContent = res.open;
         });

@@ -1,4 +1,5 @@
 @import "../../shared/styles/default";
+
 header {
   position: fixed;
   width: 100%;
@@ -131,6 +132,10 @@ header {
         img {
           width: 100%;
           max-width: 150px;
+
+          @media screen and (max-width: 600px) {
+            max-width: 70px;
+          }
         }
         .btn-menu-mobile {
           display: none;
@@ -140,7 +145,7 @@ header {
             color: rgba(255, 255, 255, 0.2);
           }
 
-          @media screen and(max-width:600px) {
+          @media screen and(max-width: 600px) {
             display: initial;
             background: transparent;
             border: none;
@@ -205,22 +210,6 @@ header {
         display: none;
       }
 
-      @media screen and (max-width: 600px) {
-        max-width: initial;
-        height: auto;
-
-        .nav-items {
-          display: none;
-        }
-
-        .user-menu {
-          background: #373a3c;
-        }
-
-        .nav-items-mobile {
-          display: block;
-        }
-      }
     }
   }
 
@@ -237,6 +226,24 @@ header {
       height: 100%;
       width: 100%;
       max-width: 60px;
+
+      @media screen and (max-width: 600px) {
+        max-width: initial !important;
+        height: auto !important;
+
+        .nav-items {
+          display: none;
+        }
+
+        .user-menu {
+          background: #373a3c;
+        }
+
+        .nav-items-mobile {
+          display: block;
+        }
+      }
+
     }
 
     .nav-header {

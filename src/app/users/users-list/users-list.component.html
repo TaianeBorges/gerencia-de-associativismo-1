@@ -4,51 +4,62 @@
 
             <table class="table table-hover">
                 <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">E-mail</th>
-                        <th scope="col">Tipo de usuário</th>
-                        <th scope="col">Lotação</th>
-                        <th scope="col"></th>
-                    </tr>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Tipo de usuário</th>
+                    <th scope="col">Lotação</th>
+                    <th scope="col">Regional</th>
+                    <th scope="col"></th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let user of users">
-                        <th scope="row">
-                            <app-initial-name [user]="user"></app-initial-name>
-                        </th>
-                        <td>{{user.name}}</td>
-                        <td>{{user.email}}</td>
-                        <td>{{user.role_details.label}}</td>
-                        <td>{{user.capacity.name}}</td>
-                        <td>
-                            <div class="btn-action">
-                                <div class="btn btn-link">
-                                    <i class="material-icons">
-                                        face
-                                    </i>
-                                </div>
-
-                                <div (click)="enableUser(user.status, user.id)">
-                                    <i class="material-icons icon-toggle"
-                                        [ngClass]="{'text-success': user.status, 'text-danger': !user.status}">
-                                        {{user.status ? 'toggle_on' : 'toggle_off'}}
-                                    </i>
-                                </div>
+                <tr *ngFor="let user of users">
+                    <th scope="row">
+                        <app-initial-name [user]="user"></app-initial-name>
+                    </th>
+                    <td class="animated fadeIn">{{user.name}}</td>
+                    <td class="animated fadeIn">{{user.email}}</td>
+                    <td class="animated fadeIn">{{user.role_details.label}}</td>
+                    <td class="animated fadeIn">{{user.capacity.name}}</td>
+                    <td class="animated fadeIn">
+                        <span *ngFor="let item of user.representation_offices; let i = index; last as isLast">
+                            {{item.regional.name ? (item.regional.name && isLast && user.representation_offices.length > 1 ? ' - ' + item.regional.name : item.regional.name) : item.regional.name}}
+                        </span>
+                        <span *ngIf="!user.representation_offices.length">--</span>
+                    </td>
+                    <td class="animated fadeIn">
+                        <div class="btn-action">
+                            <div class="btn btn-link">
+                                <i class="material-icons">
+                                    face
+                                </i>
                             </div>
-                        </td>
-                    </tr>
 
-                    <tr *ngIf="users && !users.length" class="margin-t-20">
-                        <td>---</td>
-                        <td>---</td>
-                        <td>---</td>
-                        <td>---</td>
-                        <td>---</td>
-                        <td>---</td>
-                        <td>---</td>
-                    </tr>
+                            <div (click)="enableUser(user.status, user.id)">
+                                <i class="material-icons icon-toggle"
+                                   [ngClass]="{'text-success': user.status, 'text-danger': !user.status}">
+                                    {{user.status ? 'toggle_on' : 'toggle_off'}}
+                                </i>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr *ngIf="users && !users.length" class="margin-t-20">
+                    <td>---</td>
+                    <td>---</td>
+                    <td>---</td>
+                    <td>---</td>
+                    <td>---</td>
+                    <td>---</td>
+                    <td>---</td>
+                    <td>---</td>
+                </tr>
+
+                <app-ininite-scroll (scrolled)="getUsers($event)"></app-ininite-scroll>
+
                 </tbody>
             </table>
 

@@ -1,7 +1,6 @@
-import {Component, OnInit, Input, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, ElementRef, Renderer2} from '@angular/core';
 import {AlertService} from './alert.service';
-
-import {from, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {ViewEncapsulation} from '@angular/core';
 
 @Component({
@@ -18,7 +17,7 @@ export class AlertsComponent implements OnInit, OnDestroy {
 
     private subscriptionAlertState: Subscription;
 
-    constructor(private alertService: AlertService) {
+    constructor(private alertService: AlertService, private elem: ElementRef, private renderer: Renderer2) {
     }
 
     ngOnInit() {
@@ -28,7 +27,16 @@ export class AlertsComponent implements OnInit, OnDestroy {
     }
 
     close(i) {
-        this.alertService.hide(i);
+
+        const element = this.elem.nativeElement.querySelector(`.alert-item-${i}`);
+
+        if (element) {
+            this.renderer.addClass(element, `fadeOutRight`);
+        }
+
+        setTimeout(() => {
+            this.alertService.hide(i);
+        }, 800);
     }
 
     copyError(i) {
