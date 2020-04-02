@@ -79,6 +79,9 @@ export class LoginComponent implements OnInit {
                             close: true
                         }
                     };
+
+                    this.authService.authorizationLogin.emit(false);
+
                 }
 
                 this.alertService.alertShow(alert);
