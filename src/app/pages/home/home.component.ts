@@ -21,7 +21,8 @@ export class HomeComponent implements OnInit {
         private authService: AuthService) {
 
         this.authService.authorizationLogin.subscribe(res => {
-            this.currentUser = res;
+            this.auth = res;
+            this.currentUser = this.authService.getUser();
         });
     }
 

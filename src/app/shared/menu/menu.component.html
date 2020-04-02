@@ -1,5 +1,5 @@
-<header [ngClass]="{'close-menu': !menuActivate}">
-    <nav class="nav-header" *ngIf="auth?.authenticate">
+<header [ngClass]="{'close-menu': !menuActivate}" *ngIf="auth">
+    <nav class="nav-header">
         <div class="btn-menu">
             <button class="btn btn-primary" (click)="changeMenu()">
                 <i class="material-icons">{{menuActivate ? 'menu_open' : 'menu'}}</i>
@@ -8,11 +8,11 @@
 
         <h2 class="title">{{titlePage}}</h2>
 
-        <div class="user-dropdown" *ngIf="auth && auth?.user">
+        <div class="user-dropdown">
             <div class="dropdown">
                 <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                    {{auth?.user.name | initialName}}
+                    {{currentUser?.user.name | initialName}}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="nav-link dropdown-item" [routerLink]="['/logout']"
@@ -22,7 +22,7 @@
         </div>
     </nav>
 
-    <nav class="nav-sidebar" *ngIf="auth?.authenticate">
+    <nav class="nav-sidebar">
         <div class="logo-nav">
             <a [routerLink]="['/']">
                 <img src="{{menuActivate ? '../assets/img/logotipo/logo-white.svg' : '../assets/img/logotipo/logo-initials-white.svg'}}"
@@ -42,27 +42,27 @@
                     <option value="/gestao-de-demandas/lista-de-demandas" [selected]="routeDemandManagement">
                         {{menuActivate ? 'Gestão de demandas' : 'GD - Gestão de demandas'}}
                     </option>
-                   <option value="/quem-e-quem/lista-de-usuarios" [selected]="routeWhoIs">
+                    <option value="/quem-e-quem/lista-de-usuarios" [selected]="routeWhoIs">
                         {{menuActivate ? 'Quem é quem' : 'QQ - Quem é quem'}}
                     </option>
-                     <!-- 
-                    <option value="/sites/lista-de-sites" [selected]="routeSites">
-                        {{menuActivate ? 'Sites' : 'SS - Sites'}}
-                    </option>
-                    -->
+                    <!--
+                   <option value="/sites/lista-de-sites" [selected]="routeSites">
+                       {{menuActivate ? 'Sites' : 'SS - Sites'}}
+                   </option>
+                   -->
                 </select>
             </li>
         </ul>
         <ul class="nav-items"
             [ngClass]="{'display-none': !routeDemandManagement, 'nav-items-mobile': menuMobileActivate && routeDemandManagement}">
-        <!-- 
-            <li>
-                <a href="#" routerLinkActive="router-link-active" placement="right" ngbTooltip="Dashboard">
-                    <i class="material-icons">dashboard</i>
-                    <span> Dashboard</span>
-                </a>
-            </li>
-        -->
+            <!--
+                <li>
+                    <a href="#" routerLinkActive="router-link-active" placement="right" ngbTooltip="Dashboard">
+                        <i class="material-icons">dashboard</i>
+                        <span> Dashboard</span>
+                    </a>
+                </li>
+            -->
 
             <li>
                 <a [routerLink]="['/gestao-de-demandas']" placement="right" ngbTooltip="Demandas"
@@ -88,12 +88,12 @@
                         </li> -->
         </ul>
 
-        <div class="user-menu" [ngClass]="{'nav-items-mobile': menuMobileActivate}" *ngIf="auth && auth?.user">
+        <div class="user-menu" [ngClass]="{'nav-items-mobile': menuMobileActivate}">
             <div class="user-name" (click)="menuPerfilActivate = !menuPerfilActivate">
                 <div class="initial-name">
-                    {{auth?.user.name | initialName}}
+                    {{currentUser?.user.name | initialName}}
                 </div>
-                <p>{{auth?.user.name}}</p>
+                <p>{{currentUser?.user.name}}</p>
                 <i class="material-icons">{{ !menuPerfilActivate ? 'expand_more' : 'expand_less'}}</i>
             </div>
             <ul class="user-actions" [ngClass]="{'display-none': !menuPerfilActivate}">

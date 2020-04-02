@@ -11,11 +11,12 @@ import {Observable, throwError} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
 import {AlertService} from '../shared/alerts/alert.service';
 import {Router, ActivatedRoute} from '@angular/router';
+import {AuthService} from '../auth/auth.service';
 
 /** Pass untouched request through to the next request handler. */
 @Injectable()
 export class ResponseInterceptor implements HttpInterceptor {
-    constructor(private alertService: AlertService, private router: Router, private route: ActivatedRoute) {
+    constructor(private alertService: AlertService, private router: Router, private route: ActivatedRoute, private authService: AuthService) {
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -89,7 +90,7 @@ export class ResponseInterceptor implements HttpInterceptor {
                 this.alertService.alertShow(data);
 
                 if (error.status === 401) {
-
+                    this.authService.authorizationLogin.emit(false);
                     this.router.navigate(['auth/login']);
                 }
 

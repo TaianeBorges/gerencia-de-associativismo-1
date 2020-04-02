@@ -56,7 +56,7 @@ export class AuthService {
                 map(res => {
                     localStorage.removeItem('Token');
                     localStorage.removeItem('user');
-                    this.authorizationLogin.emit(res);
+                    this.authorizationLogin.emit(false);
                     return res;
                 })
             );

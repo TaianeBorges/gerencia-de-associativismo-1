@@ -1,4 +1,4 @@
-<div class="home-container animated fadeIn" *ngIf="currentUser && currentUser.authenticate">
+<div class="home-container animated fadeIn" *ngIf="auth">
     <div class="modules">
         <a [routerLink]="['/gestao-de-demandas']"
            class="module-item card demand_management" (click)="setLoader('demand')">
@@ -15,7 +15,7 @@
         </a>
 
         <a [routerLink]="['/usuarios']" class="module-item card who_is"
-           *ngIf="currentUser && (currentUser.user.role == 10)" (click)="setLoader('user')">
+           *ngIf="(currentUser.user.role == 10)" (click)="setLoader('user')">
             <div class="image">
                 <img src="../assets/img/illustrations/admin_user.svg" alt="illustration-module">
             </div>

@@ -1,7 +1,7 @@
 import {Routes} from '@angular/router';
 import {AuthGuardService} from './guards/auth-guard.service';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
-import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import {UnauthorizedComponent} from './unauthorized/unauthorized.component';
 
 export const APP_ROUTES: Routes = [
     {
@@ -24,8 +24,8 @@ export const APP_ROUTES: Routes = [
     },
     {
         path: 'gestao-de-demandas',
+        canActivate: [AuthGuardService],
         loadChildren: () => import('./demand-management/demand-management.module').then(mod => mod.DemandManagementModule),
-        canActivateChild: [AuthGuardService]
     },
     {
         path: 'quem-e-quem',

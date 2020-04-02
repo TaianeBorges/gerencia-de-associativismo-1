@@ -61,6 +61,8 @@ export class LoginComponent implements OnInit {
 
                     this.authService.storeAuthorizationToken(res.token);
                     this.authService.storeUser(res);
+                    this.authService.authorizationLogin.emit(true);
+
                     if (this.previousUrl) {
                         this.router.navigate([this.previousUrl]);
                     } else {

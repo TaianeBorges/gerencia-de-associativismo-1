@@ -21,6 +21,7 @@ export class MenuComponent implements OnInit {
     menuActivate = false;
     menuMobileActivate = false;
     menuPerfilActivate = false;
+    currentUser;
 
     constructor(
         private authService: AuthService,
@@ -38,6 +39,7 @@ export class MenuComponent implements OnInit {
 
         this.authService.authorizationLogin.subscribe(res => {
             this.auth = res;
+            this.currentUser = this.authService.getUser();
         });
     }
 
