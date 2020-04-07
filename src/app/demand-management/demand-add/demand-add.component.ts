@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import {AlertService} from '../../shared/alerts/alert.service';
 import {UsersService} from 'src/app/users/users.service';
 import {AuthService} from 'src/app/auth/auth.service';
+import {ValidateUrl} from '../../shared/validators/cnpj.validator';
 
 @Component({
     selector: 'app-demand-add',
@@ -19,8 +20,10 @@ export class DemandAddComponent implements OnInit, OnDestroy {
 
     formDemand: FormGroup;
     user;
-    subCategory;
+    category;
+    subcategory;
     subCategoryEO;
+    cnpj;
     optionsEntities = [];
     configEntities = {
         labelField: 'name',
@@ -78,7 +81,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         plugins: ['dropdown_direction', 'remove_button'],
         dropdownDirection: 'down',
         onChange: ($event: any) => {
-            this.subCategory = '';
+            this.subcategory = '';
             this.getSubcategories($event);
         }
     };
@@ -233,7 +236,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         dropdownDirection: 'down'
     };
 
-
+    entity;
     entityServiceSubscribe: Subscription;
     unionServiceSubscribe: Subscription;
     categoryServiceSubscribe: Subscription;
@@ -274,17 +277,17 @@ export class DemandAddComponent implements OnInit, OnDestroy {
                 last_name: new FormControl('', [Validators.required]),
                 email: new FormControl('', [Validators.required])
             }),
-            entity_id: new FormControl(''),
+            entity_id: new FormControl('', [Validators.required]),
             syndicate_permission: new FormControl(''),
-            demand_category: new FormControl(''),
-            demand_subcategory: new FormControl(''),
+            demand_category: new FormControl('', [Validators.required]),
+            demand_subcategory: new FormControl('', [Validators.required]),
             scope: [],
             company: new FormGroup({
-                cnpj: new FormControl(''),
+                cnpj: new FormControl('', [ValidateUrl]),
                 name: new FormControl('')
             }),
             time_period: new FormControl(''),
-            description: new FormControl(''),
+            description: new FormControl('', [Validators.required]),
             syndicates_ids: [],
             sector_id: new FormControl(),
             legal_framework: new FormControl(),
@@ -318,84 +321,18 @@ export class DemandAddComponent implements OnInit, OnDestroy {
 
     }
 
-    changeCnpj(val) {
-        val = this.cnpjPipe.transform(val.value);
-        this.formDemand.get('company').get('cnpj').setValue(val);
-        this.formDemand.get('company').get('cnpj').updateValueAndValidity();
-    }
-
-
-    dateChanged($event) {
-        // console.log(event);
+    maskCnpj(val) {
+        if (val.value) {
+            val = this.cnpjPipe.transform(val.value);
+            this.formDemand.get('company').get('cnpj').setValue(val);
+            this.formDemand.get('company').get('cnpj').updateValueAndValidity();
+        }
     }
 
     getEntity(): void {
         this.entityServiceSubscribe = this.demandServices.getEntity().subscribe(res => {
             this.optionsEntities = res.data;
         });
-    }
-
-    validatorCnpj(cnpj) {
-        if (!this.testCnpj(cnpj)) {
-            alert('CNPJ inválido!');
-            this.formDemand.get('company.cnpj').reset('');
-        }
-    }
-
-    testCnpj(cnpj) {
-
-        cnpj = cnpj.replace(/[^\d]+/g, '');
-
-        if (cnpj == '') return false;
-
-        if (cnpj.length != 14)
-            return false;
-
-        // Elimina CNPJs invalidos conhecidos
-        if (cnpj == '00000000000000' ||
-            cnpj == '11111111111111' ||
-            cnpj == '22222222222222' ||
-            cnpj == '33333333333333' ||
-            cnpj == '44444444444444' ||
-            cnpj == '55555555555555' ||
-            cnpj == '66666666666666' ||
-            cnpj == '77777777777777' ||
-            cnpj == '88888888888888' ||
-            cnpj == '99999999999999')
-            return false;
-
-        // Valida DVs
-        let tamanho = cnpj.length - 2;
-        let numeros = cnpj.substring(0, tamanho);
-        let digitos = cnpj.substring(tamanho);
-        let soma = 0;
-        let pos = tamanho - 7;
-
-        for (let i = tamanho; i >= 1; i--) {
-            soma += numeros.charAt(tamanho - i) * pos--;
-            if (pos < 2)
-                pos = 9;
-        }
-
-        let resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-
-        if (resultado != digitos.charAt(0))
-            return false;
-
-        tamanho = tamanho + 1;
-        numeros = cnpj.substring(0, tamanho);
-        soma = 0;
-        pos = tamanho - 7;
-        for (let i = tamanho; i >= 1; i--) {
-            soma += numeros.charAt(tamanho - i) * pos--;
-            if (pos < 2)
-                pos = 9;
-        }
-        resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-        if (resultado != digitos.charAt(1))
-            return false;
-
-        return true;
     }
 
     getUnions(): void {
@@ -495,34 +432,63 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         });
     }
 
+    validationsFormDemand() {
+
+        let entity = this.formDemand.get('entity_id').value;
+        entity = +entity;
+
+        this.formDemand.get('syndicates_ids').setValidators([]);
+        this.formDemand.get('company.cnpj').setValue('');
+
+        // Sindicato
+        if (entity && (entity === 1 || entity === 2)) {
+            this.formDemand.get('syndicates_ids').setValidators([Validators.required]);
+        }
+
+        // Empresa associada a sindicato
+        if (entity && entity === 2) {
+            this.formDemand.get('company.cnpj').setValidators([Validators.required]);
+        }
+
+        this.formDemand.get('company.cnpj').updateValueAndValidity();
+        this.formDemand.get('syndicates_ids').updateValueAndValidity();
+    }
+
     onSubmit(form) {
-        this.registerDemandService = this.demandServices.setDemand(form.value).subscribe((res: any) => {
-            let alert;
-            if (res.create) {
-                alert = {
-                    status: 200,
-                    icon: 'check_circle',
-                    color: 'success',
-                    title: 'Parabéns!',
-                    message: 'Logado com sucesso.',
-                    copy: false
-                };
 
-                this.router.navigate([`/gestao-de-demandas/demanda/${res.data.id}`]);
+        this.formDemand.markAllAsTouched();
 
-            } else {
-                alert = {
-                    status: 200,
-                    message: res.message ? res.message : 'E-mail ou senha inválido.',
-                    title: 'Ops!',
-                    icon: 'priority_high',
-                    color: 'warning'
-                };
-            }
+        this.validationsFormDemand();
 
-            this.alertService.alertShow(alert);
+        if (this.formDemand.valid) {
+            this.registerDemandService = this.demandServices.setDemand(form.value).subscribe((res: any) => {
+                let alert;
+                if (res.create) {
+                    alert = {
+                        status: 200,
+                        icon: 'check_circle',
+                        color: 'success',
+                        title: 'Parabéns!',
+                        message: 'Logado com sucesso.',
+                        copy: false
+                    };
 
-        });
+                    this.router.navigate([`/gestao-de-demandas/demanda/${res.data.id}`]);
+
+                } else {
+                    alert = {
+                        status: 200,
+                        message: res.message ? res.message : 'E-mail ou senha inválido.',
+                        title: 'Ops!',
+                        icon: 'priority_high',
+                        color: 'warning'
+                    };
+                }
+
+                this.alertService.alertShow(alert);
+
+            });
+        }
     }
 
     getUser() {
@@ -531,6 +497,19 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     }
 
     resetForm() {
+        this.formDemand.get('entity_id').setValue('');
+        this.entity = '';
+
+        this.formDemand.get('demand_category').setValue('');
+        this.category = '';
+
+        this.formDemand.get('demand_subcategory').setValue('');
+        this.subcategory = '';
+
+        this.formDemand.get('company').get('cnpj').reset('');
+        this.cnpj = '';
+
+        this.formDemand.get('company').get('name').reset('');
     }
 
     ngOnDestroy() {
