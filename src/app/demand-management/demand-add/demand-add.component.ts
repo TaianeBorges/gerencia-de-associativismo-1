@@ -154,12 +154,23 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         labelField: 'initial',
         valueField: 'id',
         create: false,
-        searchField: ['initial'],
+        searchField: ['initial', 'name'],
         plugins: ['dropdown_direction', 'remove_button'],
         dropdownDirection: 'down',
         maxItems: 100,
         onBlur: () => {
             this.getEmails();
+        },
+        render: {
+            option(data: any, escape: any) {
+                return `<div class="option">
+                    <span class="name">${escape(data.initial)}</span> -
+                    <span class="initial"><b>${escape(data.name)}</b></span>
+                    </div>`;
+            },
+            item(data: any, escape: any) {
+                return '<div class="item">' + escape(data.initial) + '</div>';
+            }
         }
     };
 
