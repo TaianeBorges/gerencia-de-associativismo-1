@@ -20,6 +20,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
 
     formDemand: FormGroup;
     user;
+    council;
     category;
     subcategory;
     subCategoryEO;
@@ -37,7 +38,13 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             this.formDemand.get('syndicate_permission').reset('');
             this.formDemand.get('syndicates_ids').setValue([]);
             this.formDemand.get('sector_id').reset('');
+            this.formDemand.get('legal_framework').reset();
+            this.formDemand.get('type').reset();
+
+            this.formDemand.get('council_id').setValue('');
             this.formDemand.get('council_id').reset('');
+            this.council = '';
+
             this.formDemand.get('company').get('cnpj').reset('');
             this.formDemand.get('company').get('name').reset('');
 
@@ -438,7 +445,11 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         entity = +entity;
 
         this.formDemand.get('syndicates_ids').setValidators([]);
-        this.formDemand.get('company.cnpj').setValue('');
+        this.formDemand.get('company.cnpj').setValidators([]);
+        this.formDemand.get('council_id').setValidators([]);
+        this.formDemand.get('legal_framework').setValidators([]);
+        this.formDemand.get('type').setValidators([]);
+        this.formDemand.get('forwarded_to_the_technical_area.emails').setValidators([]);
 
         // Sindicato
         if (entity && (entity === 1 || entity === 2)) {
@@ -450,8 +461,28 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             this.formDemand.get('company.cnpj').setValidators([Validators.required]);
         }
 
+        // Conselho regional
+        if (entity && entity >= 4 && entity <= 9 && entity !== 8) {
+            this.formDemand.get('council_id').setValidators([Validators.required]);
+        }
+
+        // Poder publico
+        if (entity && entity === 8) {
+            this.formDemand.get('legal_framework').setValidators([Validators.required]);
+            this.formDemand.get('type').setValidators([Validators.required]);
+        }
+
         this.formDemand.get('company.cnpj').updateValueAndValidity();
         this.formDemand.get('syndicates_ids').updateValueAndValidity();
+        this.formDemand.get('council_id').updateValueAndValidity();
+        this.formDemand.get('legal_framework').updateValueAndValidity();
+        this.formDemand.get('type').updateValueAndValidity();
+
+        if (this.formDemand.get('forwarded_to_the_technical_area.check_forwarded').value) {
+            this.formDemand.get('forwarded_to_the_technical_area.emails').setValidators([Validators.required]);
+        }
+
+        this.formDemand.get('forwarded_to_the_technical_area.emails').updateValueAndValidity();
     }
 
     onSubmit(form) {
@@ -460,9 +491,10 @@ export class DemandAddComponent implements OnInit, OnDestroy {
 
         this.validationsFormDemand();
 
+        let alert;
+
         if (this.formDemand.valid) {
             this.registerDemandService = this.demandServices.setDemand(form.value).subscribe((res: any) => {
-                let alert;
                 if (res.create) {
                     alert = {
                         status: 200,
@@ -486,8 +518,21 @@ export class DemandAddComponent implements OnInit, OnDestroy {
                 }
 
                 this.alertService.alertShow(alert);
-
             });
+        } else {
+
+            alert = {
+                status: 200,
+                icon: 'priority_high',
+                color: 'warning',
+                title: 'Atenção!',
+                message: 'Verifique os campos inválidos.',
+                actions: {
+                    close: true
+                }
+            };
+
+            this.alertService.alertShow(alert);
         }
     }
 
@@ -510,6 +555,9 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         this.cnpj = '';
 
         this.formDemand.get('company').get('name').reset('');
+
+        this.formDemand.get('council_id').setValue('');
+        this.council = '';
     }
 
     ngOnDestroy() {

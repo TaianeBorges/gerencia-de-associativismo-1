@@ -82,17 +82,25 @@
 
                         <div class="form-group col-lg-4"
                              *ngIf="formDemand.get('entity_id') && (formDemand.get('entity_id').value == 4 || formDemand.get('entity_id').value == 5 || formDemand.get('entity_id').value == 6 || formDemand.get('entity_id').value == 7 || formDemand.get('entity_id').value == 9 )">
-                            <label class="card-label mb-2 text-muted" *ngIf="formDemand.get('entity_id').value == 5">Grupo
-                                setorial</label>
+                            <label class="card-label mb-2 text-muted" *ngIf="formDemand.get('entity_id').value == 5">
+                                Grupo setorial
+                            </label>
                             <label class="card-label mb-2 text-muted"
-                                   *ngIf="formDemand.get('entity_id').value == 4 || formDemand.get('entity_id').value == 6">Conselhos</label>
-                            <label class="card-label mb-2 text-muted" *ngIf="formDemand.get('entity_id').value == 7">Diretoria</label>
-                            <label class="card-label mb-2 text-muted" *ngIf="formDemand.get('entity_id').value == 9">Forúns</label>
+                                   *ngIf="formDemand.get('entity_id').value == 4 || formDemand.get('entity_id').value == 6">
+                                Conselhos <i class="color-required">*</i>
+                            </label>
+                            <label class="card-label mb-2 text-muted" *ngIf="formDemand.get('entity_id').value == 7">
+                                Diretoria <i class="color-required">*</i>
+                            </label>
+                            <label class="card-label mb-2 text-muted" *ngIf="formDemand.get('entity_id').value == 9">
+                                Forúns <i class="color-required">*</i>
+                            </label>
 
                             <ng2-selectize formControlName="council_id"
                                            [ngClass]="{'is-invalid': formDemand.get('council_id').errors && formDemand.get('council_id').touched }"
                                            class="selectize-advices" [config]="configAdvices" [options]="optionsAdvices"
-                                           placeholder="Selecione os conselhos">
+                                           [(ngModel)]="council"
+                                           placeholder="Selecione">
                             </ng2-selectize>
                         </div>
 
