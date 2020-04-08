@@ -82,7 +82,17 @@ export class DemandFilterComponent implements OnInit {
         }
     };
 
+    configRegional = {
+        labelField: 'name',
+        valueField: 'id',
+        create: false,
+        searchField: ['name'],
+        plugins: ['dropdown_direction', 'remove_button'],
+        dropdownDirection: 'down'
+    };
+
     optionsEntity = [];
+    optionsRegionals = [];
     optionsUnions = [];
     optionsDemandStatus = [];
     optionsDemandCategory = [];
@@ -106,12 +116,22 @@ export class DemandFilterComponent implements OnInit {
             demand_category_id: new FormControl(''),
             council_id: [],
             sector_id: new FormControl(''),
-            company_name: new FormControl('')
+            company_name: new FormControl(''),
+            regional_id: new FormControl('')
         });
 
         this.getEntity();
         this.getDemandStatus();
         this.getDemandCategories();
+        this.getRegionals();
+    }
+
+    getRegionals() {
+        this.demandService.getRegionals().subscribe(res => {
+            if (res.data) {
+                this.optionsRegionals = res.data;
+            }
+        });
     }
 
     getEntity() {
@@ -174,6 +194,7 @@ export class DemandFilterComponent implements OnInit {
         this.formFilter.get('demand_category_id').reset('');
         this.formFilter.get('sector_id').reset('');
         this.formFilter.get('company_name').reset('');
+        this.formFilter.get('regional_id').reset('');
 
         const valuesEntity = this.optionsEntity;
         this.optionsEntity = [];
@@ -183,6 +204,9 @@ export class DemandFilterComponent implements OnInit {
 
         const valuesDemandCategory = this.optionsDemandCategory;
         this.optionsDemandCategory = [];
+
+        const valuesRegionals = this.optionsRegionals;
+        this.optionsRegionals = [];
 
         setTimeout(() => {
             this.optionsEntity = valuesEntity;
@@ -195,6 +219,10 @@ export class DemandFilterComponent implements OnInit {
         setTimeout(() => {
             this.optionsDemandStatus = valuesDemandCategory;
         }, 200);
+
+        setTimeout(() => {
+            this.optionsRegionals = valuesRegionals;
+        });
 
         setTimeout(() => {
             this.onSubmit(this.formFilter);
