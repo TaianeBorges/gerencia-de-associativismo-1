@@ -325,7 +325,6 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             this.getManagements();
             this.getRegionals();
         }
-
     }
 
     maskCnpj(val) {
