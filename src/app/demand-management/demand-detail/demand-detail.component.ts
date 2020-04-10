@@ -1,14 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DemandService} from '../demand.service';
 import {SharedsService} from 'src/app/shared/shareds.service';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-demand-detail',
     templateUrl: './demand-detail.component.html',
     styleUrls: ['./demand-detail.component.scss']
 })
-export class DemandDetailComponent implements OnInit {
+export class DemandDetailComponent implements OnInit, OnDestroy {
 
     demandId: number;
     demand: any;
@@ -18,6 +19,7 @@ export class DemandDetailComponent implements OnInit {
     total = 0;
     currentUser;
     timePeriod;
+    destroyDemandServiceSubscribe: Subscription;
 
     constructor(
         private route: ActivatedRoute,
@@ -64,4 +66,21 @@ export class DemandDetailComponent implements OnInit {
         event.stopPropagation();
     }
 
+    destroyDemand() {
+        if (confirm('Tem certeza que deseja excluir esta demanda?')) {
+            console.log(this.demand);
+            this.destroyDemandServiceSubscribe = this.demandService.destroyDemand({demand_id: this.demand.id}).subscribe(res => {
+                console.log(res);
+                this.router.navigate([`/gestao-de-demandas/lista-de-demandas`]);
+
+            });
+
+        }
+    }
+
+    ngOnDestroy() {
+        if (this.destroyDemandServiceSubscribe) {
+            this.destroyDemandServiceSubscribe.unsubscribe();
+        }
+    }
 }

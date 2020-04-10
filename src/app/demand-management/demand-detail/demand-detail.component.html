@@ -28,6 +28,8 @@
                 </button>
 
                 <button disabled class="btn btn-secondary margin-l-10">Editar demanda</button>
+
+                <button *ngIf="currentUser.user.role == 10" class="btn btn-danger margin-l-10" (click)="destroyDemand()">Excluir demanda</button>
             </div>
         </div>
 

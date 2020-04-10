@@ -98,7 +98,7 @@ export class DemandFilterComponent implements OnInit {
     optionsDemandCategory = [];
     optionsCouncils = [];
     optionsSector = [];
-
+    currentUser;
 
     constructor(
         private fb: FormBuilder,
@@ -124,6 +124,8 @@ export class DemandFilterComponent implements OnInit {
         this.getDemandStatus();
         this.getDemandCategories();
         this.getRegionals();
+
+        this.currentUser = JSON.parse(localStorage.getItem('user'));
     }
 
     getRegionals() {
