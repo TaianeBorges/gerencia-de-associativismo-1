@@ -1,12 +1,12 @@
-import {Component, OnInit, ViewChild, Input, Output, OnChanges, OnDestroy, ElementRef} from '@angular/core';
+import {Component, OnInit, ViewChild, Input, Output, OnChanges, OnDestroy, ElementRef, EventEmitter} from '@angular/core';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
-import {EventEmitter} from 'protractor';
 import {DatePipe} from '@angular/common';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {DemandService} from '../demand.service';
 import {Subscription} from 'rxjs';
 import {CurrencyPipe} from '../../shared/pipes/currency.pipe';
 import {UsersService} from 'src/app/users/users.service';
+import {AlertService} from '../../shared/alerts/alert.service';
 
 @Component({
     selector: 'app-demand-add-history',
@@ -20,7 +20,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
     @ViewChild('modal', {static: false}) modal;
     @Input('openModal') openModal: boolean;
     @Input('demandSelected') demandSelected: any;
-    @Output('close') close: EventEmitter;
+    @Output('closeHistory') closeHistory = new EventEmitter();
     @ViewChild('selectizeRegional', {static: false}) redel: ElementRef;
 
     formControlCurrency;
@@ -36,7 +36,6 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
     formStatusSubscription: Subscription;
     setHistoryServiceSubscription: Subscription;
     regionalsServiceSubscribe: Subscription;
-
 
     configRegional = {
         labelField: 'name',
@@ -114,7 +113,8 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
         private fb: FormBuilder,
         private demandServices: DemandService,
         private currency: CurrencyPipe,
-        private userService: UsersService
+        private userService: UsersService,
+        private alertService: AlertService
     ) {
     }
 
@@ -166,6 +166,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
 
     open() {
         if (this.demandSelected) {
+
             this.formStatus.get('demand_id').setValue(this.demandSelected.id);
             this.getStatus();
             this.modalRef = this.modalService.show(this.modal, {class: 'modal-lg modal-dialog-centered modal-demand'});
@@ -235,7 +236,23 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
 
             this.setHistoryServiceSubscription = this.demandServices.setHistory(form.value).subscribe(res => {
                 if (res.create) {
-                    window.location.reload();
+                    this.formStatus.get('status').reset();
+                    this.formStatus.get('cost').reset();
+                    this.formStatus.get('time_period').reset();
+                    this.formStatus.get('comment').reset();
+                    this.formStatus.get('demand_id').reset();
+                    this.modalRef.hide();
+                    this.closeHistory.emit(true);
+
+                    const alert = {
+                        message: 'Status atualizado com sucesso!',
+                        title: 'Parabens!',
+                        status: 200,
+                        icon: 'check_circle',
+                        color: 'success'
+                    };
+
+                    this.alertService.alertShow(alert);
                 }
             });
         }

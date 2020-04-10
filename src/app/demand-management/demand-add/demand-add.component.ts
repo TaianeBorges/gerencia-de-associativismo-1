@@ -501,23 +501,27 @@ export class DemandAddComponent implements OnInit, OnDestroy {
                         icon: 'check_circle',
                         color: 'success',
                         title: 'Parabéns!',
-                        message: 'Logado com sucesso.',
-                        copy: false
+                        message: 'Demanda cadastrada com sucesso!'
                     };
 
-                    this.router.navigate([`/gestao-de-demandas/demanda/${res.data.id}`]);
+                    this.alertService.alertShow(alert);
+
+                    setTimeout(() => {
+                        this.router.navigate([`/gestao-de-demandas/demanda/${res.data.id}`]);
+                    }, 800);
 
                 } else {
                     alert = {
-                        status: 200,
-                        message: res.message ? res.message : 'E-mail ou senha inválido.',
+                        status: 500,
+                        message: 'Não foi possível cadastrar a demanda.',
                         title: 'Ops!',
                         icon: 'priority_high',
                         color: 'warning'
                     };
+
+                    this.alertService.alertShow(alert);
                 }
 
-                this.alertService.alertShow(alert);
             });
         } else {
 

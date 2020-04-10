@@ -1,3 +1,4 @@
+<app-alerts></app-alerts>
 <div class="demand-list-container" *ngIf="currentUser && currentUser.authenticate">
     <app-demand-filter (formOnSubmit)="filterSubmit($event)"></app-demand-filter>
 
@@ -128,4 +129,4 @@
 <app-demand-history [demandSelected]="demandSelected" [openModal]="openModalShowHistory">
 </app-demand-history>
 
-<app-demand-add-history [demandSelected]="demandAddSelected" [openModal]="openModalAddHistory"></app-demand-add-history>
+<app-demand-add-history (closeHistory)="listDemands()" [demandSelected]="demandAddSelected" [openModal]="openModalAddHistory"></app-demand-add-history>

@@ -15,7 +15,7 @@ export class AlertsComponent implements OnInit, OnDestroy {
     response: any;
     items = [];
 
-    private subscriptionAlertState: Subscription;
+    subscriptionAlertState: Subscription;
 
     constructor(private alertService: AlertService, private elem: ElementRef, private renderer: Renderer2) {
     }
@@ -56,6 +56,8 @@ export class AlertsComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.subscriptionAlertState.unsubscribe();
+        if (this.subscriptionAlertState) {
+            this.subscriptionAlertState.unsubscribe();
+        }
     }
 }

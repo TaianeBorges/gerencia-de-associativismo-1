@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {DemandService} from '../demand.service';
 import {SharedsService} from 'src/app/shared/shareds.service';
 import {Subscription} from 'rxjs';
+import {AlertService} from '../../shared/alerts/alert.service';
 
 @Component({
     selector: 'app-demand-detail',
@@ -25,7 +26,8 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private router: Router,
         private demandService: DemandService,
-        private sharedService: SharedsService
+        private sharedService: SharedsService,
+        private alertService: AlertService
     ) {
     }
 
@@ -68,10 +70,21 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
 
     destroyDemand() {
         if (confirm('Tem certeza que deseja excluir esta demanda?')) {
-            console.log(this.demand);
             this.destroyDemandServiceSubscribe = this.demandService.destroyDemand({demand_id: this.demand.id}).subscribe(res => {
-                console.log(res);
-                this.router.navigate([`/gestao-de-demandas/lista-de-demandas`]);
+
+                const alert = {
+                    status: 200,
+                    icon: 'check_circle',
+                    color: 'success',
+                    title: 'Parabéns!',
+                    message: 'Demanda excluida com sucesso!'
+                };
+
+                this.alertService.alertShow(alert);
+
+                setTimeout(() => {
+                    this.router.navigate([`/gestao-de-demandas/lista-de-demandas`]);
+                }, 800);
 
             });
 

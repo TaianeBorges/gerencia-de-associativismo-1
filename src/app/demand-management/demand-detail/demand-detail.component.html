@@ -1,3 +1,4 @@
+<app-alerts></app-alerts>
 <div class="demand-detail-container">
     <div *ngIf="demand">
         <nav aria-label="breadcrumb">
@@ -219,4 +220,4 @@
 <app-demand-history [demandSelected]="demand" [openModal]="openModal">
 </app-demand-history>
 
-<app-demand-add-history [demandSelected]="demandAddSelected" [openModal]="openModalAddHistory"></app-demand-add-history>
+<app-demand-add-history (closeHistory)="getDemand(demandId)" [demandSelected]="demandAddSelected" [openModal]="openModalAddHistory"></app-demand-add-history>
