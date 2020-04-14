@@ -28,7 +28,7 @@
                 <div class="row"
                      *ngIf="(formStatus.get('syndicate_permission')?.value == 1 && permissionSyndicate) || ((demandSelected?.entity_id == 2 && demandSelected?.permission_syndicate == 1) || (demandSelected?.entity_id == 3 && demandSelected?.permission_syndicate == 1)) || (this.demandSelected?.entity_id != 2 && this.demandSelected?.entity_id != 3)">
                     <div class="col form-group">
-                        <label>Status</label>
+                        <label>Status <i class="color-required">*</i></label>
 
                         <ng2-selectize formControlName="status"
                                        [ngClass]="{'is-invalid': formStatus.get('status').errors && formStatus.get('status').touched }"
@@ -62,7 +62,7 @@
                      ((demandSelected?.entity_id == 2 && demandSelected?.permission_syndicate == 1) || (demandSelected?.entity_id == 3 && demandSelected?.permission_syndicate == 1))
                      || (this.demandSelected?.entity_id != 2 && this.demandSelected?.entity_id != 3)">
                     <div class="col form-group">
-                        <label>Comentário</label>
+                        <label>Comentário <i class="color-required">*</i></label>
                         <textarea formControlName="comment"
                                   class="form-control"
                                   [ngClass]="{'is-invalid': formStatus.get('comment').errors && formStatus.get('comment').touched }"
@@ -114,7 +114,7 @@
 
                     <div class="form-group col-lg-6"
                          *ngIf="formStatus.get('forwarded_to_the_technical_area.check_forwarded').value">
-                        <label for="">E-mails</label>
+                        <label for="">E-mails <i class="color-required">*</i></label>
                         <ng2-selectize formControlName="emails"
                                        [ngClass]="{'is-invalid': formStatus.get('forwarded_to_the_technical_area.emails').errors && formStatus.get('forwarded_to_the_technical_area.emails').touched }"
                                        class="selectize-emails" [config]="configForwardEmails"
