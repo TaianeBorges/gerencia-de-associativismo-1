@@ -230,7 +230,9 @@
                                            [ngClass]="{'is-invalid': formDemand.get('oe_category').errors && formDemand.get('oe_category').touched }"
                                            class="selectize-category" [config]="configCategoryOE"
                                            [options]="optionsCategoryOE"
-                                           placeholder="Selecione">
+                                           placeholder="Selecione"
+                                           [(ngModel)]="oeCategory"
+                            >
                             </ng2-selectize>
                         </div>
                         <div class="form-group col-lg-6">
@@ -239,7 +241,9 @@
                             <ng2-selectize formControlName="oe_subcategory" [(ngModel)]="subCategoryEO"
                                            [ngClass]="{'is-invalid': formDemand.get('oe_subcategory').errors && formDemand.get('oe_subcategory').touched }"
                                            class="selectize-subcategory" [config]="configSubcategoryOE"
-                                           [options]="optionsSubcategoryOE" placeholder="Selecione" id="subcategory">
+                                           [options]="optionsSubcategoryOE" placeholder="Selecione" id="subcategory"
+                                           [(ngModel)]="oeSubcategory"
+                            >
                             </ng2-selectize>
                         </div>
                     </div>

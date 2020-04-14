@@ -2,7 +2,7 @@
 
 <ng-template #modal>
     <div class="modal-header">
-        <h4 class="modal-title pull-left">Atualizar status da demanda</h4>
+        <h4 class="modal-title pull-left">Atualizar status da demanda #{{demandSelected?.id}}</h4>
 
         <button type="button" class="close pull-right" (click)="modalRef.hide()">
             <span aria-hidden="true">&times;</span>
@@ -62,8 +62,11 @@
                      ((demandSelected?.entity_id == 2 && demandSelected?.permission_syndicate == 1) || (demandSelected?.entity_id == 3 && demandSelected?.permission_syndicate == 1))
                      || (this.demandSelected?.entity_id != 2 && this.demandSelected?.entity_id != 3)">
                     <div class="col form-group">
-                        <label>Comentario</label>
-                        <textarea formControlName="comment" class="form-control"></textarea>
+                        <label>Comentário</label>
+                        <textarea formControlName="comment"
+                                  class="form-control"
+                                  [ngClass]="{'is-invalid': formStatus.get('comment').errors && formStatus.get('comment').touched }"
+                        ></textarea>
                     </div>
                 </div>
 

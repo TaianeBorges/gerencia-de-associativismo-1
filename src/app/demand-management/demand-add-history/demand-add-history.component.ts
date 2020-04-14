@@ -1,7 +1,18 @@
-import {Component, OnInit, ViewChild, Input, Output, OnChanges, OnDestroy, ElementRef, EventEmitter} from '@angular/core';
+import {
+    Component,
+    OnInit,
+    ViewChild,
+    Input,
+    Output,
+    OnChanges,
+    OnDestroy,
+    ElementRef,
+    EventEmitter,
+    ViewEncapsulation
+} from '@angular/core';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {DatePipe} from '@angular/common';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DemandService} from '../demand.service';
 import {Subscription} from 'rxjs';
 import {CurrencyPipe} from '../../shared/pipes/currency.pipe';
@@ -12,7 +23,8 @@ import {AlertService} from '../../shared/alerts/alert.service';
     selector: 'app-demand-add-history',
     templateUrl: './demand-add-history.component.html',
     styleUrls: ['./demand-add-history.component.scss'],
-    providers: [DatePipe, CurrencyPipe]
+    providers: [DatePipe, CurrencyPipe],
+    encapsulation: ViewEncapsulation.None
 })
 export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
 
@@ -124,7 +136,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
             status: new FormControl(''),
             cost: new FormControl(),
             time_period: new FormControl(''),
-            comment: new FormControl(''),
+            comment: new FormControl('', [Validators.required]),
             demand_id: new FormControl(''),
             syndicate_permission: new FormControl(''),
             forwarded_to_the_technical_area: this.fb.group({
@@ -230,8 +242,30 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
         });
     }
 
+    validationsFormDemand() {
+        this.formStatus.get('status').setValidators([]);
+        this.formStatus.get('forwarded_to_the_technical_area.emails').setValidators([]);
+
+        if (!this.formStatus.get('status').value) {
+            this.formStatus.get('status').setValidators([Validators.required]);
+        }
+
+        if (this.formStatus.get('forwarded_to_the_technical_area.check_forwarded').value && !this.optionsForwardEmails.length) {
+            this.formStatus.get('forwarded_to_the_technical_area.emails').setValidators([Validators.required]);
+        }
+
+        this.formStatus.get('forwarded_to_the_technical_area.emails').updateValueAndValidity();
+        this.formStatus.get('status').updateValueAndValidity();
+    }
+
     onSubmit(form: any) {
-        if (form.value) {
+
+        this.formStatus.markAllAsTouched();
+
+        this.validationsFormDemand();
+
+        if (this.formStatus.valid) {
+
             this.formStatus.get('cost').setValue(this.formControlCurrency);
 
             this.setHistoryServiceSubscription = this.demandServices.setHistory(form.value).subscribe(res => {

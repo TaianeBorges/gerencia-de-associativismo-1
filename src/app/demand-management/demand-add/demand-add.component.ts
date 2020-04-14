@@ -24,6 +24,8 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     category;
     subcategory;
     subCategoryEO;
+    oeCategory;
+    oeSubcategory;
     cnpj;
     optionsEntities = [];
     configEntities = {
@@ -441,7 +443,9 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     validationsFormDemand() {
 
         let entity = this.formDemand.get('entity_id').value;
+        let demandCategory = this.formDemand.get('demand_category').value;
         entity = +entity;
+        demandCategory = +demandCategory;
 
         this.formDemand.get('syndicates_ids').setValidators([]);
         this.formDemand.get('company.cnpj').setValidators([]);
@@ -449,7 +453,8 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         this.formDemand.get('legal_framework').setValidators([]);
         this.formDemand.get('type').setValidators([]);
         this.formDemand.get('forwarded_to_the_technical_area.emails').setValidators([]);
-
+        this.formDemand.get('oe_category').setValidators([]);
+        this.formDemand.get('oe_subcategory').setValidators([]);
         // Sindicato
         if (entity && (entity === 1 || entity === 2)) {
             this.formDemand.get('syndicates_ids').setValidators([Validators.required]);
@@ -471,11 +476,19 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             this.formDemand.get('type').setValidators([Validators.required]);
         }
 
+        if (demandCategory && demandCategory === 4) {
+            this.formDemand.get('oe_category').setValidators([Validators.required]);
+            this.formDemand.get('oe_subcategory').setValidators([Validators.required]);
+
+        }
+
         this.formDemand.get('company.cnpj').updateValueAndValidity();
         this.formDemand.get('syndicates_ids').updateValueAndValidity();
         this.formDemand.get('council_id').updateValueAndValidity();
         this.formDemand.get('legal_framework').updateValueAndValidity();
         this.formDemand.get('type').updateValueAndValidity();
+        this.formDemand.get('oe_category').updateValueAndValidity();
+        this.formDemand.get('oe_subcategory').updateValueAndValidity();
 
         if (this.formDemand.get('forwarded_to_the_technical_area.check_forwarded').value) {
             this.formDemand.get('forwarded_to_the_technical_area.emails').setValidators([Validators.required]);
@@ -561,6 +574,12 @@ export class DemandAddComponent implements OnInit, OnDestroy {
 
         this.formDemand.get('council_id').setValue('');
         this.council = '';
+
+        this.formDemand.get('oe_category').setValue('');
+        this.oeCategory = '';
+
+        this.formDemand.get('oe_subcategory').setValue('');
+        this.oeSubcategory = '';
     }
 
     ngOnDestroy() {

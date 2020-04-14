@@ -1,0 +1,15 @@
+@import "../../shared/styles/forms";
+
+.selectize-control.single .selectize-input,
+.selectize-control.single .selectize-input input {
+  min-height: 36px;
+}
+
+.is-invalid {
+  .selectize-control {
+    .selectize-input {
+      border: 1px solid red !important;
+    }
+  }
+}
+

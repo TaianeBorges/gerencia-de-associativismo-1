@@ -40,19 +40,23 @@ export class AlertsComponent implements OnInit, OnDestroy {
     }
 
     copyError(i) {
-        const selBox = document.createElement('textarea');
-        selBox.style.position = 'fixed';
-        selBox.style.left = '0';
-        selBox.style.top = '0';
-        selBox.style.opacity = '0';
-        selBox.value = JSON.stringify(this.items[i].error);
-        document.body.appendChild(selBox);
-        selBox.focus();
-        selBox.select();
-        document.execCommand('copy');
-        document.body.removeChild(selBox);
+        this.items.forEach(item => {
+            if (item && item.id === i) {
+                const selBox = document.createElement('textarea');
+                selBox.style.position = 'fixed';
+                selBox.style.left = '0';
+                selBox.style.top = '0';
+                selBox.style.opacity = '0';
+                selBox.value = JSON.stringify(item.data.error);
+                document.body.appendChild(selBox);
+                selBox.focus();
+                selBox.select();
+                document.execCommand('copy');
+                document.body.removeChild(selBox);
 
-        this.alertService.hide(i);
+                this.close(i);
+            }
+        });
     }
 
     ngOnDestroy() {
