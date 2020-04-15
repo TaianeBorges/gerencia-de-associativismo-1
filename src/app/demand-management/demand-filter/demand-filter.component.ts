@@ -1,6 +1,7 @@
-import {Component, OnInit, ViewChild, Output, EventEmitter, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewChild, Output, EventEmitter, ViewEncapsulation, TemplateRef} from '@angular/core';
 import {FormBuilder, FormControl} from '@angular/forms';
 import {DemandService} from '../demand.service';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 
 @Component({
     selector: 'app-demand-filter',
@@ -10,9 +11,15 @@ import {DemandService} from '../demand.service';
 })
 export class DemandFilterComponent implements OnInit {
 
-    @ViewChild('formDemandFilter', {static: false}) formDemandFilter;
     @Output('formOnSubmit') formOnSubmit = new EventEmitter();
+    filterModal: BsModalRef;
 
+    selectStatus;
+    selectEntity;
+    selectCategory;
+    selectSector;
+    selectSyndicates;
+    selectCouncil;
     formFilter;
     filterVisibility = true;
     configEntity = {
@@ -22,18 +29,42 @@ export class DemandFilterComponent implements OnInit {
         searchField: ['name'],
         plugins: ['dropdown_direction', 'remove_button'],
         dropdownDirection: 'down',
-        onChange: ($event: any) => {
-            if ($event) {
+        onChange: () => {
+            let entity;
 
-                if ($event == 1 || $event == 2) {
+            setTimeout(() => {
+                entity = +this.selectEntity;
+
+                if (entity !== 1 && entity !== 2) {
+                    this.selectSyndicates = [];
+                    this.selectSector = [];
+                }
+
+                if (entity !== 3) {
+                    this.formFilter.get('company_name').reset('');
+                }
+
+                if (entity !== 4 &&
+                    entity !== 5 &&
+                    entity !== 6 &&
+                    entity !== 7 &&
+                    entity !== 9) {
+                    this.selectCouncil = [];
+                }
+
+            }, 200);
+        },
+        onBlur: () => {
+            setTimeout(() => {
+                if (this.selectEntity == 1 || this.selectEntity == 2) {
                     this.getSectors();
                     this.getUnions();
                 }
 
-                if ($event > 3) {
-                    this.getCouncils($event);
+                if (this.selectEntity > 3 && this.selectEntity != 8) {
+                    this.getCouncils(this.selectEntity);
                 }
-            }
+            }, 200);
         }
     };
     configUnions = {
@@ -42,7 +73,8 @@ export class DemandFilterComponent implements OnInit {
         create: false,
         searchField: ['name', 'initial'],
         plugins: ['dropdown_direction', 'remove_button'],
-        dropdownDirection: 'down'
+        dropdownDirection: 'down',
+        maxItems: 30
     };
     configDemandStatus = {
         labelField: 'label',
@@ -50,7 +82,8 @@ export class DemandFilterComponent implements OnInit {
         create: false,
         searchField: ['label'],
         plugins: ['dropdown_direction', 'remove_button'],
-        dropdownDirection: 'down'
+        dropdownDirection: 'down',
+        maxItems: 30
     };
     configDemandCategory = {
         labelField: 'name',
@@ -58,7 +91,8 @@ export class DemandFilterComponent implements OnInit {
         create: false,
         searchField: ['name'],
         plugins: ['dropdown_direction', 'remove_button'],
-        dropdownDirection: 'down'
+        dropdownDirection: 'down',
+        maxItems: 30
     };
 
     configCouncils = {
@@ -67,7 +101,8 @@ export class DemandFilterComponent implements OnInit {
         create: false,
         searchField: ['name'],
         plugins: ['dropdown_direction', 'remove_button'],
-        dropdownDirection: 'down'
+        dropdownDirection: 'down',
+        maxItems: 30
     };
 
     configSector = {
@@ -78,21 +113,35 @@ export class DemandFilterComponent implements OnInit {
         plugins: ['dropdown_direction', 'remove_button'],
         dropdownDirection: 'down',
         onChange: ($event: any) => {
-            this.getUnions($event);
-        }
+        },
+        onBlur: () => {
+            this.getUnions(this.selectSector);
+        },
+        maxItems: 30
+    };
+
+    configRegional = {
+        labelField: 'name',
+        valueField: 'id',
+        create: false,
+        searchField: ['name'],
+        plugins: ['dropdown_direction', 'remove_button'],
+        dropdownDirection: 'down'
     };
 
     optionsEntity = [];
+    optionsRegionals = [];
     optionsUnions = [];
     optionsDemandStatus = [];
     optionsDemandCategory = [];
     optionsCouncils = [];
     optionsSector = [];
-
+    currentUser;
 
     constructor(
         private fb: FormBuilder,
-        private demandService: DemandService
+        private demandService: DemandService,
+        private modalService: BsModalService
     ) {
     }
 
@@ -106,12 +155,25 @@ export class DemandFilterComponent implements OnInit {
             demand_category_id: new FormControl(''),
             council_id: [],
             sector_id: new FormControl(''),
-            company_name: new FormControl('')
+            company_name: new FormControl(''),
+            regional_id: new FormControl(''),
+            page: new FormControl(1)
         });
 
         this.getEntity();
         this.getDemandStatus();
         this.getDemandCategories();
+        this.getRegionals();
+
+        this.currentUser = JSON.parse(localStorage.getItem('user'));
+    }
+
+    getRegionals() {
+        this.demandService.getRegionals().subscribe(res => {
+            if (res.data) {
+                this.optionsRegionals = res.data;
+            }
+        });
     }
 
     getEntity() {
@@ -162,11 +224,13 @@ export class DemandFilterComponent implements OnInit {
         });
     }
 
-    onSubmit(form) {
-        this.formOnSubmit.emit({filters: form.value});
+    onSubmit() {
+        this.filterModal.hide();
+        this.formOnSubmit.emit({filters: this.formFilter.value});
     }
 
     resetForm() {
+        this.formFilter.get('demand_id').reset('');
         this.formFilter.get('entity_id').reset('');
         this.formFilter.get('demand_requester').reset('');
         this.formFilter.get('syndicate_id').reset('');
@@ -174,6 +238,7 @@ export class DemandFilterComponent implements OnInit {
         this.formFilter.get('demand_category_id').reset('');
         this.formFilter.get('sector_id').reset('');
         this.formFilter.get('company_name').reset('');
+        this.formFilter.get('regional_id').reset('');
 
         const valuesEntity = this.optionsEntity;
         this.optionsEntity = [];
@@ -184,6 +249,15 @@ export class DemandFilterComponent implements OnInit {
         const valuesDemandCategory = this.optionsDemandCategory;
         this.optionsDemandCategory = [];
 
+        const valuesRegionals = this.optionsRegionals;
+        this.optionsRegionals = [];
+
+        this.selectStatus = [];
+        this.selectCategory = [];
+        this.selectSector = [];
+        this.selectSyndicates = [];
+        this.selectCouncil = [];
+
         setTimeout(() => {
             this.optionsEntity = valuesEntity;
         }, 200);
@@ -193,11 +267,25 @@ export class DemandFilterComponent implements OnInit {
         }, 200);
 
         setTimeout(() => {
-            this.optionsDemandStatus = valuesDemandCategory;
+            this.optionsDemandCategory = valuesDemandCategory;
         }, 200);
 
         setTimeout(() => {
-            this.onSubmit(this.formFilter);
+            this.optionsRegionals = valuesRegionals;
+        });
+
+        setTimeout(() => {
+            this.onSubmit();
         }, 200);
+
+        this.filterModal.hide();
+    }
+
+    openFilter(template: TemplateRef<any>) {
+        this.filterModal = this.modalService.show(template);
+    }
+
+    closeModal() {
+        this.filterModal.hide();
     }
 }

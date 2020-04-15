@@ -3,7 +3,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {map} from 'rxjs/operators';
-import { runInThisContext } from 'vm';
 
 @Injectable({
     providedIn: 'root'
@@ -19,18 +18,8 @@ export class DemandService {
 
     getDemands(filters): Observable<any> {
 
-        const data = {};
 
-        for (const key in filters) {
-            if (filters[key]) {
-                data[key] = filters[key];
-            }
-        }
-
-        return this.http.get(`${environment.apiUrl}/demandas`, {
-            params: data,
-            headers: this.httpOptions.headers
-        })
+        return this.http.post(`${environment.apiUrl}/demandas`, filters, this.httpOptions)
             .pipe(
                 map(res => {
                     return res;
@@ -62,7 +51,7 @@ export class DemandService {
         if (sector_id) {
             data = {
                 sector_id
-            }
+            };
         }
 
         return this.http.post(`${environment.apiUrl}/sindicatos`, data, this.httpOptions)
@@ -96,7 +85,7 @@ export class DemandService {
         if (entity_id) {
             data = {
                 entity_id
-            }
+            };
         }
         return this.http.post(`${environment.apiUrl}/conselhos`, data, this.httpOptions)
             .pipe(
@@ -220,6 +209,14 @@ export class DemandService {
 
     getDemandsExcel(data): Observable<any> {
         return this.http.post(`${environment.apiUrl}/demandas/excel`, data, this.httpOptions).pipe(
+            map(res => {
+                return res;
+            })
+        );
+    }
+
+    destroyDemand(data): Observable<any> {
+        return this.http.post(`${environment.apiUrl}/demandas/excluir`, data, this.httpOptions).pipe(
             map(res => {
                 return res;
             })

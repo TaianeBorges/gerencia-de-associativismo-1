@@ -1,3 +1,4 @@
+<app-alerts></app-alerts>
 <div class="demand-add-container">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -65,6 +66,7 @@
                                            [ngClass]="{'is-invalid': formDemand.get('entity_id').errors && formDemand.get('entity_id').touched }"
                                            class="selectize-entity" [config]="configEntities"
                                            [options]="optionsEntities"
+                                           [(ngModel)]="entity"
                                            placeholder="Selecione a entidade">
                             </ng2-selectize>
                         </div>
@@ -81,17 +83,25 @@
 
                         <div class="form-group col-lg-4"
                              *ngIf="formDemand.get('entity_id') && (formDemand.get('entity_id').value == 4 || formDemand.get('entity_id').value == 5 || formDemand.get('entity_id').value == 6 || formDemand.get('entity_id').value == 7 || formDemand.get('entity_id').value == 9 )">
-                            <label class="card-label mb-2 text-muted" *ngIf="formDemand.get('entity_id').value == 5">Grupo
-                                setorial</label>
+                            <label class="card-label mb-2 text-muted" *ngIf="formDemand.get('entity_id').value == 5">
+                                Grupo setorial
+                            </label>
                             <label class="card-label mb-2 text-muted"
-                                   *ngIf="formDemand.get('entity_id').value == 4 || formDemand.get('entity_id').value == 6">Conselhos</label>
-                            <label class="card-label mb-2 text-muted" *ngIf="formDemand.get('entity_id').value == 7">Diretoria</label>
-                            <label class="card-label mb-2 text-muted" *ngIf="formDemand.get('entity_id').value == 9">Forúns</label>
+                                   *ngIf="formDemand.get('entity_id').value == 4 || formDemand.get('entity_id').value == 6">
+                                Conselhos <i class="color-required">*</i>
+                            </label>
+                            <label class="card-label mb-2 text-muted" *ngIf="formDemand.get('entity_id').value == 7">
+                                Diretoria <i class="color-required">*</i>
+                            </label>
+                            <label class="card-label mb-2 text-muted" *ngIf="formDemand.get('entity_id').value == 9">
+                                Forúns <i class="color-required">*</i>
+                            </label>
 
                             <ng2-selectize formControlName="council_id"
                                            [ngClass]="{'is-invalid': formDemand.get('council_id').errors && formDemand.get('council_id').touched }"
                                            class="selectize-advices" [config]="configAdvices" [options]="optionsAdvices"
-                                           placeholder="Selecione os conselhos">
+                                           [(ngModel)]="council"
+                                           placeholder="Selecione">
                             </ng2-selectize>
                         </div>
 
@@ -129,8 +139,11 @@
                          *ngIf="(currentUser && currentUser.user) && formDemand.get('entity_id') && (formDemand.get('entity_id').value == 2 || formDemand.get('entity_id').value == 3)">
                         <div class="form-group col-lg-4"
                              *ngIf="formDemand.get('entity_id') && formDemand.get('entity_id').value == 2">
-                            <label class="card-label mb-2 text-muted">Sindicato aprovou a demanda?</label>
-                            <select class="form-control" formControlName="syndicate_permission">
+                            <label class="card-label mb-2 text-muted">Sindicato aprovou a demanda? <i
+                                    class="color-required">*</i></label>
+                            <select class="form-control"
+                                    formControlName="syndicate_permission"
+                                    [ngClass]="{'is-invalid': formDemand.get('syndicate_permission').errors && formDemand.get('syndicate_permission').touched}">
                                 <option value="" disabled selected>Selecione a opção</option>
                                 <option value="">Não foi consultado</option>
                                 <option value="0">Não</option>
@@ -144,10 +157,10 @@
                                     <label class="card-label mb-2 text-muted">CNPJ <i
                                             class="color-required">*</i></label>
                                     <input type="text" formControlName="cnpj" maxlength="18"
-                                           (keypress)="changeCnpj(formDemand.get('company.cnpj'))"
-                                           [ngClass]="{'is-invalid': formDemand.get('company.cnpj') && formDemand.get('company.cnpj').errors && formDemand.get('company.cnpj').touched }"
+                                           (keypress)="maskCnpj(formDemand.get('company.cnpj'))"
+                                           [ngClass]="{'is-invalid': formDemand.get('company').get('cnpj').errors && formDemand.get('company').get('cnpj').touched }"
                                            class="form-control"
-                                           (blur)="validatorCnpj(formDemand.get('company.cnpj').value)">
+                                           [(ngModel)]="cnpj">
                                 </div>
                                 <div class="form-group col-lg-6">
                                     <label class="card-label mb-2 text-muted">Razão social</label>
@@ -165,15 +178,18 @@
                             <ng2-selectize formControlName="demand_category"
                                            [ngClass]="{'is-invalid': formDemand.get('demand_category').errors && formDemand.get('demand_category').touched }"
                                            class="selectize-category" [config]="configCategory"
+                                           [(ngModel)]="category"
                                            [options]="optionsCategory"
                                            placeholder="Selecione a categoria">
                             </ng2-selectize>
                         </div>
                         <div class="form-group col-lg-4">
                             <label class="card-label mb-2 text-muted">Subcategoria da demanda <i class="color-required">*</i></label>
-                            <ng2-selectize (ngModelChange)="dateChanged($event)" formControlName="demand_subcategory"
+                            <ng2-selectize formControlName="demand_subcategory"
                                            [ngClass]="{'is-invalid': formDemand.get('demand_subcategory').errors && formDemand.get('demand_subcategory').touched }"
-                                           class="selectize-subcategory" [config]="configSubcategory"
+                                           class="selectize-subcategory"
+                                           [(ngModel)]="subcategory"
+                                           [config]="configSubcategory"
                                            [options]="optionsSubcategory"
                                            [hasOptionsPlaceholder]="'Selecione a subcategoria'">
                             </ng2-selectize>
@@ -214,7 +230,9 @@
                                            [ngClass]="{'is-invalid': formDemand.get('oe_category').errors && formDemand.get('oe_category').touched }"
                                            class="selectize-category" [config]="configCategoryOE"
                                            [options]="optionsCategoryOE"
-                                           placeholder="Selecione">
+                                           placeholder="Selecione"
+                                           [(ngModel)]="oeCategory"
+                            >
                             </ng2-selectize>
                         </div>
                         <div class="form-group col-lg-6">
@@ -223,7 +241,9 @@
                             <ng2-selectize formControlName="oe_subcategory" [(ngModel)]="subCategoryEO"
                                            [ngClass]="{'is-invalid': formDemand.get('oe_subcategory').errors && formDemand.get('oe_subcategory').touched }"
                                            class="selectize-subcategory" [config]="configSubcategoryOE"
-                                           [options]="optionsSubcategoryOE" placeholder="Selecione" id="subcategory">
+                                           [options]="optionsSubcategoryOE" placeholder="Selecione" id="subcategory"
+                                           [(ngModel)]="oeSubcategory"
+                            >
                             </ng2-selectize>
                         </div>
                     </div>

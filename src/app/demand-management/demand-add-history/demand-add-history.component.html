@@ -1,6 +1,8 @@
+<app-alerts></app-alerts>
+
 <ng-template #modal>
     <div class="modal-header">
-        <h4 class="modal-title pull-left">Atualizar status da demanda</h4>
+        <h4 class="modal-title pull-left">Atualizar status da demanda #{{demandSelected?.id}}</h4>
 
         <button type="button" class="close pull-right" (click)="modalRef.hide()">
             <span aria-hidden="true">&times;</span>
@@ -14,7 +16,8 @@
                 <div class="row"
                      *ngIf="(demandSelected?.entity_id == 2 || demandSelected?.entity_id == 3) && (demandSelected?.permission_syndicate == null)">
                     <div class="col form-group">
-                        <label>{{demandSelected.entity_id == 3 ? 'A Empresa foi consultada?' : 'Sindicato autorizou a demanda?'}}</label>
+                        <label>{{demandSelected.entity_id == 3 ? 'A Empresa foi consultada?' : 'Sindicato autorizou a
+                            demanda?'}}</label>
                         <select formControlName="syndicate_permission" name="" id="" class="form-control">
                             <option value="" disabled>Selecione</option>
                             <option value="0">Não</option>
@@ -25,7 +28,7 @@
                 <div class="row"
                      *ngIf="(formStatus.get('syndicate_permission')?.value == 1 && permissionSyndicate) || ((demandSelected?.entity_id == 2 && demandSelected?.permission_syndicate == 1) || (demandSelected?.entity_id == 3 && demandSelected?.permission_syndicate == 1)) || (this.demandSelected?.entity_id != 2 && this.demandSelected?.entity_id != 3)">
                     <div class="col form-group">
-                        <label>Status</label>
+                        <label>Status <i class="color-required">*</i></label>
 
                         <ng2-selectize formControlName="status"
                                        [ngClass]="{'is-invalid': formStatus.get('status').errors && formStatus.get('status').touched }"
@@ -59,8 +62,11 @@
                      ((demandSelected?.entity_id == 2 && demandSelected?.permission_syndicate == 1) || (demandSelected?.entity_id == 3 && demandSelected?.permission_syndicate == 1))
                      || (this.demandSelected?.entity_id != 2 && this.demandSelected?.entity_id != 3)">
                     <div class="col form-group">
-                        <label>Comentario</label>
-                        <textarea formControlName="comment" class="form-control"></textarea>
+                        <label>Comentário <i class="color-required">*</i></label>
+                        <textarea formControlName="comment"
+                                  class="form-control"
+                                  [ngClass]="{'is-invalid': formStatus.get('comment').errors && formStatus.get('comment').touched }"
+                        ></textarea>
                     </div>
                 </div>
 
@@ -108,7 +114,7 @@
 
                     <div class="form-group col-lg-6"
                          *ngIf="formStatus.get('forwarded_to_the_technical_area.check_forwarded').value">
-                        <label for="">E-mails</label>
+                        <label for="">E-mails <i class="color-required">*</i></label>
                         <ng2-selectize formControlName="emails"
                                        [ngClass]="{'is-invalid': formStatus.get('forwarded_to_the_technical_area.emails').errors && formStatus.get('forwarded_to_the_technical_area.emails').touched }"
                                        class="selectize-emails" [config]="configForwardEmails"

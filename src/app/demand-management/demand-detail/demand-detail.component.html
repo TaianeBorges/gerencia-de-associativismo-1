@@ -1,3 +1,4 @@
+<app-alerts></app-alerts>
 <div class="demand-detail-container">
     <div *ngIf="demand">
         <nav aria-label="breadcrumb">
@@ -28,6 +29,8 @@
                 </button>
 
                 <button disabled class="btn btn-secondary margin-l-10">Editar demanda</button>
+
+                <button *ngIf="currentUser.user.role == 10" class="btn btn-danger margin-l-10" (click)="destroyDemand()">Excluir demanda</button>
             </div>
         </div>
 
@@ -217,4 +220,4 @@
 <app-demand-history [demandSelected]="demand" [openModal]="openModal">
 </app-demand-history>
 
-<app-demand-add-history [demandSelected]="demandAddSelected" [openModal]="openModalAddHistory"></app-demand-add-history>
+<app-demand-add-history (closeHistory)="getDemand(demandId)" [demandSelected]="demandAddSelected" [openModal]="openModalAddHistory"></app-demand-add-history>
