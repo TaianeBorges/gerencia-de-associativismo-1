@@ -113,7 +113,6 @@ export class DemandFilterComponent implements OnInit {
         plugins: ['dropdown_direction', 'remove_button'],
         dropdownDirection: 'down',
         onChange: ($event: any) => {
-            // this.getUnions($event, ' SECTOR 2');
         },
         onBlur: () => {
             this.getUnions(this.selectSector);
@@ -231,6 +230,7 @@ export class DemandFilterComponent implements OnInit {
     }
 
     resetForm() {
+        this.formFilter.get('demand_id').reset('');
         this.formFilter.get('entity_id').reset('');
         this.formFilter.get('demand_requester').reset('');
         this.formFilter.get('syndicate_id').reset('');
