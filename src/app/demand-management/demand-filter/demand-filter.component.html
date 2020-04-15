@@ -1,13 +1,15 @@
-<form #formDemandFilter [formGroup]="formFilter" class="demand-filter" (ngSubmit)="onSubmit(formFilter)"
-      autocomplete="off">
+<form class="demand-filter">
 
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <div class="col">
-                    <h1 class="page-title">Filtros</h1>
-                </div>
                 <div class="col text-right">
+                    <a (click)="openFilter(filterModal)" routerLinkActive="router-link-active"
+                       class="btn btn-light margin-l-10 btn-with-icon">
+                        <i class="material-icons">tune</i>
+                        <span>Filtros</span>
+                    </a>
+
                     <app-demand-excel [demandsFilter]="formFilter.value"></app-demand-excel>
 
                     <a [routerLink]="['/gestao-de-demandas/nova-demanda']" routerLinkActive="router-link-active"
@@ -15,12 +17,26 @@
                         <i class="material-icons">library_books</i>
                         <span>Nova demanda</span>
                     </a>
-
                 </div>
             </div>
 
+        </div>
+    </div>
+</form>
+
+<ng-template #filterModal>
+    <form [formGroup]="formFilter" class="demand-filter" (ngSubmit)="onSubmit()"
+          autocomplete="off">
+        <div class="modal-header">
+            <h2 class="modal-title title pull-left">Filtros</h2>
+
+            <button type="button" class="close pull-right" (click)="closeModal()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
             <div class="row margin-t-30">
-                <div class="form-group col-lg-2 col-md-2">
+                <div class="form-group col">
                     <label>ID</label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -31,7 +47,7 @@
                     </div>
                 </div>
 
-                <div *ngIf="currentUser.user.capacity_id == 1" class="form-group col-lg-2 col-md-5 col-sm-12">
+                <div *ngIf="currentUser.user.capacity_id == 1" class="form-group col">
                     <label>Regional</label>
                     <ng2-selectize formControlName="regional_id"
                                    class="selectize" [config]="configRegional"
@@ -40,25 +56,30 @@
                     </ng2-selectize>
                 </div>
 
-                <div class="form-group col-lg-3 col-md-5 col-sm-12">
+                <div class="form-group col">
                     <label for="entity">Entidade</label>
                     <ng2-selectize formControlName="entity_id"
                                    id="entity"
-                                   class="selectize-entity" [config]="configEntity" [options]="optionsEntity"
+                                   class="selectize-entity"
+                                   [config]="configEntity"
+                                   [options]="optionsEntity"
+                                   [(ngModel)]="selectEntity"
                                    placeholder="Selecione a entidade">
                     </ng2-selectize>
                 </div>
 
-                <div class="form-group col-lg-2 col-md-5 col-sm-12">
+                <div class="form-group col">
                     <label>Status</label>
                     <ng2-selectize formControlName="status_id"
-                                   class="selectize-demand-status" [config]="configDemandStatus"
+                                   class="selectize-demand-status"
+                                   [(ngModel)]="selectStatus"
+                                   [config]="configDemandStatus"
                                    [options]="optionsDemandStatus"
                                    placeholder="Selecione o status">
                     </ng2-selectize>
                 </div>
 
-                <div class="form-group col-lg-2 col-md-6 col-sm-12">
+                <div class="form-group col">
                     <label>Cadastrante</label>
                     <input type="text"
                            [ngClass]="{'is-invalid': formFilter.get('demand_requester').errors && formFilter.get('demand_requester').touched }"
@@ -66,43 +87,50 @@
                            placeholder="Digite o cadastrante">
                 </div>
 
-                <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                <div class="form-group col">
                     <label>Categorias</label>
                     <ng2-selectize formControlName="demand_category_id"
                                    [ngClass]="{'is-invalid': formFilter.get('demand_category_id').errors && formFilter.get('demand_category_id').touched }"
-                                   class="selectize-demand-category" [config]="configDemandCategory"
-                                   [options]="optionsDemandCategory" placeholder="Selecione a categoria">
+                                   class="selectize-demand-category"
+                                   [config]="configDemandCategory"
+                                   [options]="optionsDemandCategory"
+                                   [(ngModel)]="selectCategory"
+                                   placeholder="Selecione a categoria">
                     </ng2-selectize>
                 </div>
 
-                <div class="form-group col-lg-3 col-md-6 col-sm-12"
+                <div class="form-group col"
                      *ngIf="formFilter.get('entity_id').value == 1 || formFilter.get('entity_id').value == 2">
                     <label>Setores</label>
                     <ng2-selectize formControlName="sector_id"
                                    [ngClass]="{'is-invalid': formFilter.get('sector_id').errors && formFilter.get('sector_id').touched }"
-                                   class="selectize-sector" [config]="configSector" [options]="optionsSector"
+                                   class="selectize-sector"
+                                   [config]="configSector"
+                                   [options]="optionsSector"
+                                   [(ngModel)]="selectSector"
                                    placeholder="Selecione um setor">
                     </ng2-selectize>
                 </div>
 
-                <div class="form-group col-lg-3 col-md-6 col-sm-12"
+                <div class="form-group col"
                      *ngIf="formFilter.get('entity_id').value == 1 || formFilter.get('entity_id').value == 2">
                     <label>Sindicatos</label>
                     <ng2-selectize formControlName="syndicate_id"
                                    [ngClass]="{'is-invalid': formFilter.get('syndicate_id').errors && formFilter.get('syndicate_id').touched }"
+                                   [(ngModel)]="selectSyndicates"
                                    class="selectize-unions" [config]="configUnions" [options]="optionsUnions"
                                    placeholder="Selecione os sindicatos">
                     </ng2-selectize>
                 </div>
 
-                <div class="form-group col-lg-3 col-md-6 col-sm-12"
+                <div class="form-group col"
                      *ngIf="formFilter.get('entity_id').value == 2 || formFilter.get('entity_id').value == 3">
                     <label>Razão social</label>
                     <input type="text" formControlName="company_name"
                            class="form-control" placeholder="Digite a Razão social">
                 </div>
 
-                <div class="form-group col-lg-3 col-md-6 col-sm-12"
+                <div class="form-group col"
                      *ngIf="formFilter.get('entity_id').value == 4 || formFilter.get('entity_id').value == 5 || formFilter.get('entity_id').value == 6 || formFilter.get('entity_id').value == 7 || formFilter.get('entity_id').value == 9">
                     <label *ngIf="formFilter.get('entity_id').value == 5">Grupo setorial</label>
                     <label *ngIf="formFilter.get('entity_id').value == 4 || formFilter.get('entity_id').value == 6">Conselhos</label>
@@ -110,23 +138,27 @@
                     <label *ngIf="formFilter.get('entity_id').value == 9">Forúns</label>
                     <ng2-selectize formControlName="council_id"
                                    [ngClass]="{'is-invalid': formFilter.get('council_id').errors && formFilter.get('council_id').touched }"
-                                   class="selectize-councils" [config]="configCouncils" [options]="optionsCouncils"
+                                   class="selectize-councils"
+                                   [config]="configCouncils"
+                                   [options]="optionsCouncils"
+                                   [(ngModel)]="selectCouncil"
                                    placeholder="Selecione">
                     </ng2-selectize>
                 </div>
-
-                <div class="form-group col padding-t-30">
-                    <button type="submit" class="btn btn-info btn-with-icon">
-                        <i class="material-icons">search</i>
-                        <span>Filtrar</span>
-                    </button>
-                    <button type="button" (click)="resetForm(); formDemandFilter.reset()"
-                            class="btn btn-outline-info margin-l-10 btn-with-icon">
-                        <i class="material-icons">clear</i>
-                        <span>Limpar filtro</span>
-                    </button>
-                </div>
             </div>
         </div>
-    </div>
-</form>
+        <div class="modal-footer">
+            <div class="form-group text-right">
+                <button type="button" (click)="resetForm();"
+                        class="btn btn-white">
+                    <span>Limpar filtro</span>
+                </button>
+
+                <button type="submit" class="btn btn-info btn-with-icon margin-l-10">
+                    <i class="material-icons">search</i>
+                    <span>Filtrar</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</ng-template>

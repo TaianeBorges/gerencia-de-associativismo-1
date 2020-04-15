@@ -35,15 +35,7 @@ export class DemandListComponent implements OnInit, OnDestroy {
         private sharedService: SharedsService,
         private demandService: DemandService,
         private elRef: ElementRef,
-        private renderer: Renderer2,
-        private route: Router,
-        private activatedRoute: ActivatedRoute) {
-
-        this.activatedRoute.queryParams.subscribe((params: any) => {
-            if (params.length) {
-                this.filtersParams = params;
-            }
-        });
+        private renderer: Renderer2) {
     }
 
     ngOnInit() {
@@ -52,7 +44,6 @@ export class DemandListComponent implements OnInit, OnDestroy {
         this.listDemands();
 
         this.currentUser = JSON.parse(localStorage.getItem('user'));
-
     }
 
     openDemand(demand) {
@@ -101,9 +92,6 @@ export class DemandListComponent implements OnInit, OnDestroy {
     }
 
     listDemands() {
-
-        this.route.navigate(['gestao-de-demandas/lista-de-demandas'], {queryParams: this.filtersParams});
-
         this.demandServiceSubscribe = this.demandService.getDemands(this.filtersParams)
             .subscribe(res => {
                 this.demands = res;
@@ -115,7 +103,6 @@ export class DemandListComponent implements OnInit, OnDestroy {
     }
 
     filterSubmit(event) {
-        this.filtersParams.page = 1;
         for (const key in event.filters) {
             this.filtersParams[key] = event.filters[key];
         }

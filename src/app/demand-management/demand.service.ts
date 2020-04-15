@@ -18,18 +18,8 @@ export class DemandService {
 
     getDemands(filters): Observable<any> {
 
-        const data = {};
 
-        for (const key in filters) {
-            if (filters[key]) {
-                data[key] = filters[key];
-            }
-        }
-
-        return this.http.get(`${environment.apiUrl}/demandas`, {
-            params: data,
-            headers: this.httpOptions.headers
-        })
+        return this.http.post(`${environment.apiUrl}/demandas`, filters, this.httpOptions)
             .pipe(
                 map(res => {
                     return res;

@@ -5,8 +5,9 @@
 }
 
 .demand-filter {
-  h1 {
-    margin-bottom: 0;
+  .modal-body > .row {
+    flex-direction: column;
+    //align-items: center;
   }
   .card {
     max-width: initial;
@@ -24,5 +25,5 @@
 }
 
 .selectize-input {
-  height: 38px;
+  min-height: 38px;
 }
