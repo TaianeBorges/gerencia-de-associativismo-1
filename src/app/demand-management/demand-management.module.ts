@@ -15,6 +15,8 @@ import {DemandAddHistoryComponent} from './demand-add-history/demand-add-history
 import {DemandAddComponent} from './demand-add/demand-add.component';
 import {DemandExcelComponent} from './demand-excel/demand-excel.component';
 import {ExcelService} from './demand-excel/demand-excel.service';
+import {MatTooltipModule} from '@angular/material';
+
 
 @NgModule({
     declarations: [
@@ -33,7 +35,8 @@ import {ExcelService} from './demand-excel/demand-excel.service';
         SharedModule,
         ReactiveFormsModule,
         FormsModule,
-        Ng2SelectizeModule
+        Ng2SelectizeModule,
+        MatTooltipModule
     ],
     providers: [
         AuthGuardService,
