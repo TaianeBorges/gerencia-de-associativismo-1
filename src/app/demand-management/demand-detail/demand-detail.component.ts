@@ -21,6 +21,7 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
     currentUser;
     timePeriod;
     destroyDemandServiceSubscribe: Subscription;
+    editPermission: boolean;
 
     constructor(
         private route: ActivatedRoute,
@@ -50,12 +51,17 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
                     this.demand = res.data[0];
 
                     this.demand.histories.forEach(element => {
+
                         if (element.cost) {
                             this.total = this.total + parseFloat(element.cost);
                         }
 
                         if (element.time_period) {
                             this.timePeriod = element.time_period;
+                        }
+
+                        if (element.status === 8 && this.currentUser) {
+                            this.editPermission = ((element.user.id === this.currentUser.user.id) || (this.currentUser.user.role === 10));
                         }
                     });
                 } else {
