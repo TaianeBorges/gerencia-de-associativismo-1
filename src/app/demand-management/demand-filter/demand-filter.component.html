@@ -47,7 +47,8 @@
                     </div>
                 </div>
 
-                <div *ngIf="currentUser.user.capacity_id == 1" class="form-group col">
+                <div *ngIf="currentUser.user.capacity_id == 1 || (currentUser.representation_offices.length > 1)"
+                     class="form-group col">
                     <label>Regional</label>
                     <ng2-selectize formControlName="regional_id"
                                    class="selectize" [config]="configRegional"
@@ -151,7 +152,7 @@
             <div class="form-group text-right">
                 <button type="button" (click)="resetForm();"
                         class="btn btn-white">
-                    <span>Limpar filtro</span>
+                    <span>Limpar filtros</span>
                 </button>
 
                 <button type="submit" class="btn btn-info btn-with-icon margin-l-10">

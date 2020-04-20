@@ -33,7 +33,6 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.demandId = parseInt(this.route.snapshot.paramMap.get('demandaId'));
-        this.sharedService.setTitle(`Demanda #${this.demandId}`);
 
         if (this.demandId) {
             this.getDemand(this.demandId);
@@ -46,6 +45,7 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
         this.demandService.getDemand(id)
             .subscribe(res => {
                 if (res && res.permission) {
+                    this.sharedService.setTitle(`Demanda #${this.demandId} <p matTooltip="${res.data[0].histories[0].status_label}" class="badge background-status-${res.data[0].histories[0].status}">${res.data[0].histories[0].status_label}</p>`);
 
                     this.demand = res.data[0];
 

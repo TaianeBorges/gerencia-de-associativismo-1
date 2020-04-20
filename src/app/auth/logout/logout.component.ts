@@ -24,6 +24,10 @@ export class LogoutComponent implements OnInit {
         };
 
         return this.authService.logout(data).subscribe(res => {
+
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+
             if (res.logout) {
                 this.router.navigate(['/login']);
             } else {
@@ -32,7 +36,7 @@ export class LogoutComponent implements OnInit {
         }, error => {
             console.log(error);
             if (error.status === 401) {
-                localStorage.removeItem('Token');
+                localStorage.removeItem('token');
                 localStorage.removeItem('user');
                 this.authService.authorizationLogin.emit('');
                 this.router.navigate(['auth/login']);
