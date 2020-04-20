@@ -30,7 +30,9 @@
 
                 <button disabled class="btn btn-secondary margin-l-10">Editar demanda</button>
 
-                <button *ngIf="currentUser.user.role == 10" class="btn btn-danger margin-l-10" (click)="destroyDemand()">Excluir demanda</button>
+                <button *ngIf="currentUser.user.role == 10" class="btn btn-danger margin-l-10"
+                        (click)="destroyDemand()">Excluir demanda
+                </button>
             </div>
         </div>
 
@@ -93,7 +95,7 @@
                         <div class="col-lg-4" *ngIf="demand.company && !demand.demands_syndicates.length">
                             <h6 class="card-label mb-2 text-muted">Razão social</h6>
                             <h5 class="card-text">
-                                {{demand.company.name}}
+                                {{demand.company.name ? demand.company.name : '---'}}
                             </h5>
                         </div>
 
@@ -220,4 +222,5 @@
 <app-demand-history [demandSelected]="demand" [openModal]="openModal">
 </app-demand-history>
 
-<app-demand-add-history (closeHistory)="getDemand(demandId)" [demandSelected]="demandAddSelected" [openModal]="openModalAddHistory"></app-demand-add-history>
+<app-demand-add-history (closeHistory)="getDemand(demandId)" [demandSelected]="demandAddSelected"
+                        [openModal]="openModalAddHistory"></app-demand-add-history>

@@ -29,7 +29,8 @@
                     </div>
                     <div class="card-group card-sindicato" *ngIf="demand.company && !demand.demands_syndicates.length">
                         <em>Razão social</em>
-                        <p class="card-text" matTooltip="{{demand.company.name}}">{{demand.company.name}}</p>
+                        <p class="card-text" matTooltip="{{demand.company.name}}">{{demand.company.name ?
+                            demand.company.name : '---'}}</p>
                     </div>
                     <div class="card-group card-sindicato" *ngIf="demand.council">
                         <em>{{demand.entity == 5 ? 'Grupo setorial' : 'Conselho' }}</em>
@@ -42,7 +43,8 @@
                     </div>
                     <div class="card-group card-status">
                         <em>Status</em>
-                        <p class="badge background-status-{{demand.histories[0].status}}">
+                        <p matTooltip="{{demand.histories[0].status_label}}"
+                           class="badge background-status-{{demand.histories[0].status}}">
                             {{demand.histories[0].status_label}}
                         </p>
                     </div>
@@ -72,7 +74,8 @@
 
                     <div class="card-group card-sindicato" *ngIf="demand.company && demand.demands_syndicates.length">
                         <em>Razão social</em>
-                        <p class="card-text" matTooltip="{{demand.company.name}}">{{demand.company.name}}</p>
+                        <p class="card-text" matTooltip="{{demand.company.name}}">{{demand.company.name ?
+                            demand.company.name : '---'}}</p>
                     </div>
 
                     <div class="card-group card-categoria">
