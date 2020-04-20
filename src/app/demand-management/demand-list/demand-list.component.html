@@ -36,6 +36,12 @@
                         <em>{{demand.entity == 5 ? 'Grupo setorial' : 'Conselho' }}</em>
                         <p class="card-text" matTooltip="{{demand.council.name}}">{{demand.council.name}}</p>
                     </div>
+
+                    <div class="card-group card-sindicato" *ngIf="demand.entity.id == 8">
+                        <em></em>
+                        <p class="card-text"></p>
+                    </div>
+
                     <div class="card-group card-sindicato" *ngIf="demand.demands_syndicates.length">
                         <em>Sindicato</em>
                         <p class="card-text" matTooltip="{{item.initial}}"
