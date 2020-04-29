@@ -20,13 +20,16 @@
                             demanda?'}}</label>
                         <select formControlName="syndicate_permission" name="" id="" class="form-control">
                             <option value="" disabled>Selecione</option>
-                            <option value="0">Não</option>
+                            <option value="2">Não</option>
                             <option value="1">Sim</option>
                         </select>
                     </div>
                 </div>
                 <div class="row"
-                     *ngIf="(formStatus.get('syndicate_permission')?.value == 1 && permissionSyndicate) || ((demandSelected?.entity_id == 2 && demandSelected?.permission_syndicate == 1) || (demandSelected?.entity_id == 3 && demandSelected?.permission_syndicate == 1)) || (this.demandSelected?.entity_id != 2 && this.demandSelected?.entity_id != 3)">
+                     *ngIf="(formStatus.get('syndicate_permission')?.value == 1 && permissionSyndicate) ||
+                     ((demandSelected?.entity_id == 2 && (demandSelected?.permission_syndicate == 1 || demandSelected?.permission_syndicate == 3)) ||
+                     (demandSelected?.entity_id == 3 && demandSelected?.permission_syndicate == 1)) ||
+                     (this.demandSelected?.entity_id != 2 && this.demandSelected?.entity_id != 3)">
                     <div class="col form-group">
                         <label>Status <i class="color-required">*</i></label>
 
@@ -58,9 +61,10 @@
 
                 <div class="row"
                      *ngIf="
-                     (formStatus.get('syndicate_permission')?.value == 1 && permissionSyndicate) ||
-                     ((demandSelected?.entity_id == 2 && demandSelected?.permission_syndicate == 1) || (demandSelected?.entity_id == 3 && demandSelected?.permission_syndicate == 1))
-                     || (this.demandSelected?.entity_id != 2 && this.demandSelected?.entity_id != 3)">
+                     (permissionSyndicate) ||
+                     ((demandSelected?.entity_id == 2 && (demandSelected?.permission_syndicate == 1 || demandSelected?.permission_syndicate == 3)) ||
+                     (demandSelected?.entity_id == 3 && demandSelected?.permission_syndicate == 1)) ||
+                     (this.demandSelected?.entity_id != 2 && this.demandSelected?.entity_id != 3)">
                     <div class="col form-group">
                         <label>Comentário <i class="color-required">*</i></label>
                         <textarea formControlName="comment"

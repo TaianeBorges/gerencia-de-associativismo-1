@@ -246,7 +246,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
         this.formStatus.get('status').setValidators([]);
         this.formStatus.get('forwarded_to_the_technical_area.emails').setValidators([]);
 
-        if (!this.formStatus.get('status').value) {
+        if (!this.formStatus.get('status').value && this.formStatus.get('syndicate_permission').value == 1) {
             this.formStatus.get('status').setValidators([Validators.required]);
         }
 
