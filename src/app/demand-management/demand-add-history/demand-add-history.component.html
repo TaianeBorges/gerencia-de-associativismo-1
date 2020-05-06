@@ -16,8 +16,11 @@
                 <div class="row"
                      *ngIf="(demandSelected?.entity_id == 2 || demandSelected?.entity_id == 3) && (demandSelected?.permission_syndicate == null)">
                     <div class="col form-group">
-                        <label>{{demandSelected.entity_id == 3 ? 'A Empresa foi consultada?' : 'Sindicato autorizou a
-                            demanda?'}}</label>
+                        <label>
+                            {{demandSelected.entity_id == 3 ?
+                            'Empresa está apta?' :
+                            'O Sindicato aprovou o atendimento da demanda?'}}
+                        </label>
                         <select formControlName="syndicate_permission" name="" id="" class="form-control">
                             <option value="" disabled>Selecione</option>
                             <option value="2">Não</option>
@@ -60,8 +63,7 @@
                 </div>
 
                 <div class="row"
-                     *ngIf="
-                     (permissionSyndicate) ||
+                     *ngIf="(formStatus.get('syndicate_permission')?.value == 1 && permissionSyndicate) ||
                      ((demandSelected?.entity_id == 2 && (demandSelected?.permission_syndicate == 1 || demandSelected?.permission_syndicate == 3)) ||
                      (demandSelected?.entity_id == 3 && demandSelected?.permission_syndicate == 1)) ||
                      (this.demandSelected?.entity_id != 2 && this.demandSelected?.entity_id != 3)">
@@ -70,6 +72,17 @@
                         <textarea formControlName="comment"
                                   class="form-control"
                                   [ngClass]="{'is-invalid': formStatus.get('comment').errors && formStatus.get('comment').touched }"
+                        ></textarea>
+                    </div>
+                </div>
+
+                <div class="row"
+                     *ngIf="formStatus.get('syndicate_permission').value == 2">
+                    <div class="col form-group">
+                        <label>Justificativa <i class="color-required">*</i></label>
+                        <textarea formControlName="justification"
+                                  class="form-control"
+                                  [ngClass]="{'is-invalid': formStatus.get('justification').errors && formStatus.get('justification').touched }"
                         ></textarea>
                     </div>
                 </div>

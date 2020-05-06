@@ -149,12 +149,13 @@
                     </div>
 
                     <div class="row margin-t-30">
-                        <div class="col-lg-4">
+                        <div class="col-lg-4" *ngIf="demand.demand_subcategory.demand_category.id == 4">
                             <h6 class="card-label mb-2 text-muted">Do que se trata?</h6>
                             <h5 *ngIf="!demand.demands_scopes.length">--</h5>
                             <h5 class="card-text" *ngFor="let item of demand.demands_scopes">{{item.name}}</h5>
                         </div>
                     </div>
+
                     <div class="row margin-t-30">
                         <div class="col-lg-8">
                             <h6 class="card-label mb-2 text-muted">Descrição</h6>
@@ -164,6 +165,39 @@
                 </div>
             </div>
         </div>
+
+        <div class="demand-card-group" *ngIf="demand.entity_id == 2 || demand.entity_id == 3">
+            <h3>Condição para atendimento </h3>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h6 class="card-label mb-2 text-muted">
+                                {{demand.entity_id == 2 ? 'O Sindicato aprovou o atendimento da demanda?' : 'Empresa
+                                está apta?'}}
+                            </h6>
+                            <p class="card-text" *ngIf="demand.entity_id == 2 && demand.permission_syndicate != null">
+                                {{demand.permission_syndicate == 1 ? 'Aprovado' : ( demand.permission_syndicate == 3 ?
+                                'Sem necessidade de aprovação' : 'Não aprovado')}}
+                            </p>
+                            <p class="card-text" *ngIf="demand.entity_id == 3 && demand.permission_syndicate != null">
+                                {{demand.permission_syndicate == 1 ? 'Apta' : 'Inapta'}}
+                            </p>
+
+                            <p class="card-text" *ngIf="demand.permission_syndicate == null">
+                                Aguardando aprovação.
+                            </p>
+                        </div>
+                        <div class="col-lg-6">
+                            <h6 class="card-label mb-2 text-muted">Justificativa</h6>
+                            <p class="card-text">{{demand.justification ? demand.justification : '--'}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <div class="demand-card-group"
              *ngIf="demand.demand_subcategory.demand_category.id == 4">
