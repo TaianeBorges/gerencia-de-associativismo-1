@@ -23,13 +23,15 @@
                         </label>
                         <select formControlName="syndicate_permission" name="" id="" class="form-control">
                             <option value="" disabled>Selecione</option>
+                            <option value="3" *ngIf="demandSelected?.entity_id == 2">Sem necessidade de aprovação
+                            </option>
                             <option value="2">Não</option>
                             <option value="1">Sim</option>
                         </select>
                     </div>
                 </div>
                 <div class="row"
-                     *ngIf="(formStatus.get('syndicate_permission')?.value == 1 && permissionSyndicate) ||
+                     *ngIf="((formStatus.get('syndicate_permission')?.value == 1 || formStatus.get('syndicate_permission')?.value == 3) && permissionSyndicate) ||
                      ((demandSelected?.entity_id == 2 && (demandSelected?.permission_syndicate == 1 || demandSelected?.permission_syndicate == 3)) ||
                      (demandSelected?.entity_id == 3 && demandSelected?.permission_syndicate == 1)) ||
                      (this.demandSelected?.entity_id != 2 && this.demandSelected?.entity_id != 3)">
@@ -63,7 +65,7 @@
                 </div>
 
                 <div class="row"
-                     *ngIf="(formStatus.get('syndicate_permission')?.value == 1 && permissionSyndicate) ||
+                     *ngIf="((formStatus.get('syndicate_permission')?.value == 1 || formStatus.get('syndicate_permission')?.value == 3)&& permissionSyndicate) ||
                      ((demandSelected?.entity_id == 2 && (demandSelected?.permission_syndicate == 1 || demandSelected?.permission_syndicate == 3)) ||
                      (demandSelected?.entity_id == 3 && demandSelected?.permission_syndicate == 1)) ||
                      (this.demandSelected?.entity_id != 2 && this.demandSelected?.entity_id != 3)">
@@ -77,7 +79,7 @@
                 </div>
 
                 <div class="row"
-                     *ngIf="formStatus.get('syndicate_permission').value == 2">
+                     *ngIf="formStatus.get('syndicate_permission').value == 2 || formStatus.get('syndicate_permission').value == 3">
                     <div class="col form-group">
                         <label>Justificativa <i class="color-required">*</i></label>
                         <textarea formControlName="justification"
