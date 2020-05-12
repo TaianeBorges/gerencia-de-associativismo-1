@@ -191,7 +191,8 @@
                         </div>
                         <div class="col-lg-6">
                             <h6 class="card-label mb-2 text-muted">Justificativa</h6>
-                            <p class="card-text">{{demand.justification ? demand.justification : '--'}}</p>
+                            <p class="card-text" [innerHTML]="demand.justification"></p>
+                            <h5 class="card-text" *ngIf="demand.justification === ''">--</h5>
                         </div>
                     </div>
                 </div>

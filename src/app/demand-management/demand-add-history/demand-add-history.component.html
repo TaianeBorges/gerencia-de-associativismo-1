@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="row"
-                     *ngIf="((formStatus.get('syndicate_permission')?.value == 1 || formStatus.get('syndicate_permission')?.value == 3) && permissionSyndicate) ||
+                     *ngIf="((formStatus.get('syndicate_permission')?.value == 1) && permissionSyndicate) ||
                      ((demandSelected?.entity_id == 2 && (demandSelected?.permission_syndicate == 1 || demandSelected?.permission_syndicate == 3)) ||
                      (demandSelected?.entity_id == 3 && demandSelected?.permission_syndicate == 1)) ||
                      (this.demandSelected?.entity_id != 2 && this.demandSelected?.entity_id != 3)">
@@ -65,7 +65,7 @@
                 </div>
 
                 <div class="row"
-                     *ngIf="((formStatus.get('syndicate_permission')?.value == 1 || formStatus.get('syndicate_permission')?.value == 3)&& permissionSyndicate) ||
+                     *ngIf="((formStatus.get('syndicate_permission')?.value == 1) && permissionSyndicate) ||
                      ((demandSelected?.entity_id == 2 && (demandSelected?.permission_syndicate == 1 || demandSelected?.permission_syndicate == 3)) ||
                      (demandSelected?.entity_id == 3 && demandSelected?.permission_syndicate == 1)) ||
                      (this.demandSelected?.entity_id != 2 && this.demandSelected?.entity_id != 3)">
@@ -79,7 +79,7 @@
                 </div>
 
                 <div class="row"
-                     *ngIf="formStatus.get('syndicate_permission').value == 2 || formStatus.get('syndicate_permission').value == 3">
+                     *ngIf="(formStatus.get('syndicate_permission').value == 2 || formStatus.get('syndicate_permission').value == 3)  && (demandSelected?.permission_syndicate == null)">
                     <div class="col form-group">
                         <label>Justificativa <i class="color-required">*</i></label>
                         <textarea formControlName="justification"

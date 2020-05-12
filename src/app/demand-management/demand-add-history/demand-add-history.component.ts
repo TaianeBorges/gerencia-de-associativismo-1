@@ -186,6 +186,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
             this.formStatus.get('comment').reset();
             this.formStatus.get('demand_id').reset();
             this.formStatus.get('justification').reset();
+            this.formStatus.get('syndicate_permission').reset();
 
             this.formStatus.get('demand_id').setValue(this.demandSelected.id);
             this.getStatus();
@@ -256,7 +257,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
         this.formStatus.get('comment').setValidators([]);
         this.formStatus.get('justification').setValidators([]);
 
-        if (!this.formStatus.get('status').value && (this.formStatus.get('syndicate_permission').value == 1 || this.formStatus.get('syndicate_permission').value == 3)) {
+        if (!this.formStatus.get('status').value && this.formStatus.get('syndicate_permission').value == 1) {
             this.formStatus.get('status').setValidators([Validators.required]);
             this.formStatus.get('comment').setValidators([Validators.required]);
         }
@@ -278,7 +279,6 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     onSubmit(form: any) {
-
         this.formStatus.markAllAsTouched();
 
         this.validationsFormDemand();
@@ -295,6 +295,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
                     this.formStatus.get('comment').reset();
                     this.formStatus.get('demand_id').reset();
                     this.formStatus.get('justification').reset();
+                    this.formStatus.get('syndicate_permission').reset();
                     this.modalRef.hide();
                     this.closeHistory.emit(true);
 
