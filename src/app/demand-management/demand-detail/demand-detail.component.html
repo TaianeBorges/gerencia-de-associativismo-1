@@ -29,7 +29,7 @@
                 </button>
 
                 <a [routerLink]="['/gestao-de-demandas/demanda/'+demand.id+'/editar']" routerLinkActive="false"
-                   class="btn btn-secondary margin-l-10">
+                   class="btn btn-secondary margin-l-10" *ngIf="demand.histories[demand.histories.length - 1].user_id == currentUser.user.id || currentUser.user.role === 10">
                     Editar demanda
                 </a>
 
