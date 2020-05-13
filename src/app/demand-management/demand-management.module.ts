@@ -16,6 +16,7 @@ import {DemandAddComponent} from './demand-add/demand-add.component';
 import {DemandExcelComponent} from './demand-excel/demand-excel.component';
 import {ExcelService} from './demand-excel/demand-excel.service';
 import {MatTooltipModule} from '@angular/material';
+import { DemandEditComponent } from './demand-edit/demand-edit.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {MatTooltipModule} from '@angular/material';
         DemandFilterComponent,
         DemandAddHistoryComponent,
         DemandAddComponent,
-        DemandExcelComponent
+        DemandExcelComponent,
+        DemandEditComponent
     ],
     imports: [
         CommonModule,

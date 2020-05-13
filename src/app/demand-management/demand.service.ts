@@ -139,6 +139,14 @@ export class DemandService {
         );
     }
 
+    updateDemand(data): Observable<any> {
+        return this.http.post(`${environment.apiUrl}/demandas/editar`, data, this.httpOptions).pipe(
+            map(res => {
+                return res;
+            })
+        );
+    }
+
     getAreasTecnicas(): Observable<any> {
         return this.http.get(`${environment.apiUrl}/areas_tecnicas`, this.httpOptions)
             .pipe(
