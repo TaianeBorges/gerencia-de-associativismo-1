@@ -310,7 +310,9 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             }),
             oe_subcategory: new FormControl(''),
             oe_category: new FormControl(''),
-            regional_id: new FormControl('')
+            regional_id: new FormControl(''),
+            justification: new FormControl(''),
+            theme: new FormControl(0)
         });
 
         this.userService.getUserAuthenticated().subscribe(res => {
@@ -444,8 +446,10 @@ export class DemandAddComponent implements OnInit, OnDestroy {
 
         let entity = this.formDemand.get('entity_id').value;
         let demandCategory = this.formDemand.get('demand_category').value;
+        let syndicatePermission = this.formDemand.get('syndicate_permission').value;
         entity = +entity;
         demandCategory = +demandCategory;
+        syndicatePermission = +syndicatePermission;
 
         this.formDemand.get('syndicates_ids').setValidators([]);
         this.formDemand.get('company.cnpj').setValidators([]);
@@ -455,6 +459,8 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         this.formDemand.get('forwarded_to_the_technical_area.emails').setValidators([]);
         this.formDemand.get('oe_category').setValidators([]);
         this.formDemand.get('oe_subcategory').setValidators([]);
+        this.formDemand.get('justification').setValidators([]);
+
         // Sindicato
         if (entity && (entity === 1 || entity === 2)) {
             this.formDemand.get('syndicates_ids').setValidators([Validators.required]);
@@ -463,6 +469,10 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         // Empresa associada a sindicato
         if (entity && entity === 2) {
             this.formDemand.get('company.cnpj').setValidators([Validators.required]);
+        }
+
+        if (entity && entity === 2 && (syndicatePermission === 3 || syndicatePermission === 2)) {
+            this.formDemand.get('justification').setValidators([Validators.required]);
         }
 
         // Conselho regional
@@ -489,6 +499,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
         this.formDemand.get('type').updateValueAndValidity();
         this.formDemand.get('oe_category').updateValueAndValidity();
         this.formDemand.get('oe_subcategory').updateValueAndValidity();
+        this.formDemand.get('justification').updateValueAndValidity();
 
         if (this.formDemand.get('forwarded_to_the_technical_area.check_forwarded').value) {
             this.formDemand.get('forwarded_to_the_technical_area.emails').setValidators([Validators.required]);
@@ -498,6 +509,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     }
 
     onSubmit(form) {
+
 
         this.formDemand.markAllAsTouched();
 

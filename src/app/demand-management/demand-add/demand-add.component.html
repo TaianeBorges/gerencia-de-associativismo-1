@@ -137,20 +137,6 @@
 
                     <div class="row"
                          *ngIf="(currentUser && currentUser.user) && formDemand.get('entity_id') && (formDemand.get('entity_id').value == 2 || formDemand.get('entity_id').value == 3)">
-                        <div class="form-group col-lg-4"
-                             *ngIf="formDemand.get('entity_id') && formDemand.get('entity_id').value == 2">
-                            <label class="card-label mb-2 text-muted">Sindicato aprovou a demanda? <i
-                                    class="color-required">*</i></label>
-                            <select class="form-control"
-                                    formControlName="syndicate_permission"
-                                    [ngClass]="{'is-invalid': formDemand.get('syndicate_permission').errors && formDemand.get('syndicate_permission').touched}">
-                                <option value="" disabled selected>Selecione a opção</option>
-                                <option value="">Não foi consultado</option>
-                                <option value="0">Não</option>
-                                <option value="1">Sim</option>
-                            </select>
-                        </div>
-
                         <div formGroupName="company" class="col-lg-8">
                             <div class="row">
                                 <div class="form-group col-lg-6">
@@ -195,15 +181,50 @@
                             </ng2-selectize>
                         </div>
                     </div>
-                    <div class="row"
-                         *ngIf="formDemand.get('demand_category').value && formDemand.get('demand_category').value == 4">
+                    <div class="row">
                         <div class="form-group col-lg-4">
+                            <label class="card-label mb-2 text-muted">Demanda relacionada ao tema COVID 19?</label>
+                            <select class="form-control" formControlName="theme">
+                                <option value="0">Não</option>
+                                <option value="1">Sim</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-lg-4"
+                             *ngIf="formDemand.get('demand_category').value && formDemand.get('demand_category').value == 4">
                             <label class="card-label mb-2 text-muted">Do que se trata?</label>
                             <ng2-selectize formControlName="scope"
                                            [ngClass]="{'is-invalid': formDemand.get('scope').errors && formDemand.get('scope').touched }"
                                            class="selectize-scope" [config]="configScope" [options]="optionsScope"
                                            placeholder="Selecione">
                             </ng2-selectize>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-lg-4"
+                             *ngIf="formDemand.get('entity_id') && formDemand.get('entity_id').value == 2">
+                            <label class="card-label mb-2 text-muted">Sindicato aprovou a demanda? <i
+                                    class="color-required">*</i></label>
+                            <select class="form-control"
+                                    formControlName="syndicate_permission"
+                                    [ngClass]="{'is-invalid': formDemand.get('syndicate_permission').errors && formDemand.get('syndicate_permission').touched}">
+                                <option value="" disabled selected>Selecione a opção</option>
+                                <option value="">Não foi consultado</option>
+                                <option value="3">Sem necessidade de aprovação</option>
+                                <option value="2">Não</option>
+                                <option value="1">Sim</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-lg-8"
+                             *ngIf="formDemand.get('syndicate_permission') && (formDemand.get('syndicate_permission').value === '3' || formDemand.get('syndicate_permission').value === '2')">
+                            <label class="card-label mb-2 text-muted">Justificativa <i
+                                    class="color-required">*</i></label>
+                            <textarea class="form-control" formControlName="justification"
+                                      [ngClass]="{'is-invalid': formDemand.get('justification').errors && formDemand.get('justification').touched }"></textarea>
                         </div>
                     </div>
                     <div class="row">

@@ -144,7 +144,8 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
                 managements: [],
                 check_forwarded: new FormControl(false),
                 emails: []
-            })
+            }),
+            justification: new FormControl('')
         });
 
         this.getManagements();
@@ -178,6 +179,14 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
 
     open() {
         if (this.demandSelected) {
+
+            this.formStatus.get('status').reset();
+            this.formStatus.get('cost').reset();
+            this.formStatus.get('time_period').reset();
+            this.formStatus.get('comment').reset();
+            this.formStatus.get('demand_id').reset();
+            this.formStatus.get('justification').reset();
+            this.formStatus.get('syndicate_permission').reset();
 
             this.formStatus.get('demand_id').setValue(this.demandSelected.id);
             this.getStatus();
@@ -245,9 +254,17 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
     validationsFormDemand() {
         this.formStatus.get('status').setValidators([]);
         this.formStatus.get('forwarded_to_the_technical_area.emails').setValidators([]);
+        this.formStatus.get('comment').setValidators([]);
+        this.formStatus.get('justification').setValidators([]);
 
-        if (!this.formStatus.get('status').value) {
+        if (!this.formStatus.get('status').value && this.formStatus.get('syndicate_permission').value == 1) {
             this.formStatus.get('status').setValidators([Validators.required]);
+            this.formStatus.get('comment').setValidators([Validators.required]);
+        }
+
+        if (this.formStatus.get('syndicate_permission').value == 3 || this.formStatus.get('syndicate_permission').value == 2) {
+            this.formStatus.get('justification').setValidators([Validators.required]);
+
         }
 
         if (this.formStatus.get('forwarded_to_the_technical_area.check_forwarded').value && !this.optionsForwardEmails.length) {
@@ -256,10 +273,12 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
 
         this.formStatus.get('forwarded_to_the_technical_area.emails').updateValueAndValidity();
         this.formStatus.get('status').updateValueAndValidity();
+        this.formStatus.get('comment').updateValueAndValidity();
+        this.formStatus.get('justification').updateValueAndValidity();
+
     }
 
     onSubmit(form: any) {
-
         this.formStatus.markAllAsTouched();
 
         this.validationsFormDemand();
@@ -275,6 +294,8 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
                     this.formStatus.get('time_period').reset();
                     this.formStatus.get('comment').reset();
                     this.formStatus.get('demand_id').reset();
+                    this.formStatus.get('justification').reset();
+                    this.formStatus.get('syndicate_permission').reset();
                     this.modalRef.hide();
                     this.closeHistory.emit(true);
 

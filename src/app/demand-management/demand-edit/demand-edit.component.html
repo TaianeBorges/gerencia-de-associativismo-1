@@ -1,0 +1,296 @@
+<app-alerts></app-alerts>
+<div class="demand-edit-container">
+    <form *ngIf="demand" [formGroup]="formDemand" (ngSubmit)="onSubmit(formDemand)" autocomplete="off">
+        <div class="demand-detail-container">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/gestao-de-demandas/lista-de-demandas']">Lista de demandas</a>
+                        </li>
+                        <li class="breadcrumb-item" aria-current="page">
+                            <a [routerLink]="['/gestao-de-demandas/demanda/', demand.id]">Demanda #{{demand.id}}</a>
+                        </li>
+                        <li class="breadcrumb-item active">Editar</li>
+                    </ol>
+                </nav>
+
+                <div class="row">
+                    <div class="col text-right">
+                        <button *ngIf="currentUser.user.role == 10" class="btn btn-danger margin-l-10"
+                                (click)="destroyDemand()">Excluir demanda
+                        </button>
+                    </div>
+                </div>
+
+                <div class="demand-card-group">
+                    <h3>Dados do solicitante</h3>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <h6 class="card-label mb-2 text-muted">Nome</h6>
+                                    <h5 class="card-text">{{demand.demand_requester.name}}</h5>
+                                </div>
+                                <div class="col-lg-4">
+                                    <h6 class="card-label mb-2 text-muted">Último nome</h6>
+                                    <h5 class="card-text">{{demand.demand_requester.last_name}}</h5>
+                                </div>
+                                <div class="col-lg-4">
+                                    <h6 class="card-label mb-2 text-muted">E-mail</h6>
+                                    <h5 class="card-text"
+                                        *ngFor="let item of demand.demand_requester.demand_requesters_emails">
+                                        {{item.email}}
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demand-card-group">
+                    <h3>Dados gerais</h3>
+
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div class="row" *ngIf="demand.regional_id">
+                                <div class="col-lg-4">
+                                    <h6 class="card-label mb-2 text-muted">Regional</h6>
+                                    <h5 class="card-text">{{demand.regional.name}}</h5>
+                                </div>
+                            </div>
+
+                            <div class="row" [ngClass]="{' margin-t-30': demand.regional_id}">
+                                <div class="col-lg-4">
+                                    <h6 class="card-label mb-2 text-muted">Entidade</h6>
+                                    <h5 class="card-text">{{demand.entity.name}}</h5>
+                                </div>
+
+                                <div class="col-lg-4" *ngIf="demand.council">
+                                    <h6 class="card-label mb-2 text-muted">Conselho</h6>
+                                    <h5>{{demand.council.name}}</h5>
+                                </div>
+
+                                <div class="col-lg-4" *ngIf="demand.demands_syndicates.length">
+                                    <h6 class="card-label mb-2 text-muted">Sindicatos</h6>
+                                    <h5 class="card-text" *ngFor="let item of demand.demands_syndicates">
+                                        {{item.initial}}
+                                    </h5>
+                                </div>
+
+                                <div class="col-lg-4" *ngIf="demand.company && !demand.demands_syndicates.length">
+                                    <h6 class="card-label mb-2 text-muted">Razão social</h6>
+                                    <h5 class="card-text">
+                                        {{demand.company.name ? demand.company.name : '---'}}
+                                    </h5>
+                                </div>
+
+                                <div class="col-lg-4" *ngIf="demand.company && !demand.demands_syndicates.length">
+                                    <h6 class="card-label mb-2 text-muted">CNPJ</h6>
+                                    <h5 class="card-text">
+                                        {{demand.company.cnpj}}
+                                    </h5>
+                                </div>
+                            </div>
+
+                            <div class="row margin-t-30">
+                                <div class="col-lg-4">
+                                    <h6 class="card-label mb-2 text-muted">Prazo</h6>
+                                    <h5 class="card-text">
+                                        {{demand.time_period ? (demand.time_period | date:'d MMM, y') : (timePeriod ?
+                                        (timePeriod | date:'d MMM, y') : '---')}}
+                                    </h5>
+                                </div>
+                                <div class="col-lg-4">
+                                    <h6 class="card-label mb-2 text-muted">Soma de todos os custos</h6>
+                                    <h5 class="card-text">R$ {{total ? (total | currency) : "0,00" }}</h5>
+                                </div>
+                            </div>
+
+                            <div class="row margin-t-30" *ngIf="demand.company && demand.demands_syndicates.length">
+                                <div class="col-lg-4">
+                                    <h6 class="card-label mb-2 text-muted">Razão social</h6>
+                                    <h5 class="card-text">
+                                        {{demand.company.name}}
+                                    </h5>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <h6 class="card-label mb-2 text-muted">CNPJ</h6>
+                                    <h5 class="card-text">
+                                        {{demand.company.cnpj}}
+                                    </h5>
+                                </div>
+                            </div>
+
+                            <div class="row margin-t-30">
+                                <div class="col-lg-4">
+                                    <h6 class="card-label mb-2 text-muted">Categoria</h6>
+                                    <h5 class="card-text">{{demand.demand_subcategory.demand_category.name}}</h5>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <h6 class="card-label mb-2 text-muted">Subcategoria</h6>
+                                    <h5 class="card-text">{{demand.demand_subcategory.name}}</h5>
+                                </div>
+
+                                <!--<div class="form-group col-lg-4">-->
+                                    <!--<label class="card-label mb-2 text-muted">Categoria <i class="color-required">*</i></label>-->
+                                    <!--<ng2-selectize formControlName="demand_category"-->
+                                                   <!--[ngClass]="{'is-invalid': formDemand.get('demand_category').errors && formDemand.get('demand_category').touched }"-->
+                                                   <!--class="selectize-category" [config]="configCategory"-->
+                                                   <!--[(ngModel)]="category"-->
+                                                   <!--[options]="optionsCategory"-->
+                                                   <!--placeholder="Selecione a categoria">-->
+                                    <!--</ng2-selectize>-->
+                                <!--</div>-->
+
+                                <!--<div class="form-group col-lg-4">-->
+                                    <!--<label class="card-label mb-2 text-muted">Subcategoria da demanda <i-->
+                                            <!--class="color-required">*</i></label>-->
+                                    <!--<ng2-selectize formControlName="demand_subcategory"-->
+                                                   <!--[ngClass]="{'is-invalid': formDemand.get('demand_subcategory').errors && formDemand.get('demand_subcategory').touched }"-->
+                                                   <!--class="selectize-subcategory"-->
+                                                   <!--[(ngModel)]="subcategory"-->
+                                                   <!--[config]="configSubcategory"-->
+                                                   <!--[options]="optionsSubcategory"-->
+                                                   <!--placeholder="Selecione a subcategoria">-->
+                                    <!--</ng2-selectize>-->
+                                <!--</div>-->
+                            </div>
+
+                            <div class="row margin-t-30">
+                                <div class="form-group col-lg-4">
+                                    <label class="card-label mb-2 text-muted">Demanda relacionada ao tema COVID
+                                        19?</label>
+                                    <select class="form-control" formControlName="theme">
+                                        <option value="0">Não</option>
+                                        <option value="1">Sim</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="col-lg-4" *ngIf="demand.demand_subcategory.demand_category.id == 4">
+                                    <h6 class="card-label mb-2 text-muted">Do que se trata?</h6>
+                                    <h5 *ngIf="!demand.demands_scopes.length">--</h5>
+                                    <h5 class="card-text" *ngFor="let item of demand.demands_scopes">{{item.name}}</h5>
+                                </div>
+                            </div>
+
+                            <div class="row margin-t-30">
+                                <div class="col-lg-8">
+                                    <h6 class="card-label mb-2 text-muted">
+                                        Descrição <i class="color-required">*</i>
+                                    </h6>
+                                    <textarea class="form-control"
+                                              [ngClass]="{'is-invalid': formDemand.get('description').errors && formDemand.get('description').touched }"
+                                              formControlName="description">
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demand-card-group" *ngIf="demand.entity_id == 2 || demand.entity_id == 3">
+                    <h3>Condição para atendimento </h3>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h6 class="card-label mb-2 text-muted">
+                                        {{demand.entity_id == 2 ? 'O Sindicato aprovou o atendimento da demanda?' :
+                                        'Empresa
+                                        está apta?'}}
+                                    </h6>
+                                    <p class="card-text"
+                                       *ngIf="demand.entity_id == 2 && demand.permission_syndicate != null">
+                                        {{demand.permission_syndicate == 1 ? 'Aprovado' : ( demand.permission_syndicate
+                                        == 3
+                                        ?
+                                        'Sem necessidade de aprovação' : 'Não aprovado')}}
+                                    </p>
+                                    <p class="card-text"
+                                       *ngIf="demand.entity_id == 3 && demand.permission_syndicate != null">
+                                        {{demand.permission_syndicate == 1 ? 'Apta' : 'Inapta'}}
+                                    </p>
+
+                                    <p class="card-text" *ngIf="demand.permission_syndicate == null">
+                                        Aguardando aprovação.
+                                    </p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <h6 class="card-label mb-2 text-muted">Justificativa</h6>
+                                    <p class="card-text" [innerHTML]="demand.justification"></p>
+                                    <h5 class="card-text" *ngIf="demand.justification === ''">--</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="demand-card-group"
+                     *ngIf="demand.demand_subcategory.demand_category.id == 4">
+                    <h3>Objetivo estratégico</h3>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <h6 class="card-label mb-2 text-muted">Categoria</h6>
+                                    <h5 class="card-text">
+                                        {{!demand.strategic_objective_subcategory ? "--" :
+                                        demand.strategic_objective_subcategory?.strategic_objective_category?.name}}
+                                    </h5>
+                                </div>
+                                <div class="col-lg-4">
+                                    <h6 class="card-label mb-2 text-muted">Subcategoria</h6>
+                                    <h5 class="card-text">
+                                        {{!demand.strategic_objective_subcategory ? "--" :
+                                        demand?.strategic_objective_subcategory?.name}}
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demand-card-group">
+                    <h3>Encaminhamento</h3>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <h6 class="card-label mb-2 text-muted">Foi encaminhado?</h6>
+                                    <h5 class="card-text">
+                                        <input type="checkbox" disabled
+                                               [checked]="demand.forwarded_to_the_technical_area">
+                                        <label for="" class="margin-l-10">{{demand.forwarded_to_the_technical_area ?
+                                            'Foi' :
+                                            'Não foi'}} encaminhado</label>
+                                    </h5>
+                                </div>
+                                <div class="col-lg-6">
+                                    <h6 class="card-label mb-2 text-muted">Historico de e-mails</h6>
+                                    <p class="card-text" *ngFor="let item of demand.demands_users">{{item.email}} -
+                                        <small>{{item.pivot.created_at | date:'dd/MM/yyyy'}}</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group margin-t-50 margin-b-50 text-right">
+                <button type="submit" class="btn btn-primary btn-lg">Atualizar</button>
+            </div>
+        </div>
+    </form>
+</div>
