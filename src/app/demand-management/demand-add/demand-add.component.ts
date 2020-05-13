@@ -311,7 +311,8 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             oe_subcategory: new FormControl(''),
             oe_category: new FormControl(''),
             regional_id: new FormControl(''),
-            justification: new FormControl('')
+            justification: new FormControl(''),
+            theme: new FormControl(0)
         });
 
         this.userService.getUserAuthenticated().subscribe(res => {

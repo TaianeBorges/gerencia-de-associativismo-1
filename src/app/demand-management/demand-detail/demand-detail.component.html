@@ -149,6 +149,11 @@
                     </div>
 
                     <div class="row margin-t-30">
+                        <div class="col-lg-4">
+                            <h6 class="card-label mb-2 text-muted">Demanda relacionada ao tema COVID 19?</h6>
+                            <h5 class="card-text">{{demand.theme ? 'Sim' : 'Não'}}</h5>
+                        </div>
+
                         <div class="col-lg-4" *ngIf="demand.demand_subcategory.demand_category.id == 4">
                             <h6 class="card-label mb-2 text-muted">Do que se trata?</h6>
                             <h5 *ngIf="!demand.demands_scopes.length">--</h5>
