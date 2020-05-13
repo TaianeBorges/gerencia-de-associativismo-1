@@ -17,7 +17,14 @@ export class SharedsService {
     }
 
     setTitle(value) {
-        this.titleService.setTitle(value);
+
+        let title = value;
+
+        if (value.indexOf('<p matTooltip') !== -1) {
+            title = value.substr(0, value.indexOf('<p matTooltip'));
+        }
+
+        this.titleService.setTitle(title);
         this.titlePage.emit(value);
     }
 }
