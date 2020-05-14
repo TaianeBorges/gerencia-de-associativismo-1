@@ -180,6 +180,8 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
     open() {
         if (this.demandSelected) {
 
+            this.formControlCurrency = '';
+
             this.formStatus.get('status').reset();
             this.formStatus.get('cost').reset();
             this.formStatus.get('time_period').reset();

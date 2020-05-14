@@ -14,7 +14,9 @@
         <div class="modal-body">
             <div class="status-item padding-t-30 padding-b-30" *ngIf="formStatus">
                 <div class="row"
-                     *ngIf="(demandSelected?.entity_id == 2 || demandSelected?.entity_id == 3) && (demandSelected?.permission_syndicate == null)">
+                     *ngIf="(demandSelected?.entity_id == 2 || demandSelected?.entity_id == 3) &&
+                      (demandSelected?.permission_syndicate == null) &&
+                      (currentUser?.role !== 3 && currentUser?.role !== 4 && currentUser?.role !== 5)">
                     <div class="col form-group">
                         <label>
                             {{demandSelected.entity_id == 3 ?

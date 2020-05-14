@@ -21,6 +21,7 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
     currentUser;
     timePeriod;
     destroyDemandServiceSubscribe: Subscription;
+    permissionUpdateDemand = true;
 
     constructor(
         private route: ActivatedRoute,
@@ -47,6 +48,7 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
                 if (res && res.permission) {
                     this.sharedService.setTitle(`Demanda #${this.demandId} <p matTooltip="${res.data[0].histories[0].status_label}" class="badge background-status-${res.data[0].histories[0].status}">${res.data[0].histories[0].status_label}</p>`);
 
+                    this.total = 0;
                     this.demand = res.data[0];
 
                     this.demand.histories.forEach(element => {
@@ -58,10 +60,28 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
                             this.timePeriod = element.time_period;
                         }
                     });
+
+                    this.getPermissionUpdateDemand();
+
                 } else {
                     this.router.navigate(['nao-autorizado']);
                 }
             });
+    }
+
+    getPermissionUpdateDemand() {
+
+        if ((this.currentUser.user.role !== 11 && this.currentUser.user.role !== 10) && !this.demand.permission_syndicate && this.demand.entity_id === 2) {
+            this.permissionUpdateDemand = false;
+        }
+
+        if ((this.currentUser.user.role !== 13 && this.currentUser.user.role !== 10) && !this.demand.permission_syndicate && this.demand.entity_id === 3) {
+            this.permissionUpdateDemand = false;
+        }
+
+        if ((this.demand.histories[0].status === 1 || this.demand.histories[0].status === 7 || this.demand.histories[0].status === 6 || this.demand.histories[0].status === 9)) {
+            this.permissionUpdateDemand = false;
+        }
     }
 
     addHistoryDemand(event, demand) {
