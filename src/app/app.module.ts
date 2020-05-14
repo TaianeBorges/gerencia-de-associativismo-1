@@ -1,12 +1,16 @@
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {APP_ROUTES} from './app.routes';
+import {registerLocaleData} from '@angular/common';
+import localeBr from '@angular/common/locales/pt';
+
+registerLocaleData(localeBr, 'pt');
 
 // Modules
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
 import {MatProgressSpinnerModule} from '@angular/material';
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import {SharedModule} from './shared/shared.module';
@@ -53,7 +57,8 @@ import {UnauthorizedComponent} from './unauthorized/unauthorized.component';
             {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
             {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true},
             {provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true}
-        ]
+        ],
+        {provide: LOCALE_ID, useValue: 'pt'}
     ],
     bootstrap: [AppComponent],
     exports: []
