@@ -98,6 +98,25 @@ export class DemandListComponent implements OnInit, OnDestroy {
             });
     }
 
+    permissionUpdateDemand(demand): boolean {
+
+        let permission = true;
+
+        if ((this.currentUser.user.role !== 11 && this.currentUser.user.role !== 10) && !demand.permission_syndicate && demand.entity_id === 2) {
+            permission = false;
+        }
+
+        if ((this.currentUser.user.role !== 13 && this.currentUser.user.role !== 10) && !demand.permission_syndicate && demand.entity_id === 3) {
+            permission = false;
+        }
+
+        if ((demand.histories[0].status === 1 || demand.histories[0].status === 7 || demand.histories[0].status === 6 || demand.histories[0].status === 9)) {
+            permission = false;
+        }
+
+        return permission;
+    }
+
     closeModal(event) {
         // console.log(event);
     }

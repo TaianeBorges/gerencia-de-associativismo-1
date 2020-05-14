@@ -102,10 +102,7 @@
 
                 <a (click)="addHistoryDemand($event);" class="text-muted"
                    matTooltip="Não é possível adicionar status"
-                   *ngIf="
-                   (((currentUser.user.role !== 11 || currentUser.user.role !== 10) && !demand.permission_syndicate && demand.entity_id == 2) ||
-                   ((currentUser.user.role !== 13 || currentUser.user.role !== 10) && !demand.permission_syndicate && demand.entity_id == 3) ||
-                   (demand.histories[0].status === 1 || demand.histories[0].status === 7 || demand.histories[0].status === 6 || demand.histories[0].status === 9))">
+                   *ngIf="!permissionUpdateDemand(demand)">
                     <i class="material-icons">
                         add_circle_outline
                     </i>
@@ -113,10 +110,7 @@
                 <a (click)="addHistoryDemand($event); demandAddSelected = demand; openModalAddHistory = !openModalAddHistory"
                    class="color-entidade-{{demand.entity.id}}"
                    matTooltip="Adicionar status"
-                   *ngIf="
-                   !(((currentUser.user.role !== 11 || currentUser.user.role !== 10) && !demand.permission_syndicate && demand.entity_id == 2) ||
-                   ((currentUser.user.role !== 13 || currentUser.user.role !== 10) && !demand.permission_syndicate && demand.entity_id == 3) ||
-                   (demand.histories[0].status === 1 || demand.histories[0].status === 7 || demand.histories[0].status === 6 || demand.histories[0].status === 9))" >
+                   *ngIf="permissionUpdateDemand(demand)">
                     <i class="material-icons">
                         add_circle_outline
                     </i>
