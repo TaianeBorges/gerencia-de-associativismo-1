@@ -157,7 +157,8 @@ export class DemandFilterComponent implements OnInit {
             sector_id: new FormControl(''),
             company_name: new FormControl(''),
             regional_id: new FormControl(''),
-            page: new FormControl(1)
+            page: new FormControl(1),
+            theme: new FormControl('')
         });
 
         this.getEntity();
@@ -239,6 +240,7 @@ export class DemandFilterComponent implements OnInit {
         this.formFilter.get('sector_id').reset('');
         this.formFilter.get('company_name').reset('');
         this.formFilter.get('regional_id').reset('');
+        this.formFilter.get('theme').reset('');
 
         const valuesEntity = this.optionsEntity;
         this.optionsEntity = [];

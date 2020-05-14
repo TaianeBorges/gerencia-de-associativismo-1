@@ -58,6 +58,15 @@
                 </div>
 
                 <div class="form-group col">
+                    <label>Demanda relacionada ao COVID-19?</label>
+                    <select class="form-control" formControlName="theme">
+                        <option value="">Todas as demandas</option>
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+
+                <div class="form-group col">
                     <label for="entity">Entidade</label>
                     <ng2-selectize formControlName="entity_id"
                                    id="entity"
