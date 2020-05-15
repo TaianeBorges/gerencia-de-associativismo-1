@@ -114,6 +114,95 @@
   }
 }
 
+.color-status {
+  &-1,
+  &-2,
+  &-3,
+  &-4,
+  &-5,
+  &-6,
+  &-7,
+  &-8,
+  &-9 {
+    color: #fff;
+  }
+  &-1 {
+    color: rgba(212, 66, 80, 1) !important;
+  }
+  &-2 {
+    color: #f48e37 !important;
+  }
+  &-3 {
+    color: #B08B13 !important;
+  }
+  &-4 {
+    color: #E6CF3C !important;
+  }
+  &-5 {
+    color: rgba(73, 133, 213, 1) !important;
+  }
+  &-6 {
+    color: rgba(52, 182, 150, 1) !important;
+  }
+  &-7 {
+    color: rgba(212, 66, 80, 1) !important;
+  }
+  &-8 {
+    color: #999 !important;
+  }
+  &-9 {
+    color: rgba(212, 66, 80, 1) !important;
+  }
+  &-10 {
+    color: #999 !important;
+  }
+}
+
+.border-status {
+  &-1,
+  &-2,
+  &-3,
+  &-4,
+  &-5,
+  &-6,
+  &-7,
+  &-8,
+  &-9 {
+    border-right-width: 5px;
+    border-right-style: solid;
+  }
+  &-1 {
+    border-right-color: rgba(212, 66, 80, 1) !important;
+  }
+  &-2 {
+    border-right-color: #f48e37 !important;
+  }
+  &-3 {
+    border-right-color: #B08B13 !important;
+  }
+  &-4 {
+    border-right-color: #E6CF3C !important;
+  }
+  &-5 {
+    border-right-color: rgba(73, 133, 213, 1) !important;
+  }
+  &-6 {
+    border-right-color: rgba(52, 182, 150, 1) !important;
+  }
+  &-7 {
+    border-right-color: rgba(212, 66, 80, 1) !important;
+  }
+  &-8 {
+    border-right-color: #999 !important;
+  }
+  &-9 {
+    border-right-color: rgba(212, 66, 80, 1) !important;
+  }
+  &-10 {
+    border-right-color: #999 !important;
+  }
+}
+
 .border-entidade {
   &-1,
   &-2,

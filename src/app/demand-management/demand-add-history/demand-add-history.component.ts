@@ -258,8 +258,16 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
         this.formStatus.get('forwarded_to_the_technical_area.emails').setValidators([]);
         this.formStatus.get('comment').setValidators([]);
         this.formStatus.get('justification').setValidators([]);
+        this.formStatus.get('syndicate_permission').setValidators([]);
 
-        if (!this.formStatus.get('status').value && this.formStatus.get('syndicate_permission').value == 1) {
+        if ((this.demandSelected.entity_id === 2 || this.demandSelected.entity_id === 3) &&
+            (!(this.demandSelected.entity_id === 2 || this.demandSelected.entity_id === 3) && (this.formStatus.get('syndicate_permission').value === null) && this.demandSelected.permission_syndicate != 1)) {
+            this.formStatus.get('syndicate_permission').setValidators([Validators.required]);
+        }
+
+        if ((!this.formStatus.get('status').value || !this.formStatus.get('comment').value) && (
+            ((this.demandSelected.entity_id === 2 || this.demandSelected.entity_id === 3) && (this.formStatus.get('syndicate_permission').value == 1 || this.demandSelected.permission_syndicate)) ||
+            !((this.demandSelected.entity_id === 2 || this.demandSelected.entity_id === 3)))) {
             this.formStatus.get('status').setValidators([Validators.required]);
             this.formStatus.get('comment').setValidators([Validators.required]);
         }
@@ -273,6 +281,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
             this.formStatus.get('forwarded_to_the_technical_area.emails').setValidators([Validators.required]);
         }
 
+        this.formStatus.get('syndicate_permission').updateValueAndValidity();
         this.formStatus.get('forwarded_to_the_technical_area.emails').updateValueAndValidity();
         this.formStatus.get('status').updateValueAndValidity();
         this.formStatus.get('comment').updateValueAndValidity();
