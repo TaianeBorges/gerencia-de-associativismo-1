@@ -36,6 +36,11 @@ export class DemandPaginationComponent implements OnInit, OnChanges {
         this.pagination.emit({page: this.currentPage});
     }
 
+    refreshDemand() {
+        this.pagination.emit({page: this.currentPage});
+
+    }
+
 
     ngOnChanges(changes) {
         if (changes && changes.demands) {
