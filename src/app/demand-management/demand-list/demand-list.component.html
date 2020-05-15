@@ -7,92 +7,86 @@
 
     <div class="padding-l-20 padding-b-20  padding-r-20">
 
-        <div class="card animated fadeIn faster delay-{{i}}s border-entidade-{{demand.entity.id}} demand-{{demand.id}}"
-             *ngFor="let demand of demands?.data; let i = index" (click)="openDemand(demand.id)" placement="top"
+        <div class="card animated fadeIn faster delay-{{i}}s border-status-{{demand.histories[0].status}} demand-{{demand.id}}"
+             *ngFor="let demand of demands?.data; let i = index" placement="top"
              ngbTooltip="Tooltip on top">
             <div class="card-body">
                 <div class="row">
-                    <div class="card-group demand-icon">
-                        <div>
-                            <img alt="" src="../assets/img/illustrations/demand_management.svg">
-                        </div>
-                    </div>
-                    <div class="card-group card-id">
+                    <!--<div class="card-group demand-icon">-->
+                    <!--<div>-->
+                    <!--<img alt="" src="../assets/img/illustrations/demand_management.svg">-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <div (click)="goDemand(demand.id)" class="card-group card-id">
                         <em>ID</em>
-                        <p class="card-text">#{{demand.id}}</p>
+                        <p class="card-text"><i>#</i>{{demand.id}}</p>
                     </div>
-                    <div class="card-group card-categoria">
+
+                    <div (click)="goDemand(demand.id)" class="card-group card-entidade">
                         <em>Entidade</em>
                         <p class="card-text" matTooltip="{{demand.entity.name}}">
                             {{demand.entity.name}}
                         </p>
                     </div>
-                    <div class="card-group card-sindicato" *ngIf="demand.company && !demand.demands_syndicates.length">
+
+                    <div (click)="goDemand(demand.id)" class="card-group card-sindicato" *ngIf="demand.company && !demand.demands_syndicates.length">
                         <em>Razão social</em>
                         <p class="card-text" matTooltip="{{demand.company.name}}">{{demand.company.name ?
                             demand.company.name : '---'}}</p>
                     </div>
-                    <div class="card-group card-sindicato" *ngIf="demand.council">
+
+                    <div (click)="goDemand(demand.id)" class="card-group card-sindicato" *ngIf="demand.council">
                         <em>{{demand.entity == 5 ? 'Grupo setorial' : 'Conselho' }}</em>
                         <p class="card-text" matTooltip="{{demand.council.name}}">{{demand.council.name}}</p>
                     </div>
 
-                    <div class="card-group card-sindicato" *ngIf="demand.entity.id == 8">
+                    <div (click)="goDemand(demand.id)" class="card-group card-sindicato" *ngIf="demand.entity.id == 8">
                         <em></em>
                         <p class="card-text"></p>
                     </div>
 
-                    <div class="card-group card-sindicato" *ngIf="demand.demands_syndicates.length">
+                    <div (click)="goDemand(demand.id)" class="card-group card-sindicato" *ngIf="demand.demands_syndicates.length">
                         <em>Sindicato</em>
                         <p class="card-text" matTooltip="{{item.initial}}"
                            *ngFor="let item of demand.demands_syndicates">{{item.initial}}</p>
                     </div>
-                    <div class="card-group card-status">
+
+                    <div (click)="goDemand(demand.id)" class="card-group card-status">
                         <em>Status</em>
                         <p matTooltip="{{demand.histories[0].status_label}}"
-                           class="badge background-status-{{demand.histories[0].status}}">
+                           class="status color-status-{{demand.histories[0].status}}">
                             {{demand.histories[0].status_label}}
                         </p>
                     </div>
 
-                    <div class="card-group card-date">
-                        <em>Cadastrado em</em>
-                        <p class="card-text">{{demand.created_at | date:'d MMM, y'}}</p>
-                    </div>
-
-                    <div class="card-group card-date">
-                        <em>Atualizado em</em>
-                        <p class="card-text">
-                            {{demand.histories[0].created_at | date:'d MMM, y'}}
-                        </p>
-                    </div>
-
-                    <div class="card-group card-person">
-                        <em>Pessoas</em>
-                        <div class="card-users">
-                            <span matTooltip="{{item.name}}"
-                                  *ngFor="let item of usersDemand(demand.histories)">{{item.name | initialName}}</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row extended-items display-none margin-t-30">
-
-                    <div class="card-group card-sindicato" *ngIf="demand.company && demand.demands_syndicates.length">
-                        <em>Razão social</em>
-                        <p class="card-text" matTooltip="{{demand.company.name}}">{{demand.company.name ?
-                            demand.company.name : '---'}}</p>
-                    </div>
-
-                    <div class="card-group card-categoria">
+                    <div (click)="goDemand(demand.id)" class="card-group card-categoria">
                         <em>Categoria</em>
                         <p class="card-text" matTooltip="{{demand.demand_subcategory.demand_category.name}}">
                             {{demand.demand_subcategory.demand_category.name}}
                         </p>
                     </div>
 
+                    <div (click)="goDemand(demand.id)" class="card-group card-date card-date-register">
+                        <em>Cadastrado em</em>
+                        <p class="card-text">{{demand.created_at | date:'d MMM, y'}}</p>
+                    </div>
 
-                    <div class="card-group card-descricao">
+                    <div (click)="goDemand(demand.id)" class="card-group card-date">
+                        <em>Atualizado em</em>
+                        <p class="card-text">
+                            {{demand.histories[0].created_at | date:'d MMM, y'}}
+                        </p>
+                    </div>
+
+                    <div (click)="goDemand(demand.id)" class="card-group card-person">
+                        <em>Pessoas</em>
+                        <div class="card-users">
+                            <span matTooltip="{{item.name}}"
+                                  *ngFor="let item of usersDemand(demand.histories)">{{item.name | initialName}}</span>
+                        </div>
+                    </div>
+
+                    <div (click)="goDemand(demand.id)" class="card-group card-descricao" matTooltip="{{demand.description}}">
                         <em>Descrição</em>
                         <p [innerHTML]="demand.description"></p>
                     </div>
@@ -108,23 +102,23 @@
                     </i>
                 </a>
                 <a (click)="addHistoryDemand($event); demandAddSelected = demand; openModalAddHistory = !openModalAddHistory"
-                   class="color-entidade-{{demand.entity.id}}"
                    matTooltip="Adicionar status"
-                   *ngIf="permissionUpdateDemand(demand)">
+                   *ngIf="permissionUpdateDemand(demand)"
+                   class="color-status-{{demand.histories[0].status}}">
                     <i class="material-icons">
                         add_circle_outline
                     </i>
                 </a>
                 <a (click)="historyDemand($event); demandSelected = demand; openModalShowHistory = !openModalShowHistory"
                    matTooltip="Visualizar status"
-                   class="color-entidade-{{demand.entity.id}}">
+                   class="color-status-{{demand.histories[0].status}}">
                     <i class="material-icons">
                         history
                     </i>
                 </a>
                 <a [routerLink]="['/gestao-de-demandas/demanda/', demand.id]"
-                   class="color-entidade-{{demand.entity.id}}"
                    matTooltip="Detalhes da demanda"
+                   class="color-status-{{demand.histories[0].status}}"
                    data-toggle="tooltip" data-placement="left" title="Tooltip on left">
                     <i class="material-icons">open_in_new</i>
                 </a>

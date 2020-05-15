@@ -35,6 +35,7 @@ export class DemandListComponent implements OnInit, OnDestroy {
         private sharedService: SharedsService,
         private demandService: DemandService,
         private elRef: ElementRef,
+        private router: Router,
         private renderer: Renderer2) {
     }
 
@@ -47,12 +48,14 @@ export class DemandListComponent implements OnInit, OnDestroy {
     }
 
     openDemand(demand) {
-        const element = this.elRef.nativeElement.querySelector(`.demand-${demand} .extended-items`);
-        if (element.getAttribute('class').indexOf('display-none') !== -1) {
-            this.renderer.removeClass(element, 'display-none');
-        } else {
-            this.renderer.addClass(element, 'display-none');
-        }
+        // const element = this.elRef.nativeElement.querySelector(`.demand-${demand}`);
+        // const activated = this.elRef.nativeElement.querySelector('.demand-active');
+        //
+        // if (activated) {
+        //     this.renderer.removeClass(activated, 'demand-active');
+        // }
+        //
+        // this.renderer.addClass(element, 'demand-active');
     }
 
     onPagination(event) {
@@ -61,6 +64,13 @@ export class DemandListComponent implements OnInit, OnDestroy {
         }
 
         this.listDemands();
+    }
+
+    goDemand(id) {
+
+        if (id) {
+            this.router.navigate(['/gestao-de-demandas/demanda/', id]);
+        }
     }
 
     usersDemand(items) {
