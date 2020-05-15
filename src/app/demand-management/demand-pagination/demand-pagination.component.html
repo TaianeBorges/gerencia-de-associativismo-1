@@ -1,4 +1,5 @@
-<div class="display-flex cards-controls" *ngIf="demands && demands.total > 0" [ngClass]="{'visibility-initial': demands}">
+<div class="display-flex cards-controls" *ngIf="demands && demands.total > 0"
+     [ngClass]="{'visibility-initial': demands}">
     <div class="pagination">
         <button class="material-icons" [disabled]="beforeButton" (click)="getDemand('before')">navigate_before</button>
         <button class="material-icons" [disabled]="nextButton" (click)="getDemand('next')">navigate_next</button>
@@ -8,4 +9,8 @@
         {{(demands?.offset + demands?.limit) > demands?.total ? demands?.total : demands?.offset + demands?.limit}} de
         {{demands?.total}}
     </p>
+    <button class="btn btn-outline-primary margin-r-auto btn-with-icon" (click)="refreshDemand()">
+        <i class="material-icons">refresh </i>
+        <span>Atualizar</span>
+    </button>
 </div>

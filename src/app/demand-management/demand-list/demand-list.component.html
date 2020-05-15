@@ -49,8 +49,10 @@
                     <div (click)="goDemand(demand.id)" class="card-group card-sindicato"
                          *ngIf="demand.demands_syndicates.length">
                         <em>Sindicato</em>
-                        <p class="card-text" matTooltip="{{item.initial}}"
-                           *ngFor="let item of demand.demands_syndicates">{{item.initial}}</p>
+
+                        <p class="card-text" matTooltip="{{nameSyndicate(demand.demands_syndicates)}}">
+                            {{nameSyndicate(demand.demands_syndicates)}}
+                        </p>
                     </div>
 
                     <div (click)="goDemand(demand.id)" class="card-group card-status">

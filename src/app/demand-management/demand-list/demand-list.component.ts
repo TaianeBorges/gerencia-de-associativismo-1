@@ -58,6 +58,22 @@ export class DemandListComponent implements OnInit, OnDestroy {
         // this.renderer.addClass(element, 'demand-active');
     }
 
+    nameSyndicate(syndicates) {
+
+        if (syndicates.length > 1) {
+
+            const names = [];
+
+            for (let i = 0; i < syndicates.length; i++) {
+                names.push(syndicates[i].initial);
+            }
+
+            return names.join(', ');
+        }
+
+        return syndicates[0].initial;
+    }
+
     replaceText(text) {
         const result = text.replace(/<br\s*\/?>/gi, ' ');
         return result;
