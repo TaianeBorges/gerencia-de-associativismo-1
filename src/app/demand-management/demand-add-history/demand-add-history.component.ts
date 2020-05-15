@@ -261,7 +261,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
         this.formStatus.get('syndicate_permission').setValidators([]);
 
         if ((this.demandSelected.entity_id === 2 || this.demandSelected.entity_id === 3) &&
-            (this.formStatus.get('syndicate_permission').value === null) && this.demandSelected.permission_syndicate != 1) {
+            (!(this.demandSelected.entity_id === 2 || this.demandSelected.entity_id === 3) && (this.formStatus.get('syndicate_permission').value === null) && this.demandSelected.permission_syndicate != 1)) {
             this.formStatus.get('syndicate_permission').setValidators([Validators.required]);
         }
 
