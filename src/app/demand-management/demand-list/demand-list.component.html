@@ -29,7 +29,8 @@
                         </p>
                     </div>
 
-                    <div (click)="goDemand(demand.id)" class="card-group card-sindicato" *ngIf="demand.company && !demand.demands_syndicates.length">
+                    <div (click)="goDemand(demand.id)" class="card-group card-sindicato"
+                         *ngIf="demand.company && !demand.demands_syndicates.length">
                         <em>Razão social</em>
                         <p class="card-text" matTooltip="{{demand.company.name}}">{{demand.company.name ?
                             demand.company.name : '---'}}</p>
@@ -45,7 +46,8 @@
                         <p class="card-text"></p>
                     </div>
 
-                    <div (click)="goDemand(demand.id)" class="card-group card-sindicato" *ngIf="demand.demands_syndicates.length">
+                    <div (click)="goDemand(demand.id)" class="card-group card-sindicato"
+                         *ngIf="demand.demands_syndicates.length">
                         <em>Sindicato</em>
                         <p class="card-text" matTooltip="{{item.initial}}"
                            *ngFor="let item of demand.demands_syndicates">{{item.initial}}</p>
@@ -86,9 +88,10 @@
                         </div>
                     </div>
 
-                    <div (click)="goDemand(demand.id)" class="card-group card-descricao" matTooltip="{{demand.description}}">
+                    <div (click)="goDemand(demand.id)" class="card-group card-descricao"
+                         matTooltip="{{replaceText(demand.description)}}">
                         <em>Descrição</em>
-                        <p>{{demand.description}}</p>
+                        <p>{{replaceText(demand.description)}}</p>
                     </div>
                 </div>
             </div>

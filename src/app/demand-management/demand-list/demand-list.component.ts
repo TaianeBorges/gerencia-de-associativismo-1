@@ -58,6 +58,11 @@ export class DemandListComponent implements OnInit, OnDestroy {
         // this.renderer.addClass(element, 'demand-active');
     }
 
+    replaceText(text) {
+        const result = text.replace(/<br\s*\/?>/gi, ' ');
+        return result;
+    }
+
     onPagination(event) {
         if (event) {
             this.filtersParams.page = event.page;
