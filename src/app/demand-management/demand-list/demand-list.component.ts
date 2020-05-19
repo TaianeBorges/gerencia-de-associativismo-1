@@ -48,14 +48,13 @@ export class DemandListComponent implements OnInit, OnDestroy {
     }
 
     openDemand(demand) {
-        // const element = this.elRef.nativeElement.querySelector(`.demand-${demand}`);
-        // const activated = this.elRef.nativeElement.querySelector('.demand-active');
-        //
-        // if (activated) {
-        //     this.renderer.removeClass(activated, 'demand-active');
-        // }
-        //
-        // this.renderer.addClass(element, 'demand-active');
+        const element = this.elRef.nativeElement.querySelector(`.demand-${demand}`);
+
+        if (element.getAttribute('class').indexOf('demand-active') !== -1) {
+            this.renderer.removeClass(element, 'demand-active');
+        } else {
+            this.renderer.addClass(element, 'demand-active');
+        }
     }
 
     nameSyndicate(syndicates) {
