@@ -33,11 +33,12 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.demandId = parseInt(this.route.snapshot.paramMap.get('demandaId'));
-
-        if (this.demandId) {
-            this.getDemand(this.demandId);
-        }
+        this.route.params.subscribe(routeParams => {
+            if (routeParams.demandaId) {
+                this.demandId = routeParams.demandaId;
+                this.getDemand(this.demandId);
+            }
+        });
 
         this.currentUser = JSON.parse(localStorage.getItem('user'));
     }

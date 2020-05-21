@@ -8,13 +8,60 @@
 
         <h2 class="title" [innerHTML]="titlePage"></h2>
 
+        <div class="notifications-dropdown" *ngIf="routeDemandManagement">
+            <div class="dropdown ">
+                <button class="btn dropdown-toggle"
+                        [ngClass]="{'text-secondary': !unread, 'text-primary': unread}" type="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    <i class="material-icons">notifications</i>
+                    <span class="unread" [ngClass]="{'unread-active': unread}" *ngIf="unread">{{unread}}</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                    <div class="notifications-container">
+
+                        <div class="notification-title">
+                            <h2>Notificações</h2>
+                            <span class="btn btn-link" (click)="clearAllNotifications()">Limpar notificações</span>
+                        </div>
+
+                        <div class="notifications-items" *ngFor="let notification of notifications;"
+                             (click)="goToDemand(notification)"
+                             [ngClass]="{'notification-unread': notification.unread}">
+                            <div class="notification-user">
+                                <span>{{notification.demand_history.user.name | initialName}}
+                                    <i class="material-icons"
+                                       [ngClass]="{'status': notification.type === 2, 'forwarding': notification.type === 3}">{{notification.type === 2 ? 'history' : 'redo'}}</i></span>
+                            </div>
+                            <div class="notification-info">
+                                <div>
+                                    <span class="notification-text" *ngIf="notification.type === 2"><strong>{{notification.demand_history.user.name}}</strong> atualizou o status da demanda #{{notification.demand_history.demand_id}}:
+                                       <span [innerHTML]="replaceText(notification.demand_history.comment)"></span>
+                                    </span>
+                                    <span class="notification-text" *ngIf="notification.type === 3"><strong>{{notification.demand_history.user.name}}</strong> encaminhou a demanda #{{notification.demand_history.demand_id}} para você.</span>
+                                </div>
+                                <em class="notification-date">
+                                    {{ notification.created_at | date:'d MMM, y - H:i'}}
+                                </em>
+                            </div>
+                        </div>
+
+                        <div *ngIf="!notifications.length" class="padding-l-20 padding-t-20">
+                            Você ainda não possui notificação.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="user-dropdown">
             <div class="dropdown">
                 <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                     {{currentUser?.user.name | initialName}}
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                     <a class="nav-link dropdown-item" [routerLink]="['/logout']"
                        [routerLinkActive]="'active'">Sair</a>
                 </div>

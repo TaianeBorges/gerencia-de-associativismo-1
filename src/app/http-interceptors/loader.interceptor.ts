@@ -10,15 +10,19 @@ export class LoaderInterceptor implements HttpInterceptor {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        this.showLoader();
-        return next.handle(req).pipe(tap((event: HttpEvent<any>) => {
-                if (event instanceof HttpResponse) {
+        if (req.url.indexOf('/demandas/notificacoes') === -1) {
+            this.showLoader();
+            return next.handle(req).pipe(tap((event: HttpEvent<any>) => {
+                    if (event instanceof HttpResponse) {
+                        this.onEnd();
+                    }
+                },
+                (err: any) => {
                     this.onEnd();
-                }
-            },
-            (err: any) => {
-                this.onEnd();
-            }));
+                }));
+        }
+
+        return next.handle(req);
     }
 
     private onEnd(): void {
