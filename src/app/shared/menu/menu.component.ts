@@ -111,7 +111,7 @@ export class MenuComponent implements OnInit {
         this.notificationInterval = setInterval(() => {
             if (!this.routeDemandManagement) {
                 this.toFinishNotify();
-            } else if (!($('.notifications-dropdown .dropdown').attr('class').indexOf('show') === -1)) {
+            } else if ($('.notifications-dropdown .dropdown').attr('class').indexOf('show') === -1) {
                 this.getNotifications();
             }
         }, 20000);
