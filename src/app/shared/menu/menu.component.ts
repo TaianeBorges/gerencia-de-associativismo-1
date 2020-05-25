@@ -2,6 +2,9 @@ import {Component, OnInit, Input, ViewEncapsulation} from '@angular/core';
 import {AuthService} from 'src/app/auth/auth.service';
 import {Router, NavigationEnd} from '@angular/router';
 import {SharedsService} from '../shareds.service';
+import * as $AB from 'jquery';
+
+declare var $: any;
 
 @Component({
     selector: 'app-menu',
@@ -24,7 +27,7 @@ export class MenuComponent implements OnInit {
     notificationInterval: any;
     data = {
         page: 1,
-        limit: 20,
+        limit: 30,
         offset: 0,
         total: null
     };
@@ -108,18 +111,23 @@ export class MenuComponent implements OnInit {
         this.notificationInterval = setInterval(() => {
             if (!this.routeDemandManagement) {
                 this.toFinishNotify();
-            } else {
+            } else if (!($('.notifications-dropdown .dropdown').attr('class').indexOf('show') === -1)) {
                 this.getNotifications();
             }
         }, 20000);
     }
 
     getNotifications($event = null) {
-        console.log($event);
+
         if ($event === null) {
-            this.sharedsService.getDemandsNotifications(this.data).subscribe(res => {
-                if (res) {
-                    this.unread = 0;
+            this.data.page = 0;
+        }
+
+        this.sharedsService.getDemandsNotifications(this.data).subscribe(res => {
+            if (res) {
+                this.unread = 0;
+
+                if ($event === null) {
                     res.data.forEach((item) => {
                         if (item.unread === 1) {
                             this.unread++;
@@ -127,14 +135,17 @@ export class MenuComponent implements OnInit {
                     });
 
                     this.notifications = res.data;
-                    this.data.offset = res.offset;
-                    this.data.total = res.total;
-                    this.data.limit = res.limit;
+                } else {
+                    this.notifications.push(res.data);
                 }
-            });
-        }
-    }
 
+                this.data.offset = res.offset;
+                this.data.total = res.total;
+                this.data.limit = res.limit;
+            }
+        });
+
+    }
     toFinishNotify() {
         if (this.notificationInterval) {
             clearInterval(this.notificationInterval);

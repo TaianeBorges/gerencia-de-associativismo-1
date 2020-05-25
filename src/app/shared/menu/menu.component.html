@@ -9,7 +9,7 @@
         <h2 class="title" [innerHTML]="titlePage"></h2>
 
         <div class="notifications-dropdown" *ngIf="routeDemandManagement">
-            <div class="dropdown ">
+            <div class="dropdown" matTooltip="Notificações">
                 <button class="btn dropdown-toggle"
                         [ngClass]="{'text-secondary': !unread, 'text-primary': unread}" type="button"
                         id="dropdownMenuButton"
@@ -30,7 +30,7 @@
                              (click)="goToDemand(notification)"
                              [ngClass]="{'notification-unread': notification.unread}">
                             <div class="notification-user">
-                                <span>{{notification.demand_history.user.name | initialName}}
+                                <span>{{notification.demand_history?.user.name | initialName}}
                                     <i class="material-icons"
                                        [ngClass]="{'status': notification.type === 2, 'forwarding': notification.type === 3}">{{notification.type === 2 ? 'history' : 'redo'}}</i></span>
                             </div>
@@ -42,7 +42,7 @@
                                     <span class="notification-text" *ngIf="notification.type === 3"><strong>{{notification.demand_history.user.name}}</strong> encaminhou a demanda #{{notification.demand_history.demand_id}} para você.</span>
                                 </div>
                                 <em class="notification-date">
-                                    {{ notification.created_at | date:'d MMM, y - H:i'}}
+                                    {{ notification.created_at | dateAgo}}
                                 </em>
                             </div>
                         </div>
