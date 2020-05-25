@@ -1,5 +1,5 @@
 import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 
 // modules
 import {MatIconModule} from '@angular/material/icon';
@@ -25,6 +25,7 @@ import {CapitalizePipe} from './pipes/capitalize.pipe';
 import {CurrencyPipe} from './pipes/currency.pipe';
 import {CNPJPipe} from './pipes/cnpj.pipe';
 import {MomentPipe} from './pipes/moment.pipe';
+import { DateAgoPipe } from './pipes/date-ago.pipe';
 
 @NgModule({
     declarations: [
@@ -39,7 +40,8 @@ import {MomentPipe} from './pipes/moment.pipe';
         InitialNameComponent,
         CNPJPipe,
         MomentPipe,
-        InfiniteScrollComponent
+        InfiniteScrollComponent,
+        DateAgoPipe
     ],
     imports: [
         CommonModule,

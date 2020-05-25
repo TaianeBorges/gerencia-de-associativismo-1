@@ -1,8 +1,10 @@
 import {Component, OnInit, Input, ViewEncapsulation} from '@angular/core';
 import {AuthService} from 'src/app/auth/auth.service';
 import {Router, NavigationEnd} from '@angular/router';
-import {Title} from '@angular/platform-browser';
 import {SharedsService} from '../shareds.service';
+import * as $AB from 'jquery';
+
+declare var $: any;
 
 @Component({
     selector: 'app-menu',
@@ -22,6 +24,15 @@ export class MenuComponent implements OnInit {
     menuMobileActivate = false;
     menuPerfilActivate = false;
     currentUser;
+    notificationInterval: any;
+    data = {
+        page: 1,
+        limit: 30,
+        offset: 0,
+        total: null
+    };
+    notifications = [];
+    unread = 0;
 
     constructor(
         private authService: AuthService,
@@ -50,6 +61,10 @@ export class MenuComponent implements OnInit {
             this.titlePage = res;
         });
 
+        setTimeout(() => {
+            this.getNotifications();
+            this.createNotificationInterval();
+        }, 1500);
     }
 
     changeMenu() {
@@ -57,8 +72,83 @@ export class MenuComponent implements OnInit {
         this.sharedsService.actionMenu(this.menuActivate);
     }
 
+    goToDemand(notification) {
+        if (notification) {
+            this.router.navigate(['/gestao-de-demandas/demanda/', notification.demand_history.demand_id]);
+            this.setUnread(notification.id);
+        }
+    }
+
+    clearAllNotifications() {
+        this.setUnread(null, true);
+    }
+
+    replaceText(text) {
+        const result = text.replace(/<br\s*\/?>/gi, ' ');
+        return result;
+    }
 
     linkMenu(value) {
         this.router.navigate([value]);
+    }
+
+    setUnread(id, all = false) {
+        if (id) {
+            const data = {demand_notification_id: id};
+            this.sharedsService.setUnreadDemandsNotifications(data).subscribe(res => {
+                this.getNotifications();
+            });
+        } else if (!id && all) {
+            const data = {unreadAll: true};
+
+            this.sharedsService.setUnreadDemandsNotifications(data).subscribe(res => {
+                this.getNotifications();
+            });
+        }
+    }
+
+    createNotificationInterval() {
+        this.notificationInterval = setInterval(() => {
+            if (!this.routeDemandManagement) {
+                this.toFinishNotify();
+            } else if ($('.notifications-dropdown .dropdown').attr('class').indexOf('show') === -1) {
+                this.getNotifications();
+            }
+        }, 20000);
+    }
+
+    getNotifications($event = null) {
+
+        if ($event === null) {
+            this.data.page = 0;
+        }
+
+        this.sharedsService.getDemandsNotifications(this.data).subscribe(res => {
+            if (res) {
+                this.unread = 0;
+
+                if ($event === null) {
+                    res.data.forEach((item) => {
+                        if (item.unread === 1) {
+                            this.unread++;
+                        }
+                    });
+
+                    this.notifications = res.data;
+                } else {
+                    this.notifications.push(res.data);
+                }
+
+                this.data.offset = res.offset;
+                this.data.total = res.total;
+                this.data.limit = res.limit;
+            }
+        });
+
+    }
+    toFinishNotify() {
+        if (this.notificationInterval) {
+            clearInterval(this.notificationInterval);
+        }
     }
 }
