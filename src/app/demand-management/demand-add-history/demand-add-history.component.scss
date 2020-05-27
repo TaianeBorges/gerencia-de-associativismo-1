@@ -13,3 +13,10 @@
   }
 }
 
+.demand-add-history {
+  .status-item {
+    & > div {
+      flex-direction: column;
+    }
+  }
+}

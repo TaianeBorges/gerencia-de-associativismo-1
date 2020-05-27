@@ -17,5 +17,21 @@
   .selectize-control.single .selectize-input input {
     min-height: 36px;
   }
+
+  @media screen and (max-width: 580px) {
+    .btn {
+      margin: auto auto 15px auto;
+      width: 100%;
+    }
+
+    .demand-card-group {
+      .card-body {
+        .row > div {
+          margin-bottom: 15px;
+        }
+      }
+    }
+  }
+
 }
 

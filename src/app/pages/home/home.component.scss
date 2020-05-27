@@ -11,6 +11,11 @@
     flex-wrap: wrap;
     position: relative;
 
+    @media screen and (max-width: 550px) {
+      height: initial;
+      padding-top: 40px;
+    }
+
     .module-item {
       width: 100%;
       height: 100%;
@@ -29,7 +34,8 @@
         max-width: initial;
         border-bottom: transparent;
         border-right: 6px solid transparent;
-        padding: 0 15px;
+        padding: 15px;
+        height: initial;
       }
 
       &.demand_management {
