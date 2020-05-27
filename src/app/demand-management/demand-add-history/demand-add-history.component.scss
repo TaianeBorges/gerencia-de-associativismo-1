@@ -14,9 +14,12 @@
 }
 
 .demand-add-history {
-  .status-item {
-    & > div {
-      flex-direction: column;
+  @media screen and(max-width: 580px) {
+
+    .status-item {
+      & > div {
+        flex-direction: column;
+      }
     }
   }
 }
