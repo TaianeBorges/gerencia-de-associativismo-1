@@ -10,6 +10,25 @@
 }
 
 .modal-body {
+
+  @media screen and (max-width: 580px) {
+    padding: 0;
+
+    .status-item {
+      flex-direction: column;
+      padding: 15px 1px;
+      margin: 0;
+
+      & > div {
+        margin-bottom: 14px;
+
+        &:not(:first-child) {
+          max-width: 100%;
+        }
+      }
+    }
+  }
+
   & > div:not(:last-child) .status-item {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
@@ -18,6 +37,7 @@
     background-color: rgba(200, 200, 200, 0.2);
   }
 }
+
 .status-item {
   .demand-group {
     &:not(:first-child) {

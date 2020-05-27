@@ -19,10 +19,13 @@
     border-color: none !important;
     min-height: 80px;
 
+    @media screen and (max-width: 580px) {
+      flex-direction: column;
+    }
+
     &:active {
       background: #e1e1e1;
     }
-
 
     &:hover {
       box-shadow: 1px 1px 14px rgba(150, 150, 150, 0.7);
@@ -39,6 +42,10 @@
       display: flex;
       align-items: center;
       width: 85%;
+
+      @media screen and (max-width: 580px) {
+        width: 100%;
+      }
 
       & > .row {
         margin: 0;
@@ -261,6 +268,17 @@
             }
           }
 
+          @media screen and (max-width: 580px) {
+            &.card-person {
+              display: none;
+            }
+
+            &.card-entidade, &.card-sindicato {
+              width: 30%;
+              max-width: initial;
+            }
+          }
+
         }
       }
 
@@ -279,9 +297,9 @@
 
       &:hover {
         //em {
-          //top: 2px;
-          //opacity: 1;
-          //visibility: visible;
+        //top: 2px;
+        //opacity: 1;
+        //visibility: visible;
         //}
       }
     }
@@ -305,6 +323,14 @@
         i {
           font-size: 1.8rem;
           font-weight: 500;
+        }
+      }
+
+      @media screen and (max-width: 580px) {
+        width: 100%;
+
+        a {
+          width: 33%;
         }
       }
     }
@@ -342,6 +368,33 @@
       }
     }
 
+    @media screen and (max-width: 580px) {
+      .card-body {
+        & > .row {
+          padding: 15px 0;
+
+          .card-group {
+            &.card-descricao {
+              width: 100%;
+              display: flex !important;
+              margin-bottom: 0;
+
+              p {
+                //white-space: pre-line;
+              }
+            }
+          }
+        }
+      }
+
+      .card-body {
+        em {
+          top: 2px;
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
   }
 }
 

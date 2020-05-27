@@ -61,10 +61,7 @@ export class MenuComponent implements OnInit {
             this.titlePage = res;
         });
 
-        setTimeout(() => {
-            this.getNotifications();
-            this.createNotificationInterval();
-        }, 1500);
+        this.createNotificationInterval();
     }
 
     changeMenu() {
@@ -109,12 +106,10 @@ export class MenuComponent implements OnInit {
 
     createNotificationInterval() {
         this.notificationInterval = setInterval(() => {
-            if (!this.routeDemandManagement) {
-                this.toFinishNotify();
-            } else if ($('.notifications-dropdown .dropdown').attr('class').indexOf('show') === -1) {
+            if (this.routeDemandManagement && $('.notifications-dropdown .dropdown').attr('class').indexOf('show') === -1) {
                 this.getNotifications();
             }
-        }, 20000);
+        }, 10000);
     }
 
     getNotifications($event = null) {
@@ -146,6 +141,7 @@ export class MenuComponent implements OnInit {
         });
 
     }
+
     toFinishNotify() {
         if (this.notificationInterval) {
             clearInterval(this.notificationInterval);
