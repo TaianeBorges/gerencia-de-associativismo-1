@@ -72,7 +72,7 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
 
     getPermissionUpdateDemand() {
 
-        if ((this.currentUser.user.role !== 11 && this.currentUser.user.role !== 10) && !this.demand.permission_syndicate && this.demand.entity_id === 2) {
+        if ((this.currentUser.user.role !== 11 && this.currentUser.user.role !== 10 && this.currentUser.user.role !== 9) && !this.demand.permission_syndicate && this.demand.entity_id === 2) {
             this.permissionUpdateDemand = false;
         }
 

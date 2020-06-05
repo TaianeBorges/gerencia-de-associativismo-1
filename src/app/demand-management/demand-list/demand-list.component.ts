@@ -132,7 +132,7 @@ export class DemandListComponent implements OnInit, OnDestroy {
 
         let permission = true;
 
-        if ((this.currentUser.user.role !== 11 && this.currentUser.user.role !== 10) && !demand.permission_syndicate && demand.entity_id === 2) {
+        if ((this.currentUser.user.role !== 11 && this.currentUser.user.role !== 10 && this.currentUser.user.role !== 9) && !demand.permission_syndicate && demand.entity_id === 2) {
             permission = false;
         }
 
