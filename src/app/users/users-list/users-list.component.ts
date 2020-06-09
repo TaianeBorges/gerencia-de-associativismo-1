@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UsersService} from '../users.service';
 import {Subscription} from 'rxjs';
+import {AlertService} from '../../shared/alerts/alert.service';
 
 @Component({
     selector: 'app-users-list',
@@ -11,6 +12,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
 
     usersServicesSubscribe: Subscription;
     usersEnableSubscribe: Subscription;
+    sendNewPasswordSubscribe: Subscription;
     users = [];
     userActive: boolean;
     optionsPermission = [
@@ -24,7 +26,10 @@ export class UsersListComponent implements OnInit, OnDestroy {
         total: null
     };
 
-    constructor(private usersServices: UsersService) {
+    constructor(
+        private usersServices: UsersService,
+        private alertService: AlertService
+    ) {
     }
 
     ngOnInit() {
@@ -44,6 +49,45 @@ export class UsersListComponent implements OnInit, OnDestroy {
                     this.data.total = res.total;
                     this.data.limit = res.limit;
                 }
+            });
+        }
+    }
+
+    newPassword(email) {
+        if (confirm('Tem certeza desta operação?')) {
+            const data = {
+                email
+            };
+
+            this.sendNewPasswordSubscribe = this.usersServices.sendNewPassword(data).subscribe(res => {
+
+                let alert;
+
+                if (res.send) {
+
+                    alert = {
+                        status: 200,
+                        icon: 'check_circle',
+                        color: 'success',
+                        title: 'Parabéns!',
+                        message: 'Senha enviada com sucesso!'
+                    };
+
+                } else {
+
+                    alert = {
+                        status: 200,
+                        icon: 'priority_high',
+                        color: 'warning',
+                        title: 'Atenção!',
+                        message: 'Não foi possível enviar uma nova senha.',
+                        actions: {
+                            close: true
+                        }
+                    };
+                }
+
+                this.alertService.alertShow(alert);
             });
         }
     }
@@ -69,5 +113,9 @@ export class UsersListComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.usersServicesSubscribe.unsubscribe();
+
+        if (this.sendNewPasswordSubscribe) {
+            this.sendNewPasswordSubscribe.unsubscribe();
+        }
     }
 }
