@@ -92,6 +92,13 @@ export class UsersService {
             }));
     }
 
+    sendNewPassword(data: any): Observable<any> {
+        return this.http.post(`${environment.apiUrl}/usuario/nova-senha`, data, this.httpOptions)
+            .pipe(map(res => {
+                return res;
+            }));
+    }
+
     registerUser(data: any): Observable<any> {
         return this.http.post(`${environment.apiUrl}/usuarios/cadastro`, data, this.httpOptions)
             .pipe(
