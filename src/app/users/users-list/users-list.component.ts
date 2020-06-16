@@ -21,7 +21,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
     ];
     data = {
         page: 1,
-        limit: 20,
+        limit: 40,
         offset: 0,
         total: null
     };
