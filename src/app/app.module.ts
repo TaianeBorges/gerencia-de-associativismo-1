@@ -15,6 +15,7 @@ import {RouterModule} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import {SharedModule} from './shared/shared.module';
 import {WhoIsModule} from './who-is/who-is.module';
+import {DashboardModule} from './dashboard/dashboard.module';
 
 // Components
 import {AppComponent} from './app.component';
@@ -49,6 +50,7 @@ import {UnauthorizedComponent} from './unauthorized/unauthorized.component';
         MatIconModule,
         SharedModule,
         WhoIsModule,
+        DashboardModule
     ],
     providers: [
         AuthGuardService,

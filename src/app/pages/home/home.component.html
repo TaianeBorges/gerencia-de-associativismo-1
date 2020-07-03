@@ -28,6 +28,20 @@
             </div>
             <app-menu-loader [visibility]="loaderUser" [color]="'user'"></app-menu-loader>
         </a>
+
+        <a [routerLink]="['/dashboard/visao-geral']" class="module-item card dashboard"
+           *ngIf="(currentUser.user.role == 10)" (click)="setLoader('dashboard')">
+            <div class="image">
+                <img src="../assets/img/illustrations/dashboard.svg" alt="illustration-module">
+            </div>
+            <div class="card-body">
+                <h5 class="title">Dashboard</h5>
+                <p class="text">
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidun
+                </p>
+            </div>
+            <app-menu-loader [visibility]="loaderDashboard" [color]="'dashboard'"></app-menu-loader>
+        </a>
         <!--<a [routerLink]="['/sites/lista-de-sites']" class="module-item card site_management">-->
         <!--<div class="image">-->
         <!--<img src="../assets/img/illustrations/site_management.svg" alt="illustration-module">-->

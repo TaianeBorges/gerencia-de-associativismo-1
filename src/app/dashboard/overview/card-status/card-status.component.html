@@ -1,0 +1,21 @@
+<div *ngIf="items.length" class="card-status-container">
+    <div class="card card-status card-{{item[0].slug}}" *ngFor="let item of items">
+        <div class="chart">
+            <ngx-charts-pie-grid
+                    [view]="view"
+                    [scheme]="colorScheme"
+                    [results]="item"
+                    [designatedTotal]="total"
+                    [showLegend]="false"
+                    (select)="onSelect($event)">
+            </ngx-charts-pie-grid>
+        </div>
+
+        <div class="card-info">
+            <div class="card-label">{{item[0].name}}</div>
+            <div class="card-value">{{item[0].value}}</div>
+        </div>
+
+        <div class="card-border-bottom width-{{getPercent(item[0].value)}}"></div>
+    </div>
+</div>
