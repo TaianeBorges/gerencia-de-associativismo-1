@@ -87,12 +87,17 @@
     }
 
     .card-border-bottom {
-      background: #666;
-      height: 4px;
       position: absolute;
       bottom: 0;
       left: 0;
     }
 
+  }
+
+  @for $i from 1 through 10 {
+    .border-status-#{$i} {
+      width: #{$i} + 0%;
+      border: 1px solid #666;
+    }
   }
 }

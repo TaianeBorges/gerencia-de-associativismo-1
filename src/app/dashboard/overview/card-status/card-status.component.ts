@@ -43,6 +43,7 @@ export class CardStatusComponent implements OnInit, OnChanges {
     getPercent(value) {
 
         value = (value * 100) / this.total;
-        return value;
+
+        return Math.ceil(Math.round(value) / 10);
     }
 }
