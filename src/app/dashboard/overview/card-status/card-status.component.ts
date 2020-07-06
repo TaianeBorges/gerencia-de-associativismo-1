@@ -38,6 +38,8 @@ export class CardStatusComponent implements OnInit, OnChanges {
         }
     }
 
+    onSelect($event) {}
+
     getPercent(value) {
 
         value = (value * 100) / this.total;
