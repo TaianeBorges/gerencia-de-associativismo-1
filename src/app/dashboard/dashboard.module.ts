@@ -11,12 +11,14 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {CardStatusComponent} from './overview/card-status/card-status.component';
 import {DemandService} from '../demand-management/demand.service';
 import { CardEntityComponent } from './overview/card-entity/card-entity.component';
+import { CardTechnicalAreaComponent } from './overview/card-technical-area/card-technical-area.component';
 
 @NgModule({
     declarations: [
         OverviewComponent,
         CardStatusComponent,
-        CardEntityComponent
+        CardEntityComponent,
+        CardTechnicalAreaComponent
     ],
     imports: [
         CommonModule,

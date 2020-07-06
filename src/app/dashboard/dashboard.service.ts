@@ -29,7 +29,7 @@ export class DashboardService {
     }
 
     overviewEntity(): Observable<any> {
-        return this.http.post(`${environment.apiUrl}/demandas/overview/entity`, {}, this.httpOptions)
+        return this.http.post(`${environment.apiUrl}/demandas/overview/entidades`, {}, this.httpOptions)
             .pipe(
                 map(res => {
                     return res;
@@ -37,4 +37,12 @@ export class DashboardService {
             );
     }
 
+    overviewTechnicalAreas(): Observable<any> {
+        return this.http.post(`${environment.apiUrl}/demandas/overview/areas-tecnicas`, {}, this.httpOptions)
+            .pipe(
+                map(res => {
+                    return res;
+                })
+            );
+    }
 }

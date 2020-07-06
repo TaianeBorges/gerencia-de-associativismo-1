@@ -12,8 +12,10 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
     destroyOverviewStatusSubscribe: Subscription;
     destroyOverviewEntitySubscribe: Subscription;
+    destroyOverviewTechnicalAreaSubscribe: Subscription;
     status: any;
     entities: any;
+    technicalArea: any;
 
     constructor(
         private dashboardService: DashboardService,
@@ -26,6 +28,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
         this.overviewStatus();
         this.overViewEntities();
+        this.overViewTechnicalArea();
     }
 
     overviewStatus() {
@@ -40,6 +43,12 @@ export class OverviewComponent implements OnInit, OnDestroy {
         });
     }
 
+    overViewTechnicalArea() {
+        this.destroyOverviewTechnicalAreaSubscribe = this.dashboardService.overviewTechnicalAreas().subscribe(res => {
+            this.technicalArea = res;
+        });
+    }
+
     ngOnDestroy() {
         if (this.destroyOverviewStatusSubscribe) {
             this.destroyOverviewStatusSubscribe.unsubscribe();
@@ -47,6 +56,10 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
         if (this.destroyOverviewEntitySubscribe) {
             this.destroyOverviewEntitySubscribe.unsubscribe();
+        }
+
+        if (this.destroyOverviewTechnicalAreaSubscribe) {
+            this.destroyOverviewTechnicalAreaSubscribe.unsubscribe();
         }
     }
 
