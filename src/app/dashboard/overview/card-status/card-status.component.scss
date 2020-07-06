@@ -15,6 +15,11 @@
       .ngx-charts .label:not(.percent-label) {
         opacity: 0;
       }
+
+      .ngx-charts .percent-label {
+        font-weight: 300;
+        font-family: "Lato", sans-serif;
+      }
     }
     .pie-grid-item > .ng-star-inserted:last-child {
       opacity: 0;

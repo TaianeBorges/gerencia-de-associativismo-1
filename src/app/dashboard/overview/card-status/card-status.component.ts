@@ -35,8 +35,6 @@ export class CardStatusComponent implements OnInit, OnChanges {
         if (this.demands) {
             this.items = this.demands.data;
             this.total = this.demands.total;
-
-            console.log($('.percent-label'));
         }
     }
 

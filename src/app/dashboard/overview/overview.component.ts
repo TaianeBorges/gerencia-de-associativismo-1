@@ -10,7 +10,7 @@ import {DashboardService} from '../dashboard.service';
 export class OverviewComponent implements OnInit, OnDestroy {
 
     destroyOverviewStatusSubscribe: Subscription;
-    status: any;
+    // status: any;
     @Input('status') status;
 
     constructor(private dashboardService: DashboardService) {
