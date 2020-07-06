@@ -1,0 +1,15 @@
+<app-alerts></app-alerts>
+<div class="overview-container">
+    <h1 class="page-title">Visao Geral</h1>
+
+    <div class="form-group demand-total">
+        <label>Total</label>
+        <h1>{{status?.total}}
+            <small>Demandas</small>
+        </h1>
+    </div>
+
+    <div class="">
+        <app-card-status [demands]="status"></app-card-status>
+    </div>
+</div>

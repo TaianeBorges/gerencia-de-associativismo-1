@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
     auth;
     loaderDemand = false;
     loaderUser = false;
+    loaderDashboard = false;
 
     constructor(
         private titleService: Title,
@@ -37,6 +38,10 @@ export class HomeComponent implements OnInit {
 
         if (e === 'user') {
             this.loaderUser = true;
+        }
+
+        if (e === 'dashboard') {
+            this.loaderDashboard = true;
         }
     }
 }

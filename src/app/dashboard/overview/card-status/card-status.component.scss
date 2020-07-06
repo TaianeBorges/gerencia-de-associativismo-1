@@ -1,0 +1,103 @@
+.card-status-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  .card-status {
+    height: 105px;
+    width: 205px;
+    margin: 5px;
+
+    .chart {
+      position: relative;
+      left: -13px;
+      top: -13px;
+
+      .ngx-charts .label:not(.percent-label) {
+        opacity: 0;
+      }
+    }
+    .pie-grid-item > .ng-star-inserted:last-child {
+      opacity: 0;
+    }
+
+    .card-info {
+      position: absolute;
+      left: 102px;
+      width: 90px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 14px;
+
+      .card-label {
+        font-size: 16px;
+        font-weight: 200;
+        opacity: .4;
+      }
+
+      .card-value {
+        font-size: 30px;
+        font-weight: 700;
+        position: relative;
+        top: -10px;
+        color: #666;
+      }
+
+    }
+
+    &.card-em-execucao {
+      width: 214px;
+
+      .card-info {
+        width: 145px;
+      }
+    }
+
+    &.card-em-analise {
+      width: 240px;
+
+      .card-info {
+        width: 152px;
+      }
+    }
+
+    &.card-em-aprovacao {
+      width: 220px;
+
+      .card-info {
+        width: 110px;
+      }
+    }
+
+    &.card-nao-atendida {
+      width: 213px;
+
+      .card-info {
+        width: 109px;
+      }
+    }
+
+    &.card-entrega-nao-satisfatoria {
+      width: 286px;
+
+      .card-info {
+        width: 230px;
+      }
+    }
+
+    .card-border-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+
+  }
+
+  @for $i from 1 through 10 {
+    .border-status-#{$i} {
+      width: #{$i} + 0%;
+      border: 1px solid #666;
+    }
+  }
+}
