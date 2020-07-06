@@ -32,6 +32,10 @@ export const APP_ROUTES: Routes = [
         loadChildren: () => import('./who-is/who-is.module').then(mod => mod.WhoIsModule),
         canActivateChild: [AuthGuardService]
     },
+    {
+        path: 'dashboard',
+        loadChildren: () => import('./dashboard/dashboard.module').then(mod => mod.DashboardModule)
+    },
     {path: 'cadastro', redirectTo: 'usuarios/lista-de-usuarios'},
     {path: 'login', redirectTo: 'auth/login'},
     {path: 'logout', redirectTo: 'auth/logout'},

@@ -1,0 +1,16 @@
+<div class="card-category-container">
+    <h3 class="title">Categorias</h3>
+    <div class="card">
+        <ngx-charts-bar-horizontal
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="items"
+                [gradient]="gradient"
+                [xAxis]="showXAxis"
+                [yAxis]="showYAxis"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                (select)="onSelect($event)">
+        </ngx-charts-bar-horizontal>
+    </div>
+</div>

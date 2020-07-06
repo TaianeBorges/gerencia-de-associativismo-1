@@ -71,6 +71,19 @@
         }
       }
 
+      &.dashboard {
+        border-color: #f6e29f;
+        &:hover {
+          background: #f6e29f;
+          .card-body {
+            .title,
+            .text {
+              color: #444444;
+            }
+          }
+        }
+      }
+
       &:hover {
         .card-body {
           .title,

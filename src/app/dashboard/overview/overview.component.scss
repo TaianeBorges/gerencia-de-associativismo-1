@@ -1,0 +1,26 @@
+.overview-container {
+  background-color: #f0f3f6;
+  width: 100%;
+  height: auto;
+  padding: 40px;
+
+  .demand-total {
+    label {
+      font-size: 20px;
+      font-weight: 200;
+      opacity: 0.4;
+    }
+
+    h1 {
+      font-size: 40px;
+      font-weight: 700;
+      position: relative;
+      top: -10px;
+      color: #666;
+
+      small {
+        font-size: 16px;
+      }
+    }
+  }
+}

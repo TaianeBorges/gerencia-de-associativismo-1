@@ -82,24 +82,24 @@
             </button>
         </div>
 
-        <ul class="nav-items" [ngClass]="{'nav-items-mobile': menuMobileActivate}">
-            <li>
-                <select (change)="linkMenu(selectModules.value)" #selectModules>
-                    <option value="">Selecione o môdulo</option>
-                    <option value="/gestao-de-demandas/lista-de-demandas" [selected]="routeDemandManagement">
-                        {{menuActivate ? 'Gestão de demandas' : 'GD - Gestão de demandas'}}
-                    </option>
-                    <option value="/quem-e-quem/lista-de-usuarios" [selected]="routeWhoIs">
-                        {{menuActivate ? 'Quem é quem' : 'QQ - Quem é quem'}}
-                    </option>
+        <!--<ul class="nav-items" [ngClass]="{'nav-items-mobile': menuMobileActivate}">-->
+            <!--<li>-->
+                <!--<select (change)="linkMenu(selectModules.value)" #selectModules>-->
+                    <!--<option value="">Selecione o môdulo</option>-->
+                    <!--<option value="/gestao-de-demandas/lista-de-demandas" [selected]="routeDemandManagement">-->
+                        <!--{{menuActivate ? 'Gestão de demandas' : 'GD - Gestão de demandas'}}-->
+                    <!--</option>-->
+                    <!--<option value="/quem-e-quem/lista-de-usuarios" [selected]="routeWhoIs">-->
+                        <!--{{menuActivate ? 'Quem é quem' : 'QQ - Quem é quem'}}-->
+                    <!--</option>-->
                     <!--
                    <option value="/sites/lista-de-sites" [selected]="routeSites">
                        {{menuActivate ? 'Sites' : 'SS - Sites'}}
                    </option>
                    -->
-                </select>
-            </li>
-        </ul>
+                <!--</select>-->
+            <!--</li>-->
+        <!--</ul>-->
         <ul class="nav-items"
             [ngClass]="{'display-none': !routeDemandManagement, 'nav-items-mobile': menuMobileActivate && routeDemandManagement}">
             <!--
