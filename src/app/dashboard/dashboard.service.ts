@@ -28,4 +28,13 @@ export class DashboardService {
             );
     }
 
+    overviewEntity(): Observable<any> {
+        return this.http.post(`${environment.apiUrl}/demandas/overview/entity`, {}, this.httpOptions)
+            .pipe(
+                map(res => {
+                    return res;
+                })
+            );
+    }
+
 }

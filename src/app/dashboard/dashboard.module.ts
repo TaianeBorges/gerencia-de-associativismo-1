@@ -10,11 +10,13 @@ import {OverviewComponent} from './overview/overview.component';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {CardStatusComponent} from './overview/card-status/card-status.component';
 import {DemandService} from '../demand-management/demand.service';
+import { CardEntityComponent } from './overview/card-entity/card-entity.component';
 
 @NgModule({
     declarations: [
         OverviewComponent,
-        CardStatusComponent
+        CardStatusComponent,
+        CardEntityComponent
     ],
     imports: [
         CommonModule,
