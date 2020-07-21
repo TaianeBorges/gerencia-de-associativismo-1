@@ -17,6 +17,7 @@ import {DemandExcelComponent} from './demand-excel/demand-excel.component';
 import {ExcelService} from './demand-excel/demand-excel.service';
 import {MatTooltipModule} from '@angular/material';
 import {DemandEditComponent} from './demand-edit/demand-edit.component';
+import { AngularFileUploaderModule } from "angular-file-uploader";
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import {DemandEditComponent} from './demand-edit/demand-edit.component';
         ReactiveFormsModule,
         FormsModule,
         Ng2SelectizeModule,
-        MatTooltipModule
+        MatTooltipModule,
+        AngularFileUploaderModule
     ],
     exports: [
         MatTooltipModule

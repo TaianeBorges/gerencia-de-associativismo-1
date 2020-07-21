@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DemandService} from '../demand.service';
 import {SharedsService} from 'src/app/shared/shareds.service';
@@ -8,7 +8,8 @@ import {AlertService} from '../../shared/alerts/alert.service';
 @Component({
     selector: 'app-demand-detail',
     templateUrl: './demand-detail.component.html',
-    styleUrls: ['./demand-detail.component.scss']
+    styleUrls: ['./demand-detail.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class DemandDetailComponent implements OnInit, OnDestroy {
 
@@ -22,6 +23,33 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
     timePeriod;
     destroyDemandServiceSubscribe: Subscription;
     permissionUpdateDemand = true;
+
+    afuConfig = {
+        formatsAllowed: ".jpg,.png,.xlsx",
+        maxSize: "5",
+        multiple: true,
+        uploadAPI:  {
+          url: "https://example-file-upload-api",
+          method:"POST",
+          headers: {
+         "Content-Type" : "text/plain;charset=UTF-8",
+         "Authorization" : `Bearer `
+          },
+          params: {
+            'page': '1'
+          },
+          responseType: 'blob',
+        },
+        replaceTexts: {
+          selectFileBtn: 'Selecione os arquivos',
+          resetBtn: 'Limpar',
+          uploadBtn: 'Enviar',
+          attachPinBtn: 'Attach Files...',
+          afterUploadMsg_success: 'Enviado com sucesso!',
+          afterUploadMsg_error: 'Falha no envio!',
+          sizeLimit: 'Limite de tamanho'
+        }
+    };
 
     constructor(
         private route: ActivatedRoute,
@@ -41,6 +69,11 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
         });
 
         this.currentUser = JSON.parse(localStorage.getItem('user'));
+    }
+
+    uploadFile()
+    {
+        return "";
     }
 
     getDemand(id: number) {

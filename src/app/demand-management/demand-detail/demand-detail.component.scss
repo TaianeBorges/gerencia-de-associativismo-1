@@ -4,8 +4,39 @@
   padding: 20px;
   background-color: #f0f3f6;
 
+  .afu-select-btn {
+    margin-bottom: 0;
+    text-transform: initial;
+  }
+
+  .fa::after{
+    content: '×';
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #a7a7a7;
+    text-shadow: 0 1px 0 #fff;
+    font-style: normal;
+    cursor: pointer;
+    position: relative;
+    top: 2px;
+  }
+
+  .afu-invalid-file, .afu-valid-file {
+    padding-left: 15px;
+  }
+
   .demand-card-group {
     .card-body {
+      .container {
+        padding: 0;
+      }
+
       & > .row > div {
 
         margin-bottom: 20px;

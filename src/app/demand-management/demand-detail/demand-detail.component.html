@@ -40,6 +40,23 @@
             </div>
         </div>
 
+        <div class="demand-card-group"> 
+            <h3>Arquivos</h3>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <angular-file-uploader 
+                                [config]="afuConfig"
+                                [resetUpload]=resetVar
+                                (ApiResponse)="DocUpload($event)">
+                            </angular-file-uploader>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         <div class="demand-card-group">
             <h3>Dados do solicitante</h3>
 
