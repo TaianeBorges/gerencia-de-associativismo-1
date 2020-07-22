@@ -32,6 +32,7 @@ import {LoaderInterceptor} from './http-interceptors/loader.interceptor';
 import {ResponseInterceptor} from './http-interceptors/response.interceptor';
 import {CommonModule} from '@angular/common';
 import {UnauthorizedComponent} from './unauthorized/unauthorized.component';
+import {BusinessDiagnosticsModule} from './business-diagnostics/business-diagnostics.module';
 
 @NgModule({
     declarations: [
@@ -50,7 +51,8 @@ import {UnauthorizedComponent} from './unauthorized/unauthorized.component';
         MatIconModule,
         SharedModule,
         WhoIsModule,
-        DashboardModule
+        DashboardModule,
+        BusinessDiagnosticsModule
     ],
     providers: [
         AuthGuardService,

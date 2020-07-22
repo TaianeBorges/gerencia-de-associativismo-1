@@ -1,0 +1,106 @@
+<app-alerts></app-alerts>
+<div class="overview-container" [formGroup]="formCompany">
+    <div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a [routerLink]="['/']">Início</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Diagnóstico Empresarial</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="row margin-b-20">
+        <div class="col text-right">
+            <button class="btn btn-primary margin-l-10">
+                Inserir em lista de prospect
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-8">
+            <div class="demand-card-group">
+                <h3>Dados do solicitante</h3>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <h6 class="card-label mb-2 text-muted">cnpj</h6>
+                                <h5 class="card-text">
+                                    <input type="text" formControlName="cnpj" maxlength="18"
+                                           (keypress)="maskCnpj(formCompany.get('cnpj'))"
+                                           [ngClass]="{'is-invalid': formCompany.get('cnpj').errors && formCompany.get('cnpj').touched }"
+                                           class="form-control"
+                                           [(ngModel)]="cnpj">
+                                </h5>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <h6 class="card-label mb-2 text-muted">Situação Cadastral​</h6>
+                                <h5 class="card-text">ATIVO</h5>
+                            </div>
+                            <div class="col-lg-4">
+                                <h6 class="card-label mb-2 text-muted">Porte​</h6>
+                                <h5 class="card-text">Demais</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="demand-card-group">
+                <h3>Dados do solicitante</h3>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <h6 class="card-label mb-2 text-muted">Nome</h6>
+                                <h5 class="card-text">Nome</h5>
+                            </div>
+                            <div class="col-lg-4">
+                                <h6 class="card-label mb-2 text-muted">Último nome</h6>
+                                <h5 class="card-text">Nome</h5>
+                            </div>
+                            <div class="col-lg-4">
+                                <h6 class="card-label mb-2 text-muted">E-mail</h6>
+                                <h5 class="card-text">E-mail</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demand-card-group">
+                <h3>Dados do solicitante</h3>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <h6 class="card-label mb-2 text-muted">Nome</h6>
+                                <h5 class="card-text">Nome</h5>
+                            </div>
+                            <div class="col-lg-4">
+                                <h6 class="card-label mb-2 text-muted">Último nome</h6>
+                                <h5 class="card-text">Nome</h5>
+                            </div>
+                            <div class="col-lg-4">
+                                <h6 class="card-label mb-2 text-muted">E-mail</h6>
+                                <h5 class="card-text">E-mail</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -84,6 +84,19 @@
         }
       }
 
+      &.business-diagnostics {
+        border-color: #0275D8;
+        &:hover {
+          background: #0275D8;
+          .card-body {
+            .title,
+            .text {
+              color: #fff;
+            }
+          }
+        }
+      }
+
       &:hover {
         .card-body {
           .title,

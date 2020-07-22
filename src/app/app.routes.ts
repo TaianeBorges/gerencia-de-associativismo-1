@@ -36,6 +36,10 @@ export const APP_ROUTES: Routes = [
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module').then(mod => mod.DashboardModule)
     },
+    {
+        path: 'diagnostico-empresarial',
+        loadChildren: () => import('./business-diagnostics/business-diagnostics.module').then(mod => mod.BusinessDiagnosticsModule)
+    },
     {path: 'cadastro', redirectTo: 'usuarios/lista-de-usuarios'},
     {path: 'login', redirectTo: 'auth/login'},
     {path: 'logout', redirectTo: 'auth/logout'},
