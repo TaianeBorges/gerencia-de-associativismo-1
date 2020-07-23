@@ -9,7 +9,7 @@
     text-transform: initial;
   }
 
-  .fa::after{
+  .fa::after {
     content: '×';
     width: 20px;
     height: 20px;
@@ -37,8 +37,7 @@
         padding: 0;
       }
 
-      & > .row > div {
-
+      & > .row > div:not(.margin-b-none) {
         margin-bottom: 20px;
       }
     }

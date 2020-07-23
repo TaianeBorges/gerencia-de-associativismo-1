@@ -46,10 +46,9 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-4">
-                            <angular-file-uploader 
+                        <div class="col-lg-4 margin-b-none">
+                            <angular-file-uploader
                                 [config]="afuConfig"
-                                [resetUpload]=resetVar
                                 (ApiResponse)="DocUpload($event)">
                             </angular-file-uploader>
                         </div>

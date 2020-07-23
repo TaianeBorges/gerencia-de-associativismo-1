@@ -4,6 +4,8 @@ import {DemandService} from '../demand.service';
 import {SharedsService} from 'src/app/shared/shareds.service';
 import {Subscription} from 'rxjs';
 import {AlertService} from '../../shared/alerts/alert.service';
+import {AuthService} from '../../auth/auth.service';
+import {environment} from '../../../environments/environment';
 
 @Component({
     selector: 'app-demand-detail',
@@ -25,29 +27,26 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
     permissionUpdateDemand = true;
 
     afuConfig = {
-        formatsAllowed: ".jpg,.png,.xlsx",
-        maxSize: "5",
+        formatsAllowed: '.jpg,.png,.xlsx',
+        maxSize: '5',
         multiple: true,
-        uploadAPI:  {
-          url: "https://example-file-upload-api",
-          method:"POST",
-          headers: {
-         "Content-Type" : "text/plain;charset=UTF-8",
-         "Authorization" : `Bearer `
-          },
-          params: {
-            'page': '1'
-          },
-          responseType: 'blob',
+        uploadAPI: {
+            url: `${environment.apiUrl}/demandas/arquivos`,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'text/plain;charset=UTF-8',
+                Authorization: `${this.authService.getAuthorizationToken()}`
+            },
+            responseType: 'blob',
         },
         replaceTexts: {
-          selectFileBtn: 'Selecione os arquivos',
-          resetBtn: 'Limpar',
-          uploadBtn: 'Enviar',
-          attachPinBtn: 'Attach Files...',
-          afterUploadMsg_success: 'Enviado com sucesso!',
-          afterUploadMsg_error: 'Falha no envio!',
-          sizeLimit: 'Limite de tamanho'
+            selectFileBtn: 'Selecione os arquivos',
+            resetBtn: 'Limpar',
+            uploadBtn: 'Enviar',
+            attachPinBtn: 'Attach Files...',
+            afterUploadMsg_success: 'Enviado com sucesso!',
+            afterUploadMsg_error: 'Falha no envio!',
+            sizeLimit: 'Limite de tamanho'
         }
     };
 
@@ -56,7 +55,8 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
         private router: Router,
         private demandService: DemandService,
         private sharedService: SharedsService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private authService: AuthService
     ) {
     }
 
@@ -71,9 +71,8 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
         this.currentUser = JSON.parse(localStorage.getItem('user'));
     }
 
-    uploadFile()
-    {
-        return "";
+    DocUpload($event) {
+        console.log($event);
     }
 
     getDemand(id: number) {
