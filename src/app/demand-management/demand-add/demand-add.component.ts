@@ -315,11 +315,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             theme: new FormControl(0)
         });
 
-        this.userService.getUserAuthenticated().subscribe(res => {
-            if (res.authenticate) {
-                this.currentUser = res;
-            }
-        });
+        this.currentUser = JSON.parse(localStorage.getItem('user'));
 
         if (this.formDemand) {
             this.getEntity();
@@ -395,7 +391,15 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     getManagements() {
         this.managementsServiceSubscribe = this.demandServices.getManagements().subscribe(res => {
             if (res) {
-                this.optionsManagements = res.data;
+                if (this.currentUser && this.currentUser.user && this.currentUser.user.role !== 3 && this.currentUser.user.role !== 4 && this.currentUser.user.role !== 5) {
+                    this.optionsManagements = res.data;
+                } else {
+                    for (let value of res.data) {
+                        if (value.initial === 'GEA') {
+                            this.optionsManagements = [value];
+                        }
+                    }
+                }
             }
         });
     }
