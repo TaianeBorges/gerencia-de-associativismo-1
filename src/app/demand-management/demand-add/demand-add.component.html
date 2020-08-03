@@ -273,8 +273,7 @@
         </div>
 
 
-        <div class="demand-card-group card-forward"
-             *ngIf="currentUser && currentUser.user && currentUser.user.role !== 3 && currentUser.user.role !== 4 && currentUser.user.role !== 5">
+        <div class="demand-card-group card-forward">
             <h3>Encaminhamento</h3>
 
             <div class="card">
@@ -290,7 +289,7 @@
                         </div>
 
                         <div class="form-group col-lg-12"
-                             *ngIf="formDemand.get('forwarded_to_the_technical_area.check_forwarded').value">
+                             *ngIf="formDemand.get('forwarded_to_the_technical_area.check_forwarded').value && (currentUser && currentUser.user && currentUser.user.role !== 3 && currentUser.user.role !== 4 && currentUser.user.role !== 5)">
                             <label class="card-label mb-2 text-muted">Regional</label>
                             <ng2-selectize formControlName="regional"
                                            [ngClass]="{'is-invalid': formDemand.get('forwarded_to_the_technical_area.regional').errors && formDemand.get('forwarded_to_the_technical_area.regional').touched }"
