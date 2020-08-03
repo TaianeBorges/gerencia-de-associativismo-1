@@ -131,6 +131,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     ngOnInit() {
+        this.currentUser = JSON.parse(localStorage.getItem('user'));
 
         this.formStatus = this.fb.group({
             status: new FormControl(''),
@@ -212,13 +213,6 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
                 this.optionsRegional = [];
                 this.optionsRegional.push(regional);
             }
-
-
-            this.userService.getUserAuthenticated().subscribe(res => {
-                if (res.authenticate) {
-                    this.currentUser = res.user;
-                }
-            });
         }
     }
 
@@ -235,7 +229,15 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
     getManagements() {
         this.managementsServiceSubscribe = this.demandServices.getManagements().subscribe(res => {
             if (res) {
-                this.optionsManagements = res.data;
+                if (this.currentUser.user && this.currentUser.user.role !== 3 && this.currentUser.user.role !== 4 && this.currentUser.user.role !== 5) {
+                    this.optionsManagements = res.data;
+                } else {
+                    for (let value of res.data) {
+                        if (value.initial === 'GEA') {
+                            this.optionsManagements = [value];
+                        }
+                    }
+                }
             }
         });
     }

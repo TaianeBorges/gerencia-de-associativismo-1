@@ -43,7 +43,7 @@ header {
 
       width: 350px;
       height: 400px;
-      overflow: scroll;
+      overflow-y: scroll;
 
       .notification-title {
         display: flex;
@@ -101,7 +101,7 @@ header {
         .notification-info {
           display: flex;
           flex-direction: column;
-          padding: 15px 0 10px 15px;
+          padding: 15px 0 10px 0;
 
           .notification {
             &-text {
@@ -113,6 +113,7 @@ header {
               position: relative;
               width: 265px;
               line-height: 22px;
+              padding-left: 13px;
 
               &:after {
                 content: "...";
@@ -129,6 +130,7 @@ header {
               }
             }
             &-date {
+              padding-left: 13px;
               font-style: normal;
               font-size: 12px;
               font-weight: 600;
