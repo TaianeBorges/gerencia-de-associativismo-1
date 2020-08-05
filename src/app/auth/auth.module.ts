@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AUTH_ROUTES } from './auth-routing';
 import { RouterModule } from '@angular/router';
 import { LogoutComponent } from './logout/logout.component';
+import { RecaptchaModule } from 'ng-recaptcha';
+import { RECAPTCHA_LANGUAGE } from 'ng-recaptcha';
 
 @NgModule({
   declarations: [
@@ -15,8 +17,15 @@ import { LogoutComponent } from './logout/logout.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild(AUTH_ROUTES)
+    RouterModule.forChild(AUTH_ROUTES),
+    RecaptchaModule
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [
+    {
+      provide: RECAPTCHA_LANGUAGE,
+      useValue: 'pt-BR', // use French language
+    }
+  ]
 })
 export class AuthModule { }

@@ -3,8 +3,9 @@
     <div class="row align-items-center justify-content-center height-max">
       <div class="card">
         <div class="card-body" style="width: 20rem;" *ngIf="formLogin">
-          <img src="../../../assets/img/logotipo/logo.svg" class="logo" alt="">
-          <h5 class="sub-title">Digite suas credenciais para ter acesso ao sistema.</h5>
+          <div class="padding-b-10">
+            <img src="../../../assets/img/logotipo/logo.svg" class="logo" alt="">
+          </div>
 
           <form [formGroup]="formLogin" (ngSubmit)="onSubmit(formLogin)" autocomplete="off">
             <div class="form-group">
@@ -22,6 +23,8 @@
                 class="form-control" formControlName="password" name="password" id="password" placeholder="Password">
                 <a [routerLink]="['/forget-account']">Esqueceu sua senha?</a>
             </div>
+            
+            <re-captcha (resolved)="resolved($event)" siteKey="6LdI47oZAAAAAMACCgDhTrdcWjLFGwu8e2eYv9C9"></re-captcha>
 
             <button type="submit" class="btn btn-primary">Entrar</button>
           </form>
