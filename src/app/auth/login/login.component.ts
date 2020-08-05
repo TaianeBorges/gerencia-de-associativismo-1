@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
 
     formLogin: FormGroup;
     previousUrl: string;
+    captchaResponse: string;
 
     constructor(
         private authService: AuthService,
@@ -26,7 +27,8 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
         this.formLogin = new FormGroup({
             email: new FormControl('', [Validators.minLength(4), Validators.required]),
-            password: new FormControl('', [Validators.minLength(4), Validators.required])
+            password: new FormControl('', [Validators.minLength(4), Validators.required]),
+            captcha: new FormControl('')
         });
 
         if (!environment.production && !environment.homologation) {
@@ -39,6 +41,10 @@ export class LoginComponent implements OnInit {
                 this.previousUrl = atob(params.url);
             }
         });
+    }
+
+    resolved(data) {
+        this.formLogin.get('captcha').setValue(data);
     }
 
     onSubmit(data: any) {

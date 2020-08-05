@@ -232,15 +232,9 @@
             }
           }
 
-          @media screen and (min-width: 1500px) {
-            &.card-descricao {
-              width: 10%;
-            }
-          }
-
           @media screen and (min-width: 1600px) {
             &.card-descricao {
-              width: 16%;
+              width: 100%;
             }
           }
 
