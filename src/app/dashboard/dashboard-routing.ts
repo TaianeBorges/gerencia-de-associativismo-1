@@ -5,7 +5,6 @@ import {OverviewComponent} from './overview/overview.component';
 export const DASHBOARD_ROUTES: Routes = [
     {
         path: 'visao-geral',
-        component: OverviewComponent,
-        canActivate: [AuthGuardService]
+        component: OverviewComponent
     }
 ];

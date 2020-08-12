@@ -101,6 +101,24 @@
             <!--</li>-->
         <!--</ul>-->
         <ul class="nav-items"
+        [ngClass]="{'display-none': !routeMailMarketing, 'nav-items-mobile': menuMobileActivate && routeMailMarketing}">
+            <li>
+                <a [routerLink]="['/email-marketing/lista-de-emails']" 
+                routerLinkActive="router-link-active">
+                    <i class="material-icons">all_inbox</i>
+                    <span>Lista de e-mails</span>
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['/email-marketing/formulario-de-solicitacao']" 
+                routerLinkActive="router-link-active">
+                    <i class="material-icons">post_add</i>
+                    <span>Formulário de Solicitação</span>
+                </a>
+            </li>
+            
+        </ul>
+        <ul class="nav-items"
             [ngClass]="{'display-none': !routeDemandManagement, 'nav-items-mobile': menuMobileActivate && routeDemandManagement}">
             <!--
                 <li>

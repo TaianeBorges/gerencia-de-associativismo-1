@@ -29,6 +29,20 @@
             <app-menu-loader [visibility]="loaderUser" [color]="'user'"></app-menu-loader>
         </a>
 
+        <a [routerLink]="['/email-marketing']" class="module-item card who_is"
+           *ngIf="(currentUser.user.role == 10)" (click)="setLoader('user')">
+            <div class="image">
+                <img src="../assets/img/illustrations/admin_user.svg" alt="illustration-module">
+            </div>
+            <div class="card-body">
+                <h5 class="title">E-mail Marketing</h5>
+                <p class="text">
+                    Módulo que gerencia disparo de campanhas de e-mails marketing. 
+                </p>
+            </div>
+            <app-menu-loader [visibility]="loaderUser" [color]="'user'"></app-menu-loader>
+        </a>
+
         <a [routerLink]="['/dashboard/visao-geral']" class="module-item card dashboard"
            *ngIf="(currentUser.user.role == 10)" (click)="setLoader('dashboard')">
             <div class="image">
@@ -37,7 +51,7 @@
             <div class="card-body">
                 <h5 class="title">Dashboard</h5>
                 <p class="text">
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidun
+                    Painéis que mostram métricas e indicadores importantes para alcançar objetivos e metas traçadas de forma visual.
                 </p>
             </div>
             <app-menu-loader [visibility]="loaderDashboard" [color]="'dashboard'"></app-menu-loader>

@@ -34,7 +34,13 @@ export const APP_ROUTES: Routes = [
     },
     {
         path: 'dashboard',
+        canActivate: [AuthGuardService],
         loadChildren: () => import('./dashboard/dashboard.module').then(mod => mod.DashboardModule)
+    },
+    {
+        path: 'email-marketing',
+        canActivate: [AuthGuardService],
+        loadChildren: () => import('./email-marketing/email-marketing.module').then( mod => mod.EmailMarketingModule)
     },
     {path: 'cadastro', redirectTo: 'usuarios/lista-de-usuarios'},
     {path: 'login', redirectTo: 'auth/login'},

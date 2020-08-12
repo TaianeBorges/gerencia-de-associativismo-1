@@ -1,0 +1,54 @@
+<form class="demand-filter">
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col text-right">
+                    <a (click)="openFilter(filterModal)" routerLinkActive="router-link-active"
+                       class="btn btn-light margin-l-10 btn-with-icon">
+                        <i class="material-icons">tune</i>
+                        <span>Filtros</span>
+                    </a>
+
+                    <a [routerLink]="['/email-marketing/formulario-de-solicitacao']" routerLinkActive="router-link-active"
+                       class="btn btn-primary margin-l-10 btn-with-icon">
+                        <i class="material-icons">post_add</i>
+                        <span>Formulário de solicitação</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<ng-template #filterModal>
+    <form [formGroup]="formFilter" class="demand-filter" (ngSubmit)="onSubmit()"
+          autocomplete="off">
+        <div class="modal-header">
+            <h2 class="modal-title title pull-left">Filtros</h2>
+
+            <button type="button" class="close pull-right" (click)="closeModal()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row margin-t-30">
+                Filtros
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="form-group text-right">
+                <button type="button" (click)="resetForm();"
+                        class="btn btn-white">
+                    <span>Limpar filtros</span>
+                </button>
+
+                <button type="submit" class="btn btn-info btn-with-icon margin-l-10">
+                    <i class="material-icons">search</i>
+                    <span>Filtrar</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</ng-template>

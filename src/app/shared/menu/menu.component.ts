@@ -19,6 +19,7 @@ export class MenuComponent implements OnInit {
     routeDemandManagement = false;
     routeWhoIs = false;
     routeSites = false;
+    routeMailMarketing = false;
     titlePage;
     menuActivate = false;
     menuMobileActivate = false;
@@ -45,6 +46,7 @@ export class MenuComponent implements OnInit {
                 this.routeDemandManagement = (res.url.indexOf('/gestao-de-demandas') !== (-1));
                 this.routeWhoIs = res.url.indexOf('/quem-e-quem/') !== (-1);
                 this.routeSites = res.url.indexOf('/sites/') !== (-1);
+                this.routeMailMarketing = res.url.indexOf('/email-marketing') !== (-1);
             }
         });
 
