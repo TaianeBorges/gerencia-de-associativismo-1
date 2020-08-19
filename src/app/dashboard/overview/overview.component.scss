@@ -2,7 +2,11 @@
   background-color: #f0f3f6;
   width: 100%;
   height: auto;
-  padding: 40px;
+  padding: 20px;
+
+  .page-title {
+    margin: 25px 0 20px 0;
+  }
 
   .demand-total {
     label {

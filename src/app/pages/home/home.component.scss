@@ -84,6 +84,19 @@
         }
       }
 
+      &.email-marketing {
+        border-color: #62B36F;
+        &:hover {
+          background: #BFFFC9;
+          .card-body {
+            .title,
+            .text {
+              color: #444444;
+            }
+          }
+        }
+      }
+
       &:hover {
         .card-body {
           .title,
