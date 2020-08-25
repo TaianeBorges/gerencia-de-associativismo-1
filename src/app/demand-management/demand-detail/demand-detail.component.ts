@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DemandService} from '../demand.service';
 import {SharedsService} from 'src/app/shared/shareds.service';
-import {Subscription} from 'rxjs';
+import {Subscription, filter} from 'rxjs';
 import {AlertService} from '../../shared/alerts/alert.service';
 
 @Component({
@@ -22,6 +22,7 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
     timePeriod;
     destroyDemandServiceSubscribe: Subscription;
     permissionUpdateDemand = true;
+    queryStatus = false;
 
     constructor(
         private route: ActivatedRoute,
@@ -39,6 +40,14 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
                 this.getDemand(this.demandId);
             }
         });
+
+        this.route.queryParams
+            .subscribe(params => {
+                    if (params.status) {
+                        this.queryStatus = true;
+                    }
+                }
+            );
 
         this.currentUser = JSON.parse(localStorage.getItem('user'));
     }
@@ -61,6 +70,10 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
                             this.timePeriod = element.time_period;
                         }
                     });
+
+                    if (this.queryStatus) {
+                        this.openModal = !this.openModal;
+                    }
 
                     this.getPermissionUpdateDemand();
 
