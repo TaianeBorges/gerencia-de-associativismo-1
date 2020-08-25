@@ -9,7 +9,7 @@
 
     <!-- Modal Body -->
     <div class="modal-body">
-        <div *ngFor="let item of demandSelected.histories">
+        <div *ngFor="let item of demandSelected.histories; trackBy: trackByFn; let i = index">
             <div class="row status-item padding-t-30 padding-b-30">
                 <div class="col-2 display-flex justify-content-center">
                     <app-initial-name [user]="item.user"></app-initial-name>
@@ -35,6 +35,17 @@
                             <div class="demand-group">
                                 <h5 class="demand-label">Prazo</h5>
                                 <h6 class="demand-text">{{item.time_period | date:'d MMM, y'}}</h6>
+                            </div>
+
+                            <div class="demand-group margin-l-auto"
+                                 *ngIf="currentUser.user.role === 10 && item.status != 8">
+                                <button class="btn btn-link"
+                                        matTooltip="Apagar status"
+                                        (click)="delete_status(i, item.id)">
+                                    <span class="material-icons">
+                                    delete_forever
+                                    </span>
+                                </button>
                             </div>
                         </div>
                     </div>

@@ -230,4 +230,12 @@ export class DemandService {
             })
         );
     }
+
+    destroyStatus(id): Observable<any> {
+        return this.http.post(`${environment.apiUrl}/demandas/status/excluir`, id, this.httpOptions).pipe(
+            map(res => {
+                return res;
+            })
+        );
+    }
 }
