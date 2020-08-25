@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DemandService} from '../demand.service';
 import {SharedsService} from 'src/app/shared/shareds.service';
-import {Subscription, filter} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {AlertService} from '../../shared/alerts/alert.service';
 
 @Component({
