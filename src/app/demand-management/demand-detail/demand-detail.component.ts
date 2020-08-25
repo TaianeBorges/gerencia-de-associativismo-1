@@ -70,6 +70,15 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
             });
     }
 
+    updateDemand(data) {
+        if (data) {
+            this.sharedService.setTitle(`Demanda #${this.demandId} <p matTooltip="${data.histories[0].status_label}" class="badge background-status-${data.histories[0].status}">${data.histories[0].status_label}</p>`);
+            this.demand = data;
+            this.permissionUpdateDemand = true;
+            this.getPermissionUpdateDemand();
+        }
+    }
+
     getPermissionUpdateDemand() {
 
         if ((this.currentUser.user.role !== 11 && this.currentUser.user.role !== 10 && this.currentUser.user.role !== 9) && !this.demand.permission_syndicate && this.demand.entity_id === 2) {
