@@ -73,7 +73,7 @@ export class MenuComponent implements OnInit {
 
     goToDemand(notification) {
         if (notification) {
-            this.router.navigate(['/gestao-de-demandas/demanda/', notification.demand_history.demand_id]);
+            this.router.navigate(['/gestao-de-demandas/demanda/', notification.demand_history.demand_id], {queryParams: {status: true}});
             this.setUnread(notification.id);
         }
     }
