@@ -1,4 +1,4 @@
-<form class="demand-filter">
+<div class="email-list-filter">
 
     <div class="card">
         <div class="card-body">
@@ -19,10 +19,10 @@
             </div>
         </div>
     </div>
-</form>
+</div>
 
 <ng-template #filterModal>
-    <form [formGroup]="formFilter" class="demand-filter" (ngSubmit)="onSubmit()"
+    <form [formGroup]="formFilter" class="email-list" (ngSubmit)="onSubmit()"
           autocomplete="off">
         <div class="modal-header">
             <h2 class="modal-title title pull-left">Filtros</h2>
@@ -33,7 +33,29 @@
         </div>
         <div class="modal-body">
             <div class="row margin-t-30">
-                Filtros
+
+                <div class="form-group col">
+                    <label for="target-audience">Público Alvo</label>
+                    <ng2-selectize formControlName="target_audience"
+                                   id="target-audience"
+                                   [(ngModel)]="selectTargetAudience"
+                                   [config]="configTargetAudience"
+                                   [options]="optionsTargetAudience"
+                                   placeholder="Selecione o público alvo">
+                    </ng2-selectize>
+                </div>
+            </div>
+            <div class="row margin-t-30">
+                <div class="form-group col">
+                    <label for="status">Status</label>
+                    <ng2-selectize formControlName="status"
+                                   id="status"
+                                   [(ngModel)]="selectStatus"
+                                   [config]="configStatus"
+                                   [options]="optionsStatus"
+                                   placeholder="Selecione o Status">
+                    </ng2-selectize>
+                </div>
             </div>
         </div>
         <div class="modal-footer">

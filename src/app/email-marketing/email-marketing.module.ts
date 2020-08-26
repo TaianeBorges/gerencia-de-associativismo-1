@@ -7,6 +7,7 @@ import { EmailListComponent } from './email-list/email-list.component';
 import { RequestFormComponent } from './request-form/request-form.component';
 import { EmailListFilterComponent } from './email-list-filter/email-list-filter.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { Ng2SelectizeModule } from 'ng2-selectize';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forChild(EMAIL_MARKETING_ROUTES),
+    Ng2SelectizeModule
   ],
   providers: [
     EmailMarketingService

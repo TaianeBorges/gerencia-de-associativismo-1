@@ -16,4 +16,8 @@ export class EmailListComponent implements OnInit {
   ngOnInit() {
     this.sharedService.setTitle('Lista de E-mails');
   }
+
+  getEmailMarketing(event) {
+    console.log(event);
+  }
 }

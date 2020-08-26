@@ -4,13 +4,23 @@
         <button class="material-icons" [disabled]="beforeButton" (click)="getDemand('before')">navigate_before</button>
         <button class="material-icons" [disabled]="nextButton" (click)="getDemand('next')">navigate_next</button>
     </div>
-    <p>
+    <p class="pagination-text">
         {{demands?.offset + 1}} -
         {{(demands?.offset + demands?.limit) > demands?.total ? demands?.total : demands?.offset + demands?.limit}} de
         {{demands?.total}}
     </p>
-    <button class="btn btn-outline-primary margin-r-auto btn-with-icon" (click)="refreshDemand()">
+
+    <button class="btn btn-outline-primary btn-refresh btn-with-icon" (click)="refreshDemand()">
         <i class="material-icons">refresh </i>
         <span>Atualizar</span>
     </button>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a [routerLink]="['/']">Início</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Lista de demandas</li>
+        </ol>
+    </nav>
 </div>

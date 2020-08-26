@@ -3,6 +3,7 @@ import {SharedsService} from 'src/app/shared/shareds.service';
 import {DemandService} from '../demand.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
     selector: 'app-demand-list',
@@ -30,14 +31,23 @@ export class DemandListComponent implements OnInit, OnDestroy {
         page: 1
     };
     currentUser;
-
+    isDesktopDevice: boolean;
+    
     constructor(
         private sharedService: SharedsService,
         private demandService: DemandService,
         private elRef: ElementRef,
         private router: Router,
-        private renderer: Renderer2) {
+        private renderer: Renderer2,
+        private deviceService: DeviceDetectorService) {
+            this.epicFunction();
     }
+
+    epicFunction() {
+        // const isMobile = this.deviceService.isMobile();
+        // const isTablet = this.deviceService.isTablet();
+        this.isDesktopDevice = this.deviceService.isDesktop();
+      }
 
     ngOnInit() {
         this.sharedService.setTitle('Lista de demandas');

@@ -4,6 +4,9 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
+                    <a [routerLink]="['/']">Início</a>
+                </li>
+                <li class="breadcrumb-item">
                     <a [routerLink]="['/gestao-de-demandas/lista-de-demandas']">Lista de demandas</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Demanda #{{demand.id}}</li>

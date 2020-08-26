@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef, Output, EventEmitter } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 
 @Component({
@@ -13,13 +13,51 @@ export class EmailListFilterComponent implements OnInit {
   filterModal: BsModalRef;
   formFilter;
   
+  selectTargetAudience = [];
+  selectStatus = [];
+
+  configTargetAudience = {
+      labelField: 'name',
+      valueField: 'id',
+      create: false,
+      searchField: ['name'],
+      plugins: ['dropdown_direction', 'remove_button'],
+      dropdownDirection: 'down',
+      maxItems: 30
+  };
+
+  optionsTargetAudience = [
+    {id: 1, name: 'Sindicatos'},
+    {id: 2, name: 'Empresas'},
+    {id: 3, name: 'Pessoas Físicas'}
+  ];
+
+  configStatus = {
+    labelField: 'name',
+    valueField: 'id',
+    create: false,
+    searchField: ['name'],
+    plugins: ['dropdown_direction', 'remove_button'],
+    dropdownDirection: 'down',
+    maxItems: 30
+  };
+
+  optionsStatus = [
+    {id: 1, name: 'Em espera'},
+    {id: 2, name: 'Enviado'},
+    {id: 3, name: 'Pendente de aprovação'}
+  ];
+  
   constructor(
     private fb: FormBuilder,
     private modalService: BsModalService
     ) { }
   
     ngOnInit() {
-      this.formFilter = this.fb.group({});
+      this.formFilter = this.fb.group({
+        target_audience: new FormControl(''),
+        status: new FormControl('')
+      });
     }
     
     onSubmit() {
@@ -28,7 +66,12 @@ export class EmailListFilterComponent implements OnInit {
     }
 
     resetForm() {
-      this.filterModal.hide();
+      this.selectTargetAudience = [];
+      this.selectStatus = [];
+      
+      setTimeout(() => {
+        this.onSubmit()
+      }, 200);
     }
   
     openFilter(template: TemplateRef<any>) {

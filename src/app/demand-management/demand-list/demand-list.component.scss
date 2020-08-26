@@ -41,7 +41,7 @@
       height: 100%;
       display: flex;
       align-items: center;
-      width: 85%;
+      width: calc(100% - 150px);
 
       @media screen and (max-width: 580px) {
         width: 100%;
