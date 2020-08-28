@@ -1,12 +1,23 @@
 <app-alerts></app-alerts>
 <div class="demand-list-container" *ngIf="currentUser && currentUser.authenticate">
-    <app-demand-filter (formOnSubmit)="filterSubmit($event)"></app-demand-filter>
 
-    <app-demand-pagination [currentPage]="page" [demands]="demands" (pagination)="onPagination($event)">
-    </app-demand-pagination>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a [routerLink]="['/']">Início</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Lista de demandas</li>
+        </ol>
+    </nav>
 
-    <div class="padding-l-20 padding-b-20  padding-r-20">
+    <div class="display-flex align-items-center justify-content-between">
+        <app-demand-filter (formOnSubmit)="filterSubmit($event)"></app-demand-filter>
 
+        <app-demand-pagination [currentPage]="page" [demands]="demands" (pagination)="onPagination($event)">
+        </app-demand-pagination>
+    </div>
+
+    <div class="margin-t-15">
         <div class="card  fadeIn faster delay-{{i}}s border-status-{{demand.histories[0].status}} demand-{{demand.id}}"
              *ngFor="let demand of demands?.data; let i = index" placement="top"
              [ngClass]="{'animated': isDesktopDevice}"

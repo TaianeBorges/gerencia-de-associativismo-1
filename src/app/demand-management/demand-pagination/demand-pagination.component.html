@@ -10,17 +10,8 @@
         {{demands?.total}}
     </p>
 
-    <button class="btn btn-outline-primary btn-refresh btn-with-icon" (click)="refreshDemand()">
+    <button class="btn btn-refresh btn-with-icon" (click)="refreshDemand()">
         <i class="material-icons">refresh </i>
         <span>Atualizar</span>
     </button>
-
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a [routerLink]="['/']">Início</a>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">Lista de demandas</li>
-        </ol>
-    </nav>
 </div>

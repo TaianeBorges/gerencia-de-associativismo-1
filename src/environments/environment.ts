@@ -8,7 +8,7 @@ export const environment = {
     production: false,
     homologation: false,
     name: 'Desenvolvimento',
-    apiUrl: 'http://localhost/gerencia-de-associativismo-api/public/api'
+    apiUrl: 'http://192.168.100.2/gerencia-de-associativismo-api/public/api'
 };
 
 /*

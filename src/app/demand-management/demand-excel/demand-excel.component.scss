@@ -1,0 +1,14 @@
+.link-excel {
+  display: none
+}
+
+@media screen and (max-width: 915px) {
+  .btn-excel {
+    display: none;
+  }
+
+  .link-excel {
+    display: block;
+  }
+}
+

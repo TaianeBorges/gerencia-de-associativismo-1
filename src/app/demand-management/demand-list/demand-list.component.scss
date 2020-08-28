@@ -1,9 +1,9 @@
-@import "../../shared/styles/color";
 @import "../../shared/styles/spacing";
 
 .demand-list-container {
   background-color: #f0f3f6;
   min-height: calc(100vh - 67px);
+  padding: 20px;
 
   .text-muted {
     color: #dcdcdc !important;

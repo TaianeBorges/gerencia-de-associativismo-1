@@ -9,6 +9,15 @@
     flex-direction: column;
     //align-items: center;
   }
+
+  a {
+    color: #606060
+  }
+
+  .color-link {
+    color: #017bff;
+  }
+
   .card {
     max-width: initial;
     margin-top: 0;
@@ -34,4 +43,23 @@
 
 .selectize-input {
   min-height: 38px;
+}
+
+.filter-item {
+}
+
+.dropdown-filter {
+  display: none;
+  .dropdown-toggle::after {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 915px) {
+  .dropdown-filter {
+    display: block;
+  }
+  .filter-item {
+    display: none;
+  }
 }
