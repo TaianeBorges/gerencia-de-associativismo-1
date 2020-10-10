@@ -69,6 +69,11 @@ export class DemandEditComponent implements OnInit, OnDestroy {
 
             this.formDemand = this.fb.group({
                 id: new FormControl(''),
+                requester: new FormGroup({
+                    name: new FormControl('', [Validators.required]),
+                    last_name: new FormControl('', [Validators.required]),
+                    email: new FormControl([], [Validators.required])
+                }),
                 description: new FormControl('', [Validators.required]),
                 theme: new FormControl(''),
                 // demand_category: new FormControl('', [Validators.required]),
@@ -89,6 +94,9 @@ export class DemandEditComponent implements OnInit, OnDestroy {
                     this.demand = res.data[0];
 
                     this.formDemand.get('id').setValue(res.data[0].id);
+                    this.formDemand.get('requester.name').setValue(res.data[0].demand_requester.name);
+                    this.formDemand.get('requester.last_name').setValue(res.data[0].demand_requester.last_name);
+                    this.formDemand.get('requester.email').setValue(res.data[0].demand_requester.demand_requesters_emails[0].email);
                     this.formDemand.get('description').setValue(res.data[0].description);
                     this.formDemand.get('theme').setValue(res.data[0].theme);
 
@@ -145,6 +153,7 @@ export class DemandEditComponent implements OnInit, OnDestroy {
 
         this.formDemand.markAllAsTouched();
         let alert;
+        console.log(this.formDemand.value);
 
         if (this.formDemand.valid) {
             this.registerDemandService = this.demandServices.updateDemand(form.value).subscribe((res: any) => {
