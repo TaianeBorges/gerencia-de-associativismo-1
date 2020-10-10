@@ -204,7 +204,8 @@
                         <div class="col-lg-6">
                             <h6 class="card-label mb-2 text-muted">Justificativa</h6>
                             <p class="card-text" [innerHTML]="demand.justification"></p>
-                            <h5 class="card-text" *ngIf="demand.justification == '' || demand.justification == null">--</h5>
+                            <h5 class="card-text" *ngIf="demand.justification == '' || demand.justification == null">
+                                --</h5>
                         </div>
                     </div>
                 </div>
@@ -266,7 +267,8 @@
 </div>
 
 
-<app-demand-history [demandSelected]="demand" [openModal]="openModal" (deleteHistory)="updateDemand(demand)">
+<app-demand-history [demandSelected]="demand" [openModal]="openModal" (updateHistory)="updateDemand(demand)"
+                    (deleteHistory)="updateDemand(demand)">
 </app-demand-history>
 
 <app-demand-add-history (closeHistory)="getDemand(demandId)" [demandSelected]="demandAddSelected"

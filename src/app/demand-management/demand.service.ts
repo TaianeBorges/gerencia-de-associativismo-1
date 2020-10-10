@@ -231,6 +231,22 @@ export class DemandService {
         );
     }
 
+    getStatus(data): Observable {
+        return this.http.post(`${environment.apiUrl}/demandas/status`, data, this.httpOptions).pipe(
+            map(res => {
+                return res;
+            })
+        );
+    }
+
+    updateStatus(data): Observable {
+        return this.http.post(`${environment.apiUrl}/demandas/status/atualizar`, data, this.httpOptions).pipe(
+            map(res => {
+                return res;
+            })
+        );
+    }
+
     destroyStatus(id): Observable<any> {
         return this.http.post(`${environment.apiUrl}/demandas/status/excluir`, id, this.httpOptions).pipe(
             map(res => {

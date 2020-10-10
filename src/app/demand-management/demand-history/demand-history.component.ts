@@ -3,6 +3,8 @@ import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {Subscription} from 'rxjs';
 import {DemandService} from '../demand.service';
 import {AlertService} from '../../shared/alerts/alert.service';
+import * as _ from 'lodash';
+
 
 @Component({
     selector: 'app-demand-history',
@@ -12,14 +14,17 @@ import {AlertService} from '../../shared/alerts/alert.service';
 })
 export class DemandHistoryComponent implements OnInit, OnChanges, OnDestroy {
 
+    _: any = _;
     modalRef: BsModalRef;
     currentUser;
     destroyStatusSubscribe: Subscription;
+    optionsStatus = [];
 
     @ViewChild('modal', {static: false}) modal;
     @Input('demandSelected') demandSelected: any;
     @Input('openModal') openModal: boolean;
     @Output('deleteHistory') deleteHistory = new EventEmitter();
+    @Output('updateHistory') updateHistory = new EventEmitter();
 
     constructor(
         private modalService: BsModalService,
@@ -30,6 +35,7 @@ export class DemandHistoryComponent implements OnInit, OnChanges, OnDestroy {
 
     ngOnInit() {
         this.currentUser = JSON.parse(localStorage.getItem('user'));
+        this.getStatus();
     }
 
     ngOnChanges(changes: any) {
@@ -41,6 +47,23 @@ export class DemandHistoryComponent implements OnInit, OnChanges, OnDestroy {
     open() {
         if (this.demandSelected) {
             this.modalRef = this.modalService.show(this.modal, {class: 'modal-lg modal-dialog-centered modal-demand'});
+        }
+    }
+
+    getStatus() {
+        const data = {register: true};
+        this.demandService.getStatus(data).subscribe((res) => this.optionsStatus = res.data);
+    }
+
+    updateStatus(event) {
+        if (event) {
+            this.demandSelected.histories.map((item, index) => {
+                if (event.id === item.id) {
+                    this.demandSelected.histories[index] = event;
+                }
+            });
+
+            this.updateHistory.emit(this.demandSelected);
         }
     }
 

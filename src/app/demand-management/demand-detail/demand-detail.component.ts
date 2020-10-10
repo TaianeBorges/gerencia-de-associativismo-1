@@ -85,6 +85,7 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
 
     updateDemand(data) {
         if (data) {
+            console.log(data);
             this.sharedService.setTitle(`Demanda #${this.demandId} <p matTooltip="${data.histories[0].status_label}" class="badge background-status-${data.histories[0].status}">${data.histories[0].status_label}</p>`);
             this.demand = data;
             this.permissionUpdateDemand = true;

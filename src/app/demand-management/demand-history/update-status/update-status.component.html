@@ -1,0 +1,14 @@
+<form [formGroup]="formStatus" class="form-status">
+    <h5 class="demand-label">Status</h5>
+    <h6 *ngIf="currentUser.user.role !== 10 || currentStatus.status === 8"
+        class="demand-text badge background-status-{{currentStatus.status}}">
+        {{currentStatus.status_label}}
+    </h6>
+
+    <select *ngIf="currentUser.user.role === 10 && currentStatus.status !== 8"
+            formControlName="status" class="form-control" (change)="onSubmit()">
+        <option [selected]="item.id === currentStatus.status" [value]="item.id" *ngFor="let item of options">
+            {{item.label}}
+        </option>
+    </select>
+</form>

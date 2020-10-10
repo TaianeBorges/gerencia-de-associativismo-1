@@ -18,6 +18,7 @@ import {ExcelService} from './demand-excel/demand-excel.service';
 import {MatTooltipModule} from '@angular/material';
 import {DemandEditComponent} from './demand-edit/demand-edit.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
+import { UpdateStatusComponent } from './demand-history/update-status/update-status.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
         DemandAddHistoryComponent,
         DemandAddComponent,
         DemandExcelComponent,
-        DemandEditComponent
+        DemandEditComponent,
+        UpdateStatusComponent
     ],
     imports: [
         CommonModule,
