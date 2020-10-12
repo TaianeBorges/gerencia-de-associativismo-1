@@ -20,7 +20,7 @@
 
                 <div class="row">
                     <div class="col text-right">
-                        <button *ngIf="currentUser.user.role == 10" class="btn btn-danger margin-l-10"
+                        <button type="button" *ngIf="currentUser.user.role == 10" class="btn btn-danger margin-l-10"
                                 (click)="destroyDemand()">Excluir demanda
                         </button>
                     </div>
@@ -31,21 +31,30 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <div class="row">
+                            <div class="row" formGroupName="requester">
                                 <div class="col-lg-4">
                                     <h6 class="card-label mb-2 text-muted">Nome</h6>
-                                    <h5 class="card-text">{{demand.demand_requester.name}}</h5>
+                                    <!--<h5 class="card-text">{{demand.demand_requester.name}}</h5>-->
+                                    <input formControlName="name"
+                                           class="form-control"
+                                           [ngClass]="{'is-invalid': formDemand.get('requester.name').errors && formDemand.get('requester.name').touched }">
                                 </div>
                                 <div class="col-lg-4">
                                     <h6 class="card-label mb-2 text-muted">Último nome</h6>
-                                    <h5 class="card-text">{{demand.demand_requester.last_name}}</h5>
+                                    <input formControlName="last_name"
+                                           class="form-control"
+                                           [ngClass]="{'is-invalid': formDemand.get('requester.last_name').errors && formDemand.get('requester.last_name').touched }">
                                 </div>
                                 <div class="col-lg-4">
                                     <h6 class="card-label mb-2 text-muted">E-mail</h6>
-                                    <h5 class="card-text"
-                                        *ngFor="let item of demand.demand_requester.demand_requesters_emails">
-                                        {{item.email}}
-                                    </h5>
+                                    <!--<h5 class="card-text"-->
+                                    <!--*ngFor="let item of demand.demand_requester.demand_requesters_emails">-->
+                                    <!--{{item.email}}-->
+                                    <!--</h5>-->
+                                    <input
+                                            [ngClass]="{'is-invalid': formDemand.get('requester.email').errors && formDemand.get('requester.email').touched }"
+                                            formControlName="email"
+                                            class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -140,33 +149,34 @@
                                 </div>
 
                                 <!--<div class="form-group col-lg-4">-->
-                                    <!--<label class="card-label mb-2 text-muted">Categoria <i class="color-required">*</i></label>-->
-                                    <!--<ng2-selectize formControlName="demand_category"-->
-                                                   <!--[ngClass]="{'is-invalid': formDemand.get('demand_category').errors && formDemand.get('demand_category').touched }"-->
-                                                   <!--class="selectize-category" [config]="configCategory"-->
-                                                   <!--[(ngModel)]="category"-->
-                                                   <!--[options]="optionsCategory"-->
-                                                   <!--placeholder="Selecione a categoria">-->
-                                    <!--</ng2-selectize>-->
+                                <!--<label class="card-label mb-2 text-muted">Categoria <i class="color-required">*</i></label>-->
+                                <!--<ng2-selectize formControlName="demand_category"-->
+                                <!--[ngClass]="{'is-invalid': formDemand.get('demand_category').errors && formDemand.get('demand_category').touched }"-->
+                                <!--class="selectize-category" [config]="configCategory"-->
+                                <!--[(ngModel)]="category"-->
+                                <!--[options]="optionsCategory"-->
+                                <!--placeholder="Selecione a categoria">-->
+                                <!--</ng2-selectize>-->
                                 <!--</div>-->
 
                                 <!--<div class="form-group col-lg-4">-->
-                                    <!--<label class="card-label mb-2 text-muted">Subcategoria da demanda <i-->
-                                            <!--class="color-required">*</i></label>-->
-                                    <!--<ng2-selectize formControlName="demand_subcategory"-->
-                                                   <!--[ngClass]="{'is-invalid': formDemand.get('demand_subcategory').errors && formDemand.get('demand_subcategory').touched }"-->
-                                                   <!--class="selectize-subcategory"-->
-                                                   <!--[(ngModel)]="subcategory"-->
-                                                   <!--[config]="configSubcategory"-->
-                                                   <!--[options]="optionsSubcategory"-->
-                                                   <!--placeholder="Selecione a subcategoria">-->
-                                    <!--</ng2-selectize>-->
+                                <!--<label class="card-label mb-2 text-muted">Subcategoria da demanda <i-->
+                                <!--class="color-required">*</i></label>-->
+                                <!--<ng2-selectize formControlName="demand_subcategory"-->
+                                <!--[ngClass]="{'is-invalid': formDemand.get('demand_subcategory').errors && formDemand.get('demand_subcategory').touched }"-->
+                                <!--class="selectize-subcategory"-->
+                                <!--[(ngModel)]="subcategory"-->
+                                <!--[config]="configSubcategory"-->
+                                <!--[options]="optionsSubcategory"-->
+                                <!--placeholder="Selecione a subcategoria">-->
+                                <!--</ng2-selectize>-->
                                 <!--</div>-->
                             </div>
 
                             <div class="row margin-t-30">
                                 <div class="form-group col-lg-4">
-                                    <label class="card-label mb-2 text-muted">Demanda relacionada ao tema COVID-19?</label>
+                                    <label class="card-label mb-2 text-muted">Demanda relacionada ao tema
+                                        COVID-19?</label>
                                     <select class="form-control" formControlName="theme">
                                         <option value="0">Não</option>
                                         <option value="1">Sim</option>
