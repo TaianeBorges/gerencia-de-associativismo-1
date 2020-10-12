@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
-import {SharedsService} from 'src/app/shared/shareds.service';
+import {SharedService} from 'src/app/shared/shared.service';
 import {AuthService} from 'src/app/auth/auth.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
 
     constructor(
         private titleService: Title,
-        private sharedService: SharedsService,
+        private sharedService: SharedService,
         private authService: AuthService) {
 
         this.authService.authorizationLogin.subscribe(res => {

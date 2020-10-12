@@ -1,5 +1,5 @@
 import {Component, OnInit, ElementRef, Renderer2, OnDestroy} from '@angular/core';
-import {SharedsService} from 'src/app/shared/shareds.service';
+import {SharedService} from 'src/app/shared/shared.service';
 import {DemandService} from '../demand.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
@@ -34,7 +34,7 @@ export class DemandListComponent implements OnInit, OnDestroy {
     isDesktopDevice: boolean;
     
     constructor(
-        private sharedService: SharedsService,
+        private sharedService: SharedService,
         private demandService: DemandService,
         private elRef: ElementRef,
         private router: Router,

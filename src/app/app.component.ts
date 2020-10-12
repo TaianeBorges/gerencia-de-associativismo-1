@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AuthService} from './auth/auth.service';
-import {SharedsService} from './shared/shareds.service';
+import {SharedService} from './shared/shared.service';
 import {Router, NavigationEnd} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {environment} from '../environments/environment';
@@ -24,7 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     constructor(
         private authService: AuthService,
-        private sharedService: SharedsService,
+        private sharedService: SharedService,
         private route: Router
     ) {
         this.routeEvent(this.route);

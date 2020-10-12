@@ -25,6 +25,7 @@ export class DemandHistoryComponent implements OnInit, OnChanges, OnDestroy {
     @Input('openModal') openModal: boolean;
     @Output('deleteHistory') deleteHistory = new EventEmitter();
     @Output('updateHistory') updateHistory = new EventEmitter();
+    @Output('closeHistory') closeHistory = new EventEmitter();
 
     constructor(
         private modalService: BsModalService,
@@ -64,6 +65,7 @@ export class DemandHistoryComponent implements OnInit, OnChanges, OnDestroy {
             });
 
             this.updateHistory.emit(this.demandSelected);
+            // this.closeHistory.emit(true);
         }
     }
 

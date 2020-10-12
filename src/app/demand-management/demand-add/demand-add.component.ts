@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {SharedsService} from 'src/app/shared/shareds.service';
+import {SharedService} from 'src/app/shared/shared.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {DemandService} from '../demand.service';
@@ -264,7 +264,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
     currentUser;
 
     constructor(
-        private sharedService: SharedsService,
+        private sharedService: SharedService,
         private fb: FormBuilder,
         private demandServices: DemandService,
         private el: ElementRef,

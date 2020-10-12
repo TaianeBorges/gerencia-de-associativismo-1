@@ -149,7 +149,7 @@
     </div>
 </div>
 
-<app-demand-history [demandSelected]="demandSelected" [openModal]="openModalShowHistory">
+<app-demand-history (closeHistory)="listDemands()" [demandSelected]="demandSelected" [openModal]="openModalShowHistory">
 </app-demand-history>
 
 <app-demand-add-history (closeHistory)="listDemands()" [demandSelected]="demandAddSelected"

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedsService } from 'src/app/shared/shareds.service';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-request-form',
@@ -9,7 +9,7 @@ import { SharedsService } from 'src/app/shared/shareds.service';
 export class RequestFormComponent implements OnInit {
 
   constructor(
-    private sharedService: SharedsService
+    private sharedService: SharedService
   ) { }
 
   ngOnInit() {

@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DemandService} from '../demand.service';
-import {SharedsService} from 'src/app/shared/shareds.service';
+import {SharedService} from 'src/app/shared/shared.service';
 import {Subscription} from 'rxjs';
 import {AlertService} from '../../shared/alerts/alert.service';
 
@@ -28,7 +28,7 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private router: Router,
         private demandService: DemandService,
-        private sharedService: SharedsService,
+        private sharedService: SharedService,
         private alertService: AlertService
     ) {
     }
@@ -85,7 +85,6 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
 
     updateDemand(data) {
         if (data) {
-            console.log(data);
             this.sharedService.setTitle(`Demanda #${this.demandId} <p matTooltip="${data.histories[0].status_label}" class="badge background-status-${data.histories[0].status}">${data.histories[0].status_label}</p>`);
             this.demand = data;
             this.permissionUpdateDemand = true;

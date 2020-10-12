@@ -231,7 +231,7 @@ export class DemandService {
         );
     }
 
-    getStatus(data): Observable {
+    getStatus(data): Observable<any> {
         return this.http.post(`${environment.apiUrl}/demandas/status`, data, this.httpOptions).pipe(
             map(res => {
                 return res;
@@ -239,7 +239,7 @@ export class DemandService {
         );
     }
 
-    updateStatus(data): Observable {
+    updateStatus(data): Observable<any> {
         return this.http.post(`${environment.apiUrl}/demandas/status/atualizar`, data, this.httpOptions).pipe(
             map(res => {
                 return res;
