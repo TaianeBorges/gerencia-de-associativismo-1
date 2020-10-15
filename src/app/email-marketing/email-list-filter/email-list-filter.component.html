@@ -1,0 +1,76 @@
+<div class="email-list-filter">
+
+    <div>
+        <div>
+            <div class="row">
+                <div class="col text-right">
+                    <a (click)="openFilter(filterModal)" routerLinkActive="router-link-active"
+                       class="btn btn-light margin-l-10 btn-with-icon">
+                        <i class="material-icons">tune</i>
+                        <span>Filtros</span>
+                    </a>
+
+                    <a [routerLink]="['/email-marketing/formulario-de-solicitacao']"
+                       routerLinkActive="router-link-active"
+                       class="btn btn-primary margin-l-10 btn-with-icon">
+                        <i class="material-icons">post_add</i>
+                        <span>Formulário de solicitação</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #filterModal>
+    <form [formGroup]="formFilter" class="email-list" (ngSubmit)="onSubmit()"
+          autocomplete="off">
+        <div class="modal-header">
+            <h2 class="modal-title title pull-left">Filtros</h2>
+
+            <button type="button" class="close pull-right" (click)="closeModal()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row margin-t-30">
+
+                <div class="form-group col">
+                    <label for="target-audience">Público Alvo</label>
+                    <ng2-selectize formControlName="target_audience"
+                                   id="target-audience"
+                                   [(ngModel)]="selectTargetAudience"
+                                   [config]="configTargetAudience"
+                                   [options]="optionsTargetAudience"
+                                   placeholder="Selecione o público alvo">
+                    </ng2-selectize>
+                </div>
+            </div>
+            <div class="row margin-t-30">
+                <div class="form-group col">
+                    <label for="status">Status</label>
+                    <ng2-selectize formControlName="status"
+                                   id="status"
+                                   [(ngModel)]="selectStatus"
+                                   [config]="configStatus"
+                                   [options]="optionsStatus"
+                                   placeholder="Selecione o Status">
+                    </ng2-selectize>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="form-group text-right">
+                <button type="button" (click)="resetForm();"
+                        class="btn btn-white">
+                    <span>Limpar filtros</span>
+                </button>
+
+                <button type="submit" class="btn btn-info btn-with-icon margin-l-10">
+                    <i class="material-icons">search</i>
+                    <span>Filtrar</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</ng-template>

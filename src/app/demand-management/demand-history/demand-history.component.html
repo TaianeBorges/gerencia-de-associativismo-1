@@ -18,10 +18,10 @@
                     <div class="row margin-b-20">
                         <div class="col display-flex">
                             <div class="demand-group">
-                                <h5 class="demand-label">Status</h5>
-                                <h6 class="demand-text badge background-status-{{item.status}}">
-                                    {{item.status_label}}
-                                </h6>
+                                <app-update-status
+                                        (updatedStatus)="updateStatus($event)"
+                                        [currentStatus]="item"
+                                        [options]="optionsStatus"></app-update-status>
                             </div>
                             <div class="demand-group">
                                 <h5 class="demand-label">Atualizado em</h5>

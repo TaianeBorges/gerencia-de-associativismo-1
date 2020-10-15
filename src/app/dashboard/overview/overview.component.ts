@@ -1,7 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {DashboardService} from '../dashboard.service';
-import {SharedsService} from '../../shared/shareds.service';
+import {SharedService} from '../../shared/shared.service';
 
 @Component({
     selector: 'app-overview',
@@ -19,7 +19,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
     constructor(
         private dashboardService: DashboardService,
-        private sharedService: SharedsService
+        private sharedService: SharedService
     ) {
     }
 

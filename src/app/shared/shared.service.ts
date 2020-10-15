@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
-export class SharedsService {
+export class SharedService {
 
     public stateMenu: any = new EventEmitter();
     public titlePage: any = new EventEmitter();

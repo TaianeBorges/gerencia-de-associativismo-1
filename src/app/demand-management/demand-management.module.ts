@@ -17,6 +17,8 @@ import {DemandExcelComponent} from './demand-excel/demand-excel.component';
 import {ExcelService} from './demand-excel/demand-excel.service';
 import {MatTooltipModule} from '@angular/material';
 import {DemandEditComponent} from './demand-edit/demand-edit.component';
+import { DeviceDetectorModule } from 'ngx-device-detector';
+import { UpdateStatusComponent } from './demand-history/update-status/update-status.component';
 
 
 @NgModule({
@@ -29,7 +31,8 @@ import {DemandEditComponent} from './demand-edit/demand-edit.component';
         DemandAddHistoryComponent,
         DemandAddComponent,
         DemandExcelComponent,
-        DemandEditComponent
+        DemandEditComponent,
+        UpdateStatusComponent
     ],
     imports: [
         CommonModule,
@@ -38,7 +41,8 @@ import {DemandEditComponent} from './demand-edit/demand-edit.component';
         ReactiveFormsModule,
         FormsModule,
         Ng2SelectizeModule,
-        MatTooltipModule
+        MatTooltipModule,
+        DeviceDetectorModule 
     ],
     exports: [
         MatTooltipModule

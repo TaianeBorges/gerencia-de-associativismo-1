@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
-import {SharedsService} from 'src/app/shared/shareds.service';
+import {SharedService} from 'src/app/shared/shared.service';
 import {AuthService} from 'src/app/auth/auth.service';
 
 @Component({
@@ -15,10 +15,11 @@ export class HomeComponent implements OnInit {
     loaderDemand = false;
     loaderUser = false;
     loaderDashboard = false;
+    marketing = false;
 
     constructor(
         private titleService: Title,
-        private sharedService: SharedsService,
+        private sharedService: SharedService,
         private authService: AuthService) {
 
         this.authService.authorizationLogin.subscribe(res => {
@@ -42,6 +43,10 @@ export class HomeComponent implements OnInit {
 
         if (e === 'dashboard') {
             this.loaderDashboard = true;
+        }
+
+        if (e === 'marketing') {
+            this.marketing = true;
         }
     }
 }

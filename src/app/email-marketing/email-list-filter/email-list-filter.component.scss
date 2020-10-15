@@ -1,0 +1,20 @@
+@import "../../shared/styles/forms";
+@import "../../shared/styles/spacing";
+
+.email-list-filter {
+    .card {
+        max-width: initial;
+        margin-top: 0;
+    }
+}
+
+.email-list {
+    .form-group {
+        label {
+            font-size: 13px;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: #c4c5c5 !important;
+        }
+    } 
+}

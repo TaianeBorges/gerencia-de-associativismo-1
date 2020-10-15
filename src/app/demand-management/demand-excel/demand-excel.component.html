@@ -1,4 +1,11 @@
-<button type="button" (click)="exportAsXLSX()" class="btn btn-success margin-l-10 btn-with-icon">
+<button type="button" (click)="exportAsXLSX()" class="btn margin-l-10 btn-excel btn-with-icon"
+        *ngIf="!mobile">
     <i class="material-icons">list</i>
     <span>Exportar Lista</span>
 </button>
+
+<a (click)="exportAsXLSX()" routerLinkActive="router-link-active"
+   *ngIf="mobile"
+   class="nav-link dropdown-item link-excel">
+    <span>Exportar Lista</span>
+</a>

@@ -1,16 +1,32 @@
 @import "../../shared/styles/spacing";
 
 .cards-controls {
-  visibility: hidden;
-  padding: 20px;
+  //visibility: hidden;
   flex-direction: row-reverse;
   align-items: center;
 
-  p {
+  nav {
+    width: 100%;
+
+    .breadcrumb {
+      margin-bottom: initial;
+    }
+  }
+
+  p.pagination-text {
     margin: 0;
     opacity: 0.5;
     font-size: 0.9rem;
     font-weight: 700;
+    width: 115px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  button.btn-refresh {
+    margin-left: 15px;
+    flex-shrink: 0;
+    color: #606060;
   }
 
   .pagination {
@@ -39,6 +55,13 @@
         background-color: rgba(0, 0, 0, 0.1);
       }
     }
+  }
+
+  @media screen and (max-width: 780px) {
+
+    //flex-direction: column-reverse;
+    //height: 253px;
+    //justify-content: space-between;
   }
 }
 

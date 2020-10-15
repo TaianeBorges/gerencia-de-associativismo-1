@@ -1,25 +1,43 @@
 <form class="demand-filter">
+    <div>
+        <div class="row">
+            <div class="col text-right">
+                <a [routerLink]="['/gestao-de-demandas/nova-demanda']" routerLinkActive="router-link-active"
+                   class="btn color-link filter-item btn-with-icon">
+                    <i class="material-icons">library_books</i>
+                    <span>Nova demanda</span>
+                </a>
 
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col text-right">
-                    <a (click)="openFilter(filterModal)" routerLinkActive="router-link-active"
-                       class="btn btn-light margin-l-10 btn-with-icon">
-                        <i class="material-icons">tune</i>
-                        <span>Filtros</span>
-                    </a>
+                <a (click)="openFilter(filterModal)" routerLinkActive="router-link-active"
+                   class="btn margin-l-10 filter-item btn-with-icon">
+                    <i class="material-icons">tune</i>
+                    <span>Filtros</span>
+                </a>
 
-                    <app-demand-excel [demandsFilter]="formFilter.value"></app-demand-excel>
+                <app-demand-excel [demandsFilter]="formFilter.value" [mobile]="false"></app-demand-excel>
 
-                    <a [routerLink]="['/gestao-de-demandas/nova-demanda']" routerLinkActive="router-link-active"
-                       class="btn btn-primary margin-l-10 btn-with-icon">
-                        <i class="material-icons">library_books</i>
-                        <span>Nova demanda</span>
-                    </a>
+                <div class="dropdown dropdown-filter">
+                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">more_horiz</i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+
+                        <a [routerLink]="['/gestao-de-demandas/nova-demanda']" routerLinkActive="router-link-active"
+                           class="nav-link dropdown-item">
+                            <span>Nova demanda</span>
+                        </a>
+
+                        <a (click)="openFilter(filterModal)" routerLinkActive="router-link-active"
+                           class="nav-link dropdown-item">
+                            <span>Filtros</span>
+                        </a>
+
+                        <app-demand-excel [demandsFilter]="formFilter.value" [mobile]="true"></app-demand-excel>
+
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 </form>

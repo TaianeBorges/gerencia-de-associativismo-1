@@ -1,0 +1,13 @@
+<div class="email-list-container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a [routerLink]="['/']">Início</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Lista de E-mails</li>
+        </ol>
+    </nav>
+
+    <app-email-list-filter (formOnSubmit)="getEmailMarketing($event)"></app-email-list-filter>
+
+</div>

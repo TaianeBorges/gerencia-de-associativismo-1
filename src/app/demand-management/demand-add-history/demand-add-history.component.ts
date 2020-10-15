@@ -195,7 +195,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
             this.getStatus();
             this.modalRef = this.modalService.show(this.modal, {class: 'modal-lg modal-dialog-centered modal-demand'});
 
-            this.permissionSyndicate = ((this.demandSelected.entity_id == 2 || this.demandSelected.entity_id == 3) && !this.demandSelected.permission_syndicate);
+            this.permissionSyndicate = ((this.demandSelected.entity_id == 2 || this.demandSelected.entity_id == 3 || this.demandSelected.entity_id == 10) && !this.demandSelected.permission_syndicate);
 
             let regional = [];
 

@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, ViewEncapsulation} from '@angular/core';
 import {AuthService} from 'src/app/auth/auth.service';
 import {Router, NavigationEnd} from '@angular/router';
-import {SharedsService} from '../shareds.service';
+import {SharedService} from '../shared.service';
 import * as $AB from 'jquery';
 
 declare var $: any;
@@ -19,6 +19,7 @@ export class MenuComponent implements OnInit {
     routeDemandManagement = false;
     routeWhoIs = false;
     routeSites = false;
+    routeMailMarketing = false;
     titlePage;
     menuActivate = false;
     menuMobileActivate = false;
@@ -37,7 +38,7 @@ export class MenuComponent implements OnInit {
     constructor(
         private authService: AuthService,
         private router: Router,
-        private sharedsService: SharedsService
+        private sharedService: SharedService
     ) {
 
         router.events.subscribe((res) => {
@@ -45,6 +46,7 @@ export class MenuComponent implements OnInit {
                 this.routeDemandManagement = (res.url.indexOf('/gestao-de-demandas') !== (-1));
                 this.routeWhoIs = res.url.indexOf('/quem-e-quem/') !== (-1);
                 this.routeSites = res.url.indexOf('/sites/') !== (-1);
+                this.routeMailMarketing = res.url.indexOf('/email-marketing') !== (-1);
             }
         });
 
@@ -55,9 +57,9 @@ export class MenuComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.sharedsService.actionMenu(this.menuActivate);
+        this.sharedService.actionMenu(this.menuActivate);
 
-        this.sharedsService.titlePage.subscribe(res => {
+        this.sharedService.titlePage.subscribe(res => {
             this.titlePage = res;
         });
 
@@ -66,7 +68,7 @@ export class MenuComponent implements OnInit {
 
     changeMenu() {
         this.menuActivate = !this.menuActivate;
-        this.sharedsService.actionMenu(this.menuActivate);
+        this.sharedService.actionMenu(this.menuActivate);
     }
 
     goToDemand(notification) {
@@ -92,13 +94,13 @@ export class MenuComponent implements OnInit {
     setUnread(id, all = false) {
         if (id) {
             const data = {demand_notification_id: id};
-            this.sharedsService.setUnreadDemandsNotifications(data).subscribe(res => {
+            this.sharedService.setUnreadDemandsNotifications(data).subscribe(res => {
                 this.getNotifications();
             });
         } else if (!id && all) {
             const data = {unreadAll: true};
 
-            this.sharedsService.setUnreadDemandsNotifications(data).subscribe(res => {
+            this.sharedService.setUnreadDemandsNotifications(data).subscribe(res => {
                 this.getNotifications();
             });
         }
@@ -118,7 +120,7 @@ export class MenuComponent implements OnInit {
             this.data.page = 0;
         }
 
-        this.sharedsService.getDemandsNotifications(this.data).subscribe(res => {
+        this.sharedService.getDemandsNotifications(this.data).subscribe(res => {
             if (res) {
                 this.unread = 0;
 

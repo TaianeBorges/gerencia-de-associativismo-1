@@ -4,6 +4,9 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
+                    <a [routerLink]="['/']">Início</a>
+                </li>
+                <li class="breadcrumb-item">
                     <a [routerLink]="['/gestao-de-demandas/lista-de-demandas']">Lista de demandas</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Demanda #{{demand.id}}</li>
@@ -175,7 +178,7 @@
             </div>
         </div>
 
-        <div class="demand-card-group" *ngIf="demand.entity_id == 2 || demand.entity_id == 3">
+        <div class="demand-card-group" *ngIf="demand.entity_id == 2 || demand.entity_id == 3 || demand.entity_id == 10">
             <h3>Condição para atendimento </h3>
 
             <div class="card">
@@ -190,7 +193,7 @@
                                 {{demand.permission_syndicate == 1 ? 'Aprovado' : ( demand.permission_syndicate == 3 ?
                                 'Sem necessidade de aprovação' : 'Não aprovado')}}
                             </p>
-                            <p class="card-text" *ngIf="demand.entity_id == 3 && demand.permission_syndicate != null">
+                            <p class="card-text" *ngIf="(demand.entity_id == 3 || demand.entity_id == 10) && demand.permission_syndicate != null">
                                 {{demand.permission_syndicate == 1 ? 'Apta' : 'Inapta'}}
                             </p>
 
@@ -201,7 +204,8 @@
                         <div class="col-lg-6">
                             <h6 class="card-label mb-2 text-muted">Justificativa</h6>
                             <p class="card-text" [innerHTML]="demand.justification"></p>
-                            <h5 class="card-text" *ngIf="demand.justification == '' || demand.justification == null">--</h5>
+                            <h5 class="card-text" *ngIf="demand.justification == '' || demand.justification == null">
+                                --</h5>
                         </div>
                     </div>
                 </div>
@@ -263,7 +267,8 @@
 </div>
 
 
-<app-demand-history [demandSelected]="demand" [openModal]="openModal" (deleteHistory)="updateDemand(demand)">
+<app-demand-history [demandSelected]="demand" [openModal]="openModal" (updateHistory)="updateDemand(demand)"
+                    (deleteHistory)="updateDemand(demand)">
 </app-demand-history>
 
 <app-demand-add-history (closeHistory)="getDemand(demandId)" [demandSelected]="demandAddSelected"

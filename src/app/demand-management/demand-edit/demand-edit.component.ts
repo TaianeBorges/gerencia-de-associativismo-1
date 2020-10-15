@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DemandService} from '../demand.service';
-import {SharedsService} from '../../shared/shareds.service';
+import {SharedService} from '../../shared/shared.service';
 import {AlertService} from '../../shared/alerts/alert.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
@@ -54,7 +54,7 @@ export class DemandEditComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private router: Router,
         private demandServices: DemandService,
-        private sharedService: SharedsService,
+        private sharedService: SharedService,
         private alertService: AlertService,
         private fb: FormBuilder
     ) {
