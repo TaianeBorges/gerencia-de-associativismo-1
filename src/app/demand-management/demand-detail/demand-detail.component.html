@@ -178,7 +178,7 @@
             </div>
         </div>
 
-        <div class="demand-card-group" *ngIf="demand.entity_id == 2 || demand.entity_id == 3">
+        <div class="demand-card-group" *ngIf="demand.entity_id == 2 || demand.entity_id == 3 || demand.entity_id == 10">
             <h3>Condição para atendimento </h3>
 
             <div class="card">
@@ -193,7 +193,7 @@
                                 {{demand.permission_syndicate == 1 ? 'Aprovado' : ( demand.permission_syndicate == 3 ?
                                 'Sem necessidade de aprovação' : 'Não aprovado')}}
                             </p>
-                            <p class="card-text" *ngIf="demand.entity_id == 3 && demand.permission_syndicate != null">
+                            <p class="card-text" *ngIf="(demand.entity_id == 3 || demand.entity_id == 10) && demand.permission_syndicate != null">
                                 {{demand.permission_syndicate == 1 ? 'Apta' : 'Inapta'}}
                             </p>
 

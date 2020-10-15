@@ -105,6 +105,10 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
         if ((this.demand.histories[0].status === 1 || this.demand.histories[0].status === 7 || this.demand.histories[0].status === 6 || this.demand.histories[0].status === 9)) {
             this.permissionUpdateDemand = false;
         }
+
+        if ((this.currentUser.user.role !== 10) && !this.demand.permission_syndicate && this.demand.entity_id === 10) {
+            this.permissionUpdateDemand = false;
+        }
     }
 
     addHistoryDemand(event, demand) {
