@@ -44,6 +44,32 @@
         </div>
 
         <div class="demand-card-group">
+            <h3>Responsáveis</h3>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <h6 class="card-label mb-2 text-muted">Relacionamento</h6>
+                            <h5 class="card-text"
+                                *ngFor="let item of demand.responsible">
+                            </h5>
+                            <!--<h5 class="card-text" *ngIf="!demand.responsible.relationship">-&#45;&#45;</h5>-->
+                        </div>
+                        <div class="col-lg-4">
+                            <h6 class="card-label mb-2 text-muted">Gerência Técnica</h6>
+                            <!--<h5 class="card-text" *ngIf="demand.responsible?.technical"-->
+                            <!--*ngFor="let item of demand.responsible.technical">-->
+                            <!--{{item.name}}-->
+                            <!--</h5>-->
+                            <!--<h5 class="card-text" *ngIf="!demand.responsible?.technical">-&#45;&#45;</h5>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="demand-card-group">
             <h3>Dados do solicitante</h3>
 
             <div class="card">
@@ -193,7 +219,8 @@
                                 {{demand.permission_syndicate == 1 ? 'Aprovado' : ( demand.permission_syndicate == 3 ?
                                 'Sem necessidade de aprovação' : 'Não aprovado')}}
                             </p>
-                            <p class="card-text" *ngIf="(demand.entity_id == 3 || demand.entity_id == 10) && demand.permission_syndicate != null">
+                            <p class="card-text"
+                               *ngIf="(demand.entity_id == 3 || demand.entity_id == 10) && demand.permission_syndicate != null">
                                 {{demand.permission_syndicate == 1 ? 'Apta' : 'Inapta'}}
                             </p>
 
