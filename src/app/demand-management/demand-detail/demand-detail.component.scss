@@ -4,6 +4,11 @@
   padding: 20px;
   background-color: #f0f3f6;
 
+  .text-not-allowed {
+    cursor: not-allowed;
+    pointer-events: all !important;
+  }
+
   .demand-card-group {
     .card-body {
       & > .row > div {

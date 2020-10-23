@@ -13,33 +13,42 @@
             </ol>
         </nav>
 
-        <div class="row margin-b-20">
-            <div class="col text-right">
-                <button (click)="openModal = !openModal" class="btn btn-outline-info">
-                    Histórico de status
-                </button>
-
-                <button disabled
-                        *ngIf="!permissionUpdateDemand"
-                        class=" btn btn-secondary margin-l-10">
-                    Atualizar status
-                </button>
-
-                <button *ngIf="permissionUpdateDemand"
-                        (click)="demandAddSelected = demand; openModalAddHistory = !openModalAddHistory"
-                        class="btn btn-info margin-l-10">
-                    Atualizar status
-                </button>
-
-                <a [routerLink]="['/gestao-de-demandas/demanda/'+demand.id+'/editar']" routerLinkActive="false"
-                   class="btn btn-secondary margin-l-10"
-                   *ngIf="demand.histories[demand.histories.length - 1].user_id == currentUser.user.id || currentUser.user.role === 10">
-                    Editar demanda
+        <div class="row margin-b-20 text-right">
+            <div class="col">
+                <a (click)="openModal = !openModal" routerLinkActive="router-link-active"
+                   class="btn filter-item btn-with-icon">
+                    <i class="material-icons">history</i>
+                    <span>Histórico de status</span>
                 </a>
 
-                <button *ngIf="currentUser.user.role == 10" class="btn btn-danger margin-l-10"
-                        (click)="destroyDemand()">Excluir demanda
-                </button>
+                <a *ngIf="permissionUpdateDemand"
+                   (click)="demandAddSelected = demand; openModalAddHistory = !openModalAddHistory"
+                   routerLinkActive="router-link-active"
+                   class="btn margin-l-10 filter-item btn-with-icon">
+                    <i class="material-icons">add_circle_outline</i>
+                    <span>Atualizar status</span>
+                </a>
+
+                <a disabled *ngIf="!permissionUpdateDemand"
+                   routerLinkActive="router-link-active"
+                   class="btn margin-l-10 filter-item btn-with-icon text-muted text-not-allowed">
+                    <i class="material-icons">add_circle_outline</i>
+                    <span>Atualizar status</span>
+                </a>
+
+                <a [routerLink]="['/gestao-de-demandas/demanda/'+demand.id+'/editar']" routerLinkActive="false"
+                   class="btn margin-l-10 filter-item btn-with-icon"
+                   *ngIf="demand.histories[demand.histories.length - 1].user_id == currentUser.user.id || currentUser.user.role === 10">
+                    <i class="material-icons">edit</i>
+                    <span>Editar demanda</span>
+                </a>
+
+                <a *ngIf="currentUser.user.role == 10"
+                   (click)="destroyDemand()" routerLinkActive="false"
+                   class="btn margin-l-10 filter-item btn-with-icon text-danger">
+                    <i class="material-icons">delete_forever</i>
+                    <span>Excluir demanda</span>
+                </a>
             </div>
         </div>
 
@@ -58,6 +67,7 @@
                         </div>
                         <div class="col-lg-4">
                             <h6 class="card-label mb-2 text-muted">Gerência Técnica</h6>
+
                             <!--<h5 class="card-text" *ngIf="demand.responsible?.technical"-->
                             <!--*ngFor="let item of demand.responsible.technical">-->
                             <!--{{item.name}}-->
@@ -85,7 +95,8 @@
                         </div>
                         <div class="col-lg-4">
                             <h6 class="card-label mb-2 text-muted">E-mail</h6>
-                            <h5 class="card-text" *ngFor="let item of demand.demand_requester.demand_requesters_emails">
+                            <h5 class="card-text"
+                                *ngFor="let item of demand.demand_requester.demand_requesters_emails">
                                 {{item.email}}
                             </h5>
                         </div>
@@ -204,7 +215,8 @@
             </div>
         </div>
 
-        <div class="demand-card-group" *ngIf="demand.entity_id == 2 || demand.entity_id == 3 || demand.entity_id == 10">
+        <div class="demand-card-group"
+             *ngIf="demand.entity_id == 2 || demand.entity_id == 3 || demand.entity_id == 10">
             <h3>Condição para atendimento </h3>
 
             <div class="card">
@@ -215,8 +227,10 @@
                                 {{demand.entity_id == 2 ? 'O Sindicato aprovou o atendimento da demanda?' : 'Empresa
                                 está apta?'}}
                             </h6>
-                            <p class="card-text" *ngIf="demand.entity_id == 2 && demand.permission_syndicate != null">
-                                {{demand.permission_syndicate == 1 ? 'Aprovado' : ( demand.permission_syndicate == 3 ?
+                            <p class="card-text"
+                               *ngIf="demand.entity_id == 2 && demand.permission_syndicate != null">
+                                {{demand.permission_syndicate == 1 ? 'Aprovado' : ( demand.permission_syndicate == 3
+                                ?
                                 'Sem necessidade de aprovação' : 'Não aprovado')}}
                             </p>
                             <p class="card-text"
@@ -231,7 +245,8 @@
                         <div class="col-lg-6">
                             <h6 class="card-label mb-2 text-muted">Justificativa</h6>
                             <p class="card-text" [innerHTML]="demand.justification"></p>
-                            <h5 class="card-text" *ngIf="demand.justification == '' || demand.justification == null">
+                            <h5 class="card-text"
+                                *ngIf="demand.justification == '' || demand.justification == null">
                                 --</h5>
                         </div>
                     </div>
@@ -276,15 +291,15 @@
                             <h6 class="card-label mb-2 text-muted">Foi encaminhado?</h6>
                             <h5 class="card-text">
                                 <input type="checkbox" disabled [checked]="demand.forwarded_to_the_technical_area">
-                                <label for="" class="margin-l-10">{{demand.forwarded_to_the_technical_area ? 'Foi' :
+                                <label class="margin-l-10">{{demand.forwarded_to_the_technical_area ? 'Foi' :
                                     'Não foi'}} encaminhado</label>
                             </h5>
                         </div>
                         <div class="col-lg-6">
                             <h6 class="card-label mb-2 text-muted">Historico de e-mails</h6>
-                            <p class="card-text" *ngFor="let item of demand.demands_users">{{item.email}} -
-                                <small>{{item.pivot.created_at | date:'dd/MM/yyyy'}}</small>
-                            </p>
+                            <div class="card-text" *ngFor="let item of demand.demands_users">
+                                <p>{{item.name}} - {{item.email}} - <small class="text-muted">{{item.pivot.created_at | date:'dd/MM/yyyy'}}</small> </p>
+                            </div>
                         </div>
                     </div>
                 </div>
