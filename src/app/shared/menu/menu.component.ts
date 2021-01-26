@@ -72,11 +72,13 @@ export class MenuComponent implements OnInit, OnDestroy {
 
     openModal(event) {
         event.stopPropagation();
+        this.formPassword.reset();
         this.stopNotification = false;
         this.modalRef = this.modalService.show(this.modal, {class: 'modal-md modal-dialog-centered modal-change-password'});
     }
 
     closeModal() {
+        this.formPassword.reset();
         this.modalRef.hide();
     }
 
@@ -143,7 +145,6 @@ export class MenuComponent implements OnInit, OnDestroy {
                     localStorage.removeItem('Token');
                     localStorage.removeItem('user');
                     this.auth = false;
-                    // this.authorizationLogin.emit(false);
 
                     this.router.navigate(['/login']);
                 }
