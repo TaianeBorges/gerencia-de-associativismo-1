@@ -486,3 +486,18 @@ header {
     }
   }
 }
+
+.modal-change-password {
+  .modal-body {
+    padding-top: 0;
+
+    .alert-warning {
+      border-radius: 0;
+      padding: 12px 16px;
+
+      p {
+        margin: 0;
+      }
+    }
+  }
+}

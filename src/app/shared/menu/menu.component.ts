@@ -1,8 +1,13 @@
-import {Component, OnInit, Input, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, Input, ViewEncapsulation, ViewChild, OnDestroy} from '@angular/core';
 import {AuthService} from 'src/app/auth/auth.service';
 import {Router, NavigationEnd} from '@angular/router';
 import {SharedService} from '../shared.service';
 import * as $AB from 'jquery';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
+import {Subscription} from 'rxjs';
+import {AlertService} from '../alerts/alert.service';
+
 
 declare var $: any;
 
@@ -12,10 +17,15 @@ declare var $: any;
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit, OnDestroy {
+
+    modalRef: BsModalRef;
+    formPassword: FormGroup;
+    updatePasswordSubscribe: Subscription;
+
+    @ViewChild('modal', {static: false}) modal;
     @Input() permission: boolean;
     auth: any;
-
     routeDemandManagement = false;
     routeWhoIs = false;
     routeSites = false;
@@ -34,11 +44,16 @@ export class MenuComponent implements OnInit {
     };
     notifications = [];
     unread = 0;
+    stopNotification = true;
+    IsmodelShow;
 
     constructor(
+        private modalService: BsModalService,
         private authService: AuthService,
         private router: Router,
-        private sharedService: SharedService
+        private sharedService: SharedService,
+        private fb: FormBuilder,
+        private  alertService: AlertService
     ) {
 
         router.events.subscribe((res) => {
@@ -49,21 +64,91 @@ export class MenuComponent implements OnInit {
                 this.routeMailMarketing = res.url.indexOf('/email-marketing') !== (-1);
             }
         });
-
         this.authService.authorizationLogin.subscribe(res => {
             this.auth = res;
             this.currentUser = this.authService.getUser();
         });
     }
 
+    openModal(event) {
+        event.stopPropagation();
+        this.stopNotification = false;
+        this.modalRef = this.modalService.show(this.modal, {class: 'modal-md modal-dialog-centered modal-change-password'});
+    }
+
+    closeModal() {
+        this.modalRef.hide();
+    }
+
     ngOnInit() {
         this.sharedService.actionMenu(this.menuActivate);
+
+        this.formPassword = this.fb.group({
+            currentPwd: ['', [Validators.required]],
+            newPwd: ['', [Validators.required, Validators.minLength(6)]],
+            confirmPwd: ['', [Validators.required]]
+        });
 
         this.sharedService.titlePage.subscribe(res => {
             this.titlePage = res;
         });
 
         this.createNotificationInterval();
+    }
+
+    matchValues() {
+        if (this.formPassword.get('newPwd').value) {
+            if (this.formPassword.get('newPwd').value !== this.formPassword.get('confirmPwd').value) {
+                this.formPassword.get('confirmPwd').setErrors({matchValues: true});
+            } else {
+                this.formPassword.get('confirmPwd').setErrors(null);
+            }
+        }
+    }
+
+    onSubmit() {
+        this.formPassword.markAllAsTouched();
+        this.matchValues();
+
+        if (this.formPassword.valid) {
+            let alert;
+
+            this.updatePasswordSubscribe = this.sharedService.updatePasswordUser(this.formPassword.value).subscribe(res => {
+
+                if (!res.update) {
+
+                    alert = {
+                        status: 200,
+                        icon: 'priority_high',
+                        color: 'warning',
+                        title: 'Ops!',
+                        message: res.message
+                    };
+
+                    this.alertService.alertShow(alert);
+                } else {
+
+                    alert = {
+                        status: 200,
+                        icon: 'check_circle',
+                        color: 'success',
+                        title: 'Parabéns!',
+                        message: res.message
+                    };
+
+                    this.alertService.alertShow(alert);
+
+                    this.closeModal();
+
+                    localStorage.removeItem('Token');
+                    localStorage.removeItem('user');
+                    this.auth = false;
+                    // this.authorizationLogin.emit(false);
+
+                    this.router.navigate(['/login']);
+                }
+            });
+        }
     }
 
     changeMenu() {
@@ -108,7 +193,8 @@ export class MenuComponent implements OnInit {
 
     createNotificationInterval() {
         this.notificationInterval = setInterval(() => {
-            if (this.routeDemandManagement && $('.notifications-dropdown .dropdown').attr('class').indexOf('show') === -1) {
+
+            if (this.routeDemandManagement && $('.notifications-dropdown .dropdown').attr('class').indexOf('show') === -1 && !$('.modal-change-password').length) {
                 this.getNotifications();
             }
         }, 10000);
@@ -142,6 +228,12 @@ export class MenuComponent implements OnInit {
             }
         });
 
+    }
+
+    ngOnDestroy() {
+        if (this.updatePasswordSubscribe) {
+            this.updatePasswordSubscribe.unsubscribe();
+        }
     }
 
     toFinishNotify() {

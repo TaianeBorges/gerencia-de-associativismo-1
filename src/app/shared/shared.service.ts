@@ -57,5 +57,13 @@ export class SharedService {
             );
     }
 
+    updatePasswordUser(data): Observable<any> {
+        return this.http.post(`${environment.apiUrl}/usuario/atualizar-senha`, data, this.httpOptions)
+            .pipe(
+                map(res => {
+                    return res;
+                })
+            );
+    }
 
 }

@@ -62,6 +62,10 @@
                     {{currentUser?.user.name | initialName}}
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                    <span class="nav-link dropdown-item btn btn-link" (click)="openModal($event);">
+                        Alterar senha
+                    </span>
+                    <div class="dropdown-divider"></div>
                     <a class="nav-link dropdown-item" [routerLink]="['/logout']"
                        [routerLinkActive]="'active'">Sair</a>
                 </div>
@@ -83,40 +87,40 @@
         </div>
 
         <!--<ul class="nav-items" [ngClass]="{'nav-items-mobile': menuMobileActivate}">-->
-            <!--<li>-->
-                <!--<select (change)="linkMenu(selectModules.value)" #selectModules>-->
-                    <!--<option value="">Selecione o môdulo</option>-->
-                    <!--<option value="/gestao-de-demandas/lista-de-demandas" [selected]="routeDemandManagement">-->
-                        <!--{{menuActivate ? 'Gestão de demandas' : 'GD - Gestão de demandas'}}-->
-                    <!--</option>-->
-                    <!--<option value="/quem-e-quem/lista-de-usuarios" [selected]="routeWhoIs">-->
-                        <!--{{menuActivate ? 'Quem é quem' : 'QQ - Quem é quem'}}-->
-                    <!--</option>-->
-                    <!--
-                   <option value="/sites/lista-de-sites" [selected]="routeSites">
-                       {{menuActivate ? 'Sites' : 'SS - Sites'}}
-                   </option>
-                   -->
-                <!--</select>-->
-            <!--</li>-->
+        <!--<li>-->
+        <!--<select (change)="linkMenu(selectModules.value)" #selectModules>-->
+        <!--<option value="">Selecione o môdulo</option>-->
+        <!--<option value="/gestao-de-demandas/lista-de-demandas" [selected]="routeDemandManagement">-->
+        <!--{{menuActivate ? 'Gestão de demandas' : 'GD - Gestão de demandas'}}-->
+        <!--</option>-->
+        <!--<option value="/quem-e-quem/lista-de-usuarios" [selected]="routeWhoIs">-->
+        <!--{{menuActivate ? 'Quem é quem' : 'QQ - Quem é quem'}}-->
+        <!--</option>-->
+        <!--
+       <option value="/sites/lista-de-sites" [selected]="routeSites">
+           {{menuActivate ? 'Sites' : 'SS - Sites'}}
+       </option>
+       -->
+        <!--</select>-->
+        <!--</li>-->
         <!--</ul>-->
         <ul class="nav-items"
-        [ngClass]="{'display-none': !routeMailMarketing, 'nav-items-mobile': menuMobileActivate && routeMailMarketing}">
+            [ngClass]="{'display-none': !routeMailMarketing, 'nav-items-mobile': menuMobileActivate && routeMailMarketing}">
             <li>
-                <a [routerLink]="['/email-marketing/lista-de-emails']" 
-                routerLinkActive="router-link-active">
+                <a [routerLink]="['/email-marketing/lista-de-emails']"
+                   routerLinkActive="router-link-active">
                     <i class="material-icons">all_inbox</i>
                     <span>Lista de e-mails</span>
                 </a>
             </li>
             <li>
-                <a [routerLink]="['/email-marketing/formulario-de-solicitacao']" 
-                routerLinkActive="router-link-active">
+                <a [routerLink]="['/email-marketing/formulario-de-solicitacao']"
+                   routerLinkActive="router-link-active">
                     <i class="material-icons">post_add</i>
                     <span>Formulário de Solicitação</span>
                 </a>
             </li>
-            
+
         </ul>
         <ul class="nav-items"
             [ngClass]="{'display-none': !routeDemandManagement, 'nav-items-mobile': menuMobileActivate && routeDemandManagement}">
@@ -171,3 +175,65 @@
         </div>
     </nav>
 </header>
+
+
+<ng-template #modal>
+    <form [formGroup]="formPassword" (ngSubmit)="onSubmit()" autocomplete="off">
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Login</h4>
+
+            <button type="button" class="close pull-right" (click)="closeModal()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="alert alert-warning row" role="alert">
+                <h6 class="alert-heading">Alterar Senha!</h6>
+                <p>É recomendável usar uma senha forte que você não esteja usando em nenhum outro lugar.</p>
+            </div>
+
+            <div class="form-group">
+                <label for="currentPwd">Atual</label>
+
+                <input type="password"
+                       [ngClass]="{'is-invalid': formPassword.get('currentPwd').errors && formPassword.get('currentPwd').touched }"
+                       class="form-control" formControlName="currentPwd" name="currentPwd" id="currentPwd"
+                       maxlength="16"
+                       placeholder="senha atual">
+                <div *ngIf="formPassword.get('currentPwd').errors && formPassword.get('currentPwd').touched" class="invalid-feedback">
+                    Preencha este campo.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="newPwd">Nova</label>
+                <input type="password"
+                       [ngClass]="{'is-invalid': formPassword.get('newPwd').errors && formPassword.get('newPwd').touched }"
+                       formControlName="newPwd"
+                       maxlength="16"
+                       class="form-control" id="newPwd" placeholder="nova senha">
+                <div *ngIf="formPassword.get('newPwd').errors?.minlength" class="invalid-feedback">
+                    Muito curta.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="confirmPwd">Digite novamente</label>
+                <input type="password"
+                       [ngClass]="{'is-invalid': formPassword.get('confirmPwd').errors && formPassword.get('confirmPwd').touched }"
+                       class="form-control" formControlName="confirmPwd" id="confirmPwd"
+                       placeholder="confirme a senha">
+                <div *ngIf="formPassword.get('confirmPwd').errors" class="invalid-feedback">
+                    <span *ngIf="formPassword.get('confirmPwd').errors.required">
+                        Preencha este campo.
+                    </span>
+                    <span *ngIf="formPassword.get('confirmPwd').value && formPassword.get('confirmPwd').errors.matchValues">
+                        As senhas não correspondem.
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Salvar alterações</button>
+        </div>
+    </form>
+</ng-template>
+
