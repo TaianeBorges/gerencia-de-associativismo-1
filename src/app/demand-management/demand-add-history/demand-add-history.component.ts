@@ -134,7 +134,7 @@ export class DemandAddHistoryComponent implements OnInit, OnChanges, OnDestroy {
         this.currentUser = JSON.parse(localStorage.getItem('user'));
 
         this.formStatus = this.fb.group({
-            status: new FormControl(''),
+            status: new FormControl('', [Validators.required]),
             cost: new FormControl(),
             time_period: new FormControl(''),
             comment: new FormControl('', [Validators.required]),

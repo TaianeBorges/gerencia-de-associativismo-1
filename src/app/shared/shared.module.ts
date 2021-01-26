@@ -26,6 +26,7 @@ import {CurrencyPipe} from './pipes/currency.pipe';
 import {CNPJPipe} from './pipes/cnpj.pipe';
 import {MomentPipe} from './pipes/moment.pipe';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -48,7 +49,9 @@ import { DateAgoPipe } from './pipes/date-ago.pipe';
         MatIconModule,
         RouterModule,
         ModalModule.forRoot(),
-        InfiniteScrollModule
+        InfiniteScrollModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     providers: [
         AlertService,
