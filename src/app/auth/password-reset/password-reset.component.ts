@@ -149,7 +149,7 @@ export class PasswordResetComponent implements OnInit, OnDestroy {
         }
     }
 
-    checkToken(token: string) {
+    checkToken(token) {
         let alert;
 
         this.validatePasswordTokenService = this.authService.validatePasswordToken({token}).subscribe(res => {
