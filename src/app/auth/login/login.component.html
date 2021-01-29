@@ -22,7 +22,7 @@
                                    [ngClass]="{'is-invalid': formLogin.get('password').errors && formLogin.get('password').touched }"
                                    class="form-control" formControlName="password" name="password" id="password"
                                    placeholder="Password">
-                            <a [routerLink]="['/forget-account']">Esqueceu sua senha?</a>
+                            <a [routerLink]="['/auth/redefinir-senha']">Esqueceu sua senha?</a>
                         </div>
 
                         <re-captcha (resolved)="resolved($event)"

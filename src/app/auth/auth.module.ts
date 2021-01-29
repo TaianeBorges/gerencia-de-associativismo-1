@@ -7,11 +7,13 @@ import { RouterModule } from '@angular/router';
 import { LogoutComponent } from './logout/logout.component';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { RECAPTCHA_LANGUAGE } from 'ng-recaptcha';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    PasswordResetComponent
   ],
   imports: [
     CommonModule,

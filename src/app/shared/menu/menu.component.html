@@ -200,7 +200,8 @@
                        class="form-control" formControlName="currentPwd" name="currentPwd" id="currentPwd"
                        maxlength="16"
                        placeholder="senha atual">
-                <div *ngIf="formPassword.get('currentPwd').errors && formPassword.get('currentPwd').touched" class="invalid-feedback">
+                <div *ngIf="formPassword.get('currentPwd').errors && formPassword.get('currentPwd').touched"
+                     class="invalid-feedback">
                     Preencha este campo.
                 </div>
             </div>

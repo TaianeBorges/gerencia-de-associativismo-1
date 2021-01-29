@@ -1,18 +1,20 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { environment } from '../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import {Injectable, EventEmitter} from '@angular/core';
+import {environment} from '../../environments/environment';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
     public authorizationLogin: any = new EventEmitter();
-    constructor(private http: HttpClient) { }
+
+    constructor(private http: HttpClient) {
+    }
 
     private httpOptions = {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
+        headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
 
     getAuthorizationToken() {
@@ -21,11 +23,11 @@ export class AuthService {
 
     checkAuthorization(): Observable<any> {
         return this.http.post(`${environment.apiUrl}/auth/usuario`, {}, this.httpOptions)
-        .pipe(
-            map(res => {
-                this.authorizationLogin.emit(res);
-                return res;
-            }));
+            .pipe(
+                map(res => {
+                    this.authorizationLogin.emit(res);
+                    return res;
+                }));
     }
 
     storeAuthorizationToken(token: string) {
@@ -57,6 +59,33 @@ export class AuthService {
                     localStorage.removeItem('Token');
                     localStorage.removeItem('user');
                     this.authorizationLogin.emit(false);
+                    return res;
+                })
+            );
+    }
+
+    linkPasswordReset(email): Observable<any> {
+        return this.http.post(`${environment.apiUrl}/usuario/link-redefinir-senha`, email, this.httpOptions)
+            .pipe(
+                map(res => {
+                    return res;
+                })
+            );
+    }
+
+    validatePasswordToken(token): Observable<any> {
+        return this.http.post(`${environment.apiUrl}/usuario/validar-token`, token, this.httpOptions)
+            .pipe(
+                map(res => {
+                    return res;
+                })
+            );
+    }
+
+    setNewPassword(data): Observable<any> {
+        return this.http.post(`${environment.apiUrl}/usuario/resetar-senha`, data, this.httpOptions)
+            .pipe(
+                map(res => {
                     return res;
                 })
             );
