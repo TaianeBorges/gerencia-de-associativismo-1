@@ -1,0 +1,47 @@
+<ng-template #modal>
+    <div class="modal-header">
+        <h2 class="modal-title title pull-left">Responsáveis pela demanda #{{demandSelected.id}}</h2>
+
+        <button type="button" class="close pull-right" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="formResponsible" (ngSubmit)="onSubmit()" autocomplete="off" class="demand-responsible">
+        <div class="modal-body">
+
+            <div class="form-group">
+                <label class="card-label mb-2 text-muted">Relacionamento <i
+                        class="color-required">*</i></label>
+                <ng2-selectize formControlName="relationship"
+                               [ngClass]="{'is-invalid': formResponsible.get('relationship').errors && formResponsible.get('relationship').touched }"
+                               class="selectize-relationship" [config]="configResponsible"
+                               [options]="optionsRelationship" placeholder="Selecione">
+                </ng2-selectize>
+            </div>
+
+            <div class="form-group">
+                <label class="card-label mb-2 text-muted">Gerência técnica <i
+                        class="color-required">*</i></label>
+                <ng2-selectize formControlName="technical_area"
+                               [ngClass]="{'is-invalid': formResponsible.get('technical_area').errors && formResponsible.get('technical_area').touched }"
+                               class="selectize-technical-area" [config]="configTechnicalArea"
+                               [options]="optionsTechnicalArea" placeholder="Selecione">
+                </ng2-selectize>
+            </div>
+
+            <div class="form-group">
+                <label class="card-label mb-2 text-muted">Gerências com acesso a demanda <i class="color-required">*</i></label>
+                <ng2-selectize formControlName="technical_areas"
+                               [ngClass]="{'is-invalid': formResponsible.get('technical_areas').errors && formResponsible.get('technical_areas').touched }"
+                               class="selectize-technical-areas" [config]="configTechnicalAreas"
+                               [options]="optionsTechnicalAreas" placeholder="Selecione">
+                </ng2-selectize>
+            </div>
+        </div>
+    </form>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modalRef.hide()">Fechar</button>
+        <button type="submit" class="btn btn-success">Adicionar responsável</button>
+    </div>
+</ng-template>

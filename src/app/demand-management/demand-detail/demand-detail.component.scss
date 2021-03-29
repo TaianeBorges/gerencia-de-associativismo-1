@@ -1,9 +1,19 @@
 @import "../../shared/styles/spacing";
 
 .demand-detail-container {
-  padding: 20px;
+  padding: 20px 20px 120px 20px;
   background-color: #f0f3f6;
 
+  .badge {
+    font-size: 17px;
+  }
+
+  .user-container {
+
+    .user-details {
+      left: calc(109px - 50px) !important;
+    }
+  }
   .text-not-allowed {
     cursor: not-allowed;
     pointer-events: all !important;
@@ -13,7 +23,7 @@
     .card-body {
       & > .row > div {
 
-        margin-bottom: 20px;
+        //margin-bottom: 20px;
       }
     }
   }

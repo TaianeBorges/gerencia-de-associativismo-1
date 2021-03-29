@@ -15,7 +15,11 @@
 
         <div class="row margin-b-20 text-right">
             <div class="col">
-                <a (click)="openModal = !openModal" routerLinkActive="router-link-active"
+                <a (click)="openModalResponsible = !openModalResponsible" class="btn filter-item btn-with-icon">
+                    <i class="material-icons">person_add</i>
+                    <span>Responsáveis</span>
+                </a>
+                <a (click)="openModal = !openModal;" routerLinkActive="router-link-active"
                    class="btn filter-item btn-with-icon">
                     <i class="material-icons">history</i>
                     <span>Histórico de status</span>
@@ -37,7 +41,7 @@
                 </a>
 
                 <a [routerLink]="['/gestao-de-demandas/demanda/'+demand.id+'/editar']" routerLinkActive="false"
-                   class="btn margin-l-10 filter-item btn-with-icon"
+                   class="btn margin-l-10 filter-item btn-with-icon color-link"
                    *ngIf="demand.histories[demand.histories.length - 1].user_id == currentUser.user.id || currentUser.user.role === 10">
                     <i class="material-icons">edit</i>
                     <span>Editar demanda</span>
@@ -52,7 +56,7 @@
             </div>
         </div>
 
-        <div class="demand-card-group" *ngIf="false">
+        <div class="demand-card-group">
             <h3>Responsáveis</h3>
 
             <div class="card">
@@ -60,19 +64,24 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <h6 class="card-label mb-2 text-muted">Relacionamento</h6>
-                            <h5 class="card-text"
-                                *ngFor="let item of demand.responsible">
+                            <h5 class="card-text" *ngIf="demand.responsible.relationship">
+                                {{demand.responsible.relationship.name}}
                             </h5>
-                            <!--<h5 class="card-text" *ngIf="!demand.responsible.relationship">-&#45;&#45;</h5>-->
+                            <h5 class="card-text" *ngIf="!demand.responsible.relationship">--</h5>
                         </div>
                         <div class="col-lg-4">
                             <h6 class="card-label mb-2 text-muted">Gerência Técnica</h6>
-                            <!--<h5 class="text-muted" *ngFor="let item of demand.demands_managements"></h5>-->
-                            <!--<h5 class="card-text" *ngIf="demand.responsible?.technical"-->
-                            <!--*ngFor="let item of demand.responsible.technical">-->
-                            <!--{{item.name}}-->
-                            <!--</h5>-->
-                            <!--<h5 class="card-text" *ngIf="!demand.responsible?.technical">-&#45;&#45;</h5>-->
+                            <h5 class="text-muted" *ngIf="demand.responsible.management">
+                                {{demand.responsible.management.initial}}
+                            </h5>
+                            <h5 class="text-muted" *ngIf="!demand.responsible.management">--</h5>
+                        </div>
+                        <div class="col-lg-4">
+                            <h6 class="card-label mb-2 text-muted">Gerências com acesso a demanda</h6>
+                            <span class="badge badge-info margin-r-5" *ngFor="let item of demand.demands_managements">
+                                {{item.initial}}
+                            </span>
+                            <h5 class="text-muted" *ngIf="!demand.demands_managements">--</h5>
                         </div>
                     </div>
                 </div>
@@ -295,12 +304,13 @@
                                     'Não foi'}} encaminhado</label>
                             </h5>
                         </div>
-                        <div class="col-lg-6">
-                            <h6 class="card-label mb-2 text-muted">Historico de e-mails</h6>
-                            <div class="card-text" *ngFor="let item of demand.demands_users">
-                                <p>{{item.name}} - {{item.email}} -
-                                    <small class="text-muted">{{item.pivot.created_at | date:'dd/MM/yyyy'}}</small>
-                                </p>
+
+                        <div class="col-lg-8">
+                            <h6 class="card-label mb-2 text-muted">Historico de encaminhamentos</h6>
+                            <div class="display-flex">
+                                <span *ngFor="let item of demand.demands_users">
+                                    <app-initial-name [forwarded]="true" [user]="item"></app-initial-name>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -310,6 +320,7 @@
     </div>
 </div>
 
+<app-demand-responsible [openModal]="openModalResponsible" [demandSelected]="demand"></app-demand-responsible>
 
 <app-demand-history [demandSelected]="demand" [openModal]="openModal" (updateHistory)="updateDemand(demand)"
                     (deleteHistory)="updateDemand(demand)">

@@ -87,6 +87,9 @@
     &-auto {
       margin-left: auto !important;
     }
+    &-5 {
+      margin-left: 5px;
+    }
     &-10 {
       margin-left: 10px;
     }
@@ -113,6 +116,9 @@
   &-r {
     &-auto {
       margin-right: auto;
+    }
+    &-5 {
+      margin-right: 5px;
     }
     &-10 {
       margin-right: 10px;

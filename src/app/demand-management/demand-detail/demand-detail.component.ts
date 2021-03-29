@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DemandService} from '../demand.service';
 import {SharedService} from 'src/app/shared/shared.service';
@@ -8,7 +8,8 @@ import {AlertService} from '../../shared/alerts/alert.service';
 @Component({
     selector: 'app-demand-detail',
     templateUrl: './demand-detail.component.html',
-    styleUrls: ['./demand-detail.component.scss']
+    styleUrls: ['./demand-detail.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class DemandDetailComponent implements OnInit, OnDestroy {
 
@@ -17,6 +18,7 @@ export class DemandDetailComponent implements OnInit, OnDestroy {
     demandAddSelected: any;
     openModalAddHistory: any;
     openModal: any;
+    openModalResponsible: any;
     total = 0;
     currentUser;
     timePeriod;

@@ -19,6 +19,7 @@ import {MatTooltipModule} from '@angular/material';
 import {DemandEditComponent} from './demand-edit/demand-edit.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { UpdateStatusComponent } from './demand-history/update-status/update-status.component';
+import { DemandResponsibleComponent } from './demand-responsible/demand-responsible.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { UpdateStatusComponent } from './demand-history/update-status/update-sta
         DemandAddComponent,
         DemandExcelComponent,
         DemandEditComponent,
-        UpdateStatusComponent
+        UpdateStatusComponent,
+        DemandResponsibleComponent
     ],
     imports: [
         CommonModule,

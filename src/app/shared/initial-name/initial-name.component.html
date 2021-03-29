@@ -7,9 +7,13 @@
             <span class="user-title">nome</span>
             <span class="user-text">{{user.name}}</span>
         </div>
-        <div class="user-email">
+        <div class="user-email margin-b-20">
             <span class="user-title">email</span>
             <span class="user-text">{{user.email}}</span>
+        </div>
+        <div *ngIf="forwarded">
+            <span class="user-title">Data do encaminhamento</span>
+            <span class="user-text">{{user.pivot.created_at | date:'dd/MM/yyyy - H:s'}}</span>
         </div>
     </div>
 </div>
