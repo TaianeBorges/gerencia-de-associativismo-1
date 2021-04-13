@@ -153,7 +153,6 @@ export class DemandEditComponent implements OnInit, OnDestroy {
 
         this.formDemand.markAllAsTouched();
         let alert;
-        console.log(this.formDemand.value);
 
         if (this.formDemand.valid) {
             this.registerDemandService = this.demandServices.updateDemand(form.value).subscribe((res: any) => {

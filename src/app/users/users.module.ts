@@ -8,14 +8,14 @@ import {USER_ROUTES} from './users-routing';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
 import {UsersListComponent} from './users-list/users-list.component';
-import { ChangePasswordComponent } from './users/settings/change-password/change-password.component';
+import {UserDetailComponent} from './user-detail/user-detail.component';
 
 @NgModule({
-    declarations: [
-        RegisterComponent,
-        UsersListComponent,
-        ChangePasswordComponent
-    ],
+  declarations: [
+    RegisterComponent,
+    UsersListComponent,
+    UserDetailComponent
+  ],
     imports: [
         CommonModule,
         Ng2SelectizeModule,

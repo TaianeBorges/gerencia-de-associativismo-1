@@ -1,0 +1,32 @@
+<div class="user-detail-container">
+  <div class="row margin-b-20">
+    <div class="col d-flex justify-content-end">
+      <button class="btn btn-link d-flex align-content-center" (click)="newPassword(user.email)">
+        <span class="material-icons margin-r-10">
+          email
+        </span>
+        Enviar nova senha
+      </button>
+      <button class="btn d-flex align-items-center filter-item btn-with-icon btn-user-disable"
+              (click)="enableUser(user.id)">
+        <span class="material-icons margin-r-10" [ngClass]="{'text-success': user.status, 'text-danger': !user.status}">
+          {{user.status ? 'toggle_off' : 'toggle_on'}}
+        </span>
+        <span class="">{{user.status ? 'Desabilitar usuário' : 'Habilitar usuário'}}</span>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h5 class="card-title">{{user.name}}</h5>
+      <p class="card-text">{{user.email}}</p>
+      <p class="card-text">{{user.role_details.label}}</p>
+      <p class="card-text" *ngFor="let item of user.regional">
+        {{item.regional.name}}
+      </p>
+      <p class="card-text" *ngFor="let management of user.users_managements">
+        {{management.initial}} - {{management.name}}
+      </p>
+    </div>
+  </div>
+</div>

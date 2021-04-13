@@ -1,72 +1,88 @@
-.users-list {
+.users-list-container {
+  background-color: #f0f3f6;
+  min-height: calc(100vh - 67px);
   padding: 20px;
-  background-color: #fff;
 
-  .background-color-0 {
-    color: #fff;
-    background: red;
+  .badge {
+    width: 47px;
   }
 
-  .background-color-1 {
-    color: #fff;
-    background: green;
+  .users-filters {
+    .filter-item {
+      margin-left: 0;
+      margin-bottom: 16px;
+    }
   }
-}
 
-.table {
-  td,
-  th {
-    padding-top: 14px;
-    vertical-align: initial;
-  }
-}
+  .users-list {
+    padding: 20px;
+    background-color: #fff;
 
-.users-list {
-  td {
-    padding-top: 0;
-  }
-}
-
-.btn-toogle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: 1s;
-
-  i {
-    font-size: 3rem;
-  }
-}
-
-.btn-action {
-  display: flex;
-  align-items: center;
-
-  div {
-    width: 50px;
-    height: 50px;
-    display: -webkit-box;
-    display: flex;
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
-    text-decoration: none;
-    cursor: pointer;
-    transition: 0.3s;
-
-    &:hover {
-      opacity: 0.8;
+    .background-color-0 {
+      color: #fff;
+      background: red;
     }
 
-    i {
-      font-size: 1.8rem;
-      font-weight: 500;
+    .background-color-1 {
+      color: #fff;
+      background: green;
+    }
+  }
 
-      &.icon-toggle {
-        font-size: 2.3rem;
+  .table {
+    td,
+    th {
+      padding-top: 14px;
+      vertical-align: initial;
+    }
+  }
+
+  .users-list {
+    td {
+      padding-top: 0;
+    }
+  }
+
+  .btn-toogle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 1s;
+
+    i {
+      font-size: 3rem;
+    }
+  }
+
+  .btn-action {
+    display: flex;
+    align-items: center;
+
+    div {
+      width: 50px;
+      height: 50px;
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      justify-content: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.3s;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      i {
+        font-size: 1.8rem;
+        font-weight: 500;
+
+        &.icon-toggle {
+          font-size: 2.3rem;
+        }
       }
     }
   }
