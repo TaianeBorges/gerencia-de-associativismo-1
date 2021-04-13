@@ -1,139 +1,162 @@
 <app-alerts></app-alerts>
 
-<div class="card">
-    <div class="card-body">
-        <div class="row">
-            <div class="col text-right">
-                <a (click)="openFilter(filterModal)" routerLinkActive="router-link-active"
-                   class="btn btn-light margin-l-10 btn-with-icon">
-                    <i class="material-icons">tune</i>
-                    <span>Filtros</span>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="users-list-container">
 
-<ng-template #filterModal>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/']">Início</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Lista de usuários</li>
+    </ol>
+  </nav>
+
+  <div class="users-filters">
+    <div class="row">
+      <div class="col">
+        <a (click)="openFilter(filterModal)" routerLinkActive="router-link-active"
+           class="btn margin-l-10 filter-item btn-with-icon">
+          <i class="material-icons">tune</i>
+          <span>Filtros</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #filterModal>
     <form [formGroup]="formFilter" class="demand-filter" (ngSubmit)="onSubmit()"
           autocomplete="off">
-        <div class="modal-header">
-            <h2 class="modal-title title pull-left">Filtros</h2>
+      <div class="modal-header">
+        <h2 class="modal-title title pull-left">Filtros</h2>
 
-            <button type="button" class="close pull-right" (click)="closeModal()">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="row margin-t-30">
-                <div class="form-group col">
-                    <label>Nome</label>
-                    <div>
-                        <input type="text" id="user_name" class="form-control" formControlName="user_name">
-                    </div>
-                </div>
+        <button type="button" class="close pull-right" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row margin-t-30">
+          <div class="form-group col">
+            <label>Nome</label>
+            <div>
+              <input type="text" id="user_name" class="form-control" formControlName="user_name">
             </div>
+          </div>
         </div>
-        <div class="modal-footer">
-            <div class="form-group text-right">
-                <button type="button" (click)="resetForm();"
-                        class="btn btn-white">
-                    <span>Limpar filtros</span>
-                </button>
+      </div>
+      <div class="modal-footer">
+        <div class="form-group text-right">
+          <button type="button" (click)="resetForm();"
+                  class="btn btn-white">
+            <span>Limpar filtros</span>
+          </button>
 
-                <button type="submit" class="btn btn-info btn-with-icon margin-l-10">
-                    <i class="material-icons">search</i>
-                    <span>Filtrar</span>
-                </button>
-            </div>
+          <button type="submit" class="btn btn-info btn-with-icon margin-l-10">
+            <i class="material-icons">search</i>
+            <span>Filtrar</span>
+          </button>
         </div>
+      </div>
     </form>
-</ng-template>
+  </ng-template>
 
-
-<div class="users-list">
+  <div class="users-list">
     <div class="row">
-        <div class="col">
+      <div class="col">
 
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">E-mail</th>
-                    <th scope="col">Tipo de usuário</th>
-                    <th scope="col">Regional</th>
-                    <th scope="col">Áreas</th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let user of users">
-                    <th scope="row">
-                        {{user.id}}
-                    </th>
-                    <td class="animated fadeIn">{{user.name}}</td>
-                    <td class="animated fadeIn">{{user.email}}</td>
-                    <td class="animated fadeIn">
-                        <span class="badge badge-light text-uppercase">
-                            {{user.role_details.label}}
-                        </span>
-                    </td>
-                    <td class="animated fadeIn">
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nome</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Tipo de usuário</th>
+            <th scope="col">Regional</th>
+            <th scope="col">Áreas</th>
+            <th scope="col">Ativo</th>
+            <th scope="col"></th>
+          </tr>
+          </thead>
+          <tbody [formGroup]="formUser">
+          <tr *ngFor="let user of users$ | async">
+            <th scope="row" formGroupName="user">
+              {{user.id}}
+            </th>
+            <td class="animated fadeIn">{{user.name}}</td>
+            <td class="animated fadeIn">{{user.email}}</td>
+            <td class="animated fadeIn">
+              <span *ngIf="currentUser.user.role !== 10" class="badge badge-light text-uppercase">
+                  {{user.role_details.label}}
+              </span>
+              <select class="form-control" formControlName="role" (change)="updateUser(user.id)"
+                      *ngIf="roles.length && currentUser.user.role === 10">
+                <option [selected]="user.role_details.id"
+                        [value]="user.role_details.id">{{user.role_details.label}}</option>
+                <option [value]="role.id" *ngFor="let role of roles">
+                  {{role.label}}
+                </option>
+              </select>
+            </td>
+            <td class="animated fadeIn">
                         <span *ngFor="let item of user.representation_offices; let i = index; last as isLast">
                             {{item.regional.name ? (item.regional.name && isLast && user.representation_offices.length > 1 ? ' - ' + item.regional.name : item.regional.name) : item.regional.name}}
                         </span>
-                        <span *ngIf="!user.representation_offices.length">--</span>
-                    </td>
-                    <td class="animated fadeIn">
-                        <div class="d-flex flex-wrap" style="max-width: 200px;">
-                            <h5 *ngFor="let item of user.users_managements" class="pl-1 pr-1">
-                                <span class="badge badge-info">{{item.initial}}</span>
-                            </h5>
+              <span *ngIf="!user.representation_offices.length">--</span>
+            </td>
+            <td class="animated fadeIn">
+              <div class="d-flex flex-wrap" style="max-width: 200px;">
+                <h5 *ngFor="let item of user.users_managements" class="pl-1 pr-1">
+                  <span class="badge badge-info">{{item.initial}}</span>
+                </h5>
 
-                            <span *ngIf="user.users_managements.length < 1">--</span>
-                        </div>
-                    </td>
-                    <td class="animated fadeIn">
-                        <div class="btn-action">
-                            <div class="btn btn-link">
-                                <i class="material-icons">
-                                    face
-                                </i>
-                            </div>
+                <span *ngIf="user.users_managements.length < 1">--</span>
+              </div>
+            </td>
+            <td class="animated fadeIn">
+              <span class="badge" [ngClass]="{'badge-success': user.status, 'badge-danger': !user.status}">
+                {{user.status ? 'Ativo' : 'Inativo'}}
+              </span>
+            </td>
+            <td class="animated fadeIn">
+              <div class="btn-action">
+                <div class="btn btn-link" (click)="openUserModal(modalUser, user)">
+                  <span class="material-icons">
+                    settings
+                  </span>
+                </div>
+              </div>
+            </td>
+          </tr>
 
-                            <div (click)="newPassword(user.email)" class="btn btn-link">
-                                <i class="material-icons">
-                                    vpn_key
-                                </i>
-                            </div>
+          <tr class="margin-t-20" *ngIf="!(users$ | async)?.length">
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+          </tr>
 
-                            <div (click)="enableUser(user.status, user.id)">
-                                <i class="material-icons icon-toggle"
-                                   [ngClass]="{'text-success': user.status, 'text-danger': !user.status}">
-                                    {{user.status ? 'toggle_on' : 'toggle_off'}}
-                                </i>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
+          </tbody>
+        </table>
 
-                <tr *ngIf="users && !users.length" class="margin-t-20">
-                    <td>---</td>
-                    <td>---</td>
-                    <td>---</td>
-                    <td>---</td>
-                    <td>---</td>
-                    <td>---</td>
-                    <td>---</td>
-                    <td>---</td>
-                </tr>
-
-                <app-ininite-scroll (scrolled)="getUsers($event)"></app-ininite-scroll>
-
-                </tbody>
-            </table>
-
-        </div>
+      </div>
     </div>
+  </div>
 </div>
+
+<ng-template #modalUser>
+  <div class="modal-header">
+    <h2 class="modal-title title pull-left">Configuração</h2>
+
+    <button type="button" class="close pull-right" (click)="closeUserModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="moda-body">
+    <app-user-detail [data]="userModal"></app-user-detail>
+  </div>
+</ng-template>

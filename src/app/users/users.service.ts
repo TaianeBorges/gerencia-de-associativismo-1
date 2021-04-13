@@ -5,123 +5,141 @@ import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class UsersService {
 
-    private httpOptions = {
-        headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    })
+  };
+
+  constructor(private http: HttpClient) {
+  }
+
+  getCapacities(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/lotacoes`, this.httpOptions)
+      .pipe(
+        map(res => {
+          return res;
         })
-    };
+      );
+  }
 
-    constructor(private http: HttpClient) {
+  getGeneralManagement(capacity_id: number): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/lotacoes/${capacity_id}/gerencias-gerais`, this.httpOptions)
+      .pipe(map(res => {
+        return res;
+      }));
+  }
+
+  getManagements(data: any): Observable<any> {
+    const url = `${environment.apiUrl}/lotacoes/${data.capacity_id}/gerencias-gerais/${data.general_management_id}/gerencias`;
+    return this.http.get(url, this.httpOptions)
+      .pipe(map(res => {
+        return res;
+      }));
+  }
+
+  getRegionals(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/regionais`, this.httpOptions)
+      .pipe(
+        map(res => {
+          return res;
+        })
+      );
+  }
+
+  getDepartments(data: any): Observable<any> {
+
+    if (typeof data.management_id === 'object') {
+      data.management_id = data.management_id[0];
     }
 
-    getCapacities(): Observable<any> {
-        return this.http.get(`${environment.apiUrl}/lotacoes`, this.httpOptions)
-            .pipe(
-                map(res => {
-                    return res;
-                })
-            );
-    }
+    const url = `${environment.apiUrl}/lotacoes/${data.capacity_id}/gerencias-gerais/${data.general_management_id}/gerencias/${data.management_id}/divisoes`;
+    return this.http.get(url, this.httpOptions)
+      .pipe(
+        map(res => {
+          return res;
+        })
+      );
+  }
 
-    getGeneralManagement(capacity_id: number): Observable<any> {
-        return this.http.get(`${environment.apiUrl}/lotacoes/${capacity_id}/gerencias-gerais`, this.httpOptions)
-            .pipe(map(res => {
-                return res;
-            }));
-    }
+  getSyndicatesBySectors(data: any): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/sindicatos`, data, this.httpOptions)
+      .pipe(
+        map(res => {
+          return res;
+        })
+      );
+  }
 
-    getManagements(data: any): Observable<any> {
-        const url = `${environment.apiUrl}/lotacoes/${data.capacity_id}/gerencias-gerais/${data.general_management_id}/gerencias`;
-        return this.http.get(url, this.httpOptions)
-            .pipe(map(res => {
-                return res;
-            }));
-    }
+  getSectorsService(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/sindicatos/setores`)
+      .pipe(
+        map(res => {
+          return res;
+        })
+      );
+  }
 
-    getRegionals(): Observable<any> {
-        return this.http.get(`${environment.apiUrl}/regionais`, this.httpOptions)
-            .pipe(
-                map(res => {
-                    return res;
-                })
-            );
-    }
+  getUserAuthenticated(): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/auth/usuario`, {}, this.httpOptions)
+      .pipe(map(res => {
+        return res;
+      }));
+  }
 
-    getDepartments(data: any): Observable<any> {
+  sendNewPassword(data: any): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/usuario/nova-senha`, data, this.httpOptions)
+      .pipe(map(res => {
+        return res;
+      }));
+  }
 
-        if (typeof data.management_id === 'object') {
-            data.management_id = data.management_id[0];
-        }
+  registerUser(data: any): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/usuarios/cadastro`, data, this.httpOptions)
+      .pipe(
+        map(res => {
+          return res;
+        })
+      );
+  }
 
-        const url = `${environment.apiUrl}/lotacoes/${data.capacity_id}/gerencias-gerais/${data.general_management_id}/gerencias/${data.management_id}/divisoes`;
-        return this.http.get(url, this.httpOptions)
-            .pipe(
-                map(res => {
-                    return res;
-                })
-            );
-    }
+  getUsers(data): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/usuarios`, data, this.httpOptions)
+      .pipe(
+        map(res => {
+          return res;
+        })
+      );
+  }
 
-    getSyndicatesBySectors(data: any): Observable<any> {
-        return this.http.post(`${environment.apiUrl}/sindicatos`, data, this.httpOptions)
-            .pipe(
-                map(res => {
-                    return res;
-                })
-            );
-    }
+  getRoles(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/usuarios/tipos-de-usuario`)
+      .pipe(
+        map(res => {
+          return res;
+        })
+      );
+  }
 
-    getSectorsService(): Observable<any> {
-        return this.http.get(`${environment.apiUrl}/sindicatos/setores`)
-            .pipe(
-                map(res => {
-                    return res;
-                })
-            );
-    }
+  enableUser(data: any): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/usuario/habilitar`, data, this.httpOptions).pipe(
+      map(res => {
+        return res;
+      })
+    );
+  }
 
-    getUserAuthenticated(): Observable<any> {
-        return this.http.post(`${environment.apiUrl}/auth/usuario`, {}, this.httpOptions)
-            .pipe(map(res => {
-                return res;
-            }));
-    }
-
-    sendNewPassword(data: any): Observable<any> {
-        return this.http.post(`${environment.apiUrl}/usuario/nova-senha`, data, this.httpOptions)
-            .pipe(map(res => {
-                return res;
-            }));
-    }
-
-    registerUser(data: any): Observable<any> {
-        return this.http.post(`${environment.apiUrl}/usuarios/cadastro`, data, this.httpOptions)
-            .pipe(
-                map(res => {
-                    return res;
-                })
-            );
-    }
-
-    getUsers(data): Observable<any> {
-        return this.http.post(`${environment.apiUrl}/usuarios`, data, this.httpOptions)
-            .pipe(
-                map(res => {
-                    return res;
-                })
-            );
-    }
-
-    enableUser(data: any): Observable<any> {
-        return this.http.post(`${environment.apiUrl}/usuario/habilitar`, data, this.httpOptions).pipe(
-            map(res => {
-                return res;
-            })
-        );
-    }
+  updateUser(data: any): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/usuario/atualizar-usuario`, data, this.httpOptions)
+      .pipe(
+        map(res => {
+          return res;
+        })
+      );
+  }
 }

@@ -4,13 +4,13 @@
 
 const ip = '192.168.100.2';
 
-const host = 'localhost';
+const host = 'localhost/gerencia-de-associativismo-api/public';
 
 export const environment = {
     production: false,
     homologation: false,
     name: 'Desenvolvimento',
-    apiUrl:  `http://${host}/gerencia-de-associativismo-api/public/api`
+    apiUrl:  `http://${host}/api`
 };
 
 /*

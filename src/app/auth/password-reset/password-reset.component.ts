@@ -65,7 +65,6 @@ export class PasswordResetComponent implements OnInit, OnDestroy {
 
         if (this.formEmail.valid) {
             this.linkPasswordResetService = this.authService.linkPasswordReset(this.formEmail.value).subscribe(res => {
-                console.log(res);
 
                 if (!res.submit) {
                     alert = {

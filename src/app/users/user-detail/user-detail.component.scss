@@ -1,0 +1,11 @@
+.user-detail-container {
+  padding: 30px 20px;
+
+  .btn-link:hover, .btn-link.focus, .btn-link:focus {
+    text-decoration: none;
+  }
+
+  .btn-user-disable .material-icons {
+    font-size: 26px;
+  }
+}
