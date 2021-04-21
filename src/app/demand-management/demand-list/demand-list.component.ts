@@ -32,7 +32,7 @@ export class DemandListComponent implements OnInit, OnDestroy {
     };
     currentUser;
     isDesktopDevice: boolean;
-    
+
     constructor(
         private sharedService: SharedService,
         private demandService: DemandService,
@@ -146,7 +146,7 @@ export class DemandListComponent implements OnInit, OnDestroy {
             permission = false;
         }
 
-        if ((this.currentUser.user.role !== 13 && this.currentUser.user.role !== 10) && !demand.permission_syndicate && demand.entity_id === 3) {
+        if ((this.currentUser.user.role !== 13 && this.currentUser.user.role !== 10) && !demand.permission_syndicate && (demand.entity_id === 3 || demand.entity_id === 10)) {
             permission = false;
         }
 
