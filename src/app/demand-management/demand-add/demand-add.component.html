@@ -185,14 +185,6 @@
             </div>
           </div>
 
-            <!-- <div class="row">
-              <div class="form-group col-lg-4">
-                <label class="card-label mb-2 text-muted">Cobrança?</label>
-                <select class="form-control" formControlName="theme">
-                  <option value="0">Não</option>
-                  <option value="1">Sim</option>
-                </select>
-              </div> -->
 
           <div class="row">
             <div class="form-group col-lg-4">
@@ -203,6 +195,7 @@
               </select>
             </div>
 
+
             <div class="form-group col-lg-4">
               <label class="card-label mb-2 text-muted">Cobrança?</label>
               <select class="form-control" formControlName="theme">
@@ -211,6 +204,8 @@
                 <option value="2">Não</option>
               </select>
             </div>
+
+
 
             <div class="form-group col-lg-4"
                  *ngIf="formDemand.get('demand_category').value && formDemand.get('demand_category').value == 4">
