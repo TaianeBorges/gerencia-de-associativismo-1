@@ -62,10 +62,10 @@
                 </div>
 
                 <div class="demand-card-group">
-                    <h3>Dados gerais</h3>
+                  <h3>Dados gerais</h3>
 
-                    <div class="card">
-                        <div class="card-body">
+                  <div class="card">
+                      <div class="card-body">
 
                             <div class="row" *ngIf="demand.regional_id">
                                 <div class="col-lg-4">
@@ -147,7 +147,7 @@
                                     <h6 class="card-label mb-2 text-muted">Subcategoria</h6>
                                     <h5 class="card-text">{{demand.demand_subcategory.name}}</h5>
                                 </div>
-
+                            </div>
                                 <!--<div class="form-group col-lg-4">-->
                                 <!--<label class="card-label mb-2 text-muted">Categoria <i class="color-required">*</i></label>-->
                                 <!--<ng2-selectize formControlName="demand_category"-->
@@ -171,7 +171,7 @@
                                 <!--placeholder="Selecione a subcategoria">-->
                                 <!--</ng2-selectize>-->
                                 <!--</div>-->
-                            </div>
+
 
                             <div class="row margin-t-30">
                                 <div class="form-group col-lg-4">
@@ -180,15 +180,16 @@
                                     <select class="form-control" formControlName="theme">
                                         <option value="0">Não</option>
                                         <option value="1">Sim</option>
+
                                     </select>
                                 </div>
-                            <div class="row margin-t-30">
+
                                 <div class="form-group col-lg-4">
                                     <label class="card-label mb-2 text-muted">Cobrança?</label>
-                                    <select class="form-control" formControlName="theme">
-                                        <option value="0">Selecione ..</option>
+                                    <select class="form-control" formControlName="themeNew">
+                                        <option value="0">Não</option>
                                         <option value="1">Sim</option>
-                                        <option value="2">Não</option>
+
                                     </select>
                                 </div>
 
@@ -201,7 +202,7 @@
                             </div>
 
                             <div class="row margin-t-30">
-                                <div class="col-lg-8">
+                              <div class="col-lg-8">
                                     <h6 class="card-label mb-2 text-muted">
                                         Descrição <i class="color-required">*</i>
                                     </h6>
@@ -209,9 +210,9 @@
                                               [ngClass]="{'is-invalid': formDemand.get('description').errors && formDemand.get('description').touched }"
                                               formControlName="description">
                                     </textarea>
-                                </div>
+                              </div>
                             </div>
-                        </div>
+                          </div>
                     </div>
                 </div>
 
