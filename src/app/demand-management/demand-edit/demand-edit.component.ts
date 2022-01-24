@@ -76,6 +76,7 @@ export class DemandEditComponent implements OnInit, OnDestroy {
                 }),
                 description: new FormControl('', [Validators.required]),
                 theme: new FormControl(''),
+                themeNew: new FormControl(''),
                 // demand_category: new FormControl('', [Validators.required]),
                 // demand_subcategory: new FormControl('', [Validators.required])
             });
@@ -99,6 +100,7 @@ export class DemandEditComponent implements OnInit, OnDestroy {
                     this.formDemand.get('requester.email').setValue(res.data[0].demand_requester.demand_requesters_emails[0].email);
                     this.formDemand.get('description').setValue(res.data[0].description);
                     this.formDemand.get('theme').setValue(res.data[0].theme);
+                    this.formDemand.get('themeNew').setValue(res.data[0].themeNew);
 
                     // this.getCategories(true);
 
