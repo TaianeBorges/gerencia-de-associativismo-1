@@ -19,11 +19,11 @@
                 </nav>
 
                 <!--<div class="row">-->
-                    <!--<div class="col text-right">-->
-                        <!--<button type="button" *ngIf="currentUser.user.role == 10" class="btn btn-danger margin-l-10"-->
-                                <!--(click)="destroyDemand()">Excluir demanda-->
-                        <!--</button>-->
-                    <!--</div>-->
+                <!--<div class="col text-right">-->
+                <!--<button type="button" *ngIf="currentUser.user.role == 10" class="btn btn-danger margin-l-10"-->
+                <!--(click)="destroyDemand()">Excluir demanda-->
+                <!--</button>-->
+                <!--</div>-->
                 <!--</div>-->
 
                 <div class="demand-card-group">
@@ -62,10 +62,10 @@
                 </div>
 
                 <div class="demand-card-group">
-                  <h3>Dados gerais</h3>
+                    <h3>Dados gerais</h3>
 
-                  <div class="card">
-                      <div class="card-body">
+                    <div class="card">
+                        <div class="card-body">
 
                             <div class="row" *ngIf="demand.regional_id">
                                 <div class="col-lg-4">
@@ -148,29 +148,29 @@
                                     <h5 class="card-text">{{demand.demand_subcategory.name}}</h5>
                                 </div>
                             </div>
-                                <!--<div class="form-group col-lg-4">-->
-                                <!--<label class="card-label mb-2 text-muted">Categoria <i class="color-required">*</i></label>-->
-                                <!--<ng2-selectize formControlName="demand_category"-->
-                                <!--[ngClass]="{'is-invalid': formDemand.get('demand_category').errors && formDemand.get('demand_category').touched }"-->
-                                <!--class="selectize-category" [config]="configCategory"-->
-                                <!--[(ngModel)]="category"-->
-                                <!--[options]="optionsCategory"-->
-                                <!--placeholder="Selecione a categoria">-->
-                                <!--</ng2-selectize>-->
-                                <!--</div>-->
+                            <!--<div class="form-group col-lg-4">-->
+                            <!--<label class="card-label mb-2 text-muted">Categoria <i class="color-required">*</i></label>-->
+                            <!--<ng2-selectize formControlName="demand_category"-->
+                            <!--[ngClass]="{'is-invalid': formDemand.get('demand_category').errors && formDemand.get('demand_category').touched }"-->
+                            <!--class="selectize-category" [config]="configCategory"-->
+                            <!--[(ngModel)]="category"-->
+                            <!--[options]="optionsCategory"-->
+                            <!--placeholder="Selecione a categoria">-->
+                            <!--</ng2-selectize>-->
+                            <!--</div>-->
 
-                                <!--<div class="form-group col-lg-4">-->
-                                <!--<label class="card-label mb-2 text-muted">Subcategoria da demanda <i-->
-                                <!--class="color-required">*</i></label>-->
-                                <!--<ng2-selectize formControlName="demand_subcategory"-->
-                                <!--[ngClass]="{'is-invalid': formDemand.get('demand_subcategory').errors && formDemand.get('demand_subcategory').touched }"-->
-                                <!--class="selectize-subcategory"-->
-                                <!--[(ngModel)]="subcategory"-->
-                                <!--[config]="configSubcategory"-->
-                                <!--[options]="optionsSubcategory"-->
-                                <!--placeholder="Selecione a subcategoria">-->
-                                <!--</ng2-selectize>-->
-                                <!--</div>-->
+                            <!--<div class="form-group col-lg-4">-->
+                            <!--<label class="card-label mb-2 text-muted">Subcategoria da demanda <i-->
+                            <!--class="color-required">*</i></label>-->
+                            <!--<ng2-selectize formControlName="demand_subcategory"-->
+                            <!--[ngClass]="{'is-invalid': formDemand.get('demand_subcategory').errors && formDemand.get('demand_subcategory').touched }"-->
+                            <!--class="selectize-subcategory"-->
+                            <!--[(ngModel)]="subcategory"-->
+                            <!--[config]="configSubcategory"-->
+                            <!--[options]="optionsSubcategory"-->
+                            <!--placeholder="Selecione a subcategoria">-->
+                            <!--</ng2-selectize>-->
+                            <!--</div>-->
 
 
                             <div class="row margin-t-30">
@@ -183,6 +183,8 @@
 
                                     </select>
                                 </div>
+                            </div>
+
                             <div class="row margin-t-30">
                                 <div class="form-group col-lg-4">
                                     <label class="card-label mb-2 text-muted">Cobrança?</label>
@@ -192,17 +194,9 @@
 
                                     </select>
                                 </div>
+                            </div>
 
-                                <div class="form-group col-lg-4">
-                                    <label class="card-label mb-2 text-muted">Cobrança?</label>
-                                    <select class="form-control" formControlName="theme">
-                                        <option value="0"></option>
-                                        <option value="1">Sim</option>
-                                        <option value="2">Nao</option>
-                                    </select>
-                                </div>
-
-
+                            <div class="row margin-t-30">
                                 <div class="col-lg-4" *ngIf="demand.demand_subcategory.demand_category.id == 4">
                                     <h6 class="card-label mb-2 text-muted">Do que se trata?</h6>
                                     <h5 *ngIf="!demand.demands_scopes.length">--</h5>
@@ -211,7 +205,7 @@
                             </div>
 
                             <div class="row margin-t-30">
-                              <div class="col-lg-8">
+                                <div class="col-lg-8">
                                     <h6 class="card-label mb-2 text-muted">
                                         Descrição <i class="color-required">*</i>
                                     </h6>
@@ -219,9 +213,9 @@
                                               [ngClass]="{'is-invalid': formDemand.get('description').errors && formDemand.get('description').touched }"
                                               formControlName="description">
                                     </textarea>
-                              </div>
+                                </div>
                             </div>
-                          </div>
+                        </div>
                     </div>
                 </div>
 
@@ -309,11 +303,14 @@
                                 <div class="col-lg-6">
                                     <h6 class="card-label mb-2 text-muted">Historico de e-mails</h6>
                                     <!--<p class="card-text" *ngFor="let item of demand.demands_users">-->
-                                        <!--{{item.email}} - <small>{{item.pivot.created_at | date:'dd/MM/yyyy'}}</small>-->
+                                    <!--{{item.email}} - <small>{{item.pivot.created_at | date:'dd/MM/yyyy'}}</small>-->
                                     <!--</p>-->
 
                                     <div class="card-text" *ngFor="let item of demand.demands_users">
-                                        <p>{{item.name}} - {{item.email}} - <small class="text-muted">{{item.pivot.created_at | date:'dd/MM/yyyy'}}</small> </p>
+                                        <p>{{item.name}} - {{item.email}} -
+                                            <small class="text-muted">{{item.pivot.created_at | date:'dd/MM/yyyy'}}
+                                            </small>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
