@@ -312,7 +312,8 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             oe_category: new FormControl(''),
             regional_id: new FormControl(''),
             justification: new FormControl(''),
-            theme: new FormControl(0)
+            theme: new FormControl(0),
+            themeNew: new FormControl('')
         });
 
         this.currentUser = JSON.parse(localStorage.getItem('user'));
