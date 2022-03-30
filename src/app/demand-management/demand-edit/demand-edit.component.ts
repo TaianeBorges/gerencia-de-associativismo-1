@@ -77,7 +77,6 @@ export class DemandEditComponent implements OnInit, OnDestroy {
                 description: new FormControl('', [Validators.required]),
                 theme: new FormControl(''),
                 themeNew: new FormControl(''),
-                campoProjetos: new FormControl('')
                 // demand_category: new FormControl('', [Validators.required]),
                 // demand_subcategory: new FormControl('', [Validators.required])
             });
@@ -102,7 +101,6 @@ export class DemandEditComponent implements OnInit, OnDestroy {
                     this.formDemand.get('description').setValue(res.data[0].description);
                     this.formDemand.get('theme').setValue(res.data[0].theme);
                     this.formDemand.get('themeNew').setValue(res.data[0].themeNew);
-                    this.formDemand.get('campoProjetos').setValue(res.data[0].campoProjetos);
 
                     // this.getCategories(true);
 
