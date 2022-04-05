@@ -76,8 +76,7 @@ export class DemandEditComponent implements OnInit, OnDestroy {
                 }),
                 description: new FormControl('', [Validators.required]),
                 theme: new FormControl(0),
-                themeNew: new FormControl(0),
-                // campoProjetos: new FormControl(0)
+                themeNew: new FormControl(0)
                 // demand_category: new FormControl('', [Validators.required]),
                 // demand_subcategory: new FormControl('', [Validators.required])
             });
