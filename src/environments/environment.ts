@@ -6,7 +6,10 @@ const ip = '192.168.100.2';
 
 const host = 'localhost/gerencia-de-associativismo-api/public';
 //const host = 'localhost:8000';
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
 
 export const environment = {
     production: false,
