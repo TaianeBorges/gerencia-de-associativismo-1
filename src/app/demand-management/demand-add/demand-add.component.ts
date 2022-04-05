@@ -314,7 +314,7 @@ export class DemandAddComponent implements OnInit, OnDestroy {
             justification: new FormControl(''),
             theme: new FormControl(0),
             themeNew: new FormControl(0),
-            campoProjetos: new FormControl(0)
+
 
         });
 
